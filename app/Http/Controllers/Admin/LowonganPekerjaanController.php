@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class LowonganPekerjaanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
+        //
     }
 
     /**
@@ -36,22 +35,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
-            'password' => 'required'
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect('/dashboard');
-
-            if (Auth::user()->role == "Admin") {
-                return redirect('/dashboard');
-            } elseif (Auth::user()->role == "Pelamar") {
-                return redirect('/home');
-            }
-        }
+        //
     }
 
     /**
