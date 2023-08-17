@@ -23,10 +23,12 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+    protected $table = 'users';
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -58,4 +60,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function pelamar()
+    {
+        return $this->hasOne(Pelamar::class);
+    }
 }

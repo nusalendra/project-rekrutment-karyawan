@@ -20,13 +20,16 @@ use App\Http\Controllers\LoginController;
 Route::get('/', [LoginController::class, 'index']);
 Route::POST('/', [LoginController::class, 'store']);
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
+Route::middleware(['auth:sanctum', 'verified', 'role:Admin'])->group(function () {
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::fallback(function() {
+    Route::fallback(function () {
         return view('pages/utility/404');
-    });    
+    });
+});
+
+
+Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
 });
