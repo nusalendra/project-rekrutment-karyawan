@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Subkriteria;
+use App\Models\Kriteria;
+use App\Models\Jabatan;
+use Illuminate\Support\Facades\Crypt;
 
 class SubkriteriaController extends Controller
 {
@@ -14,7 +18,9 @@ class SubkriteriaController extends Controller
      */
     public function index()
     {
-        //
+        $data = Subkriteria::all();
+
+        return view('pages.admin.subkriteria.index', ['title' => 'Subkriteria'], compact('data'));
     }
 
     /**
@@ -24,7 +30,10 @@ class SubkriteriaController extends Controller
      */
     public function create()
     {
-        //
+        $jabatan = Jabatan::get();
+        $kriteria = Kriteria::get();
+
+        return view('pages.admin.subkriteria.create', ['title' => 'Tambah Data'], compact('jabatan', 'kriteria'));
     }
 
     /**
@@ -35,7 +44,44 @@ class SubkriteriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Ambil tipe kriteria dari data kriteria yang sesuai
+        $tipeKriteria = Kriteria::where('id', $request->input('kriteria_id'))->value('tipe');
+
+        $nilaiBaru = $request->input('nilai');
+
+        // Ambil nilai minimal atau maksimal dari data sebelumnya
+        $nilaiMinSebelumnya = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+            ->whereNotNull('min')->min('min');
+        $nilaiMaxSebelumnya = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+            ->whereNotNull('max')->max('max');
+
+        // Perbarui nilai minimal atau maksimal pada data sebelumnya jika diperlukan
+        if ($tipeKriteria === 'Cost' && $nilaiMinSebelumnya > $nilaiBaru) {
+            Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+                ->whereNotNull('min')->update(['min' => $nilaiBaru]);
+        } elseif ($tipeKriteria === 'Benefit' && $nilaiMaxSebelumnya < $nilaiBaru) {
+            Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+                ->whereNotNull('max')->update(['max' => $nilaiBaru]);
+        }
+
+        // Buat instance model Subkriteria
+        $subkriteria = new Subkriteria;
+
+        $subkriteria->jabatan_id = $request->input('jabatan_id');
+        $subkriteria->kriteria_id = $request->input('kriteria_id');
+        $subkriteria->nama = $request->input('nama');
+        $subkriteria->nilai = $nilaiBaru;
+
+        // Tentukan nilai minimal atau maksimal baru berdasarkan tipe kriteria
+        if ($tipeKriteria === 'Cost') {
+            $subkriteria->min = $nilaiMinSebelumnya !== null ? min($nilaiBaru, $nilaiMinSebelumnya) : $nilaiBaru;
+        } else { // Jika tipe kriteria adalah "benefit"
+            $subkriteria->max = $nilaiMaxSebelumnya !== null ? max($nilaiBaru, $nilaiMaxSebelumnya) : $nilaiBaru;
+        }
+
+        $subkriteria->save();
+
+        return redirect('subkriteria/index');
     }
 
     /**
@@ -57,7 +103,12 @@ class SubkriteriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subkriteriaId = Crypt::decrypt($id);
+        $subkriteria = Subkriteria::findOrFail($subkriteriaId);
+        $jabatan = Jabatan::get();
+        $kriteria = Kriteria::get();
+
+        return view('pages.admin.subkriteria.edit', ['title' => 'Edit Data'], compact('jabatan', 'kriteria', 'subkriteria'));
     }
 
     /**
@@ -69,8 +120,47 @@ class SubkriteriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Ambil data subkriteria yang ingin diupdate
+        $subkriteria = Subkriteria::findOrFail($id);
+
+        // Ambil tipe kriteria dari data kriteria yang sesuai
+        $tipeKriteria = Kriteria::where('id', $request->input('kriteria_id'))->value('tipe');
+
+        $nilaiBaru = $request->input('nilai');
+
+        // Ambil nilai minimal atau maksimal dari data sebelumnya
+        $nilaiMinSebelumnya = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+            ->whereNotNull('min')->min('min');
+        $nilaiMaxSebelumnya = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+            ->whereNotNull('max')->max('max');
+
+        // Perbarui nilai minimal atau maksimal pada data sebelumnya jika diperlukan
+        if ($tipeKriteria === 'Cost' && $nilaiMinSebelumnya > $nilaiBaru) {
+            Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+                ->whereNotNull('min')->update(['min' => $nilaiBaru]);
+        } elseif ($tipeKriteria === 'Benefit' && $nilaiMaxSebelumnya < $nilaiBaru) {
+            Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+                ->whereNotNull('max')->update(['max' => $nilaiBaru]);
+        }
+
+        // Perbarui data subkriteria yang ada
+        $subkriteria->jabatan_id = $request->input('jabatan_id');
+        $subkriteria->kriteria_id = $request->input('kriteria_id');
+        $subkriteria->nama = $request->input('nama');
+        $subkriteria->nilai = $nilaiBaru;
+
+        // Tentukan nilai minimal atau maksimal baru berdasarkan tipe kriteria
+        if ($tipeKriteria === 'Cost') {
+            $subkriteria->min = $nilaiMinSebelumnya !== null ? min($nilaiBaru, $nilaiMinSebelumnya) : $nilaiBaru;
+        } else { // Jika tipe kriteria adalah "benefit"
+            $subkriteria->max = $nilaiMaxSebelumnya !== null ? max($nilaiBaru, $nilaiMaxSebelumnya) : $nilaiBaru;
+        }
+
+        $subkriteria->save();
+
+        return redirect('subkriteria/index');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -80,6 +170,16 @@ class SubkriteriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $subkriteria = Subkriteria::findOrFail($id);
+
+        $subkriteria->delete();
+
+        return redirect('subkriteria/index');
+    }
+
+    public function getKriteriaByJabatan($jabatanId)
+    {
+        $kriteria = Kriteria::where('jabatan_id', $jabatanId)->get();
+        return response()->json(['kriteria' => $kriteria]);
     }
 }

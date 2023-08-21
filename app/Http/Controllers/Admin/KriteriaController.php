@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Kriteria;
+use App\Models\Jabatan;
+use Illuminate\Support\Facades\Crypt;
 
 class KriteriaController extends Controller
 {
@@ -14,7 +17,9 @@ class KriteriaController extends Controller
      */
     public function index()
     {
-        //
+        $data = Kriteria::with('jabatan')->get();
+
+        return view('pages.admin.kriteria.index', ['title' => 'Kriteria'], compact('data'));
     }
 
     /**
@@ -24,7 +29,9 @@ class KriteriaController extends Controller
      */
     public function create()
     {
-        //
+        $jabatan = Jabatan::get();
+
+        return view('pages.admin.kriteria.create', ['title' => 'Tambah Data'], compact('jabatan'));
     }
 
     /**
@@ -35,7 +42,20 @@ class KriteriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'tipe' => 'required|in:Benefit,Cost'
+        ]);
+
+        $kriteria = new Kriteria;
+
+        $kriteria->jabatan_id = $request->jabatan_id;
+        $kriteria->nama = $request->nama;
+        $kriteria->tipe = $validatedData['tipe'];
+        $kriteria->bobot = $request->bobot;
+
+        $kriteria->save();
+
+        return redirect('/kriteria/index');
     }
 
     /**
@@ -57,7 +77,16 @@ class KriteriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kriteriaId = Crypt::decrypt($id);
+        $kriteria = Kriteria::findOrFail($kriteriaId);
+        $jabatan = Jabatan::all();
+
+        $pilihTipeKriteria = [
+            ['value' => 'Benefit', 'label' => 'Benefit'],
+            ['value' => 'Cost', 'label' => 'Cost'],
+        ];
+
+        return view('pages.admin.kriteria.edit', ['title' => 'Edit Data'], compact('kriteria', 'jabatan', 'pilihTipeKriteria'));
     }
 
     /**
@@ -69,7 +98,20 @@ class KriteriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'tipe' => 'required|in:Benefit,Cost'
+        ]);
+
+        $kriteria = Kriteria::findOrFail($id);
+
+        $kriteria->jabatan_id = $request->jabatan_id;
+        $kriteria->nama = $request->nama;
+        $kriteria->tipe = $validatedData['tipe'];
+        $kriteria->bobot = $request->bobot;
+
+        $kriteria->save();
+
+        return redirect('/kriteria/index');
     }
 
     /**
@@ -80,6 +122,10 @@ class KriteriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kriteria = Kriteria::findOrFail($id);
+
+        $kriteria->delete();
+
+        return redirect('/kriteria/index');
     }
 }

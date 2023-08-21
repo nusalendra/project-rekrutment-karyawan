@@ -9,7 +9,7 @@ class LowonganPekerjaan extends Model
 {
     use HasFactory;
     protected $table = 'lowongan_pekerjaans';
-    protected $fillable = ['periode_id', 'jabatan_id'];
+    protected $fillable = ['periode_id', 'jabatan_id', 'kuota'];
     protected $guarded = [];
 
     public function pelamar() {
@@ -21,6 +21,6 @@ class LowonganPekerjaan extends Model
     }
 
     public function jabatan() {
-        return $this->hasOne(Jabatan::class);
+        return $this->belongsTo(Jabatan::class);
     }
 }

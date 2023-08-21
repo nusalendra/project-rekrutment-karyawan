@@ -19,6 +19,6 @@
         {
             $dataFeed = new DataFeed();
 
-            return view('pages/dashboard/dashboard', compact('dataFeed'));
+            return view('pages/dashboard/dashboard', ['title' => 'Dashboard'] ,compact('dataFeed'));
         }
     }
