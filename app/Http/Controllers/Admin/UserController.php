@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Jabatan;
-use Illuminate\Support\Facades\Crypt;
+use App\Models\User;
 
-class JabatanController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        $data = Jabatan::all();
+        $data = User::all();
 
-        return view('pages.admin.jabatan.index', ['title' => 'Jabatan'], compact('data'));
+        return view('pages.admin.user.index', ['title' => 'Akun User'], compact('data'));
     }
 
     /**
@@ -28,9 +27,7 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        $data = Jabatan::all();
-
-        return view('pages.admin.jabatan.create', ['title' => 'Tambah Data'], compact('data'));
+        //
     }
 
     /**
@@ -41,13 +38,7 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        $jabatan = new Jabatan;
-
-        $jabatan->nama = $request->nama;
-
-        $jabatan->save();
-
-        return redirect('/jabatan/index');
+        //
     }
 
     /**
@@ -69,10 +60,7 @@ class JabatanController extends Controller
      */
     public function edit($id)
     {
-        $jabatanId = Crypt::decrypt($id);
-        $jabatan = Jabatan::findOrFail($jabatanId);
-
-        return view('pages.admin.jabatan.edit', ['title' => 'Edit Data'], compact('jabatan'));
+        //
     }
 
     /**
@@ -84,13 +72,7 @@ class JabatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $jabatan = Jabatan::findOrFail($id);
-
-        $jabatan->nama = $request->nama;
-
-        $jabatan->save();
-
-        return redirect('/jabatan/index');
+        //
     }
 
     /**
@@ -101,10 +83,10 @@ class JabatanController extends Controller
      */
     public function destroy($id)
     {
-        $jabatan = Jabatan::findOrFail($id);
-        
-        $jabatan->delete();
+        $data = User::findOrFail($id);
 
-        return redirect('/jabatan/index');
+        $data->delete();
+
+        return redirect('/user/index');
     }
 }

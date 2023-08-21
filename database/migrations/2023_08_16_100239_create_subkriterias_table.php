@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('subkriterias', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('jabatan_id')->constrained('jabatans')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('kriteria_id')->constrained('kriterias')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama');
             $table->double('min')->nullable();

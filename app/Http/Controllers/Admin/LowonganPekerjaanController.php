@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\LowonganPekerjaan;
+use App\Models\Periode;
+use App\Models\Jabatan;
+use Illuminate\Support\Facades\Crypt;
+use Carbon\Carbon;
 
 class LowonganPekerjaanController extends Controller
 {
@@ -14,7 +19,12 @@ class LowonganPekerjaanController extends Controller
      */
     public function index()
     {
-        //
+        $data = LowonganPekerjaan::with('periode', 'jabatan')->get();
+
+        $tanggal = Carbon::now();
+        $tanggalSekarang = $tanggal->format('Y-m-d');
+
+        return view('pages.admin.lowongan-pekerjaan.index', ['title' => 'Lowongan Pekerjaan'], compact('data', 'tanggalSekarang'));
     }
 
     /**
@@ -24,7 +34,10 @@ class LowonganPekerjaanController extends Controller
      */
     public function create()
     {
-        //
+        $periode = Periode::get();
+        $jabatan = Jabatan::get();
+
+        return view('pages.admin.lowongan-pekerjaan.create', ['title' => 'Tambah Data'], compact('periode', 'jabatan'));
     }
 
     /**
@@ -35,7 +48,15 @@ class LowonganPekerjaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $lowonganPekerjaan = new LowonganPekerjaan;
+
+        $lowonganPekerjaan->periode_id = $request->input('periode_id');
+        $lowonganPekerjaan->jabatan_id = $request->input('jabatan_id');
+        $lowonganPekerjaan->kuota = $request->input('kuota');
+
+        $lowonganPekerjaan->save();
+
+        return redirect('lowongan-pekerjaan/index');
     }
 
     /**
@@ -57,7 +78,12 @@ class LowonganPekerjaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lowonganPekerjaanId = Crypt::decrypt($id);
+        $lowonganPekerjaan = LowonganPekerjaan::findOrFail($lowonganPekerjaanId);
+        $periode = Periode::get();
+        $jabatan = Jabatan::get();
+
+        return view('pages.admin.lowongan-pekerjaan.edit', ['title' => 'Edit Data'], compact('lowonganPekerjaan', 'periode', 'jabatan'));
     }
 
     /**
@@ -69,7 +95,15 @@ class LowonganPekerjaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $lowonganPekerjaan = LowonganPekerjaan::findOrFail($id);
+
+        $lowonganPekerjaan->periode_id = $request->input('periode_id');
+        $lowonganPekerjaan->jabatan_id = $request->input('jabatan_id');
+        $lowonganPekerjaan->kuota = $request->input('kuota');
+
+        $lowonganPekerjaan->save();
+
+        return redirect('lowongan-pekerjaan/index');
     }
 
     /**
@@ -80,6 +114,10 @@ class LowonganPekerjaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lowonganPekerjaan = LowonganPekerjaan::findOrFail($id);
+
+        $lowonganPekerjaan->delete();
+
+        return redirect('/lowongan-pekerjaan/index');
     }
 }

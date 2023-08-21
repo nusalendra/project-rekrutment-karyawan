@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Periode;
+use Illuminate\Support\Facades\Crypt;
 
 class PeriodeController extends Controller
 {
@@ -14,7 +16,9 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        //
+        $data = Periode::all();
+
+        return view('pages.admin.periode.index', ['title' => 'Pelatihan'], compact('data'));
     }
 
     /**
@@ -24,7 +28,9 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-        //
+        $data = Periode::all();
+
+        return view('pages.admin.periode.create', ['title' => 'Tambah Data'], compact('data'));
     }
 
     /**
@@ -35,7 +41,19 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $periode = new Periode;
+
+        $periode->nama = $request->nama;
+
+        $tanggalMulaiPeriode = \Carbon\Carbon::createFromFormat('d-m-Y', $request->input('tanggal_mulai'))->format('Y-m-d');
+        $periode->tanggal_mulai = $tanggalMulaiPeriode;
+
+        $tanggalAkhirPeriode = \Carbon\Carbon::createFromFormat('d-m-Y', $request->input('tanggal_akhir'))->format('Y-m-d');
+        $periode->tanggal_akhir = $tanggalAkhirPeriode;
+
+        $periode->save();
+
+        return redirect('/periode/index');
     }
 
     /**
@@ -46,7 +64,6 @@ class PeriodeController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -57,7 +74,10 @@ class PeriodeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $periodeId = Crypt::decrypt($id);
+        $periode = Periode::findOrFail($periodeId);
+
+        return view('pages.admin.periode.edit', ['title' => 'Edit Data'], compact('periode'));
     }
 
     /**
@@ -69,7 +89,25 @@ class PeriodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $periode = Periode::findOrFail($id);
+
+        $periode->nama = $request->nama;
+
+        $tanggalMulaiPeriode = $request->input('tanggal_mulai');
+        if ($tanggalMulaiPeriode) {
+            $tanggalMulaiPeriode = \Carbon\Carbon::createFromFormat('d-m-Y', $tanggalMulaiPeriode)->format('Y-m-d');
+            $periode->tanggal_mulai = $tanggalMulaiPeriode;
+        }
+
+        $tanggalAkhirPeriode = $request->input('tanggal_akhir');
+        if ($tanggalAkhirPeriode) {
+            $tanggalAkhirPeriode = \Carbon\Carbon::createFromFormat('d-m-Y', $tanggalAkhirPeriode)->format('Y-m-d');
+            $periode->tanggal_akhir = $tanggalAkhirPeriode;
+        }
+
+        $periode->save();
+
+        return redirect('periode/index');
     }
 
     /**
@@ -80,6 +118,10 @@ class PeriodeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $periode = Periode::findOrFail($id);
+        
+        $periode->delete();
+
+        return redirect('periode/index');
     }
 }

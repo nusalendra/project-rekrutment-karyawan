@@ -5,10 +5,10 @@
         @csrf
         <div class="space-y-4">
             <div>
-                <x-jet-label for="username">{{ __('Username') }} <span
+                <x-jet-label for="name">{{ __('Nama Lengkap') }} <span
                         class="text-rose-500">*</span></x-jet-label>
-                <x-jet-input id="username" type="text" name="username" :value="old('username')" required
-                    autofocus autocomplete="username" />
+                <x-jet-input id="name" type="text" name="name" :value="old('name')" required
+                    autofocus autocomplete="name" />
             </div>
 
             <div>
