@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manajer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class SubkriteriaController extends Controller
     {
         $data = Subkriteria::all();
 
-        return view('pages.admin.subkriteria.index', ['title' => 'Subkriteria'], compact('data'));
+        return view('pages.manajer.subkriteria.index', ['title' => 'Subkriteria'], compact('data'));
     }
 
     /**
@@ -33,7 +33,7 @@ class SubkriteriaController extends Controller
         $jabatan = Jabatan::get();
         $kriteria = Kriteria::get();
 
-        return view('pages.admin.subkriteria.create', ['title' => 'Tambah Data'], compact('jabatan', 'kriteria'));
+        return view('pages.manajer.subkriteria.create', ['title' => 'Tambah Data'], compact('jabatan', 'kriteria'));
     }
 
     /**
@@ -108,7 +108,7 @@ class SubkriteriaController extends Controller
         $jabatan = Jabatan::get();
         $kriteria = Kriteria::get();
 
-        return view('pages.admin.subkriteria.edit', ['title' => 'Edit Data'], compact('jabatan', 'kriteria', 'subkriteria'));
+        return view('pages.manajer.subkriteria.edit', ['title' => 'Edit Data'], compact('jabatan', 'kriteria', 'subkriteria'));
     }
 
     /**

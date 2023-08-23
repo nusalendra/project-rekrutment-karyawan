@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.app-manajer')
 
 @section('content')
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         <div class="bg-stone-200 bg-auto rounded h-216">
             <div class="px-12 pt-9 text-black">
                 <div class="flex justify-between items-center mb-8">
-                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Akun User
+                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Kriteria
                     </h2>
                     <div class="flex space-x-6 items-center">
                         {{-- <div class="relative">
@@ -20,6 +20,17 @@
                                 class="block w-full px-4 py-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Cari Pelatihan...">
                         </div> --}}
+                        <a href="/kriteria/create"
+                            class="{{ $title === 'Tambah Data' }} w-36 h-8 text-black flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-fill-add my-2" viewBox="0 0 16 16">
+                                <path
+                                    d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path
+                                    d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
+                            </svg>
+                            <p class="my-1 ml-1">Tambah Data</p>
+                        </a>
                     </div>
                 </div>
                 <div class="relative overflow-x-auto">
@@ -31,16 +42,16 @@
                                     <h1 class="flex w-full justify-center">No</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Nama Lengkap</h1>
+                                    <h1 class="flex w-full justify-center">Jabatan</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Email</h1>
+                                    <h1 class="flex w-full justify-center">Kriteria</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Status</h1>
+                                    <h1 class="flex w-full justify-center">Tipe Kriteria</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Tanggal Pembuatan Akun</h1>
+                                    <h1 class="flex w-full justify-center">Bobot Kriteria</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
@@ -55,21 +66,36 @@
                                         <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->name }}</h1>
+                                        <h1 class="flex w-full justify-center">{{ $item->jabatan->nama }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->email }}</h1>
+                                        <h1 class="flex w-full justify-center">{{ $item->nama }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->role }}</h1>
+                                        <h1 class="flex w-full justify-center">{{ $item->tipe }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ \Carbon\Carbon::parse($item->created_at)->format('d - m - Y / H:i:s') }}</h1>
+                                        <h1 class="flex w-full justify-center">{{ $item->bobot }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
+                                            @php
+                                                $kriteriaId = Crypt::encrypt($item->id);
+                                            @endphp
+                                            {{-- Edit --}}
+                                            <a href="/kriteria/edit/{{ $kriteriaId }}"
+                                                class="{{ $title === 'Edit Data' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-pencil-square my-2"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                </svg>
+                                            </a>
                                             {{-- Delete --}}
-                                            <a href="/jabatan/delete/{{ $item->id }}"
+                                            <a href="/kriteria/delete/{{ $item->id }}"
                                                 class="text-black flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash3 my-2" viewBox="0 0 16 16">

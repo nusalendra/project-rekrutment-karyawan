@@ -44,14 +44,15 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('/dashboard');
-
-            if (Auth::user()->role == "Admin") {
-                return redirect('/dashboard');
-            } elseif (Auth::user()->role == "Pelamar") {
-                return redirect('/home');
+            if (Auth::user()->role == "HRD") {
+                return redirect('/dashboard-hrd');
+            } elseif (Auth::user()->role == "Manajer") {
+                return redirect('/dashboard-manajer');
+            } elseif(Auth::user()->role == 'Pelamar') {
+                return redirect('/beranda');
             }
         }
+        return back()->with('loginError', 'Email atau Password Anda tidak valid');
     }
 
     /**

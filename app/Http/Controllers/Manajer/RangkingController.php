@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manajer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PenilaianController extends Controller
+class RangkingController extends Controller
 {
     /**
      * Display a listing of the resource.

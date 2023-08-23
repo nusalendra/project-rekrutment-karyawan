@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Jabatan;
-use Illuminate\Support\Facades\Crypt;
 
-class JabatanController extends Controller
+class BerandaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        $data = Jabatan::all();
-
-        return view('pages.admin.jabatan.index', ['title' => 'Jabatan'], compact('data'));
+        return view('pages.pelamar.beranda', ['title' => 'Beranda']);
     }
 
     /**
@@ -28,9 +24,7 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        $data = Jabatan::all();
-
-        return view('pages.admin.jabatan.create', ['title' => 'Tambah Data'], compact('data'));
+        //
     }
 
     /**
@@ -41,13 +35,7 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        $jabatan = new Jabatan;
-
-        $jabatan->nama = $request->nama;
-
-        $jabatan->save();
-
-        return redirect('/jabatan/index');
+        //
     }
 
     /**
@@ -69,10 +57,7 @@ class JabatanController extends Controller
      */
     public function edit($id)
     {
-        $jabatanId = Crypt::decrypt($id);
-        $jabatan = Jabatan::findOrFail($jabatanId);
-
-        return view('pages.admin.jabatan.edit', ['title' => 'Edit Data'], compact('jabatan'));
+        //
     }
 
     /**
@@ -84,13 +69,7 @@ class JabatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $jabatan = Jabatan::findOrFail($id);
-
-        $jabatan->nama = $request->nama;
-
-        $jabatan->save();
-
-        return redirect('/jabatan/index');
+        //
     }
 
     /**
@@ -101,10 +80,6 @@ class JabatanController extends Controller
      */
     public function destroy($id)
     {
-        $jabatan = Jabatan::findOrFail($id);
-        
-        $jabatan->delete();
-
-        return redirect('/jabatan/index');
+        //
     }
 }

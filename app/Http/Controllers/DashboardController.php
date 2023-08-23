@@ -15,10 +15,17 @@
          *
          * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
          */
-        public function index()
+        public function indexHRD()
         {
             $dataFeed = new DataFeed();
 
             return view('pages/dashboard/dashboard', ['title' => 'Dashboard'] ,compact('dataFeed'));
+        }
+
+        public function indexManajer()
+        {
+            $dataFeed = new DataFeed();
+
+            return view('pages/dashboard/dashboard-manajer', ['title' => 'Dashboard'] ,compact('dataFeed'));
         }
     }
