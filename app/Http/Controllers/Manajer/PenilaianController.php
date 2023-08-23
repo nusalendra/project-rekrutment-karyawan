@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manajer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Pelamar;
 
-class PelamarController extends Controller
+class PenilaianController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class PelamarController extends Controller
      */
     public function index()
     {
-        $data = Pelamar::with('lowonganPekerjaan')->whereNotNull('lowongan_pekerjaan_id')->get();
-
-        return view('pages.admin.pelamar.index', ['title' => 'Daftar Pelamar'], compact('data'));
+        //
     }
 
     /**

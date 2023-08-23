@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manajer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Jabatan;
+use Illuminate\Support\Facades\Crypt;
 
-class RangkingController extends Controller
+class JabatanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,9 @@ class RangkingController extends Controller
      */
     public function index()
     {
-        //
+        $data = Jabatan::all();
+
+        return view('pages.manajer.jabatan.index', ['title' => 'Jabatan'], compact('data'));
     }
 
     /**
@@ -24,7 +28,9 @@ class RangkingController extends Controller
      */
     public function create()
     {
-        //
+        $data = Jabatan::all();
+
+        return view('pages.manajer.jabatan.create', ['title' => 'Tambah Data'], compact('data'));
     }
 
     /**
@@ -35,7 +41,13 @@ class RangkingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jabatan = new Jabatan;
+
+        $jabatan->nama = $request->nama;
+
+        $jabatan->save();
+
+        return redirect('/jabatan/index');
     }
 
     /**
@@ -57,7 +69,10 @@ class RangkingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $jabatanId = Crypt::decrypt($id);
+        $jabatan = Jabatan::findOrFail($jabatanId);
+
+        return view('pages.manajer.jabatan.edit', ['title' => 'Edit Data'], compact('jabatan'));
     }
 
     /**
@@ -69,7 +84,13 @@ class RangkingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jabatan = Jabatan::findOrFail($id);
+
+        $jabatan->nama = $request->nama;
+
+        $jabatan->save();
+
+        return redirect('/jabatan/index');
     }
 
     /**
@@ -80,6 +101,10 @@ class RangkingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $jabatan = Jabatan::findOrFail($id);
+        
+        $jabatan->delete();
+
+        return redirect('/jabatan/index');
     }
 }

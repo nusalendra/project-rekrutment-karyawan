@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class LowonganPekerjaanController extends Controller
         $tanggal = Carbon::now();
         $tanggalSekarang = $tanggal->format('Y-m-d');
 
-        return view('pages.admin.lowongan-pekerjaan.index', ['title' => 'Lowongan Pekerjaan'], compact('data', 'tanggalSekarang'));
+        return view('pages.HRD.lowongan-pekerjaan.index', ['title' => 'Lowongan Pekerjaan'], compact('data', 'tanggalSekarang'));
     }
 
     /**
@@ -37,7 +37,7 @@ class LowonganPekerjaanController extends Controller
         $periode = Periode::get();
         $jabatan = Jabatan::get();
 
-        return view('pages.admin.lowongan-pekerjaan.create', ['title' => 'Tambah Data'], compact('periode', 'jabatan'));
+        return view('pages.HRD.lowongan-pekerjaan.create', ['title' => 'Tambah Data'], compact('periode', 'jabatan'));
     }
 
     /**
@@ -83,7 +83,7 @@ class LowonganPekerjaanController extends Controller
         $periode = Periode::get();
         $jabatan = Jabatan::get();
 
-        return view('pages.admin.lowongan-pekerjaan.edit', ['title' => 'Edit Data'], compact('lowonganPekerjaan', 'periode', 'jabatan'));
+        return view('pages.HRD.lowongan-pekerjaan.edit', ['title' => 'Edit Data'], compact('lowonganPekerjaan', 'periode', 'jabatan'));
     }
 
     /**
@@ -121,3 +121,4 @@ class LowonganPekerjaanController extends Controller
         return redirect('/lowongan-pekerjaan/index');
     }
 }
+

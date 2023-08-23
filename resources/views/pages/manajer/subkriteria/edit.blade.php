@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-manajer')
 
 @section('content')
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
@@ -6,8 +6,9 @@
             <div class="px-11 py-9 text-black">
                 <h2 class="font-bold text-xl mb-7">Tambah Data</h2>
 
-                <form action="/subkriteria/create" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('subkriteriaUpdate', $subkriteria->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div>
                         <div class="flex mb-1">
                             <div class="w-1/2 mx-3">
@@ -16,20 +17,28 @@
                                         class="text-red-700">*</span></label>
                                 <select id="jabatan_id" name="jabatan_id"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected @disabled(true)>Pilih Jabatan</option>
+                                    <option disabled>Pilih Jabatan</option>
                                     @foreach ($jabatan as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ $item->id == $subkriteria->jabatan_id ? 'selected' : '' }}>
+                                            {{ $item->nama }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="w-1/2 mx-3">
                                 <label for="kriteria_id"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kriteria <span
                                         class="text-red-700">*</span></label>
                                 <select id="kriteria_id" name="kriteria_id"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected @disabled(true)>Pilih Kriteria</option>
+                                    <option disabled>Pilih Kriteria</option>
+                                    @foreach ($kriteria as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ $item->id == $subkriteria->kriteria_id ? 'selected' : '' }}>
+                                            {{ $item->nama }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -41,7 +50,7 @@
                                     class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Subkriteria <span
                                         class="text-red-700">*</span></label>
                                 <input required type="text" id="nama" name="nama"
-                                    placeholder="Masukkan Nama Subkriteria"
+                                    value="{{ $subkriteria->nama }}" placeholder="Masukkan Nama Subkriteria"
                                     title="Tidak diperbolehkan menggunakan karakter khusus"
                                     class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
@@ -52,7 +61,7 @@
                                     class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Nilai <span
                                         class="text-red-700">*</span></label>
                                 <input required type="text" id="nilai" name="nilai"
-                                    placeholder="Masukkan Nilai dari Subkriteria"
+                                    value="{{ $subkriteria->nilai }}" placeholder="Masukkan Nilai dari Subkriteria"
                                     title="Tidak diperbolehkan menggunakan karakter khusus"
                                     class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>

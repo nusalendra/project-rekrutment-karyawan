@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Pelamar;
 
-class UserController extends Controller
+class PelamarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::all();
+        $data = Pelamar::with('lowonganPekerjaan')->whereNotNull('lowongan_pekerjaan_id')->get();
 
-        return view('pages.admin.user.index', ['title' => 'Akun User'], compact('data'));
+        return view('pages.HRD.pelamar.index', ['title' => 'Daftar Pelamar'], compact('data'));
     }
 
     /**
@@ -83,10 +83,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $data = User::findOrFail($id);
-
-        $data->delete();
-
-        return redirect('/user/index');
+        //
     }
 }

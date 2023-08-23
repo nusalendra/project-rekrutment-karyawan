@@ -4,15 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\LoginController;
 
-// Admin Controller
+// HRD Controller
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Admin\PeriodeController;
-use App\Http\Controllers\Admin\JabatanController;
-use App\Http\Controllers\Admin\KriteriaController;
-use App\Http\Controllers\Admin\LowonganPekerjaanController;
-use App\Http\Controllers\Admin\PelamarController;
-use App\Http\Controllers\Admin\SubkriteriaController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HRD\PeriodeController;
+use App\Http\Controllers\HRD\LowonganPekerjaanController;
+use App\Http\Controllers\HRD\PelamarController;
+
+// Manajer Controller
+use App\Http\Controllers\Manajer\JabatanController;
+use App\Http\Controllers\Manajer\KriteriaController;
+use App\Http\Controllers\Manajer\SubkriteriaController;
+
+// Pelamar Controller
+use App\Http\Controllers\Pelamar\BerandaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +32,11 @@ use App\Http\Controllers\Admin\UserController;
 Route::get('/', [LoginController::class, 'index']);
 Route::POST('/', [LoginController::class, 'store']);
 
-Route::middleware(['auth:sanctum', 'verified', 'role:Admin'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard-hrd', [DashboardController::class, 'indexHRD'])->name('dashboardHRD');
 
     Route::prefix('periode')->group(function () {
         Route::get('/index', [PeriodeController::class, 'index'])->name('periodeIndex');
@@ -42,6 +46,35 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Admin'])->group(function ()
         Route::put('/edit/{id}', [PeriodeController::class, 'update'])->name('periodeUpdate');
         Route::get('/delete/{id}', [PeriodeController::class, 'destroy'])->name('periodeDestroy');
     })->name('periode');
+
+    Route::prefix('lowongan-pekerjaan')->group(function () {
+        Route::get('/index', [LowonganPekerjaanController::class, 'index'])->name('lowonganPekerjaanIndex');
+        Route::get('/create', [LowonganPekerjaanController::class, 'create'])->name('lowonganPekerjaanCreate');
+        Route::post('/create', [LowonganPekerjaanController::class, 'store'])->name('lowonganPekerjaanStore');
+        Route::get('/edit/{id}', [LowonganPekerjaanController::class, 'edit'])->name('lowonganPekerjaanEdit');
+        Route::put('/edit/{id}', [LowonganPekerjaanController::class, 'update'])->name('lowonganPekerjaanUpdate');
+        Route::get('/delete/{id}', [LowonganPekerjaanController::class, 'destroy'])->name('lowonganPekerjaanDestroy');
+    })->name('lowongan-pekerjaan');
+
+    Route::prefix('daftar-pelamar')->group(function () {
+        Route::get('/index', [PelamarController::class, 'index'])->name('daftarPelamarIndex');
+        Route::get('/create', [PelamarController::class, 'create'])->name('daftarPelamarCreate');
+        Route::post('/create', [PelamarController::class, 'store'])->name('daftarPelamarStore');
+        Route::get('/edit/{id}', [PelamarController::class, 'edit'])->name('daftarPelamarEdit');
+        Route::put('/edit/{id}', [PelamarController::class, 'update'])->name('daftarPelamarUpdate');
+        Route::get('/delete/{id}', [PelamarController::class, 'destroy'])->name('daftarPelamarDestroy');
+    })->name('daftar-pelamar');
+
+    Route::fallback(function () {
+        return view('pages/utility/404');
+    });
+});
+
+Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function () {
+    // Route for the getting the data feed
+    Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
+
+    Route::get('/dashboard-manajer', [DashboardController::class, 'indexManajer'])->name('dashboardManajer');
 
     Route::prefix('jabatan')->group(function () {
         Route::get('/index', [JabatanController::class, 'index'])->name('jabatanIndex');
@@ -71,29 +104,6 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Admin'])->group(function ()
         Route::get('/delete/{id}', [SubkriteriaController::class, 'destroy'])->name('subkriteriaDestroy');
     })->name('subkriteria');
 
-    Route::prefix('lowongan-pekerjaan')->group(function () {
-        Route::get('/index', [LowonganPekerjaanController::class, 'index'])->name('lowonganPekerjaanIndex');
-        Route::get('/create', [LowonganPekerjaanController::class, 'create'])->name('lowonganPekerjaanCreate');
-        Route::post('/create', [LowonganPekerjaanController::class, 'store'])->name('lowonganPekerjaanStore');
-        Route::get('/edit/{id}', [LowonganPekerjaanController::class, 'edit'])->name('lowonganPekerjaanEdit');
-        Route::put('/edit/{id}', [LowonganPekerjaanController::class, 'update'])->name('lowonganPekerjaanUpdate');
-        Route::get('/delete/{id}', [LowonganPekerjaanController::class, 'destroy'])->name('lowonganPekerjaanDestroy');
-    })->name('lowongan-pekerjaan');
-
-    Route::prefix('daftar-pelamar')->group(function () {
-        Route::get('/index', [PelamarController::class, 'index'])->name('daftarPelamarIndex');
-        Route::get('/create', [PelamarController::class, 'create'])->name('daftarPelamarCreate');
-        Route::post('/create', [PelamarController::class, 'store'])->name('daftarPelamarStore');
-        Route::get('/edit/{id}', [PelamarController::class, 'edit'])->name('daftarPelamarEdit');
-        Route::put('/edit/{id}', [PelamarController::class, 'update'])->name('daftarPelamarUpdate');
-        Route::get('/delete/{id}', [PelamarController::class, 'destroy'])->name('daftarPelamarDestroy');
-    })->name('daftar-pelamar');
-
-    Route::prefix('user')->group(function () {
-        Route::get('/index', [UserController::class, 'index'])->name('userIndex');
-        Route::get('/delete/{id}', [UserController::class, 'destroy'])->name('userDestroy');
-    })->name('user');
-
     Route::fallback(function () {
         return view('pages/utility/404');
     });
@@ -101,4 +111,6 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Admin'])->group(function ()
 
 
 Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
+    Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
+    
 });

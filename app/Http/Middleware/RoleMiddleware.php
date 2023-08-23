@@ -23,8 +23,10 @@ class RoleMiddleware
         switch (auth()->user()->role) {
             case 'Pelamar':
                 return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
-            case 'Admin':
-                return redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.');
+            case 'HRD':
+                return redirect()->route('dashboardHRD')->with('error', 'You do not have permission to access this page.');
+            case 'Manajer':
+                return redirect()->route('dashboardManajer')->with('error', 'You do not have permission to access this page.');
             default:
                 return redirect()->route('login')->with('error', 'You do not have permission to access this page.');
         }

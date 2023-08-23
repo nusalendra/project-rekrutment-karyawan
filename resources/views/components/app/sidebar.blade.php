@@ -22,56 +22,55 @@
                 <ul class="mt-3">
                     <!-- Dashboard -->
                     <li
-                        class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if (in_array(Request::segment(1), ['dashboard'])) {{ 'bg-stone-300' }} @endif">
-                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['dashboard'])) {{ 'hover:text-blue-600' }} @endif"
-                            href="/dashboard">
+                        class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if (in_array(Request::segment(1), ['dashboard-hrd'])) {{ 'bg-stone-300' }} @endif">
+                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['dashboard-hrd'])) {{ 'hover:text-blue-600' }} @endif"
+                            href="/dashboard-hrd">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['dashboard'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['dashboard-hrd'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
                                             d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['dashboard'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['dashboard-hrd'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
                                             d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['dashboard'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['dashboard-hrd'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
                                             d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
                                     </svg>
                                     <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['dashboard'])) {{ 'text-blue-600' }} @endif">Dashboard</span>
+                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['dashboard-hrd'])) {{ 'text-blue-600' }} @endif">Dashboard</span>
                                 </div>
                                 <!-- Icon -->
                                 <div
                                     class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['dashboard'])) {{ 'rotate-180' }} @endif"
+                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['dashboard-hrd'])) {{ 'rotate-180' }} @endif"
                                         :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
                                     </svg>
                                 </div>
                             </div>
                         </a>
                     </li>
-                    <!-- Master Data -->
-                    <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['periode', 'jabatan', 'kriteria', 'subkriteria', 'lowongan-pekerjaan', 'daftar-pelamar', 'user'])) {{ 'bg-gray' }} @endif"
-                        x-data="{ open: {{ in_array(Request::segment(1), ['periode', 'jabatan', 'kriteria', 'subkriteria', 'lowongan-pekerjaan', 'daftar-pelamar', 'user']) ? 1 : 0 }} }">
-                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['master_data'])) {{ 'hover:text-black' }} @endif"
+                    <!-- Proses Rekruitmen -->
+                    <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['periode' ,'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'bg-gray' }} @endif"
+                        x-data="{ open: {{ in_array(Request::segment(1), ['periode' ,'lowongan-pekerjaan', 'daftar-pelamar']) ? 1 : 0 }} }">
+                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['proses_rekruitmen'])) {{ 'hover:text-black' }} @endif"
                             href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'jabatan', 'kriteria', 'subkriteria', 'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-300' }}@else{{ 'text-slate-400' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['periode' ,'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-300' }}@else{{ 'text-slate-400' }} @endif"
                                             d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'jabatan', 'kriteria', 'subkriteria', 'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-700' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['periode' ,'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-700' }} @endif"
                                             d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'jabatan', 'kriteria', 'subkriteria', 'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['periode' ,'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif"
                                             d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
                                     </svg>
                                     <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['periode', 'jabatan', 'kriteria', 'subkriteria', 'lowongan-pekerjaan', 'pelamar'])) {{ 'text-blue-600' }} @endif">Master
-                                        Data</span>
+                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['periode' ,'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-blue-600' }} @endif">Proses Rekruitmen</span>
                                 </div>
                                 <!-- Icon -->
                                 <div
@@ -90,35 +89,14 @@
                                     <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('periodeIndex')) {{ 'text-blue-600' }} @endif"
                                         href="/periode/index">
                                         <span
-                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Periode</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('jabatanIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/jabatan/index">
-                                        <span
-                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Jabatan</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('kriteriaIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/kriteria/index">
-                                        <span
-                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Kriteria</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('subkriteriaIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/subkriteria/index">
-                                        <span
-                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Subkriteria</span>
+                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pengaturan Periode</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
                                     <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('lowonganPekerjaanIndex')) {{ 'text-blue-600' }} @endif"
                                         href="/lowongan-pekerjaan/index">
                                         <span
-                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Lowongan Pekerjaan</span>
+                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Kelola Lowongan Pekerjaan</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
@@ -128,79 +106,8 @@
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Daftar Pelamar</span>
                                     </a>
                                 </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('userIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/user/index">
-                                        <span
-                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Akun User
-                                        </span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
-                    </li>
-
-                    {{-- Penilaian --}}
-                    <li
-                        class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['penilaian'])) {{ 'bg-gray' }} @endif">
-                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['penilaian'])) {{ 'hover:text-blue-600' }} @endif"
-                            href="/penilaian/index">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['penilaian'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['penilaian'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
-                                            d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['penilaian'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
-                                    </svg>
-                                    <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['penilaian'])) {{ 'text-blue-600' }} @endif">Penilaian</span>
-                                </div>
-                                <!-- Icon -->
-                                <div
-                                    class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['penilaian'])) {{ 'rotate-180' }} @endif"
-                                        :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
-                                    </svg>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    {{-- Perangkingan --}}
-                    <li
-                        class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['perangkingan'])) {{ 'bg-gray' }} @endif">
-                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['perangkingan'])) {{ 'hover:text-blue-600' }} @endif"
-                            href="/perangkingan/index">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['perangkingan'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['perangkingan'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
-                                            d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['perangkingan'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
-                                    </svg>
-                                    <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['perangkingan'])) {{ 'text-blue-600' }} @endif">Perangkingan</span>
-                                </div>
-                                <!-- Icon -->
-                                <div
-                                    class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['perangkingan'])) {{ 'rotate-180' }} @endif"
-                                        :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
-                                    </svg>
-                                </div>
-                            </div>
-                        </a>
                     </li>
                 </ul>
             </div>

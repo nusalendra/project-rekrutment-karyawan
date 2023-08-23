@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class PeriodeController extends Controller
     {
         $data = Periode::all();
 
-        return view('pages.admin.periode.index', ['title' => 'Pelatihan'], compact('data'));
+        return view('pages.HRD.periode.index', ['title' => 'Pelatihan'], compact('data'));
     }
 
     /**
@@ -30,7 +30,7 @@ class PeriodeController extends Controller
     {
         $data = Periode::all();
 
-        return view('pages.admin.periode.create', ['title' => 'Tambah Data'], compact('data'));
+        return view('pages.HRD.periode.create', ['title' => 'Tambah Data'], compact('data'));
     }
 
     /**
@@ -77,7 +77,7 @@ class PeriodeController extends Controller
         $periodeId = Crypt::decrypt($id);
         $periode = Periode::findOrFail($periodeId);
 
-        return view('pages.admin.periode.edit', ['title' => 'Edit Data'], compact('periode'));
+        return view('pages.HRD.periode.edit', ['title' => 'Edit Data'], compact('periode'));
     }
 
     /**
@@ -119,7 +119,7 @@ class PeriodeController extends Controller
     public function destroy($id)
     {
         $periode = Periode::findOrFail($id);
-        
+
         $periode->delete();
 
         return redirect('periode/index');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manajer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class KriteriaController extends Controller
     {
         $data = Kriteria::with('jabatan')->get();
 
-        return view('pages.admin.kriteria.index', ['title' => 'Kriteria'], compact('data'));
+        return view('pages.manajer.kriteria.index', ['title' => 'Kriteria'], compact('data'));
     }
 
     /**
@@ -31,7 +31,7 @@ class KriteriaController extends Controller
     {
         $jabatan = Jabatan::get();
 
-        return view('pages.admin.kriteria.create', ['title' => 'Tambah Data'], compact('jabatan'));
+        return view('pages.manajer.kriteria.create', ['title' => 'Tambah Data'], compact('jabatan'));
     }
 
     /**
@@ -86,7 +86,7 @@ class KriteriaController extends Controller
             ['value' => 'Cost', 'label' => 'Cost'],
         ];
 
-        return view('pages.admin.kriteria.edit', ['title' => 'Edit Data'], compact('kriteria', 'jabatan', 'pilihTipeKriteria'));
+        return view('pages.manajer.kriteria.edit', ['title' => 'Edit Data'], compact('kriteria', 'jabatan', 'pilihTipeKriteria'));
     }
 
     /**
