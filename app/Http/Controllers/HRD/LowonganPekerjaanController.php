@@ -19,7 +19,7 @@ class LowonganPekerjaanController extends Controller
      */
     public function index()
     {
-        $data = LowonganPekerjaan::with('periode', 'jabatan')->get();
+        $data = LowonganPekerjaan::with('periode', 'jabatan')->simplePaginate(8);
 
         $tanggal = Carbon::now();
         $tanggalSekarang = $tanggal->format('Y-m-d');

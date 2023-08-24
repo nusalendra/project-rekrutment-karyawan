@@ -18,7 +18,7 @@ class SubkriteriaController extends Controller
      */
     public function index()
     {
-        $data = Subkriteria::all();
+        $data = Subkriteria::simplePaginate(8);
 
         return view('pages.manajer.subkriteria.index', ['title' => 'Subkriteria'], compact('data'));
     }

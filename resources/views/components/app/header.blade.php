@@ -21,10 +21,10 @@
                 </button>
 
             </div>
-            <div class="logo bg-stone-200">
+            {{-- <div class="">
                 <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67"
                         alt=""></a>
-            </div>
+            </div> --}}
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">
                 

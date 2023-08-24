@@ -36,7 +36,7 @@
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-base text-left text-black dark:text-gray-400">
                         <thead
-                            class="text-md border-x border-gray-300 text-gray-700 bg-white dark:bg-gray-700 dark:text-gray-400">
+                            class="text-md border-x border-gray-300 text-gray-700 bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">No</h1>
@@ -66,7 +66,7 @@
                                 <tr
                                     class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
+                                        <h1 class="flex w-full justify-center">{{ $index + $data->firstItem() }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">{{ $item->periode->nama }}</h1>
@@ -131,6 +131,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $data->links() }}
                     {{-- @if ($data->hasPages())
                         <div class="pagination-links pt-6">
                             {{ $data->appends(['search' => $searchTerm])->links() }}

@@ -16,7 +16,7 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $data = Periode::all();
+        $data = Periode::simplePaginate(8);
 
         return view('pages.HRD.periode.index', ['title' => 'Pelatihan'], compact('data'));
     }
