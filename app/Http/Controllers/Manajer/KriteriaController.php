@@ -17,7 +17,7 @@ class KriteriaController extends Controller
      */
     public function index()
     {
-        $data = Kriteria::with('jabatan')->get();
+        $data = Kriteria::with('jabatan')->simplePaginate(8);
 
         return view('pages.manajer.kriteria.index', ['title' => 'Kriteria'], compact('data'));
     }

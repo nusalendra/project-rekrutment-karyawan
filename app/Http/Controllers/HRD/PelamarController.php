@@ -15,7 +15,7 @@ class PelamarController extends Controller
      */
     public function index()
     {
-        $data = Pelamar::with('lowonganPekerjaan')->whereNotNull('lowongan_pekerjaan_id')->get();
+        $data = Pelamar::with('lowonganPekerjaan')->whereNotNull('lowongan_pekerjaan_id')->simplePaginate(8);
 
         return view('pages.HRD.pelamar.index', ['title' => 'Daftar Pelamar'], compact('data'));
     }

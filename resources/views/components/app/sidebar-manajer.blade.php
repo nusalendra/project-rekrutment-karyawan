@@ -1,8 +1,13 @@
 <div class="bg-stone-200">
     <!-- Sidebar backdrop (mobile only) -->
-    <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200"
-        :class="sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'" aria-hidden="true" x-cloak></div>
+    {{-- <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200"
+        :class="sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'" aria-hidden="true" x-cloak></div> --}}
     {{-- Sidebar Logo --}}
+
+    <div class="fixed flex bg-white h-16 z-30 w-full shadow-md border-b pl-12 pt-1">
+        <a href="" class="fixed z-40"><img class="fixed mx-auto z-50" src="/images/pt-umdi.png" width="180" height="67"
+            alt=""></a>
+    </div>
 
     <!-- Sidebar -->
     <div id="sidebar"
