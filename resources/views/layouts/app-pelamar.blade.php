@@ -50,7 +50,7 @@
         <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-gray {{ $attributes['background'] ?? '' }}"
             x-ref="contentarea">
 
-            <x-app.header />
+            <x-app.header-pelamar />
 
             <main class="bg-stone-200 h-full">
                 @yield('content')

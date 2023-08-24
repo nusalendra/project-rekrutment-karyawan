@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between h-16 -mb-px">
 
             <!-- Header: Left side -->
-            <div class="flex">
+            {{-- <div class="flex">
                 
                 <!-- Hamburger button -->
                 <button
@@ -20,14 +20,18 @@
                     </svg>
                 </button>
 
+            </div> --}}
+            <div class="flex items-center space-x-6 text-gray-700 font-semibold">
+                <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67" alt=""></a>
+                <a href="" class="hover:text-blue-700">Beranda</a>
+                <a href="" class="hover:text-blue-700">Panduan Lamaran</a>
+                <a href="" class="hover:text-blue-700">Posisi Tersedia</a>
+                <a href="" class="hover:text-blue-700">Lamaran Saya</a>
             </div>
-            <div class="logo bg-stone-200">
-                <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67"
-                        alt=""></a>
-            </div>
+
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">
-                
+
 
                 <!-- Search Button with Modal -->
                 {{-- <x-modal-search /> --}}
