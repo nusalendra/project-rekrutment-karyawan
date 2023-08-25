@@ -1,7 +1,7 @@
 <x-authentication-layout>
     <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('Login') }}</h1>
     <!-- Form -->
-    <form method="POST" action="/">
+    <form method="POST" action="/login">
         @csrf
         <div class="space-y-4">
             <div>

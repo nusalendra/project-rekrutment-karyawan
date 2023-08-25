@@ -2,7 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
-use App\Http\Controllers\LoginController;
+
+// Guest Controller
+use App\Http\Controllers\Guest\BerandaController;
+use App\Http\Controllers\Guest\LoginController;
+use App\Http\Controllers\Guest\RegisterController;
+use App\Http\Controllers\Guest\LamaranPekerjaanController;
 
 // HRD Controller
 use App\Http\Controllers\DashboardController;
@@ -16,7 +21,7 @@ use App\Http\Controllers\Manajer\KriteriaController;
 use App\Http\Controllers\Manajer\SubkriteriaController;
 
 // Pelamar Controller
-use App\Http\Controllers\Pelamar\BerandaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +34,19 @@ use App\Http\Controllers\Pelamar\BerandaController;
 |
 */
 
-Route::get('/', [LoginController::class, 'index']);
-Route::POST('/', [LoginController::class, 'store']);
+Route::middleware('guest')->group(function () {
+    Route::get('/', [BerandaController::class, 'beranda']);
+
+    Route::get('/lamaran-pekerjaan', [LamaranPekerjaanController::class, 'index']);
+
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::POST('/login', [LoginController::class, 'store']);
+
+    Route::get('/register', function () {
+        return view('auth.register');
+    })->name('register');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register.store');
+});
 
 Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     // Route for the getting the data feed
@@ -111,6 +127,5 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
 
 
 Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
-    Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
-    
+    Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
 });

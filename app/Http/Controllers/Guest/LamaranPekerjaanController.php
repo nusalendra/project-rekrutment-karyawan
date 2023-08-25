@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guest;
 
-use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class LamaranPekerjaanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
+        return view('pages.guest.lamaran-pekerjaan', ['title' => 'Lamaran Pekerjaan']);
     }
 
     /**
@@ -36,23 +35,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
-            'password' => 'required'
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            if (Auth::user()->role == "HRD") {
-                return redirect('/dashboard-hrd');
-            } elseif (Auth::user()->role == "Manajer") {
-                return redirect('/dashboard-manajer');
-            } elseif(Auth::user()->role == 'Pelamar') {
-                return redirect('/beranda');
-            }
-        }
-        return back()->with('loginError', 'Email atau Password Anda tidak valid');
+        //
     }
 
     /**

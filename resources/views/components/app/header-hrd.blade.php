@@ -4,14 +4,10 @@
 
             <!-- Header: Left side -->
             <div class="flex">
-                
+
                 <!-- Hamburger button -->
-                <button
-                    class="text-slate-500 hover:text-slate-600 lg:hidden"
-                    @click.stop="sidebarOpen = !sidebarOpen"
-                    aria-controls="sidebar"
-                    :aria-expanded="sidebarOpen"
-                >
+                <button class="text-slate-500 hover:text-slate-600 lg:hidden" @click.stop="sidebarOpen = !sidebarOpen"
+                    aria-controls="sidebar" :aria-expanded="sidebarOpen">
                     <span class="sr-only">Open sidebar</span>
                     <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <rect x="4" y="5" width="16" height="2" />
@@ -21,13 +17,13 @@
                 </button>
 
             </div>
-            {{-- <div class="">
+            <div class="">
                 <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67"
                         alt=""></a>
-            </div> --}}
+            </div>
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">
-                
+
 
                 <!-- Search Button with Modal -->
                 {{-- <x-modal-search /> --}}
