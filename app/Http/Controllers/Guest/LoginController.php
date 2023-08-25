@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Pelamar;
+namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class BerandaController extends Controller
+class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class BerandaController extends Controller
      */
     public function index()
     {
-        return view('pages.pelamar.beranda', ['title' => 'Beranda']);
+        return view('auth.login');
     }
 
     /**
@@ -35,7 +36,23 @@ class BerandaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            if (Auth::user()->role == "HRD") {
+                return redirect('/dashboard-hrd');
+            } elseif (Auth::user()->role == "Manajer") {
+                return redirect('/dashboard-manajer');
+            } elseif(Auth::user()->role == 'Pelamar') {
+                return redirect('/beranda');
+            }
+        }
+        return back()->with('loginError', 'Email atau Password Anda tidak valid');
     }
 
     /**

@@ -19,7 +19,7 @@
         {
             $dataFeed = new DataFeed();
 
-            return view('pages/dashboard/dashboard', ['title' => 'Dashboard'] ,compact('dataFeed'));
+            return view('pages/dashboard/dashboard-hrd', ['title' => 'Dashboard'] ,compact('dataFeed'));
         }
 
         public function indexManajer()

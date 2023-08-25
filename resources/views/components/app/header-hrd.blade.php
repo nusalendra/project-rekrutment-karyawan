@@ -21,7 +21,7 @@
                 </button>
 
             </div>
-            <div class="logo bg-stone-200">
+            <div class="logo">
                 <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67"
                         alt=""></a>
             </div>

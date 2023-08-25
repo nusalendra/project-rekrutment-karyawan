@@ -1,7 +1,7 @@
 <x-authentication-layout>
     <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('Pendaftaran Akun') }}</h1>
     <!-- Form -->
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register.store') }}">
         @csrf
         <div class="space-y-4">
             <div>
@@ -61,7 +61,7 @@
     <div class="pt-5 mt-6 border-t border-slate-200">
         <div class="text-sm text-black">
             {{ __('Sudah Memiliki Akun ?') }} <a class="font-medium text-indigo-700 hover:text-indigo-900"
-                href="/">{{ __('Masuk') }}</a>
+                href="/login">{{ __('Masuk') }}</a>
         </div>
     </div>
 </x-authentication-layout>

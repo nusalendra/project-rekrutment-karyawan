@@ -43,7 +43,7 @@
 
         {{-- Opsi menampilkan sidebar pada index --}}
         @if (isset($showSidebar) && $showSidebar)
-            <x-app.sidebar-manajer />
+            <x-app.sidebar-hrd />
         @endif
 
         <!-- Content area -->

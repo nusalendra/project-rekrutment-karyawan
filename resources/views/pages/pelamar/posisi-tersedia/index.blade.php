@@ -2,5 +2,4 @@
 
 @section('content')
 
-    <?php $showSidebar = false; ?>
 @endsection

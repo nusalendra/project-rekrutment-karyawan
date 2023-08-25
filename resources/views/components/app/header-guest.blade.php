@@ -15,34 +15,18 @@
                 </button>
                 <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67"
                         alt=""></a>
-                <a href="/beranda" class="{{ Request::is('beranda') ? 'text-blue-600' : 'hover:text-blue-700' }}">Beranda</a>
-                <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
-                    Pekerjaan</a>
-                <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Notifikasi</a>
-                <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
-                    Saya</a>
+                <a href="/" class="{{ Request::is('/') ? 'text-blue-600' : 'hover:text-blue-700' }}">Beranda</a>
+                <a href="/lamaran-pekerjaan" class="{{ Request::is('lamaran-pekerjaan') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
+                    Pekerjaan</a>                
             </div>
+
             <!-- Header: Right side -->
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-6 font-semibold">
 
-
-                <!-- Search Button with Modal -->
-                {{-- <x-modal-search /> --}}
-
-                <!-- Notifications button -->
-                <x-dropdown-notifications align="right" />
-
-                <!-- Info button -->
-                {{-- <x-dropdown-help align="right" /> --}}
-
-                <!-- Divider -->
-                {{-- <hr class="w-px h-6 bg-slate-200" /> --}}
-
-                <!-- User button -->
-                <x-dropdown-profile align="right" />
+                <a href="/login"
+                    class="text-black bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-4 py-2  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">Masuk</a>
 
             </div>
-
         </div>
     </div>
 </header>
