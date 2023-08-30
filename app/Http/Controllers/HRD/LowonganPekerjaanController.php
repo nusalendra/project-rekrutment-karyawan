@@ -52,6 +52,10 @@ class LowonganPekerjaanController extends Controller
 
         $lowonganPekerjaan->periode_id = $request->input('periode_id');
         $lowonganPekerjaan->jabatan_id = $request->input('jabatan_id');
+        $tanggalMulailowonganPekerjaan = \Carbon\Carbon::createFromFormat('d-m-Y', $request->input('tanggal_mulai'))->format('Y-m-d');
+        $lowonganPekerjaan->tanggal_mulai = $tanggalMulailowonganPekerjaan;
+        $tanggalAkhirlowonganPekerjaan = \Carbon\Carbon::createFromFormat('d-m-Y', $request->input('tanggal_akhir'))->format('Y-m-d');
+        $lowonganPekerjaan->tanggal_akhir = $tanggalAkhirlowonganPekerjaan;
         $lowonganPekerjaan->kuota = $request->input('kuota');
 
         $lowonganPekerjaan->save();
@@ -99,6 +103,17 @@ class LowonganPekerjaanController extends Controller
 
         $lowonganPekerjaan->periode_id = $request->input('periode_id');
         $lowonganPekerjaan->jabatan_id = $request->input('jabatan_id');
+        $tanggalMulaiLowonganPekerjaan = $request->input('tanggal_mulai');
+        if ($tanggalMulaiLowonganPekerjaan) {
+            $tanggalMulaiLowonganPekerjaan = \Carbon\Carbon::createFromFormat('d-m-Y', $tanggalMulaiLowonganPekerjaan)->format('Y-m-d');
+            $lowonganPekerjaan->tanggal_mulai = $tanggalMulaiLowonganPekerjaan;
+        }
+
+        $tanggalAkhirLowonganPekerjaan = $request->input('tanggal_akhir');
+        if ($tanggalAkhirLowonganPekerjaan) {
+            $tanggalAkhirLowonganPekerjaan = \Carbon\Carbon::createFromFormat('d-m-Y', $tanggalAkhirLowonganPekerjaan)->format('Y-m-d');
+            $lowonganPekerjaan->tanggal_akhir = $tanggalAkhirLowonganPekerjaan;
+        }
         $lowonganPekerjaan->kuota = $request->input('kuota');
 
         $lowonganPekerjaan->save();
@@ -121,4 +136,3 @@ class LowonganPekerjaanController extends Controller
         return redirect('/lowongan-pekerjaan/index');
     }
 }
-

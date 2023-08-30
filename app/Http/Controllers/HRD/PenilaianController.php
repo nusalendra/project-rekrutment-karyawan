@@ -1,37 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Guest;
+namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\LowonganPekerjaan;
-use App\Models\Periode;
-use App\Models\Jabatan;
 
-class LamaranPekerjaanController extends Controller
+class PenilaianController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $searchTerm = $request->input('search');
-        $data = LowonganPekerjaan::when($searchTerm, function ($query, $searchTerm) {
-            return $query->orWhere('nama', 'like', "%$searchTerm%");
-        })
-            ->whereHas('periode', function ($query) {
-                $query->whereDate('tanggal_mulai', '<=', now())
-                    ->whereDate('tanggal_akhir', '>=', now());
-            })
-            ->where('kuota', '>', 0)
-            ->orderByDesc('created_at')
-            ->simplePaginate(10);
-
-        $periode = Periode::all();
-
-        return view('pages.guest.lamaran-pekerjaan.index', ['title' => 'Lamaran Pekerjaan'], compact('data', 'searchTerm', 'periode'));
+        //
     }
 
     /**
@@ -63,6 +46,7 @@ class LamaranPekerjaanController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -97,17 +81,5 @@ class LamaranPekerjaanController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getDetail($id)
-    {
-        $jabatan = Jabatan::findOrFail($id);
-
-        // Mengambil informasi lowongan pekerjaan terkait
-        $lowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->first();
-
-        // Lakukan proses untuk mengambil data detail sesuai dengan ID card yang dipilih
-        // Misalnya, buat view untuk menampilkan data detail
-        return view('pages.guest.lamaran-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan'));
     }
 }

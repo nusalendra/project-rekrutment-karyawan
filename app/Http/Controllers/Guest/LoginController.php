@@ -36,10 +36,10 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
-            'password' => 'required'
-        ]);
+        $credentials = [
+            'email' => $request['email'],
+            'password' => $request['password'],
+        ];
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -49,9 +49,10 @@ class LoginController extends Controller
             } elseif (Auth::user()->role == "Manajer") {
                 return redirect('/dashboard-manajer');
             } elseif(Auth::user()->role == 'Pelamar') {
-                return redirect('/beranda');
+                return redirect('/profil');
             }
         }
+
         return back()->with('loginError', 'Email atau Password Anda tidak valid');
     }
 

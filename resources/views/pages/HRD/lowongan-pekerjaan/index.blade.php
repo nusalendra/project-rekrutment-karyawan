@@ -73,9 +73,9 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
-                                            {{ \Carbon\Carbon::parse($item->periode->tanggal_mulai)->format('d-m-Y') }}
+                                            {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d-m-Y') }}
                                             s/d
-                                            {{ \Carbon\Carbon::parse($item->periode->tanggal_akhir)->format('d-m-Y') }}
+                                            {{ \Carbon\Carbon::parse($item->tanggal_akhir)->format('d-m-Y') }}
                                         </h1>
                                     </td>
                                     <td class="px-6 py-4">
@@ -86,7 +86,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
-                                            @if ($tanggalSekarang >= $item->periode->tanggal_mulai && $tanggalSekarang <= $item->periode->tanggal_akhir)
+                                            @if ($tanggalSekarang >= $item->tanggal_mulai && $tanggalSekarang <= $item->tanggal_akhir)
                                                 @if ($item->kuota > 0)
                                                     Dibuka
                                                 @else

@@ -22,7 +22,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             {{-- Nama Kriteria --}}
                             <div class="w-1/2 mx-3">
                                 <label for="nama"

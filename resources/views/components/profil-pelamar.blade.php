@@ -36,7 +36,7 @@
         </div>
         <ul>
             <li>
-                <a class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" href="{{ route('profile.show') }}" @click="open = false" @focus="open = true" @focusout="open = false">Profil</a>
+                <a class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" href="/profil" @click="open = false" @focus="open = true" @focusout="open = false">Profil</a>
             </li>
             <li>
                 <form method="POST" action="{{ route('logout') }}" x-data>

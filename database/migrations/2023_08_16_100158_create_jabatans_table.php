@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('jabatans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->text('deskripsi');
+            $table->text('kriteria');
+            $table->string('gaji');
             $table->timestamps();
         });
     }

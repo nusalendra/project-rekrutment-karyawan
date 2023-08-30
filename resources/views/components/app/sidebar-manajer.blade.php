@@ -2,13 +2,6 @@
     <!-- Sidebar backdrop (mobile only) -->
     {{-- <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200"
         :class="sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'" aria-hidden="true" x-cloak></div> --}}
-    {{-- Sidebar Logo --}}
-
-    <div class="fixed flex bg-white h-16 z-30 w-full shadow-md border-b pl-12 pt-1">
-        <a href="" class="fixed z-40"><img class="fixed mx-auto z-50" src="/images/pt-umdi.png" width="180" height="67"
-            alt=""></a>
-    </div>
-
     <!-- Sidebar -->
     <div id="sidebar"
         class="flex flex-col absolute z-40 left-0 top-0 mt-16 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-72 lg:w-20 lg:sidebar-expanded:!w-72 2xl:!w-72 shrink-0 bg-stone-300 border-r-6 pl-4 transition-all duration-200 ease-in-out"
@@ -113,69 +106,6 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
-
-                    {{-- Penilaian --}}
-                    <li
-                        class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['penilaian'])) {{ 'bg-gray' }} @endif">
-                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['penilaian'])) {{ 'hover:text-blue-600' }} @endif"
-                            href="/penilaian/index">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['penilaian'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['penilaian'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
-                                            d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['penilaian'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
-                                    </svg>
-                                    <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['penilaian'])) {{ 'text-blue-600' }} @endif">Penilaian Pelamar</span>
-                                </div>
-                                <!-- Icon -->
-                                <div
-                                    class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['penilaian'])) {{ 'rotate-180' }} @endif"
-                                        :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
-                                    </svg>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    {{-- Perangkingan --}}
-                    <li
-                        class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['ranking'])) {{ 'bg-gray' }} @endif">
-                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['ranking'])) {{ 'hover:text-blue-600' }} @endif"
-                            href="/ranking/index">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['ranking'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['ranking'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
-                                            d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
-                                        <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['ranking'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
-                                    </svg>
-                                    <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['ranking'])) {{ 'text-blue-600' }} @endif">Perankingan Pelamar</span>
-                                </div>
-                                <!-- Icon -->
-                                <div
-                                    class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['ranking'])) {{ 'rotate-180' }} @endif"
-                                        :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
-                                    </svg>
-                                </div>
-                            </div>
-                        </a>
                     </li>
                 </ul>
             </div>

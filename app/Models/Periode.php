@@ -9,7 +9,7 @@ class Periode extends Model
 {
     use HasFactory;
     protected $table = 'periodes';
-    protected $fillable = ['nama', 'tanggal_mulai', 'tanggal_akhir'];
+    protected $fillable = ['nama'];
     protected $guarded = [];
 
     public function penilaian() {

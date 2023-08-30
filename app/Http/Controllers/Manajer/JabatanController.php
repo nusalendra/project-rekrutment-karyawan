@@ -44,7 +44,9 @@ class JabatanController extends Controller
         $jabatan = new Jabatan;
 
         $jabatan->nama = $request->nama;
-
+        $jabatan->deskripsi = $request->deskripsi;
+        $jabatan->kriteria = $request->kriteria;
+        $jabatan->gaji = $request->gaji;
         $jabatan->save();
 
         return redirect('/jabatan/index');
@@ -87,6 +89,9 @@ class JabatanController extends Controller
         $jabatan = Jabatan::findOrFail($id);
 
         $jabatan->nama = $request->nama;
+        $jabatan->deskripsi = $request->deskripsi;
+        $jabatan->kriteria = $request->kriteria;
+        $jabatan->gaji = $request->gaji;
 
         $jabatan->save();
 

@@ -9,7 +9,7 @@ class LowonganPekerjaan extends Model
 {
     use HasFactory;
     protected $table = 'lowongan_pekerjaans';
-    protected $fillable = ['periode_id', 'jabatan_id', 'kuota'];
+    protected $fillable = ['periode_id', 'jabatan_id','tanggal_mulai', 'tanggal_akhir', 'kuota'];
     protected $guarded = [];
 
     public function pelamar() {
