@@ -21,6 +21,8 @@ use App\Http\Controllers\Manajer\KriteriaController;
 use App\Http\Controllers\Manajer\SubkriteriaController;
 
 // Pelamar Controller
+use App\Http\Controllers\Pelamar\MelamarPekerjaanController;
+use App\Http\Controllers\Pelamar\ProfilPelamarController;
 
 
 /*
@@ -34,19 +36,18 @@ use App\Http\Controllers\Manajer\SubkriteriaController;
 |
 */
 
-Route::middleware('guest')->group(function () {
-    Route::get('/', [BerandaController::class, 'beranda']);
+Route::get('/', [BerandaController::class, 'beranda']);
 
-    Route::get('/lamaran-pekerjaan', [LamaranPekerjaanController::class, 'index']);
+Route::get('/lamaran-pekerjaan', [LamaranPekerjaanController::class, 'index']);
+Route::get('/get-detail-jabatan/{id}', [LamaranPekerjaanController::class, 'getDetail'])->name('detail-jabatan');
 
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
-    Route::POST('/login', [LoginController::class, 'store']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::POST('/login', [LoginController::class, 'store']);
 
-    Route::get('/register', function () {
-        return view('auth.register');
-    })->name('register');
-    Route::post('/register', [RegisterController::class, 'register'])->name('register.store');
-});
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.store');
 
 Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     // Route for the getting the data feed
@@ -127,5 +128,11 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
 
 
 Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
+    Route::get('/profil', [ProfilPelamarController::class, 'index'])->name('profil');
     Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
+
+    Route::get('/melamar-pekerjaan', [MelamarPekerjaanController::class, 'index'])->name('melamar-pekerjaan');
+    Route::get('/get-detail-jabatan/{id}', [MelamarPekerjaanController::class, 'getDetail'])->name('detail-jabatan');
+    Route::get('/lamar/{$id}', [MelamarPekerjaanController::class, 'create'])->name('lamarCreate');
+
 });

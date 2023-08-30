@@ -1,20 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\Manajer;
+namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\LowonganPekerjaan;
+use App\Models\Periode;
+use App\Models\Jabatan;
 
-class PenilaianController extends Controller
+class MelamarPekerjaanController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $searchTerm = $request->input('search');
+        $data = LowonganPekerjaan::when($searchTerm, function ($query, $searchTerm) {
+            return $query->orWhere('nama', 'like', "%$searchTerm%");
+        })
+            ->whereHas('periode', function ($query) {
+                $query->whereDate('tanggal_mulai', '<=', now())
+                    ->whereDate('tanggal_akhir', '>=', now());
+            })
+            ->where('kuota', '>', 0)
+            ->orderByDesc('created_at')
+            ->simplePaginate(10);
+
+        $periode = Periode::all();
+
+        return view('pages.pelamar.melamar-pekerjaan.index', ['title' => 'Lamaran Pekerjaan'], compact('data', 'searchTerm', 'periode'));
     }
 
     /**
@@ -81,5 +98,17 @@ class PenilaianController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDetail($id)
+    {
+        $jabatan = Jabatan::findOrFail($id);
+
+        // Mengambil informasi lowongan pekerjaan terkait
+        $lowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->first();
+
+        // Lakukan proses untuk mengambil data detail sesuai dengan ID card yang dipilih
+        // Misalnya, buat view untuk menampilkan data detail
+        return view('pages.pelamar.melamar-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan'));
     }
 }

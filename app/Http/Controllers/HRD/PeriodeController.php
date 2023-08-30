@@ -45,12 +45,6 @@ class PeriodeController extends Controller
 
         $periode->nama = $request->nama;
 
-        $tanggalMulaiPeriode = \Carbon\Carbon::createFromFormat('d-m-Y', $request->input('tanggal_mulai'))->format('Y-m-d');
-        $periode->tanggal_mulai = $tanggalMulaiPeriode;
-
-        $tanggalAkhirPeriode = \Carbon\Carbon::createFromFormat('d-m-Y', $request->input('tanggal_akhir'))->format('Y-m-d');
-        $periode->tanggal_akhir = $tanggalAkhirPeriode;
-
         $periode->save();
 
         return redirect('/periode/index');
@@ -92,18 +86,6 @@ class PeriodeController extends Controller
         $periode = Periode::findOrFail($id);
 
         $periode->nama = $request->nama;
-
-        $tanggalMulaiPeriode = $request->input('tanggal_mulai');
-        if ($tanggalMulaiPeriode) {
-            $tanggalMulaiPeriode = \Carbon\Carbon::createFromFormat('d-m-Y', $tanggalMulaiPeriode)->format('Y-m-d');
-            $periode->tanggal_mulai = $tanggalMulaiPeriode;
-        }
-
-        $tanggalAkhirPeriode = $request->input('tanggal_akhir');
-        if ($tanggalAkhirPeriode) {
-            $tanggalAkhirPeriode = \Carbon\Carbon::createFromFormat('d-m-Y', $tanggalAkhirPeriode)->format('Y-m-d');
-            $periode->tanggal_akhir = $tanggalAkhirPeriode;
-        }
 
         $periode->save();
 

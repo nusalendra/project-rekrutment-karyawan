@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('periode_id')->constrained('periodes')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('jabatan_id')->constrained('jabatans')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_akhir');
             $table->integer('kuota');
             $table->timestamps();
         });

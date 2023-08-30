@@ -16,7 +16,7 @@
                 <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67"
                         alt=""></a>
                 <a href="/beranda" class="{{ Request::is('beranda') ? 'text-blue-600' : 'hover:text-blue-700' }}">Beranda</a>
-                <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
+                <a href="/melamar-pekerjaan" class="{{ Request::is('melamar-pekerjaan') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Pekerjaan</a>
                 <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Notifikasi</a>
                 <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
@@ -39,7 +39,7 @@
                 {{-- <hr class="w-px h-6 bg-slate-200" /> --}}
 
                 <!-- User button -->
-                <x-dropdown-profile align="right" />
+                <x-profil-pelamar align="right" />
 
             </div>
 

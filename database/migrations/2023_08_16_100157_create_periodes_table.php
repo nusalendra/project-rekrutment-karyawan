@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('periodes', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_akhir');
             $table->timestamps();
         });
     }
