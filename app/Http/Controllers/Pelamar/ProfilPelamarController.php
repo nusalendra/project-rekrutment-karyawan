@@ -57,9 +57,21 @@ class ProfilPelamarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editDataPribadi()
     {
-        //
+        $user = Auth::user();
+        return view('pages.pelamar.profil.data-pribadi', ['title' => 'Data Pribadi'], compact('user'));
+    }
+
+    public function editKontakPribadi()
+    {
+        $user = Auth::user();
+        return view('pages.pelamar.profil.kontak-pribadi', ['title' => 'Kontak Pribadi'], compact('user'));
+    }
+
+    public function editLengkapiDokumen()
+    {
+        return view('pages.pelamar.profil.lengkapi-dokumen', ['title' => 'Lengkapi Dokumen']);
     }
 
     /**

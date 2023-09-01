@@ -129,6 +129,9 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
 
 Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
     Route::get('/profil', [ProfilPelamarController::class, 'index'])->name('profil');
+    Route::get('/profil/data-pribadi', [ProfilPelamarController::class, 'editDataPribadi'])->name('edit-data-pribadi');
+    Route::get('/profil/kontak-pribadi', [ProfilPelamarController::class, 'editKontakPribadi'])->name('edit-kontak-pribadi');
+    Route::get('/profil/lengkapi-dokumen', [ProfilPelamarController::class, 'editLengkapiDokumen'])->name('lengkapi-dokumen');
     Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
 
     Route::get('/melamar-pekerjaan', [MelamarPekerjaanController::class, 'index'])->name('melamar-pekerjaan');
