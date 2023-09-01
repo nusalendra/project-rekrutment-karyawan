@@ -60,7 +60,10 @@ class JabatanController extends Controller
      */
     public function show($id)
     {
-        //
+        $jabatanId = Crypt::decrypt($id);
+        $jabatan = Jabatan::findOrFail($jabatanId);
+
+        return view('pages.manajer.jabatan.show', ['title' => 'Detail'], compact('jabatan'));
     }
 
     /**

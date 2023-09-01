@@ -51,7 +51,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         function showDetail(id) {
-            axios.get(`/get-detail-jabatan/${id}`)
+            axios.get(`/get-detail-jabatanId/${id}`)
                 .then(response => {
                     const detailCard = document.getElementById('detailCard');
                     detailCard.innerHTML = response.data;
