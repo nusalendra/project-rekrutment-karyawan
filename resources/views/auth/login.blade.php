@@ -3,10 +3,14 @@
     <!-- Form -->
     <form method="POST" action="/login">
         @csrf
+        @foreach ($user as $item)
+            <input type="hidden" name="user_id" value="{{ $item->id }}">
+        @endforeach
         <div class="space-y-4">
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="email"/>
+                <x-jet-input id="email" type="email" name="email" :value="old('email')" required autofocus
+                    autocomplete="email" />
             </div>
             <div>
                 <x-jet-label for="password" value="{{ __('Password') }}" />
@@ -36,9 +40,9 @@
         <!-- Warning -->
         <div class="mt-3">
             @if (session()->has('loginError'))
-            <div class="bg-red-700 text-white font-bold text-center px-3 py-2 rounded">
-                {{ session('loginError') }}
-            </div>
+                <div class="bg-red-700 text-white font-bold text-center px-3 py-2 rounded">
+                    {{ session('loginError') }}
+                </div>
             @endif
         </div>
     </div>

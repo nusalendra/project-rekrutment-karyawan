@@ -14,9 +14,8 @@
                         </g>
                     </svg>
                     <div class="flex flex-col w-full h-auto justify-center pl-3">
-                        <h1 class="font-bold text-lg">Muchammad Arif Siddiqi</h1>
-                        <h1 class="text-base">Pelamar</h1>
-                        <h1 class="text-base">Universitas</h1>
+                        <h1 class="font-bold text-lg">{{ $user->name }}</h1>
+                        <h1 class="text-base">{{ $user->role }}</h1>
                     </div>
                 </div>
                 {{-- Sidebar --}}
@@ -64,25 +63,47 @@
                     <div class="w-full h-auto border-t border-gray-200 pt-6">
                         <div class="w-full h-auto">
                             <h1 class="text-lg font-semibold mb-3 px-6">Data Pribadi</h1>
-                            <form action="">
+                            <form action="/profil/data-pribadi/{{ $user->id }}" method="POST">
+                                @csrf
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Nama Lengkap</h1>
-                                    <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                    <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                        name="name" value="{{ $user->name }}">
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Tempat & Tanggal Lahir</h1>
-                                    <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                    @if (!@empty($user))
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="TTL" value="{{ $user->TTL }}">
+                                    @else
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="TTL">
+                                    @endif
                                 </div>
-                                <div class="w-full h-auto space-y-3 font-medium mb-12 px-6">
+                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Jenis Kelamin</h1>
-                                    <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                    @if (!@empty($user))
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="jenis_kelamin" value="{{ $user->jenis_kelamin }}">
+                                    @else
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="jenis_kelamin">
+                                    @endif
                                 </div>
-                                <div class="w-full h-auto space-y-3 font-medium mb-12 px-6">
+                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Agama</h1>
-                                    <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                    @if (!@empty($user))
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="agama" value="{{ $user->agama }}">
+                                    @else
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="agama">
+                                    @endif
                                 </div>
                                 <div class="flex w-full h-auto items-center justify-center border-t border-gray-200 pt-3">
-                                    <button type="submit" class="px-9 py-2 text-base text-white font-bold bg-red-500 rounded-md">Simpan Perubahan</button>
+                                    <button type="submit"
+                                        class="px-9 py-2 text-base text-white font-bold bg-red-500 rounded-md">Simpan
+                                        Perubahan</button>
                                 </div>
                             </form>
                         </div>

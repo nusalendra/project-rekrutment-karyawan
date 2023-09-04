@@ -14,14 +14,17 @@
                         </g>
                     </svg>
                     <div class="flex flex-col w-full h-auto justify-center pl-3">
-                        <h1 class="font-bold text-lg">Muchammad Arif Siddiqi</h1>
-                        <h1 class="text-base">Pelamar</h1>
-                        <h1 class="text-base">Universitas</h1>
+                        <h1 class="font-bold text-lg">{{ $user->name }}</h1>
+                        <h1 class="text-base">{{ $user->role }}</h1>
                     </div>
                 </div>
+                @php
+                    $userId = Crypt::encrypt($user->id);
+                @endphp
                 {{-- Sidebar --}}
                 <div class="w-full h-auto bg-white px-6 rounded-md border border-gray-200">
-                    <a href="{{ route('profil') }}" class="flex w-full h-auto items-center space-x-6 py-4 border-b border-gray-200">
+                    <a href="{{ route('profil') }}"
+                        class="flex w-full h-auto items-center space-x-6 py-4 border-b border-gray-200">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <g fill="none">
                                 <path
@@ -32,7 +35,7 @@
                         </svg>
                         <h1 class="font-semibold text-lg tracking-wide">Profil</h1>
                     </a>
-                    <a href="{{ route('lengkapi-dokumen') }}" class="flex w-full h-auto items-center space-x-6 py-4">
+                    <a href="/profil/lengkapi-dokumen/{{ $userId }}" class="flex w-full h-auto items-center space-x-6 py-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd"
                                 d="M14.25 2.5a.25.25 0 0 0-.25-.25H7A2.75 2.75 0 0 0 4.25 5v14A2.75 2.75 0 0 0 7 21.75h10A2.75 2.75 0 0 0 19.75 19V9.147a.25.25 0 0 0-.25-.25H15a.75.75 0 0 1-.75-.75V2.5Zm.75 9.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5h6Zm0 4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5h6Z"
@@ -49,7 +52,9 @@
                 <div class="w-full h-auto bg-white py-6">
                     <h1 class="px-6 text-xl font-bold mb-6 tracking-wide">Lihat/Edit Profil</h1>
                     <div class="w-full h-auto border-t border-gray-400 pt-6 pb-3 space-y-6">
-                        <a href="{{ route('edit-data-pribadi') }}" class="flex w-full h-auto items-center px-6 space-x-6">
+
+                        <a href="/profil/data-pribadi/{{ $userId }}"
+                            class="flex w-full h-auto items-center px-6 space-x-6">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                                 <path fill="currentColor" fill-rule="evenodd"
                                     d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1-8 0Zm0 6a5 5 0 0 0-5 5a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3a5 5 0 0 0-5-5H8Z"
@@ -59,7 +64,8 @@
                                 Data Pribadi
                             </h1>
                         </a>
-                        <a href="{{ route('edit-kontak-pribadi') }}" class="flex w-full h-auto items-center px-6 space-x-6">
+                        <a href="/profil/kontak-pribadi/{{ $userId }}"
+                            class="flex w-full h-auto items-center px-6 space-x-6">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                                 <path fill="currentColor"
                                     d="M7 2v20H3V2h4Zm2 0h10.005C20.107 2 21 2.898 21 3.99v16.02c0 1.099-.893 1.99-1.995 1.99H9V2Zm13 4h2v4h-2V6Zm0 6h2v4h-2v-4Zm-7 0a2 2 0 1 0 0-4a2 2 0 0 0 0 4Zm-3 4h6a3 3 0 1 0-6 0Z" />

@@ -14,9 +14,8 @@
                         </g>
                     </svg>
                     <div class="flex flex-col w-full h-auto justify-center pl-3">
-                        <h1 class="font-bold text-lg">Muchammad Arif Siddiqi</h1>
-                        <h1 class="text-base">Pelamar</h1>
-                        <h1 class="text-base">Universitas</h1>
+                        <h1 class="font-bold text-lg">{{ $user->name }}</h1>
+                        <h1 class="text-base">{{ $user->role }}</h1>
                     </div>
                 </div>
                 {{-- Sidebar --}}
@@ -46,7 +45,7 @@
                 </div>
             </div>
             {{-- Konten --}}
-            <div class="w-2/3 h-auto pl-6">
+            <div class="w-2/3 h-auto pl-6 overflow-y-auto max-h-[800px]">
                 <div class="w-full h-auto bg-white pt-6 pb-3">
                     <a href="{{ route('profil') }}"
                         class="flex items-center pl-4 text-base font-bold mb-6 tracking-wide space-x-1 text-blue-500 hover:text-blue-600">
@@ -63,142 +62,153 @@
                     <h1 class="px-6 text-xl font-bold mb-6 tracking-wide">Lengkapi Dokumen</h1>
                     <div class="w-full h-auto border-t border-gray-200 pt-6">
                         <div class="w-full h-auto">
-                            <form action="" enctype="multipart/form-data">
-                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
-                                    <h1>Curriculum Vitae</h1>
-                                    {{-- Pilih salah satu menggunakan if --}}
-                                    {{-- Belum ada file --}}
-                                    <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
-                                        <div class="relative flex items-center">
-                                            <input type="file" id="fileInput_1" accept=".pdf" class="hidden"
-                                                onchange="displayFileNameCurriculumVitae()" />
-                                            <label for="fileInput_1"
-                                            class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
-                                                Pilih File
-                                            </label>
-                                            <p class="ml-6" id="fileName_1"></p>
+                            <form action="/profil/lengkapi-dokumen/{{ $user->id }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="w-full h-auto space-y-3 mb-6 px-6">
+                                    <h1 class="font-bold">Curriculum Vitae</h1>
+                                    <p class="font-extralight text-sm">Unggah CV kamu dalam format PDF dengan ukuran file
+                                        maksimal 2 MB.</p>
+                                    @if (!empty($user->curriculum_vitae))
+                                        {{-- Sudah ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="flex w-full justify-between">
+                                                <h1>{{ $user->curriculum_vitae }}</h1>
+                                                {{-- <a href="{{ asset('dokumen-peserta/' . $user->id . '/' . $user->CV) }}"
+                                                    class="bg-green-500 hover:bg-green-600 text-white font-medium py-0.5 px-6 rounded-lg border border-green-500">Lihat
+                                                    File Asli</a> --}}
+                                            </div>
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="CV" accept=".pdf" class="hidden"
+                                                    name="curriculum_vitae" onchange="displayFileNameCurriculumVitae()" />
+                                                <label for="CV"
+                                                    class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
+                                                    Ganti File
+                                                </label>
+                                                <p class="ml-6" id="fileCV"></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {{-- Sudah ada file --}}
-                                    <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
-                                        <div class="flex w-full justify-between">
-                                            <h1>Nama File Asli</h1>
-                                            <a href=""
-                                                class="bg-green-500 hover:bg-green-600 text-white font-medium py-0.5 px-6 rounded-lg border border-green-500">Lihat
-                                                File Asli</a>
+                                    @else
+                                        {{-- Belum ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="CV" accept=".pdf" class="hidden"
+                                                    name="curriculum_vitae" onchange="displayFileNameCurriculumVitae()" />
+                                                <label for="CV"
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
+                                                    Pilih File
+                                                </label>
+                                                <p class="ml-6" id="fileCV"></p>
+                                            </div>
                                         </div>
-                                        <div class="relative flex items-center">
-                                            <input type="file" id="fileInput_1" accept=".pdf" class="hidden"
-                                                onchange="displayFileNameCurriculumVitae()" />
-                                            <label for="fileInput_1"
-                                                class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
-                                                Ganti File
-                                            </label>
-                                            <p class="ml-6" id="fileName_1"></p>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
-                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
-                                    <h1>Pas Foto</h1>
-                                    {{-- Pilih salah satu menggunakan if --}}
-                                    {{-- Belum ada file --}}
-                                    <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
-                                        <div class="relative flex items-center">
-                                            <input type="file" id="fileInput_2" accept=".pdf" class="hidden"
-                                                onchange="displayFileNamePasFoto()" />
-                                            <label for="fileInput_2"
-                                            class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
-                                                Pilih File
-                                            </label>
-                                            <p class="ml-6" id="fileName_2"></p>
+                                <div class="w-full h-auto space-y-3 mb-6 px-6">
+                                    <h1 class="font-bold">Pas Foto</h1>
+                                    <p class="font-extralight text-sm">Unggah Pas Foto kamu dengan ukuran file 4x6 (jpeg,
+                                        png, jpg).</p>
+                                    @if (!@empty($user->pas_foto))
+                                        {{-- Sudah ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="flex w-full justify-between">
+                                                <h1>Nama File Asli</h1>
+                                            </div>
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="pasFoto" accept=".jpg, .jpeg, .png"
+                                                    class="hidden" name="pas_foto" onchange="displayFileNamePasFoto()" />
+                                                <label for="pasFoto"
+                                                    class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
+                                                    Ganti File
+                                                </label>
+                                                <p class="ml-6" id="filePasFoto"></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {{-- Sudah ada file --}}
-                                    <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
-                                        <div class="flex w-full justify-between">
-                                            <h1>Nama File Asli</h1>
-                                            <a href=""
-                                                class="bg-green-500 hover:bg-green-600 text-white font-medium py-0.5 px-6 rounded-lg border border-green-500">Lihat
-                                                File Asli</a>
+                                    @else
+                                        {{-- Belum ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="pasFoto" accept=".jpg, .jpeg, .png"
+                                                    class="hidden" name="pas_foto" onchange="displayFileNamePasFoto()" />
+                                                <label for="pasFoto"
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
+                                                    Pilih File
+                                                </label>
+                                                <p class="ml-6" id="filePasFoto"></p>
+                                            </div>
                                         </div>
-                                        <div class="relative flex items-center">
-                                            <input type="file" id="fileInput_2" accept=".pdf" class="hidden"
-                                                onchange="displayFileNamePasFoto()" />
-                                            <label for="fileInput_2"
-                                                class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
-                                                Ganti File
-                                            </label>
-                                            <p class="ml-6" id="fileName_2"></p>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
-                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
-                                    <h1>Ijazah dan Transkrip Nilai</h1>
-                                    {{-- Pilih salah satu menggunakan if --}}
-                                    {{-- Belum ada file --}}
-                                    <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
-                                        <div class="relative flex items-center">
-                                            <input type="file" id="fileInput_3" accept=".pdf" class="hidden"
-                                                onchange="displayFileNameIjazah()" />
-                                            <label for="fileInput_3"
-                                            class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
-                                                Pilih File
-                                            </label>
-                                            <p class="ml-6" id="fileName_3"></p>
+                                <div class="w-full h-auto space-y-3 mb-6 px-6">
+                                    <h1 class="font-bold">Ijazah dan Transkrip Nilai</h1>
+                                    <p class="font-extralight text-sm">Unggah Ijazah dan Transkrip Nilai kamu dalam format
+                                        PDF dengan ukuran file maksimal 5 MB.</p>
+                                    @if (!@empty($user->ijazah_transkrip))
+                                        {{-- Sudah ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="flex w-full justify-between">
+                                                <h1>Nama File Asli</h1>
+                                            </div>
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="ijazahTranskrip" accept=".pdf" class="hidden"
+                                                    name="ijazah_transkrip" onchange="displayFileNameIjazah()" />
+                                                <label for="ijazahTranskrip"
+                                                    class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
+                                                    Ganti File
+                                                </label>
+                                                <p class="ml-6" id="fileIjazahTranskrip"></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {{-- Sudah ada file --}}
-                                    <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
-                                        <div class="flex w-full justify-between">
-                                            <h1>Nama File Asli</h1>
-                                            <a href=""
-                                                class="bg-green-500 hover:bg-green-600 text-white font-medium py-0.5 px-6 rounded-lg border border-green-500">Lihat
-                                                File Asli</a>
+                                    @else
+                                        {{-- Belum ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="ijazahTranskrip" accept=".pdf" class="hidden"
+                                                    name="ijazah_transkrip" onchange="displayFileNameIjazah()" />
+                                                <label for="ijazahTranskrip"
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
+                                                    Pilih File
+                                                </label>
+                                                <p class="ml-6" id="fileIjazahTranskrip"></p>
+                                            </div>
                                         </div>
-                                        <div class="relative flex items-center">
-                                            <input type="file" id="fileInput_3" accept=".pdf" class="hidden"
-                                                onchange="displayFileNameIjazah()" />
-                                            <label for="fileInput_3"
-                                                class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
-                                                Ganti File
-                                            </label>
-                                            <p class="ml-6" id="fileName_3"></p>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
-                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
-                                    <h1>Surat Lamaran</h1>
-                                    {{-- Pilih salah satu menggunakan if --}}
-                                    {{-- Belum ada file --}}
-                                    <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
-                                        <div class="relative flex items-center">
-                                            <input type="file" id="fileInput_4" accept=".pdf" class="hidden"
-                                                onchange="displayFileNameSuratLamaran()" />
-                                            <label for="fileInput_4"
-                                            class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
-                                                Pilih File
-                                            </label>
-                                            <p class="ml-6" id="fileName_4"></p>
+                                <div class="w-full h-auto space-y-3 mb-6 px-6">
+                                    <h1 class="font-bold">Surat Lamaran Kerja</h1>
+                                    <p class="font-extralight text-sm">Unggah Surat Lamaran Kerja kamu dalam format PDF
+                                        dengan ukuran file maksimal 2 MB.</p>
+                                    @if (!@empty($user->surat_lamaran_kerja))
+                                        {{-- Sudah ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="flex w-full justify-between">
+                                                <h1>Nama File Asli</h1>
+                                            </div>
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="suratLamaranKerja" accept=".pdf"
+                                                    class="hidden" name="surat_lamaran_kerja"
+                                                    onchange="displayFileNameSuratLamaranKerja()" />
+                                                <label for="suratLamaranKerja"
+                                                    class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
+                                                    Ganti File
+                                                </label>
+                                                <p class="ml-6" id="fileSuratLamaranKerja"></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {{-- Sudah ada file --}}
-                                    <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
-                                        <div class="flex w-full justify-between">
-                                            <h1>Nama File Asli</h1>
-                                            <a href=""
-                                                class="bg-green-500 hover:bg-green-600 text-white font-medium py-0.5 px-6 rounded-lg border border-green-500">Lihat
-                                                File Asli</a>
+                                    @else
+                                        {{-- Belum ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="suratLamaranKerja" accept=".pdf"
+                                                    class="hidden" name="surat_lamaran_kerja"
+                                                    onchange="displayFileNameSuratLamaranKerja()" />
+                                                <label for="suratLamaranKerja"
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
+                                                    Pilih File
+                                                </label>
+                                                <p class="ml-6" id="fileSuratLamaranKerja"></p>
+                                            </div>
                                         </div>
-                                        <div class="relative flex items-center">
-                                            <input type="file" id="fileInput_4" accept=".pdf" class="hidden"
-                                                onchange="displayFileNameSuratLamaran()" />
-                                            <label for="fileInput_4"
-                                                class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
-                                                Ganti File
-                                            </label>
-                                            <p class="ml-6" id="fileName_4"></p>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                                 <div class="flex w-full h-auto items-center justify-center border-t border-gray-200 pt-3">
                                     <button type="submit"
@@ -214,23 +224,26 @@
     </div>
     <script>
         function displayFileNameCurriculumVitae() {
-            var fileInput = document.getElementById("fileInput_1");
-            var fileName = document.getElementById("fileName_1");
+            var fileInput = document.getElementById("CV");
+            var fileName = document.getElementById("fileCV");
             fileName.textContent = fileInput.files[0].name;
         }
+
         function displayFileNamePasFoto() {
-            var fileInput = document.getElementById("fileInput_2");
-            var fileName = document.getElementById("fileName_2");
+            var fileInput = document.getElementById("pasFoto");
+            var fileName = document.getElementById("filePasFoto");
             fileName.textContent = fileInput.files[0].name;
         }
+
         function displayFileNameIjazah() {
-            var fileInput = document.getElementById("fileInput_3");
-            var fileName = document.getElementById("fileName_3");
+            var fileInput = document.getElementById("ijazahTranskrip");
+            var fileName = document.getElementById("fileIjazahTranskrip");
             fileName.textContent = fileInput.files[0].name;
         }
-        function displayFileNameSuratLamaran() {
-            var fileInput = document.getElementById("fileInput_4");
-            var fileName = document.getElementById("fileName_4");
+
+        function displayFileNameSuratLamaranKerja() {
+            var fileInput = document.getElementById("suratLamaranKerja");
+            var fileName = document.getElementById("fileSuratLamaranKerja");
             fileName.textContent = fileInput.files[0].name;
         }
     </script>

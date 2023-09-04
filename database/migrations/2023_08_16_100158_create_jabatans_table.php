@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->text('deskripsi');
+            $table->text('benefit_pekerjaan');
             $table->text('kriteria');
-            $table->string('gaji');
+            $table->integer('gaji_awal');
+            $table->integer('gaji_akhir');
             $table->timestamps();
         });
     }

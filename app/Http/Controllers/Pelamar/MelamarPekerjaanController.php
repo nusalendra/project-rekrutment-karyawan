@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\LowonganPekerjaan;
 use App\Models\Periode;
 use App\Models\Jabatan;
+use App\Models\Kriteria;
 
 class MelamarPekerjaanController extends Controller
 {
@@ -39,9 +40,13 @@ class MelamarPekerjaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $jabatan = Jabatan::findOrFail($id);
+
+        $kriteriaWithSubkriteria = Kriteria::with('subkriteria')->where('jabatan_id', $jabatan->id)->get();
+
+        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('jabatan', 'kriteriaWithSubkriteria'));
     }
 
     /**
@@ -106,6 +111,7 @@ class MelamarPekerjaanController extends Controller
 
         // Mengambil informasi lowongan pekerjaan terkait
         $lowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->first();
+        // $subkriteria = Subkriteria::where('jabatan_id', $jabatan->id)->first();
 
         // Lakukan proses untuk mengambil data detail sesuai dengan ID card yang dipilih
         // Misalnya, buat view untuk menampilkan data detail

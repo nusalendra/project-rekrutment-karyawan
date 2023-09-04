@@ -14,9 +14,8 @@
                         </g>
                     </svg>
                     <div class="flex flex-col w-full h-auto justify-center pl-3">
-                        <h1 class="font-bold text-lg">Muchammad Arif Siddiqi</h1>
-                        <h1 class="text-base">Pelamar</h1>
-                        <h1 class="text-base">Universitas</h1>
+                        <h1 class="font-bold text-lg">{{ $user->name }}</h1>
+                        <h1 class="text-base">{{ $user->role }}</h1>
                     </div>
                 </div>
                 {{-- Sidebar --}}
@@ -64,21 +63,43 @@
                     <div class="w-full h-auto border-t border-gray-200 pt-6">
                         <div class="w-full h-auto">
                             <h1 class="text-lg font-semibold mb-3 px-6">Kontak Pribadi</h1>
-                            <form action="">
+                            <form action="/profil/kontak-pribadi/{{ $user->id }}" method="POST">
+                                @csrf
+                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
+                                    <h1>Alamat Email</h1>
+                                    @if (!@empty($user))
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="email" value="{{ $user->email }}">
+                                    @else
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="email">
+                                    @endif
+                                </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Alamat Rumah</h1>
-                                    <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                    @if (!@empty($user))
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="alamat" value="{{ $user->alamat }}">
+                                    @else
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="alamat">
+                                    @endif
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
-                                    <h1>Nomor Telepon</h1>
-                                    <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                    <h1>Nomor Handphone</h1>
+                                    @if (!@empty($user))
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="nomor_handphone" value="{{ $user->nomor_handphone }}">
+                                    @else
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="nomor_handphone">
+                                    @endif
                                 </div>
-                                <div class="w-full h-auto space-y-3 font-medium mb-12 px-6">
-                                    <h1>Alamat Email</h1>
-                                    <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
-                                </div>
+
                                 <div class="flex w-full h-auto items-center justify-center border-t border-gray-200 pt-3">
-                                    <button type="submit" class="px-9 py-2 text-base text-white font-bold bg-red-500 rounded-md">Simpan Perubahan</button>
+                                    <button type="submit"
+                                        class="px-9 py-2 text-base text-white font-bold bg-red-500 rounded-md">Simpan
+                                        Perubahan</button>
                                 </div>
                             </form>
                         </div>

@@ -45,8 +45,10 @@ class JabatanController extends Controller
 
         $jabatan->nama = $request->nama;
         $jabatan->deskripsi = $request->deskripsi;
+        $jabatan->benefit_pekerjaan = $request->benefit_pekerjaan;
         $jabatan->kriteria = $request->kriteria;
-        $jabatan->gaji = $request->gaji;
+        $jabatan->gaji_awal = $request->gaji_awal;
+        $jabatan->gaji_akhir = $request->gaji_akhir;
         $jabatan->save();
 
         return redirect('/jabatan/index');
@@ -60,7 +62,10 @@ class JabatanController extends Controller
      */
     public function show($id)
     {
-        //
+        $jabatanId = Crypt::decrypt($id);
+        $jabatan = Jabatan::findOrFail($jabatanId);
+
+        return view('pages.manajer.jabatan.show', ['title' => 'Detail'], compact('jabatan'));
     }
 
     /**

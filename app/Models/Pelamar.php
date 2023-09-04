@@ -9,18 +9,20 @@ class Pelamar extends Model
 {
     use HasFactory;
     protected $table = 'pelamars';
-    protected $fillable = ['user_id', 'lowongan_pekerjaan_id', 'TTL', 'jenis_kelamin', 'nomor_handphone', 'agama'];
+    protected $fillable = ['user_id', 'lowongan_pekerjaan_id'];
     protected $guarded = [];
 
-    public function user() {
+    public function user()
+    {
         return $this->hasOne(User::class);
     }
 
-    public function lowonganPekerjaan() {
+    public function lowonganPekerjaan()
+    {
         return $this->belongsTo(LowonganPekerjaan::class);
     }
-
-    public function penilaian() {
+    public function penilaian()
+    {
         return $this->hasMany(Penilaian::class);
     }
 }

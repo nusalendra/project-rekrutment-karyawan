@@ -97,6 +97,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
         Route::get('/index', [JabatanController::class, 'index'])->name('jabatanIndex');
         Route::get('/create', [JabatanController::class, 'create'])->name('jabatanCreate');
         Route::post('/create', [JabatanController::class, 'store'])->name('jabatanStore');
+        Route::get('/show/{id}', [JabatanController::class, 'show'])->name('jabatanShow');
         Route::get('/edit/{id}', [JabatanController::class, 'edit'])->name('jabatanEdit');
         Route::put('/edit/{id}', [JabatanController::class, 'update'])->name('jabatanUpdate');
         Route::get('/delete/{id}', [JabatanController::class, 'destroy'])->name('jabatanDestroy');
@@ -129,13 +130,18 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
 
 Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
     Route::get('/profil', [ProfilPelamarController::class, 'index'])->name('profil');
-    Route::get('/profil/data-pribadi', [ProfilPelamarController::class, 'editDataPribadi'])->name('edit-data-pribadi');
-    Route::get('/profil/kontak-pribadi', [ProfilPelamarController::class, 'editKontakPribadi'])->name('edit-kontak-pribadi');
-    Route::get('/profil/lengkapi-dokumen', [ProfilPelamarController::class, 'editLengkapiDokumen'])->name('lengkapi-dokumen');
+    Route::get('/profil/data-pribadi/{id}', [ProfilPelamarController::class, 'editDataPribadi'])->name('edit-data-pribadi');
+    Route::POST('/profil/data-pribadi/{id}', [ProfilPelamarController::class, 'updateDataPribadi'])->name('update-data-pribadi');
+    Route::get('/profil/kontak-pribadi/{id}', [ProfilPelamarController::class, 'editKontakPribadi'])->name('edit-kontak-pribadi');
+    Route::POST('/profil/kontak-pribadi/{id}', [ProfilPelamarController::class, 'updateKontakPribadi'])->name('update-kontak-pribadi');
+    Route::get('/profil/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'editLengkapiDokumen'])->name('edit-lengkapi-dokumen');
+    Route::POST('/profil/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'updateLengkapiDokumen'])->name('update-lengkapi-dokumen');
+    
     Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
 
     Route::get('/melamar-pekerjaan', [MelamarPekerjaanController::class, 'index'])->name('melamar-pekerjaan');
-    Route::get('/get-detail-jabatan/{id}', [MelamarPekerjaanController::class, 'getDetail'])->name('detail-jabatan');
-    Route::get('/lamar/{$id}', [MelamarPekerjaanController::class, 'create'])->name('lamarCreate');
+    Route::get('/get-detail-jabatanId/{id}', [MelamarPekerjaanController::class, 'getDetail'])->name('detail-jabatan');
+    Route::get('/lamar/{id}', [MelamarPekerjaanController::class, 'create'])->name('lamarCreate');
+    Route::POST('/lamar/{id}', [MelamarPekerjaanController::class, 'store'])->name('lamarStore');
 
 });

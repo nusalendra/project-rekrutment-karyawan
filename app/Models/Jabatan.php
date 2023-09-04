@@ -9,7 +9,7 @@ class Jabatan extends Model
 {
     use HasFactory;
     protected $table = 'jabatans';
-    protected $fillable = ['nama', 'deskripsi', 'kriteria', 'gaji'];
+    protected $fillable = ['nama', 'deskripsi', 'benefit_pekerjaan' ,'kriteria', 'gaji_awal', 'gaji_akhir'];
     protected $guarded = [];
 
     public function kriteria() {
