@@ -14,10 +14,12 @@
     <h4 class="text-sm px-3 mt-3">Kuota Lamaran</h4>
     <h5 class="px-3 text-sm">{{ $lowonganPekerjaan->kuota }}</h5>
     <h4 class="text-sm px-3 mt-3">Kisaran Gaji</h4>
-    <h5 class="px-3 text-sm">{{ $jabatan->gaji }}</h5>
+    <h5 class="px-3 text-sm">Rp. {{ number_format($jabatan->gaji_awal) }},- s/d Rp. {{ number_format($jabatan->gaji_akhir) }},-</h5>
 
     <h4 class="font-semibold px-3 mt-5">Deskripsi Pekerjaan</h4>
     <h5 class="px-3 text-justify mt-2">{{ $jabatan->deskripsi }}</h5>
+    <h4 class="font-semibold px-3 mt-5">Benefit Pekerjaan</h4>
+    <h5 class="px-3 text-justify mt-2">{{ $jabatan->benefit_pekerjaan }}</h5>
     <h4 class="font-semibold px-3 mt-5">Kriteria</h4>
     <h5 class="px-3 text-justify mt-2">{{  $jabatan->kriteria  }}</h5>
 </div>

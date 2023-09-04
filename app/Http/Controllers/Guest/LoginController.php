@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Pelamar;
 
 class LoginController extends Controller
 {
@@ -15,7 +17,9 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
+        $user = User::all();
+
+        return view('auth.login', compact('user'));
     }
 
     /**
@@ -49,6 +53,11 @@ class LoginController extends Controller
             } elseif (Auth::user()->role == "Manajer") {
                 return redirect('/dashboard-manajer');
             } elseif(Auth::user()->role == 'Pelamar') {
+                // $pelamar = new Pelamar();
+                // $pelamar->user_id = $request->user_id;
+
+                // $pelamar->save();
+                
                 return redirect('/profil');
             }
         }

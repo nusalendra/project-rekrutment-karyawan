@@ -21,12 +21,22 @@
                         </div>
 
                         <div class="w-1/2 mx-3">
-                            <label for="gaji"
-                                class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Gaji <span
+                            <label for="gaji_awal"
+                                class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Gaji Awal <span
                                     class="text-red-700">*</span></label>
-                            <input required type="text" id="gaji" name="gaji"
+                            <input required type="text" id="gaji_awal" name="gaji_awal"
                                 title="Tidak diperbolehkan menggunakan karakter khusus"
-                                placeholder="Tambahkan Kisaran Nominal Gaji"
+                                placeholder="Tambahkan Kisaran Nominal Gaji Awal"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+
+                        <div class="w-1/2 mx-3">
+                            <label for="gaji_akhir"
+                                class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Gaji Akhir <span
+                                    class="text-red-700">*</span></label>
+                            <input required type="text" id="gaji_akhir" name="gaji_akhir"
+                                title="Tidak diperbolehkan menggunakan karakter khusus"
+                                placeholder="Tambahkan Kisaran Nominal Gaji Akhir"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
                     </div>
@@ -35,7 +45,23 @@
                             <label for="deskripsi"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Jabatan <span
                                     class="text-red-700">*</span></label>
-                            <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="deskripsi" id="" cols="30" rows="10" placeholder="Tulis Deskripsi Jabatan..."></textarea>
+                            <textarea
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                name="deskripsi" id="" cols="30" rows="5" placeholder="Tulis Deskripsi Jabatan..."></textarea>
+                            {{-- <input required type="hidden" id="deskripsi" name="deskripsi">
+                            <trix-editor input="deskripsi" class="trix-content"
+                                placeholder="Tulis Deskripsi Jabatan..."></trix-editor> --}}
+
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="w-full mx-3">
+                            <label for="benefit_pekerjaan"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Benefit Pekerjaan <span
+                                    class="text-red-700">*</span></label>
+                            <textarea
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                name="benefit_pekerjaan" id="" cols="30" rows="5" placeholder="Tulis Benefit Pekerjaan dari Jabatan ini..."></textarea>
                             {{-- <input required type="hidden" id="deskripsi" name="deskripsi">
                             <trix-editor input="deskripsi" class="trix-content"
                                 placeholder="Tulis Deskripsi Jabatan..."></trix-editor> --}}
@@ -47,7 +73,9 @@
                             <label for="kriteria"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kriteria <span
                                     class="text-red-700">*</span></label>
-                            <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="kriteria" id="" cols="30" rows="10" placeholder="Tulis Kriteria Jabatan..."></textarea>
+                            <textarea
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                name="kriteria" id="" cols="30" rows="5" placeholder="Tulis Kriteria Jabatan..."></textarea>
                             {{-- <input required type="hidden" id="kriteria" name="kriteria">
                             <trix-editor input="kriteria" class="trix-content"
                                 placeholder="Tulis Kriteria Jabatan..."></trix-editor> --}}

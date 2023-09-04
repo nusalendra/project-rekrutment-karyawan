@@ -130,9 +130,13 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
 
 Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
     Route::get('/profil', [ProfilPelamarController::class, 'index'])->name('profil');
-    Route::get('/profil/data-pribadi', [ProfilPelamarController::class, 'editDataPribadi'])->name('edit-data-pribadi');
-    Route::get('/profil/kontak-pribadi', [ProfilPelamarController::class, 'editKontakPribadi'])->name('edit-kontak-pribadi');
-    Route::get('/profil/lengkapi-dokumen', [ProfilPelamarController::class, 'editLengkapiDokumen'])->name('lengkapi-dokumen');
+    Route::get('/profil/data-pribadi/{id}', [ProfilPelamarController::class, 'editDataPribadi'])->name('edit-data-pribadi');
+    Route::POST('/profil/data-pribadi/{id}', [ProfilPelamarController::class, 'updateDataPribadi'])->name('update-data-pribadi');
+    Route::get('/profil/kontak-pribadi/{id}', [ProfilPelamarController::class, 'editKontakPribadi'])->name('edit-kontak-pribadi');
+    Route::POST('/profil/kontak-pribadi/{id}', [ProfilPelamarController::class, 'updateKontakPribadi'])->name('update-kontak-pribadi');
+    Route::get('/profil/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'editLengkapiDokumen'])->name('edit-lengkapi-dokumen');
+    Route::POST('/profil/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'updateLengkapiDokumen'])->name('update-lengkapi-dokumen');
+    
     Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
 
     Route::get('/melamar-pekerjaan', [MelamarPekerjaanController::class, 'index'])->name('melamar-pekerjaan');

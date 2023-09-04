@@ -20,6 +20,15 @@ return new class extends Migration
             $table->string('role')->default('Pelamar');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('TTL')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('jenis_kelamin')->nullable();
+            $table->string('nomor_handphone')->nullable();
+            $table->string('agama')->nullable();
+            $table->string('curriculum_vitae')->nullable();
+            $table->string('pas_foto')->nullable();
+            $table->string('ijazah_transkrip')->nullable();
+            $table->string('surat_lamaran_kerja')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

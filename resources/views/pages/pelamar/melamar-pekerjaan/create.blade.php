@@ -4,10 +4,11 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         <div class="content bg-white bg-auto h-216 mt-2 rounded">
             <div class="px-11 py-9 text-black">
-                <h2 class="font-bold text-xl mb-7">Tambah Data</h2>
+                <h2 class="font-bold text-xl mb-7">Isi Data Lamaran</h2>
 
                 <form action="/lamar/ {{ $jabatan->id }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
                     <div class="mb-4">
                         <label for="kriteria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
                             option</label>
@@ -23,11 +24,11 @@
                         @endforeach
                     </div>
                     <div class="flex mx-3 mt-5">
-                        <a href="/kriteria/index"
+                        <a href="/melamar-pekerjaan"
                             class=" text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Batal</a>
 
                         <button type="submit"
-                            class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tambah</button>
+                            class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan</button>
                     </div>
             </div>
             </form>

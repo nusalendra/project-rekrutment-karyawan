@@ -45,8 +45,10 @@ class JabatanController extends Controller
 
         $jabatan->nama = $request->nama;
         $jabatan->deskripsi = $request->deskripsi;
+        $jabatan->benefit_pekerjaan = $request->benefit_pekerjaan;
         $jabatan->kriteria = $request->kriteria;
-        $jabatan->gaji = $request->gaji;
+        $jabatan->gaji_awal = $request->gaji_awal;
+        $jabatan->gaji_akhir = $request->gaji_akhir;
         $jabatan->save();
 
         return redirect('/jabatan/index');

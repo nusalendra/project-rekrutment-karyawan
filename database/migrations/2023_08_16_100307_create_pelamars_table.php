@@ -15,12 +15,8 @@ return new class extends Migration
     {
         Schema::create('pelamars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();;
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('lowongan_pekerjaan_id')->constrained('lowongan_pekerjaans');
-            $table->string('TTL')->nullable();
-            $table->string('jenis_kelamin')->nullable();
-            $table->string('nomor_handphone')->nullable();
-            $table->string('agama')->nullable();
             $table->timestamps();
         });
     }
