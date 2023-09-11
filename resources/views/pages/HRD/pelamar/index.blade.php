@@ -34,10 +34,13 @@
                                     <h1 class="flex w-full justify-center">Periode</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Jabatan</h1>
+                                    <h1 class="flex w-full justify-center">Nama Pelamar</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Tanggal Daftar</h1>
+                                    <h1 class="flex w-full justify-center">Jabatan Yang Dilamar</h1>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <h1 class="flex w-full justify-center">Tanggal Melamar</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
@@ -52,13 +55,19 @@
                                         <h1 class="flex w-full justify-center">{{ $index + $data->firstItem() }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->nama }}</h1>
+                                        <h1 class="flex w-full justify-center">{{ $item->lowonganPekerjaan->periode->nama }}
+                                        </h1>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">{{ $item->name }}</h1>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">{{ $item->lowonganPekerjaan->jabatan->nama }}
+                                        </h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
-                                            {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d-m-Y') }}
-                                            s/d
-                                            {{ \Carbon\Carbon::parse($item->tanggal_akhir)->format('d-m-Y') }}
+                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y / H:i:s') }}
                                         </h1>
                                     </td>
                                     <td class="px-6 py-4">

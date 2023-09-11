@@ -9,7 +9,7 @@ class Pelamar extends Model
 {
     use HasFactory;
     protected $table = 'pelamars';
-    protected $fillable = ['user_id', 'lowongan_pekerjaan_id'];
+    protected $fillable = ['user_id', 'lowongan_pekerjaan_id', 'status_lamaran'];
     protected $guarded = [];
 
     public function user()

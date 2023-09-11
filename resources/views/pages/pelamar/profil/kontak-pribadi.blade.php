@@ -32,7 +32,10 @@
                         </svg>
                         <h1 class="font-semibold text-lg tracking-wide">Profil</h1>
                     </a>
-                    <a href="" class="flex w-full h-auto items-center space-x-6 py-4">
+                    @php
+                        $userId = Crypt::encrypt($user->id);
+                    @endphp
+                    <a href="/profil/lengkapi-dokumen/{{ $userId }}" class="flex w-full h-auto items-center space-x-6 py-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd"
                                 d="M14.25 2.5a.25.25 0 0 0-.25-.25H7A2.75 2.75 0 0 0 4.25 5v14A2.75 2.75 0 0 0 7 21.75h10A2.75 2.75 0 0 0 19.75 19V9.147a.25.25 0 0 0-.25-.25H15a.75.75 0 0 1-.75-.75V2.5Zm.75 9.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5h6Zm0 4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5h6Z"

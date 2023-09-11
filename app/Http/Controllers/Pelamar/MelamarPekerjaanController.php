@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\LowonganPekerjaan;
 use App\Models\Periode;
 use App\Models\Jabatan;
 use App\Models\Kriteria;
+use App\Models\Pelamar;
+use App\Models\Penilaian;
 
 class MelamarPekerjaanController extends Controller
 {
@@ -42,11 +45,11 @@ class MelamarPekerjaanController extends Controller
      */
     public function create($id)
     {
-        $jabatan = Jabatan::findOrFail($id);
+        $user = Auth::user();
+        $lowonganPekerjaan = LowonganPekerjaan::with('jabatan', 'periode')->findOrFail($id);
+        $kriteriaWithSubkriteria = Kriteria::with('subkriteria')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
 
-        $kriteriaWithSubkriteria = Kriteria::with('subkriteria')->where('jabatan_id', $jabatan->id)->get();
-
-        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('jabatan', 'kriteriaWithSubkriteria'));
+        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'kriteriaWithSubkriteria', 'user'));
     }
 
     /**
@@ -57,7 +60,62 @@ class MelamarPekerjaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pelamar = new Pelamar();
+
+        $pelamar->user_id = $request->user_id;
+        $pelamar->lowongan_pekerjaan_id = $request->lowongan_pekerjaan_id;
+        $pelamar->status_lamaran = "Proses";
+
+        $pelamar->save();
+
+        // Ambil ID pelamar yang baru saja dibuat
+        $pelamarId = $pelamar->getKey();
+
+        // Ambil data kriteria dan subkriteria yang dipilih oleh pengguna dari input request
+        $kriteriaData = $request->input('kriteria');
+
+        // Lakukan iterasi melalui data kriteria yang dipilih
+        foreach ($kriteriaData as $kriteriaId => $subkriteriaId) {
+            $penilaian = new Penilaian();
+
+            // Set atribut-atribut penilaian sesuai dengan data yang diterima
+            $penilaian->pelamar_id = $pelamarId;
+            $penilaian->periode_id = $request->periode_id;
+            $penilaian->jabatan_id = $request->jabatan_id;
+            $penilaian->kriteria_id = $kriteriaId;
+            $penilaian->subkriteria_id = $subkriteriaId;
+            $penilaian->nilai_normalisasi = 0;
+
+            $penilaian->save();
+        }
+
+        $penilaians = Penilaian::where('pelamar_id', $pelamarId)->get();
+
+        foreach ($penilaians as $penilaian) {
+            // Ambil tipe kriteria dari tabel kriteria
+            $tipeKriteria = $penilaian->kriteria->tipe;
+
+            // Ambil nilai maksimum dan minimum dari field max dan min pada tabel Subkriteria
+            $nilaiMax = $penilaian->subkriteria->max;
+            $nilaiMin = $penilaian->subkriteria->min;
+
+            // Ambil nilai penilaian dari field nilai pada tabel Penilaian
+            $nilai = $penilaian->subkriteria->nilai;
+
+            // Lakukan perhitungan nilai normalisasi sesuai dengan tipe
+            if ($tipeKriteria == 'Benefit') {
+                $normalisasi = $nilai / $nilaiMax;
+            } elseif ($tipeKriteria == 'Cost') {
+                $normalisasi = $nilai / $nilaiMin;
+            }
+
+            // Simpan nilai normalisasi kembali ke dalam tabel Penilaian
+            $penilaian->nilai_normalisasi = $normalisasi;
+            $penilaian->save();
+        }
+
+
+        return redirect('/beranda');
     }
 
     /**
