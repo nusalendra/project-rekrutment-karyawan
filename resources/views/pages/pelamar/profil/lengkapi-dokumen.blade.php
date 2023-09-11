@@ -111,7 +111,7 @@
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
-                                                <h1>Nama File Asli</h1>
+                                                <h1>{{ $user->pas_foto }}</h1>
                                             </div>
                                             <div class="relative flex items-center">
                                                 <input type="file" id="pasFoto" accept=".jpg, .jpeg, .png"
@@ -146,7 +146,7 @@
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
-                                                <h1>Nama File Asli</h1>
+                                                <h1>{{ $user->ijazah_transkrip }}</h1>
                                             </div>
                                             <div class="relative flex items-center">
                                                 <input type="file" id="ijazahTranskrip" accept=".pdf" class="hidden"
@@ -181,7 +181,7 @@
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
-                                                <h1>Nama File Asli</h1>
+                                                <h1>{{ $user->surat_lamaran_kerja }}</h1>
                                             </div>
                                             <div class="relative flex items-center">
                                                 <input type="file" id="suratLamaranKerja" accept=".pdf"

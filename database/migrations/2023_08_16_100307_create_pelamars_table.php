@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('lowongan_pekerjaan_id')->constrained('lowongan_pekerjaans');
+            $table->string('status_lamaran');
             $table->timestamps();
         });
     }

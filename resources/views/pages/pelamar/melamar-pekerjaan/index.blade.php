@@ -19,7 +19,7 @@
             </div>
             <div class="card-container mt-5">
                 @foreach ($data as $item)
-                    <a href="#" onclick="showDetail('{{ $item->jabatan->id }}')"
+                    <a href="#" onclick="showDetail('{{ $item->id }}')"
                         class="block max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mb-3">
                         <div class="content overflow-y-hidden h-24">
                             <h5 class="mb-2 text-lg underline font-semibold tracking-tight text-gray-900 dark:text-white">

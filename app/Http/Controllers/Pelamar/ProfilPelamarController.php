@@ -127,7 +127,7 @@ class ProfilPelamarController extends Controller
             $fileName = 'Curriculum Vitae_' . $user->name . '.' . $fileCV->getClientOriginalExtension();
 
             // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
+            $userDirectory = storage_path('app/dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
             if (!file_exists($userDirectory)) {
                 mkdir($userDirectory, 0755, true);
             }
@@ -136,12 +136,14 @@ class ProfilPelamarController extends Controller
             $fileCV->move($userDirectory, $fileName);
 
             $user->curriculum_vitae = $fileName;
-        } elseif ($request->hasFile('pas_foto')) {
+        }
+
+        if ($request->hasFile('pas_foto')) {
             $filePasFoto = $request->file('pas_foto');
             $fileName = 'Pas Foto_' . $user->name . '.' . $filePasFoto->getClientOriginalExtension();
 
             // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
+            $userDirectory = storage_path('app/dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
             if (!file_exists($userDirectory)) {
                 mkdir($userDirectory, 0755, true);
             }
@@ -150,12 +152,14 @@ class ProfilPelamarController extends Controller
             $filePasFoto->move($userDirectory, $fileName);
 
             $user->pas_foto = $fileName;
-        } elseif ($request->hasFile('ijazah_transkrip')) {
+        }
+
+        if ($request->hasFile('ijazah_transkrip')) {
             $fileIjazahTranskrip = $request->file('ijazah_transkrip');
             $fileName = 'Ijazah & Transkrip_' . $user->name . '.' . $fileIjazahTranskrip->getClientOriginalExtension();
 
             // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
+            $userDirectory = storage_path('app/dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
             if (!file_exists($userDirectory)) {
                 mkdir($userDirectory, 0755, true);
             }
@@ -164,12 +168,14 @@ class ProfilPelamarController extends Controller
             $fileIjazahTranskrip->move($userDirectory, $fileName);
 
             $user->ijazah_transkrip = $fileName;
-        } elseif ($request->hasFile('surat_lamaran_kerja')) {
+        }
+
+        if ($request->hasFile('surat_lamaran_kerja')) {
             $fileSuratLamaranKerja = $request->file('surat_lamaran_kerja');
             $fileName = 'Surat Lamaran Kerja_' . $user->name . '.' . $fileSuratLamaranKerja->getClientOriginalExtension();
 
             // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
+            $userDirectory = storage_path('app/dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
             if (!file_exists($userDirectory)) {
                 mkdir($userDirectory, 0755, true);
             }
