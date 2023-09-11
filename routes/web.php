@@ -127,7 +127,6 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
     });
 });
 
-
 Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
     Route::get('/profil', [ProfilPelamarController::class, 'index'])->name('profil');
     Route::get('/profil/data-pribadi/{id}', [ProfilPelamarController::class, 'editDataPribadi'])->name('edit-data-pribadi');
