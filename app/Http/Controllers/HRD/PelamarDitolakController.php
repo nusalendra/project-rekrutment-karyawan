@@ -4,8 +4,10 @@ namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Pelamar;
+use Illuminate\Support\Facades\Crypt;
 
-class PenilaianController extends Controller
+class PelamarDitolakController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,9 @@ class PenilaianController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Ditolak')->get();
+
+        return view('pages.HRD.pelamar-ditolak.index', ['title' => 'Pelamar Ditolak'], compact('data'));
     }
 
     /**
@@ -57,7 +61,12 @@ class PenilaianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pelamarId = Crypt::decrypt($id);
+        $data = Pelamar::with('user')->findOrFail($pelamarId);
+
+        $dataPenilaian = $data->penilaian;
+
+        return view('pages.HRD.pelamar-ditolak.detail', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId'));
     }
 
     /**

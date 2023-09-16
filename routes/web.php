@@ -13,7 +13,9 @@ use App\Http\Controllers\Guest\LamaranPekerjaanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HRD\PeriodeController;
 use App\Http\Controllers\HRD\LowonganPekerjaanController;
-use App\Http\Controllers\HRD\PelamarController;
+use App\Http\Controllers\HRD\AntrianPelamarController;
+use App\Http\Controllers\HRD\PelamarDisetujuiController;
+use App\Http\Controllers\HRD\PelamarDitolakController;
 
 // Manajer Controller
 use App\Http\Controllers\Manajer\JabatanController;
@@ -56,7 +58,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     Route::get('/dashboard-hrd', [DashboardController::class, 'indexHRD'])->name('dashboardHRD');
 
     Route::prefix('periode')->group(function () {
-        Route::get('/index', [PeriodeController::class, 'index'])->name('periodeIndex');
+        Route::get('/', [PeriodeController::class, 'index'])->name('periode');
         Route::get('/create', [PeriodeController::class, 'create'])->name('periodeCreate');
         Route::post('/create', [PeriodeController::class, 'store'])->name('periodeStore');
         Route::get('/edit/{id}', [PeriodeController::class, 'edit'])->name('periodeEdit');
@@ -65,7 +67,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     })->name('periode');
 
     Route::prefix('lowongan-pekerjaan')->group(function () {
-        Route::get('/index', [LowonganPekerjaanController::class, 'index'])->name('lowonganPekerjaanIndex');
+        Route::get('/', [LowonganPekerjaanController::class, 'index'])->name('lowonganPekerjaan');
         Route::get('/create', [LowonganPekerjaanController::class, 'create'])->name('lowonganPekerjaanCreate');
         Route::post('/create', [LowonganPekerjaanController::class, 'store'])->name('lowonganPekerjaanStore');
         Route::get('/edit/{id}', [LowonganPekerjaanController::class, 'edit'])->name('lowonganPekerjaanEdit');
@@ -73,14 +75,21 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/delete/{id}', [LowonganPekerjaanController::class, 'destroy'])->name('lowonganPekerjaanDestroy');
     })->name('lowongan-pekerjaan');
 
-    Route::prefix('daftar-pelamar')->group(function () {
-        Route::get('/index', [PelamarController::class, 'index'])->name('daftarPelamarIndex');
-        Route::get('/create', [PelamarController::class, 'create'])->name('daftarPelamarCreate');
-        Route::post('/create', [PelamarController::class, 'store'])->name('daftarPelamarStore');
-        Route::get('/edit/{id}', [PelamarController::class, 'edit'])->name('daftarPelamarEdit');
-        Route::put('/edit/{id}', [PelamarController::class, 'update'])->name('daftarPelamarUpdate');
-        Route::get('/delete/{id}', [PelamarController::class, 'destroy'])->name('daftarPelamarDestroy');
-    })->name('daftar-pelamar');
+    Route::prefix('antrian-pelamar')->group(function () {
+        Route::get('/', [AntrianPelamarController::class, 'index'])->name('antrianPelamar');
+        Route::get('/detail/{id}', [AntrianPelamarController::class, 'edit'])->name('antrianPelamarDetail');
+        Route::POST('/detail', [AntrianPelamarController::class, 'update'])->name('antrianPelamarUpdate');
+    })->name('antrian-pelamar');
+
+    Route::prefix('pelamar-disetujui')->group(function () {
+        Route::get('/', [PelamarDisetujuiController::class, 'index'])->name('pelamarDisetujui');
+        Route::get('/detail/{id}', [PelamarDisetujuiController::class, 'edit'])->name('pelamarDisetujuiDetail');
+    })->name('pelamar-disetujui');
+
+    Route::prefix('pelamar-ditolak')->group(function () {
+        Route::get('/', [PelamarDitolakController::class, 'index'])->name('pelamarDitolak');
+        Route::get('/detail/{id}', [PelamarDitolakController::class, 'edit'])->name('pelamarDitolakDetail');
+    })->name('pelamar-ditolak');
 
     Route::fallback(function () {
         return view('pages/utility/404');

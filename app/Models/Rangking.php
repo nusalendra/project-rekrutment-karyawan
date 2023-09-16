@@ -13,6 +13,6 @@ class Rangking extends Model
     protected $guarded = [];
 
     public function pelamar() {
-        return $this->hasOne(Pelamar::class);
+        return $this->belongsTo(Pelamar::class);
     }
 }

@@ -14,7 +14,7 @@ class Pelamar extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function lowonganPekerjaan()
@@ -24,5 +24,10 @@ class Pelamar extends Model
     public function penilaian()
     {
         return $this->hasMany(Penilaian::class);
+    }
+
+    public function rangking()
+    {
+        return $this->hasOne(Rangking::class);
     }
 }

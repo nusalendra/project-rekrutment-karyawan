@@ -71,6 +71,6 @@ class User extends Authenticatable
 
     public function pelamar()
     {
-        return $this->hasOne(Pelamar::class);
+        return $this->hasOne(Pelamar::class, 'user_id');
     }
 }
