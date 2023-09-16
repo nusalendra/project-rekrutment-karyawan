@@ -50,25 +50,25 @@
                         </a>
                     </li>
                     <!-- Proses Rekruitmen -->
-                    <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'bg-gray' }} @endif"
-                        x-data="{ open: {{ in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan', 'daftar-pelamar']) ? 1 : 0 }} }">
+                    <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan'])) {{ 'bg-gray' }} @endif"
+                        x-data="{ open: {{ in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan']) ? 1 : 0 }} }">
                         <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['proses_rekruitmen'])) {{ 'hover:text-black' }} @endif"
                             href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-300' }}@else{{ 'text-slate-400' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan'])) {{ 'text-indigo-300' }}@else{{ 'text-slate-400' }} @endif"
                                             d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-700' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-700' }} @endif"
                                             d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif"
                                             d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
                                     </svg>
                                     <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan', 'daftar-pelamar'])) {{ 'text-blue-600' }} @endif">Proses
+                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['periode', 'lowongan-pekerjaan'])) {{ 'text-blue-600' }} @endif">Proses
                                         Rekruitmen</span>
                                 </div>
                                 <!-- Icon -->
@@ -85,62 +85,84 @@
                             <ul class="pl-9 mt-1 @if (!in_array(Request::segment(1), ['ecommerce'])) {{ 'hidden' }} @endif"
                                 :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('periodeIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/periode/index">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('periode')) {{ 'text-blue-600' }} @endif"
+                                        href="/periode">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Periode</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('lowonganPekerjaanIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/lowongan-pekerjaan/index">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('lowonganPekerjaan')) {{ 'text-blue-600' }} @endif"
+                                        href="/lowongan-pekerjaan">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Kelola
                                             Lowongan Pekerjaan</span>
                                     </a>
                                 </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('daftarPelamarIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/daftar-pelamar/index">
-                                        <span
-                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Daftar
-                                            Pelamar</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
-                    {{-- Validasi --}}
-                    <li
-                        class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['validasi'])) {{ 'bg-gray' }} @endif">
-                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['validasi'])) {{ 'hover:text-blue-600' }} @endif"
-                            href="/penilaian/index">
+                    {{-- Validasi Pelamar --}}
+                    <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['antrian-pelamar', 'pelamar-disetujui', 'pelamar-ditolak'])) {{ 'bg-gray' }} @endif"
+                        x-data="{ open: {{ in_array(Request::segment(1), ['antrian-pelamar', 'pelamar-disetujui', 'pelamar-ditolak']) ? 1 : 0 }} }">
+                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['proses_rekruitmen'])) {{ 'hover:text-black' }} @endif"
+                            href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['validasi'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
+                                            class="fill-current @if (in_array(Request::segment(1), ['antrian-pelamar', 'pelamar-disetujui', 'pelamar-ditolak'])) {{ 'text-indigo-300' }}@else{{ 'text-slate-400' }} @endif"
+                                            d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['validasi'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
-                                            d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
+                                            class="fill-current @if (in_array(Request::segment(1), ['antrian-pelamar', 'pelamar-disetujui', 'pelamar-ditolak'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-700' }} @endif"
+                                            d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['validasi'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
-                                            d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
+                                            class="fill-current @if (in_array(Request::segment(1), ['antrian-pelamar', 'pelamar-disetujui', 'pelamar-ditolak'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif"
+                                            d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
                                     </svg>
                                     <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['validasi'])) {{ 'text-blue-600' }} @endif">Validasi
+                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['antrian-pelamar', 'pelamar-disetujui', 'pelamar-ditolak'])) {{ 'text-blue-600' }} @endif">Validasi
                                         Pelamar</span>
                                 </div>
                                 <!-- Icon -->
                                 <div
                                     class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['validasi'])) {{ 'rotate-180' }} @endif"
+                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['ecommerce'])) {{ 'rotate-180' }} @endif"
                                         :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
+                                        <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
                                     </svg>
                                 </div>
                             </div>
                         </a>
+                        <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                            <ul class="pl-9 mt-1 @if (!in_array(Request::segment(1), ['ecommerce'])) {{ 'hidden' }} @endif"
+                                :class="open ? '!block' : 'hidden'">
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('antrianPelamar')) {{ 'text-blue-600' }} @endif"
+                                        href="/antrian-pelamar">
+                                        <span
+                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Antrian
+                                            Pelamar</span>
+                                    </a>
+                                </li>
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('pelamarDisetujui')) {{ 'text-blue-600' }} @endif"
+                                        href="/pelamar-disetujui">
+                                        <span
+                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pelamar
+                                            Disetujui</span>
+                                    </a>
+                                </li>
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('pelamarDitolak')) {{ 'text-blue-600' }} @endif"
+                                        href="/pelamar-ditolak">
+                                        <span
+                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pelamar
+                                            Ditolak</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     {{-- Perangkingan --}}
                     <li

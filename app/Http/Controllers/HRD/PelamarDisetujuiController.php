@@ -5,8 +5,9 @@ namespace App\Http\Controllers\HRD;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
+use Illuminate\Support\Facades\Crypt;
 
-class PelamarController extends Controller
+class PelamarDisetujuiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +16,9 @@ class PelamarController extends Controller
      */
     public function index()
     {
-        $data = Pelamar::join('users', 'users.id', '=', 'pelamars.user_id')
-            ->with('lowonganPekerjaan')->whereNotNull('lowongan_pekerjaan_id')->simplePaginate(8);
+        $data = Pelamar::with('user', 'lowonganPekerjaan', 'rangking')->where('status_lamaran', 'Disetujui')->get();
 
-        return view('pages.HRD.pelamar.index', ['title' => 'Daftar Pelamar'], compact('data'));
+        return view('pages.HRD.pelamar-disetujui.index', ['title' => 'Pelamar Disetujui'], compact('data'));
     }
 
     /**
@@ -61,7 +61,12 @@ class PelamarController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pelamarId = Crypt::decrypt($id);
+        $data = Pelamar::with('user')->findOrFail($pelamarId);
+
+        $dataPenilaian = $data->penilaian;
+
+        return view('pages.HRD.pelamar-disetujui.detail', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId'));
     }
 
     /**

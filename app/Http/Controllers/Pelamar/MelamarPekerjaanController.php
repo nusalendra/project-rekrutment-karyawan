@@ -167,12 +167,13 @@ class MelamarPekerjaanController extends Controller
     {
         $jabatan = Jabatan::findOrFail($id);
 
-        // Mengambil informasi lowongan pekerjaan terkait
         $lowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->first();
-        // $subkriteria = Subkriteria::where('jabatan_id', $jabatan->id)->first();
 
-        // Lakukan proses untuk mengambil data detail sesuai dengan ID card yang dipilih
-        // Misalnya, buat view untuk menampilkan data detail
-        return view('pages.pelamar.melamar-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan'));
+        $user = Auth::user();
+        $statusLamaran = Pelamar::where('user_id', $user->id)
+            ->where('lowongan_pekerjaan_id', $lowonganPekerjaan->id)
+            ->value('status_lamaran');
+
+        return view('pages.pelamar.melamar-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan', 'statusLamaran'));
     }
 }
