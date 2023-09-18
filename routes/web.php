@@ -16,6 +16,7 @@ use App\Http\Controllers\HRD\LowonganPekerjaanController;
 use App\Http\Controllers\HRD\AntrianPelamarController;
 use App\Http\Controllers\HRD\PelamarDisetujuiController;
 use App\Http\Controllers\HRD\PelamarDitolakController;
+use App\Http\Controllers\HRD\HasilValidasiController;
 
 // Manajer Controller
 use App\Http\Controllers\Manajer\JabatanController;
@@ -90,6 +91,10 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/', [PelamarDitolakController::class, 'index'])->name('pelamarDitolak');
         Route::get('/detail/{id}', [PelamarDitolakController::class, 'edit'])->name('pelamarDitolakDetail');
     })->name('pelamar-ditolak');
+
+    Route::prefix('hasil-validasi')->group(function () {
+        Route::get('/', [HasilValidasiController::class, 'index'])->name('hasil-validasi');
+    })->name('hasil-validasi');
 
     Route::fallback(function () {
         return view('pages/utility/404');

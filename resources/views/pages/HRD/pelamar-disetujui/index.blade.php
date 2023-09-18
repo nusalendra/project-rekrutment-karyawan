@@ -5,7 +5,7 @@
         <div class="bg-stone-200 bg-auto rounded h-216">
             <div class="px-12 pt-9 text-black">
                 <div class="flex justify-between items-center mb-8">
-                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Antrian Pelamar
+                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Pelamar Disetujui
                     </h2>
                 </div>
                 <div class="relative overflow-x-auto">
@@ -52,7 +52,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
-                                            {{ \Carbon\Carbon::parse($item->rangking->created_at)->format('H:i:s / d-m-Y') }}
+                                            {{ \Carbon\Carbon::parse($item->hasilValidasi->created_at)->format('H:i:s / d-m-Y') }}
                                         </h1>
                                     </td>
                                     <td class="px-6 py-4">

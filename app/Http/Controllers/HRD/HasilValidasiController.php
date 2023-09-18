@@ -4,8 +4,9 @@ namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Pelamar;
 
-class RangkingController extends Controller
+class HasilValidasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,13 @@ class RangkingController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pelamar::with('user', 'lowonganPekerjaan')
+            ->join('hasil_validasis', 'pelamars.id', 'hasil_validasis.pelamar_id')
+            ->where('status_lamaran', 'Disetujui')
+            ->orderBy('hasil_validasis.hasil_penilaian', 'desc')
+            ->get();
+
+        return view('pages.HRD.hasil-validasi.index', ['title' => 'Hasil Validasi Pelamar'], compact('data'));
     }
 
     /**

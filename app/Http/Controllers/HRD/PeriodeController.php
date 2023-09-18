@@ -18,7 +18,7 @@ class PeriodeController extends Controller
     {
         $data = Periode::simplePaginate(8);
 
-        return view('pages.HRD.periode.index', ['title' => 'Pelatihan'], compact('data'));
+        return view('pages.HRD.periode.index', ['title' => 'Periode'], compact('data'));
     }
 
     /**
@@ -47,7 +47,7 @@ class PeriodeController extends Controller
 
         $periode->save();
 
-        return redirect('/periode/index');
+        return redirect('/periode');
     }
 
     /**
@@ -89,7 +89,7 @@ class PeriodeController extends Controller
 
         $periode->save();
 
-        return redirect('periode/index');
+        return redirect('periode');
     }
 
     /**
@@ -104,6 +104,6 @@ class PeriodeController extends Controller
 
         $periode->delete();
 
-        return redirect('periode/index');
+        return redirect('periode');
     }
 }

@@ -5,7 +5,8 @@
         <div class="bg-stone-200 bg-auto rounded h-216">
             <div class="px-12 pt-9 text-black">
                 <div class="flex justify-between items-center mb-8">
-                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Pelamar Ditolak
+                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Hasil Validasi
+                        Pelamar
                     </h2>
                 </div>
                 <div class="relative overflow-x-auto">
@@ -14,7 +15,7 @@
                             class="text-md border-x border-gray-300 text-gray-700 bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">No</h1>
+                                    <h1 class="flex w-full justify-center">Peringkat</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Nama Lengkap</h1>
@@ -23,10 +24,7 @@
                                     <h1 class="flex w-full justify-center">Posisi Dilamar</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Status Lamaran</h1>
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Tanggal Lamaran Ditolak</h1>
+                                    <h1 class="flex w-full justify-center">Skor Pelamar</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
@@ -48,12 +46,7 @@
                                         </h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">
-                                            {{ \Carbon\Carbon::parse($item->updated_at)->format('H:i:s / d-m-Y') }}
-                                        </h1>
+                                        <h1 class="flex w-full justify-center">{{ $item->hasil_penilaian }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
@@ -61,7 +54,7 @@
                                                 $pelamarIdEncrypt = Crypt::encrypt($item->id);
                                             @endphp
                                             {{-- Edit --}}
-                                            <a href="/pelamar-ditolak/detail/{{ $pelamarIdEncrypt }}"
+                                            <a href="/antrian-pelamar/detail/{{ $pelamarIdEncrypt }}"
                                                 class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                                     fill="currentColor" class="bi bi-person-lines-fill mt-0.5"

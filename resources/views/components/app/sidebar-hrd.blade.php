@@ -164,32 +164,31 @@
                             </ul>
                         </div>
                     </li>
-                    {{-- Perangkingan --}}
+                    {{-- Hasil Validasi --}}
                     <li
-                        class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['ranking'])) {{ 'bg-gray' }} @endif">
-                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['ranking'])) {{ 'hover:text-blue-600' }} @endif"
-                            href="/ranking/index">
+                        class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['hasil-validasi'])) {{ 'bg-gray' }} @endif">
+                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['hasil-validasi'])) {{ 'hover:text-blue-600' }} @endif"
+                            href="/hasil-validasi">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['ranking'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['hasil-validasi'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-400' }} @endif"
                                             d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['ranking'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['hasil-validasi'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-600' }} @endif"
                                             d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
                                         <path
-                                            class="fill-current @if (in_array(Request::segment(1), ['ranking'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
+                                            class="fill-current @if (in_array(Request::segment(1), ['hasil-validasi'])) {{ 'text-indigo-200' }}@else{{ 'text-slate-400' }} @endif"
                                             d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
                                     </svg>
                                     <span
-                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['ranking'])) {{ 'text-blue-600' }} @endif">Perankingan
-                                        Pelamar</span>
+                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['hasil-validasi'])) {{ 'text-blue-600' }} @endif">Hasil Validasi Pelamar</span>
                                 </div>
                                 <!-- Icon -->
                                 <div
                                     class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['ranking'])) {{ 'rotate-180' }} @endif"
+                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['hasil-validasi'])) {{ 'rotate-180' }} @endif"
                                         :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
                                     </svg>
                                 </div>
