@@ -16,8 +16,8 @@ class PelamarDisetujuiController extends Controller
      */
     public function index()
     {
-        $data = Pelamar::with('user', 'lowonganPekerjaan', 'rangking')->where('status_lamaran', 'Disetujui')->get();
-
+        $data = Pelamar::with('user', 'lowonganPekerjaan', 'hasilValidasi')->where('status_lamaran', 'Disetujui')->get();
+        
         return view('pages.HRD.pelamar-disetujui.index', ['title' => 'Pelamar Disetujui'], compact('data'));
     }
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\HRD;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
-use App\Models\Rangking;
+use App\Models\HasilValidasi;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Kriteria;
 
@@ -112,12 +112,12 @@ class AntrianPelamarController extends Controller
             }
         }
 
-        $rangking = new Rangking();
+        $hasilValidasi = new HasilValidasi();
 
-        $rangking->pelamar_id = $pelamarId;
-        $rangking->hasil_penilaian = $totalNilai;
+        $hasilValidasi->pelamar_id = $pelamarId;
+        $hasilValidasi->hasil_penilaian = $totalNilai;
 
-        $rangking->save();
+        $hasilValidasi->save();
 
         $dataPelamar->status_lamaran = 'Disetujui';
 

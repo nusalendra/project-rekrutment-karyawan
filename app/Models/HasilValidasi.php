@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rangking extends Model
+class HasilValidasi extends Model
 {
     use HasFactory;
-    protected $table = 'rangkings';
+    protected $table = 'hasil_validasis';
     protected $fillable = ['pelamar_id', 'hasil_penilaian', 'tanggal_akhir'];
     protected $guarded = [];
 

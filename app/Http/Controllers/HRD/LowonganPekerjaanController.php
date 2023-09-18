@@ -24,7 +24,7 @@ class LowonganPekerjaanController extends Controller
         $tanggal = Carbon::now();
         $tanggalSekarang = $tanggal->format('Y-m-d');
 
-        return view('pages.HRD.lowongan-pekerjaan.index', ['title' => 'Lowongan Pekerjaan'], compact('data', 'tanggalSekarang'));
+        return view('pages.HRD.lowongan-pekerjaan.index', ['title' => 'Kelola Lowongan Pekerjaan'], compact('data', 'tanggalSekarang'));
     }
 
     /**
@@ -60,7 +60,7 @@ class LowonganPekerjaanController extends Controller
 
         $lowonganPekerjaan->save();
 
-        return redirect('lowongan-pekerjaan/index');
+        return redirect('lowongan-pekerjaan');
     }
 
     /**
@@ -118,7 +118,7 @@ class LowonganPekerjaanController extends Controller
 
         $lowonganPekerjaan->save();
 
-        return redirect('lowongan-pekerjaan/index');
+        return redirect('lowongan-pekerjaan');
     }
 
     /**
@@ -133,6 +133,6 @@ class LowonganPekerjaanController extends Controller
 
         $lowonganPekerjaan->delete();
 
-        return redirect('/lowongan-pekerjaan/index');
+        return redirect('/lowongan-pekerjaan');
     }
 }

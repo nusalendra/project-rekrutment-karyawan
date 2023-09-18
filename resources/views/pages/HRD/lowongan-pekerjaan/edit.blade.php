@@ -57,7 +57,7 @@
                                     </svg>
                                 </div>
                                 @php
-                                    $tanggalMulaiPeriode = \Carbon\Carbon::parse($periode->tanggal_mulai);
+                                    $tanggalMulaiPeriode = \Carbon\Carbon::parse($lowonganPekerjaan->tanggal_mulai);
                                 @endphp
                                 <input value="{{ $tanggalMulaiPeriode->format('d-m-Y') }}" type="text" id="tanggal_mulai"
                                     name="tanggal_mulai" placeholder="dd-mm-yyyy" required
@@ -81,7 +81,7 @@
                                     </svg>
                                 </div>
                                 @php
-                                    $tanggalAkhirPeriode = \Carbon\Carbon::parse($periode->tanggal_akhir);
+                                    $tanggalAkhirPeriode = \Carbon\Carbon::parse($lowonganPekerjaan->tanggal_akhir);
                                 @endphp
                                 <input value="{{ $tanggalAkhirPeriode->format('d-m-Y') }}" type="text" id="tanggal_akhir"
                                     name="tanggal_akhir" placeholder="dd-mm-yyyy" required
@@ -101,7 +101,7 @@
 
                     </div>
                     <div class="flex mx-3 mt-5">
-                        <a href="/lowongan-pekerjaan/index"
+                        <a href="/lowongan-pekerjaan"
                             class=" text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Batal</a>
 
                         <button type="submit"
