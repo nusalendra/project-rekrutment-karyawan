@@ -92,7 +92,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('lowonganPekerjaan')) {{ 'text-blue-600' }} @endif"
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('lowongan-pekerjaan')) {{ 'text-blue-600' }} @endif"
                                         href="/lowongan-pekerjaan">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Kelola

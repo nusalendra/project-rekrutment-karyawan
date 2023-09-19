@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     @endforeach
-                    <form action="{{ route('antrianPelamarUpdate') }}" method="POST">
+                    <form action="{{ route('antrian-pelamar-update') }}" method="POST">
                         @csrf
 
                         <input type="hidden" name="pelamar_id" value="{{ $data->id }}">
@@ -66,7 +66,7 @@
                                 class="text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
                                 disabled>{{ $data->status_lamaran }}</button>
                         @else
-                            <a href="{{ route('antrianPelamar') }}"
+                            <a href="{{ route('antrian-pelamar') }}"
                                 class="tidakLulusButton text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Kembali</a>
                             <button type="submit" name="status_lamaran" value="Disetujui"
                                 class="lulusButton text-white bg-green-400 hover:bg-green-500 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">

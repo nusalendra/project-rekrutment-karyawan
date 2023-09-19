@@ -6,7 +6,7 @@
             <div class="px-11 py-9 text-black">
                 <h2 class="font-bold text-xl mb-7">Tambah Data</h2>
 
-                <form action="{{ route('lowonganPekerjaanUpdate', $lowonganPekerjaan->id) }}" method="POST"
+                <form action="{{ route('lowongan-pekerjaan-update', $lowonganPekerjaan->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')

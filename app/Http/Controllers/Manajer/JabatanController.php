@@ -51,7 +51,7 @@ class JabatanController extends Controller
         $jabatan->gaji_akhir = $request->gaji_akhir;
         $jabatan->save();
 
-        return redirect('/jabatan/index');
+        return redirect('/jabatan');
     }
 
     /**
@@ -100,7 +100,7 @@ class JabatanController extends Controller
 
         $jabatan->save();
 
-        return redirect('/jabatan/index');
+        return redirect('/jabatan');
     }
 
     /**
@@ -115,6 +115,6 @@ class JabatanController extends Controller
         
         $jabatan->delete();
 
-        return redirect('/jabatan/index');
+        return redirect('/jabatan');
     }
 }
