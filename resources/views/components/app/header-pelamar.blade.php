@@ -20,7 +20,6 @@
                     Pekerjaan</a>
                 <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Notifikasi</a>
                 <a href="/lamaran-saya" class="{{ Request::is('lamaran-saya') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
-                    Saya</a>
             </div>
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">

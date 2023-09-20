@@ -29,6 +29,7 @@ use App\Http\Controllers\Pelamar\ProfilPelamarController;
 use App\Http\Controllers\Pelamar\LamaranSayaController;
 use App\Http\Controllers\Pelamar\NotifikasiController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

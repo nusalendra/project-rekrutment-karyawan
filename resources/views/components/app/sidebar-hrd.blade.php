@@ -138,7 +138,7 @@
                             <ul class="pl-9 mt-1 @if (!in_array(Request::segment(1), ['ecommerce'])) {{ 'hidden' }} @endif"
                                 :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('antrianPelamar')) {{ 'text-blue-600' }} @endif"
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('antrian-pelamar')) {{ 'text-blue-600' }} @endif"
                                         href="/antrian-pelamar">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Antrian
@@ -146,7 +146,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('pelamarDisetujui')) {{ 'text-blue-600' }} @endif"
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('pelamar-disetujui')) {{ 'text-blue-600' }} @endif"
                                         href="/pelamar-disetujui">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pelamar
@@ -154,7 +154,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('pelamarDitolak')) {{ 'text-blue-600' }} @endif"
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('pelamar-ditolak')) {{ 'text-blue-600' }} @endif"
                                         href="/pelamar-ditolak">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pelamar

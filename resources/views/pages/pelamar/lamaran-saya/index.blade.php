@@ -58,16 +58,16 @@
                                     <td class="px-6 py-4">
                                         @if ($item->status_lamaran == 'Proses')
                                             <button type="button"
-                                                class="flex w-full justify-center focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  font-medium rounded-lg text-sm py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900" @disabled(true)>
+                                                class="flex w-full justify-center focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900" @disabled(true)>
                                                 Lamaran di
                                                 {{ $item->status_lamaran }}</button>
                                         @elseif($item->status_lamaran == 'Disetujui')
                                             <button type="button"
-                                                class="flex w-full justify-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300  font-medium rounded-lg text-sm py-2.5 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                                                class="flex w-full justify-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm py-2.5 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
                                                 @disabled(true)>Lamaran di Setujui</button>
                                         @elseif($item->status_lamaran == 'Ditolak')
                                             <button type="button"
-                                                class="flex w-full justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  font-medium rounded-lg text-sm py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                                class="flex w-full justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                                 @disabled(true)>Lamaran di Tolak</button>
                                         @endif
                                     </td>
