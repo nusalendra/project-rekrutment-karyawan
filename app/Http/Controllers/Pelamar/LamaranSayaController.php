@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Guest;
+namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Pelamar;
 
-class LoginController extends Controller
+class LamaranSayaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,10 @@ class LoginController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-
-        return view('auth.login', compact('user'));
+        $user = Auth::user();
+        $data = Pelamar::with('lowonganPekerjaan', 'user')->where('user_id', $user->id)->get();
+        
+        return view('pages.pelamar.lamaran-saya.index', ['title' => 'Lamaran Saya'], compact('data'));
     }
 
     /**
@@ -40,24 +41,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $credentials = [
-            'email' => $request['email'],
-            'password' => $request['password'],
-        ];
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            if (Auth::user()->role == "HRD") {
-                return redirect('/dashboard-hrd');
-            } elseif (Auth::user()->role == "Manajer") {
-                return redirect('/dashboard-manajer');
-            } elseif (Auth::user()->role == 'Pelamar') {
-                return redirect('/profil');
-            }
-        }
-
-        return back()->with('loginError', 'Email atau Password Anda tidak valid');
+        //
     }
 
     /**

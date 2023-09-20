@@ -19,8 +19,7 @@
                 <a href="/melamar-pekerjaan" class="{{ Request::is('melamar-pekerjaan') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Pekerjaan</a>
                 <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Notifikasi</a>
-                <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
-                    Saya</a>
+                <a href="/lamaran-saya" class="{{ Request::is('lamaran-saya') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
             </div>
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">

@@ -6,7 +6,7 @@
             <div class="px-11 py-9 text-black">
                 <h2 class="font-bold text-xl mb-7">Detail</h2>
 
-                <form action="{{ route('jabatanUpdate', $jabatan->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('jabatan-update', $jabatan->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="flex mb-1">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="flex mx-3 mt-5">
-                        <a href="/jabatan/index"
+                        <a href="/jabatan"
                             class=" text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Kembali</a>
                     </div>
             </div>
