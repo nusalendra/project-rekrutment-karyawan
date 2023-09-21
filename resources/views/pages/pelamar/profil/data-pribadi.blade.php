@@ -103,6 +103,41 @@
                                             name="agama">
                                     @endif
                                 </div>
+                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
+                                    <h1>Foto Profil</h1>
+                                    @if (!@empty($user->profile_photo_path))
+                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="profile_photo_path" value="{{ $user->profile_photo_path }}">
+                                        {{-- Sudah ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="flex w-full justify-between">
+                                                <h1>{{ $user->profile_photo_path }}</h1>
+                                            </div>
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="profile_photo_path" accept=".jpg, .jpeg, .png"
+                                                    class="hidden" name="profile_photo_path" onchange="displayFileNameProfilePhotoPath()" />
+                                                <label for="profile_photo_path"
+                                                    class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
+                                                    Ganti File
+                                                </label>
+                                                <p class="ml-6" id="fileProfilePhotoPath"></p>
+                                            </div>
+                                        </div>
+                                    @else
+                                        {{-- Belum ada file --}}
+                                        <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
+                                            <div class="relative flex items-center">
+                                                <input type="file" id="profile_photo_path" accept=".jpg, .jpeg, .png"
+                                                    class="hidden" name="profile_photo_path" onchange="displayFileNameProfilePhotoPath()" />
+                                                <label for="profile_photo_path"
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
+                                                    Pilih File
+                                                </label>
+                                                <p class="ml-6" id="fileProfilePhotoPath"></p>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
                                 <div class="flex w-full h-auto items-center justify-center border-t border-gray-200 pt-3">
                                     <button type="submit"
                                         class="px-9 py-2 text-base text-white font-bold bg-red-500 rounded-md">Simpan
@@ -115,4 +150,11 @@
             </div>
         </div>
     </div>
+    <script>
+        function displayFileNameProfilePhotoPath() {
+            var fileInput = document.getElementById("profile_photo_path");
+            var fileName = document.getElementById("fileProfilePhotoPath");
+            fileName.textContent = fileInput.files[0].name;
+        }
+    </script>
 @endsection
