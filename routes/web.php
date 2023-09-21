@@ -166,4 +166,5 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
     Route::post('/notifikasi/mark-as-read', [NotifikasiController::class, 'markAsRead'])->name('notifikasi-markAsRead');
     Route::post('/notifikasi/mark-all-as-read', [NotifikasiController::class, 'markAllAsRead'])->name('notifikasi-markAllAsRead');
+    Route::get('/notifikasi/delete/{id}', [NotifikasiController::class, 'destroy'])->name('notifikasi-destroy');
 });
