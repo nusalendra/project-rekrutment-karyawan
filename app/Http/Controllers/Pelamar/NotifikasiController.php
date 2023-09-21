@@ -14,11 +14,7 @@ class NotifikasiController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        //
-=======
         return view('pages.pelamar.notifikasi.index', ['title' => 'Notifikasi']);
->>>>>>> b886a3911eca0502270a972ec114961cbc549b25
     }
 
     /**
