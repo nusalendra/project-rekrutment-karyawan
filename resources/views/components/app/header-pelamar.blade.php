@@ -18,14 +18,9 @@
                 <a href="/beranda" class="{{ Request::is('beranda') ? 'text-blue-600' : 'hover:text-blue-700' }}">Beranda</a>
                 <a href="/melamar-pekerjaan" class="{{ Request::is('melamar-pekerjaan') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Pekerjaan</a>
-<<<<<<< HEAD
                 <a href="/notifikasi" class="{{ Request::is('notifikasi') ? 'text-blue-600' : 'hover:text-blue-700' }}">Notifikasi</a>
                 <a href="/lamaran-saya" class="{{ Request::is('lamaran-saya') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Saya</a>
-=======
-                <a href="" class="{{ Request::is('') ? 'text-blue-600' : 'hover:text-blue-700' }}">Notifikasi</a>
-                <a href="/lamaran-saya" class="{{ Request::is('lamaran-saya') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
->>>>>>> b886a3911eca0502270a972ec114961cbc549b25
             </div>
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">

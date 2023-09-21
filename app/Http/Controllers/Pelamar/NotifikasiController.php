@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Notifikasi;
 
 class NotifikasiController extends Controller
 {
@@ -14,7 +16,30 @@ class NotifikasiController extends Controller
      */
     public function index()
     {
-        return view('pages.pelamar.notifikasi.index', ['title' => 'Notifikasi']);
+        $user = Auth::user();
+        $notifikasi = $user->notifikasi()->orderBy('created_at', 'desc')->get();
+
+        return view('pages.pelamar.notifikasi.index', ['title' => 'Notifikasi'], compact('notifikasi'));
+    }
+
+    public function markAsRead(Request $request)
+    {
+        $user = auth()->user();
+        $notifikasi = Notifikasi::find($request->input('notifikasi_id'));
+
+        if ($notifikasi && $notifikasi->user_id === $user->id) {
+            $notifikasi->update(['status' => true]);
+        }
+
+        return response()->json(['message' => 'Notification marked as read']);
+    }
+
+    public function markAllAsRead()
+    {
+        $user = auth()->user();
+        $user->notifikasi->where('status', false)->each->update(['status' => true]);
+
+        return response()->json(['message' => 'All notifications marked as read']);
     }
 
     /**
