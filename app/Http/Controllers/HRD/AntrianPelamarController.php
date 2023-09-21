@@ -8,6 +8,8 @@ use App\Models\Pelamar;
 use App\Models\HasilValidasi;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Kriteria;
+use App\Models\Notifikasi;
+use App\Models\Jabatan;
 
 class AntrianPelamarController extends Controller
 {
@@ -94,8 +96,8 @@ class AntrianPelamarController extends Controller
     {
         $bobotKriteria = Kriteria::pluck('bobot', 'nama');
         $pelamarId = $request->input('pelamar_id');
-        $dataPelamar = Pelamar::with('penilaian')->findOrFail($pelamarId);
-        
+        $dataPelamar = Pelamar::with('penilaian', 'lowonganPekerjaan')->findOrFail($pelamarId);
+
         $totalNilai = 0;
 
         foreach ($bobotKriteria as $kriteriaNama => $bobot) {
@@ -122,6 +124,12 @@ class AntrianPelamarController extends Controller
         $dataPelamar->status_lamaran = 'Disetujui';
 
         $dataPelamar->save();
+
+        $notifikasi = new Notifikasi();
+        $notifikasi->user_id = $dataPelamar->user->id;
+        $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi " . $dataPelamar->lowonganPekerjaan->jabatan->nama . " telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk langkah selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
+
+        $notifikasi->save();
     }
 
     public function lamaranDitolak(Request $request)
@@ -132,6 +140,12 @@ class AntrianPelamarController extends Controller
         $dataPelamar->status_lamaran = 'Ditolak';
 
         $dataPelamar->save();
+
+        $notifikasi = new Notifikasi();
+        $notifikasi->user_id = $dataPelamar->user->id;
+        $notifikasi->pesan = "Kami ingin memberitahu Anda bahwa kami telah menyelesaikan proses seleksi kami, dan kami menentukan bahwa saat ini kami menolak Lamaran Anda pada Posisi " . $dataPelamar->lowonganPekerjaan->jabatan->nama . ". Kami menghargai waktu dan usaha yang telah Anda habiskan dalam melamar di perusahaan kami. Terima kasih atas minat Anda dan kami mendoakan Anda sukses dalam pencarian karier berikutnya.";
+
+        $notifikasi->save();
     }
 
     /**

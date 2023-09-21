@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Pelamar::class, 'user_id');
     }
+
+    public function notifikasi()
+{
+    return $this->hasMany(Notifikasi::class, 'user_id');
+}
 }

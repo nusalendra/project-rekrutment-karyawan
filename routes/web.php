@@ -164,4 +164,6 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
     Route::get('/lamaran-saya', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
 
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
+    Route::post('/notifikasi/mark-as-read', [NotifikasiController::class, 'markAsRead'])->name('notifikasi-markAsRead');
+    Route::post('/notifikasi/mark-all-as-read', [NotifikasiController::class, 'markAllAsRead'])->name('notifikasi-markAllAsRead');
 });
