@@ -127,7 +127,7 @@ class AntrianPelamarController extends Controller
 
         $notifikasi = new Notifikasi();
         $notifikasi->user_id = $dataPelamar->user->id;
-        $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi " . $dataPelamar->lowonganPekerjaan->jabatan->nama . " telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk langkah selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
+        $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $dataPelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk langkah selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
 
         $notifikasi->save();
     }
@@ -143,7 +143,7 @@ class AntrianPelamarController extends Controller
 
         $notifikasi = new Notifikasi();
         $notifikasi->user_id = $dataPelamar->user->id;
-        $notifikasi->pesan = "Kami ingin memberitahu Anda bahwa kami telah menyelesaikan proses seleksi kami, dan kami menentukan bahwa saat ini kami menolak Lamaran Anda pada Posisi " . $dataPelamar->lowonganPekerjaan->jabatan->nama . ". Kami menghargai waktu dan usaha yang telah Anda habiskan dalam melamar di perusahaan kami. Terima kasih atas minat Anda dan kami mendoakan Anda sukses dalam pencarian karier berikutnya.";
+        $notifikasi->pesan = "Kami ingin memberitahu Anda bahwa kami telah menyelesaikan proses seleksi kami, dan kami menentukan bahwa saat ini kami menolak Lamaran Anda pada Posisi <strong>" . $dataPelamar->lowonganPekerjaan->jabatan->nama . "</strong>. Kami menghargai waktu dan usaha yang telah Anda habiskan dalam melamar di perusahaan kami. Terima kasih atas minat Anda dan kami mendoakan Anda sukses dalam pencarian karier berikutnya.";
 
         $notifikasi->save();
     }

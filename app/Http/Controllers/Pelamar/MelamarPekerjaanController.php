@@ -11,6 +11,9 @@ use App\Models\Jabatan;
 use App\Models\Kriteria;
 use App\Models\Pelamar;
 use App\Models\Penilaian;
+use App\Models\Notifikasi;
+
+use function Symfony\Component\String\b;
 
 class MelamarPekerjaanController extends Controller
 {
@@ -115,6 +118,13 @@ class MelamarPekerjaanController extends Controller
             $penilaian->save();
         }
 
+        $pelamar = Pelamar::findOrFail($pelamarId);
+        
+        $notifikasi = new Notifikasi();
+        $notifikasi->user_id = $request->user_id;
+        $notifikasi->pesan = "Lamaran Pekerjaan pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah terkirim. Kami mengapresiasi waktu yang Anda luangkan untuk melamar. Kami akan mengevaluasi setiap lamaran dengan cermat dan akan menghubungi Anda jika Anda dipilih untuk tahap berikutnya.";
+        
+        $notifikasi->save();
 
         return redirect('/beranda');
     }
