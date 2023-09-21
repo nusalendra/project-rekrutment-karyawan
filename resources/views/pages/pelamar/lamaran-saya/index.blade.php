@@ -40,7 +40,7 @@
                                     <h1 class="flex w-full justify-center">Tanggal Melamar</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Lamaran Disetujui / Ditolak</h1>
+                                    <h1 class="flex w-full justify-center">Tanggal Lamaran Divalidasi</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
@@ -75,7 +75,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
-                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</h1>
+                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y, H:i:s') }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         @if ($item->updated_at == null)
@@ -83,7 +83,7 @@
                                                 -</h1>
                                         @else
                                             <h1 class="flex w-full justify-center">
-                                                {{ \Carbon\Carbon::parse($item->updated_at)->format('d-m-Y') }}</h1>
+                                                {{ \Carbon\Carbon::parse($item->updated_at)->format('d-m-Y, H:i:s') }}</h1>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4">

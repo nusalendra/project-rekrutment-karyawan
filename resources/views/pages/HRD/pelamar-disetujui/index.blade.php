@@ -52,7 +52,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
-                                            {{ \Carbon\Carbon::parse($item->hasilValidasi->created_at)->format('H:i:s / d-m-Y') }}
+                                            {{ \Carbon\Carbon::parse($item->hasilValidasi->created_at)->format('d-m-Y, H:i:s') }}
                                         </h1>
                                     </td>
                                     <td class="px-6 py-4">

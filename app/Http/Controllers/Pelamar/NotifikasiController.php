@@ -105,6 +105,10 @@ class NotifikasiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)->findOrFail($id);
+        $notifikasi->delete();
+
+        return redirect('/notifikasi');
     }
 }
