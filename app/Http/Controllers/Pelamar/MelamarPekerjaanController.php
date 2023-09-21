@@ -65,6 +65,7 @@ class MelamarPekerjaanController extends Controller
         $pelamar->user_id = $request->user_id;
         $pelamar->lowongan_pekerjaan_id = $request->lowongan_pekerjaan_id;
         $pelamar->status_lamaran = "Proses";
+        $pelamar->updated_at = null;
 
         $pelamar->save();
 

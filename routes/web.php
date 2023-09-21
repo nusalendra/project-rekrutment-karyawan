@@ -161,4 +161,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
 
     Route::get('/lamaran-saya', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
 
+    Route::get('/lamaran-saya', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
+
+    Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
 });

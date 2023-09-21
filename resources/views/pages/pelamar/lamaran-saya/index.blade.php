@@ -5,6 +5,10 @@
         <div class="bg-stone-200 bg-auto rounded h-216">
             <div class="px-12 pt-9 text-black">
                 <div class="flex justify-between items-center mb-8">
+<<<<<<< HEAD
+                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Antrian Pelamar
+                    </h2>
+=======
                     <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Lamaran Saya
                     </h2>
                     <div class="flex space-x-6 items-center">
@@ -21,6 +25,7 @@
                                 placeholder="Cari Pelatihan...">
                         </div>
                     </div>
+>>>>>>> b886a3911eca0502270a972ec114961cbc549b25
                 </div>
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-base text-left text-black dark:text-gray-400">
@@ -40,6 +45,9 @@
                                     <h1 class="flex w-full justify-center">Tanggal Melamar</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    <h1 class="flex w-full justify-center">Lamaran Disetujui / Ditolak</h1>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
                                 </th>
                             </tr>
@@ -55,6 +63,21 @@
                                         <h1 class="flex w-full justify-center">{{ $item->lowonganPekerjaan->jabatan->nama }}
                                         </h1>
                                     </td>
+<<<<<<< HEAD
+                                    <td class="px-6 py-4 flex justify-center">
+                                        @if ($item->status_lamaran == 'Ditolak')
+                                            <button type="button"
+                                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                                @disabled(true)>Lamaran Ditolak</button>
+                                        @elseif($item->status_lamaran == 'Disetujui')
+                                            <button type="button"
+                                                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                                                @disabled(true)>Lamaran Disetujui</button>
+                                        @else
+                                            <button type="button"
+                                                class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900"
+                                                @disabled(true)>Lamaran Diproses</button>
+=======
                                     <td class="px-6 py-4">
                                         @if ($item->status_lamaran == 'Proses')
                                             <button type="button"
@@ -69,6 +92,7 @@
                                             <button type="button"
                                                 class="flex w-full justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                                 @disabled(true)>Lamaran di Tolak</button>
+>>>>>>> b886a3911eca0502270a972ec114961cbc549b25
                                         @endif
                                     </td>
                                     <td class="px-6 py-4">
@@ -76,6 +100,18 @@
                                             {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
+<<<<<<< HEAD
+                                        @if ($item->updated_at == null)
+                                            <h1 class="flex w-full justify-center">
+                                                -</h1>
+                                        @else
+                                            <h1 class="flex w-full justify-center">
+                                                {{ \Carbon\Carbon::parse($item->updated_at)->format('d-m-Y') }}</h1>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4">
+=======
+>>>>>>> b886a3911eca0502270a972ec114961cbc549b25
                                         <h1 class="flex w-full justify-center">
                                             @php
                                                 $pelamarIdEncrypt = Crypt::encrypt($item->id);
@@ -99,10 +135,17 @@
                     </table>
                     {{-- {{ $data->links() }} --}}
                     {{-- @if ($data->hasPages())
+<<<<<<< HEAD
+                <div class="pagination-links pt-6">
+                    {{ $data->appends(['search' => $searchTerm])->links() }}
+                </div>
+            @endif --}}
+=======
                     <div class="pagination-links pt-6">
                         {{ $data->appends(['search' => $searchTerm])->links() }}
                     </div>
                 @endif --}}
+>>>>>>> b886a3911eca0502270a972ec114961cbc549b25
                 </div>
             </div>
         </div>
