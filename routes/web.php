@@ -26,6 +26,8 @@ use App\Http\Controllers\Manajer\SubkriteriaController;
 // Pelamar Controller
 use App\Http\Controllers\Pelamar\MelamarPekerjaanController;
 use App\Http\Controllers\Pelamar\ProfilPelamarController;
+use App\Http\Controllers\Pelamar\LamaranSayaController;
+use App\Http\Controllers\Pelamar\NotifikasiController;
 
 
 /*
@@ -157,4 +159,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
     Route::get('/lamar/{id}', [MelamarPekerjaanController::class, 'create'])->name('lamarCreate');
     Route::POST('/lamar/{id}', [MelamarPekerjaanController::class, 'store'])->name('lamarStore');
 
+    Route::get('/lamaran-saya', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
+
+    Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
 });
