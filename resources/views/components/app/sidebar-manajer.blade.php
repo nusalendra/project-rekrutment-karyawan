@@ -84,22 +84,22 @@
                             <ul class="pl-9 mt-1 @if (!in_array(Request::segment(1), ['ecommerce'])) {{ 'hidden' }} @endif"
                                 :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('jabatanIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/jabatan/index">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('jabatan')) {{ 'text-blue-600' }} @endif"
+                                        href="/jabatan">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Jabatan</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('kriteriaIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/kriteria/index">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('kriteria')) {{ 'text-blue-600' }} @endif"
+                                        href="/kriteria">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Kriteria</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('subkriteriaIndex')) {{ 'text-blue-600' }} @endif"
-                                        href="/subkriteria/index">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('subkriteria')) {{ 'text-blue-600' }} @endif"
+                                        href="/subkriteria">
                                         <span
                                             class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Subkriteria</span>
                                     </a>

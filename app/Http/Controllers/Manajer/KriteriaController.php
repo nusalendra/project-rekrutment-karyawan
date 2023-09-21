@@ -55,7 +55,7 @@ class KriteriaController extends Controller
 
         $kriteria->save();
 
-        return redirect('/kriteria/index');
+        return redirect('/kriteria');
     }
 
     /**
@@ -111,7 +111,7 @@ class KriteriaController extends Controller
 
         $kriteria->save();
 
-        return redirect('/kriteria/index');
+        return redirect('/kriteria');
     }
 
     /**
@@ -126,6 +126,6 @@ class KriteriaController extends Controller
 
         $kriteria->delete();
 
-        return redirect('/kriteria/index');
+        return redirect('/kriteria');
     }
 }

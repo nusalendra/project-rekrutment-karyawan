@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Pelamar;
 
 class LamaranSayaController extends Controller
@@ -15,8 +16,9 @@ class LamaranSayaController extends Controller
      */
     public function index()
     {
-        $data = Pelamar::with('user', 'lowonganPekerjaan')->get();
-       
+        $user = Auth::user();
+        $data = Pelamar::with('lowonganPekerjaan', 'user')->where('user_id', $user->id)->get();
+        
         return view('pages.pelamar.lamaran-saya.index', ['title' => 'Lamaran Saya'], compact('data'));
     }
 

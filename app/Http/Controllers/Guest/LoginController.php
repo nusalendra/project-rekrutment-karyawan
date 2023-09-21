@@ -52,12 +52,7 @@ class LoginController extends Controller
                 return redirect('/dashboard-hrd');
             } elseif (Auth::user()->role == "Manajer") {
                 return redirect('/dashboard-manajer');
-            } elseif(Auth::user()->role == 'Pelamar') {
-                // $pelamar = new Pelamar();
-                // $pelamar->user_id = $request->user_id;
-
-                // $pelamar->save();
-                
+            } elseif (Auth::user()->role == 'Pelamar') {
                 return redirect('/profil');
             }
         }

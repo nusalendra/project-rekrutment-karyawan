@@ -6,7 +6,7 @@
             <div class="px-11 py-9 text-black">
                 <h2 class="font-bold text-xl mb-7">Tambah Data</h2>
 
-                <form action="{{ route('periodeUpdate', $periode->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('periode-update', $periode->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div>

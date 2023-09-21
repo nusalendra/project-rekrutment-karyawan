@@ -81,7 +81,7 @@ class SubkriteriaController extends Controller
 
         $subkriteria->save();
 
-        return redirect('subkriteria/index');
+        return redirect('subkriteria');
     }
 
     /**
@@ -158,7 +158,7 @@ class SubkriteriaController extends Controller
 
         $subkriteria->save();
 
-        return redirect('subkriteria/index');
+        return redirect('subkriteria');
     }
 
 
@@ -174,7 +174,7 @@ class SubkriteriaController extends Controller
 
         $subkriteria->delete();
 
-        return redirect('subkriteria/index');
+        return redirect('subkriteria');
     }
 
     public function getKriteriaByJabatan($jabatanId)
