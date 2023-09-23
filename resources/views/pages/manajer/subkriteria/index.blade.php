@@ -57,12 +57,6 @@
                                     <h1 class="flex w-full justify-center">Nilai</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Nilai Min</h1>
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Nilai Max</h1>
-                                </th>
-                                <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
                                 </th>
                             </tr>
@@ -88,12 +82,6 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">{{ $item->nilai }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->min }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->max }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">

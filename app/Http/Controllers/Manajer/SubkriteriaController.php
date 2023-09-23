@@ -45,24 +45,24 @@ class SubkriteriaController extends Controller
     public function store(Request $request)
     {
         // Ambil tipe kriteria dari data kriteria yang sesuai
-        $tipeKriteria = Kriteria::where('id', $request->input('kriteria_id'))->value('tipe');
+        // $tipeKriteria = Kriteria::where('id', $request->input('kriteria_id'))->value('tipe');
 
-        $nilaiBaru = $request->input('nilai');
+        // $nilaiBaru = $request->input('nilai');
 
         // Ambil nilai minimal atau maksimal dari data sebelumnya
-        $nilaiMinSebelumnya = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
-            ->whereNotNull('min')->min('min');
-        $nilaiMaxSebelumnya = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
-            ->whereNotNull('max')->max('max');
+        // $nilaiMinSebelumnya = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+        //     ->whereNotNull('min')->min('min');
+        // $nilaiMaxSebelumnya = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+        //     ->whereNotNull('max')->max('max');
 
         // Perbarui nilai minimal atau maksimal pada data sebelumnya jika diperlukan
-        if ($tipeKriteria === 'Cost' && $nilaiMinSebelumnya > $nilaiBaru) {
-            Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
-                ->whereNotNull('min')->update(['min' => $nilaiBaru]);
-        } elseif ($tipeKriteria === 'Benefit' && $nilaiMaxSebelumnya < $nilaiBaru) {
-            Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
-                ->whereNotNull('max')->update(['max' => $nilaiBaru]);
-        }
+        // if ($tipeKriteria === 'Cost' && $nilaiMinSebelumnya > $nilaiBaru) {
+        //     Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+        //         ->whereNotNull('min')->update(['min' => $nilaiBaru]);
+        // } elseif ($tipeKriteria === 'Benefit' && $nilaiMaxSebelumnya < $nilaiBaru) {
+        //     Subkriteria::where('kriteria_id', $request->input('kriteria_id'))
+        //         ->whereNotNull('max')->update(['max' => $nilaiBaru]);
+        // }
 
         // Buat instance model Subkriteria
         $subkriteria = new Subkriteria;
@@ -70,14 +70,14 @@ class SubkriteriaController extends Controller
         $subkriteria->jabatan_id = $request->input('jabatan_id');
         $subkriteria->kriteria_id = $request->input('kriteria_id');
         $subkriteria->nama = $request->input('nama');
-        $subkriteria->nilai = $nilaiBaru;
+        $subkriteria->nilai = $request->input('nilai');
 
         // Tentukan nilai minimal atau maksimal baru berdasarkan tipe kriteria
-        if ($tipeKriteria === 'Cost') {
-            $subkriteria->min = $nilaiMinSebelumnya !== null ? min($nilaiBaru, $nilaiMinSebelumnya) : $nilaiBaru;
-        } else { // Jika tipe kriteria adalah "benefit"
-            $subkriteria->max = $nilaiMaxSebelumnya !== null ? max($nilaiBaru, $nilaiMaxSebelumnya) : $nilaiBaru;
-        }
+        // if ($tipeKriteria === 'Cost') {
+        //     $subkriteria->min = $nilaiMinSebelumnya !== null ? min($nilaiBaru, $nilaiMinSebelumnya) : $nilaiBaru;
+        // } else { // Jika tipe kriteria adalah "benefit"
+        //     $subkriteria->max = $nilaiMaxSebelumnya !== null ? max($nilaiBaru, $nilaiMaxSebelumnya) : $nilaiBaru;
+        // }
 
         $subkriteria->save();
 

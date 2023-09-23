@@ -50,7 +50,7 @@ class MelamarPekerjaanController extends Controller
     public function create($id)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
-        
+
         $user = Auth::user();
         $lowonganPekerjaan = LowonganPekerjaan::with('jabatan', 'periode')->find($lowonganPekerjaanIdDecrypt);
         $kriteriaWithSubkriteria = Kriteria::with('subkriteria')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
@@ -75,6 +75,11 @@ class MelamarPekerjaanController extends Controller
 
         $pelamar->save();
 
+        $lowonganPekerjaan = LowonganPekerjaan::findOrFail($request->lowongan_pekerjaan_id);
+        $lowonganPekerjaan->kuota -= 1;
+
+        $lowonganPekerjaan->save();
+
         // Ambil ID pelamar yang baru saja dibuat
         $pelamarId = $pelamar->getKey();
 
@@ -96,30 +101,30 @@ class MelamarPekerjaanController extends Controller
             $penilaian->save();
         }
 
-        $penilaians = Penilaian::where('pelamar_id', $pelamarId)->get();
+        // $penilaians = Penilaian::where('pelamar_id', $pelamarId)->get();
 
-        foreach ($penilaians as $penilaian) {
-            // Ambil tipe kriteria dari tabel kriteria
-            $tipeKriteria = $penilaian->kriteria->tipe;
+        // foreach ($penilaians as $penilaian) {
+        //     // Ambil tipe kriteria dari tabel kriteria
+        //     $tipeKriteria = $penilaian->kriteria->tipe;
 
-            // Ambil nilai maksimum dan minimum dari field max dan min pada tabel Subkriteria
-            $nilaiMax = $penilaian->subkriteria->max;
-            $nilaiMin = $penilaian->subkriteria->min;
+        //     // Ambil nilai maksimum dan minimum dari field max dan min pada tabel Subkriteria
+        //     $nilaiMax = $penilaian->subkriteria->max;
+        //     $nilaiMin = $penilaian->subkriteria->min;
 
-            // Ambil nilai penilaian dari field nilai pada tabel Penilaian
-            $nilai = $penilaian->subkriteria->nilai;
+        //     // Ambil nilai penilaian dari field nilai pada tabel Penilaian
+        //     $nilai = $penilaian->subkriteria->nilai;
 
-            // Lakukan perhitungan nilai normalisasi sesuai dengan tipe
-            if ($tipeKriteria == 'Benefit') {
-                $normalisasi = $nilai / $nilaiMax;
-            } elseif ($tipeKriteria == 'Cost') {
-                $normalisasi = $nilai / $nilaiMin;
-            }
+        //     // Lakukan perhitungan nilai normalisasi sesuai dengan tipe
+        //     if ($tipeKriteria == 'Benefit') {
+        //         $normalisasi = $nilai / $nilaiMax;
+        //     } elseif ($tipeKriteria == 'Cost') {
+        //         $normalisasi = $nilai / $nilaiMin;
+        //     }
 
-            // Simpan nilai normalisasi kembali ke dalam tabel Penilaian
-            $penilaian->nilai_normalisasi = $normalisasi;
-            $penilaian->save();
-        }
+        //     // Simpan nilai normalisasi kembali ke dalam tabel Penilaian
+        //     $penilaian->nilai_normalisasi = $normalisasi;
+        //     $penilaian->save();
+        // }
 
         $pelamar = Pelamar::findOrFail($pelamarId);
 
