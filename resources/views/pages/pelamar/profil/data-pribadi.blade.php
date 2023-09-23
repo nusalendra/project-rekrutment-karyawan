@@ -6,13 +6,18 @@
             <div class="w-1/3 h-auto">
                 {{-- Nama --}}
                 <div class="flex w-full h-auto bg-white pl-3 mb-6 rounded-md border border-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48">
-                        <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
-                            <path d="M24 27a8 8 0 1 0 0-16a8 8 0 0 0 0 16Zm0-2a6 6 0 1 0 0-12a6 6 0 0 0 0 12Z" />
-                            <path
-                                d="M44 24c0 11.046-8.954 20-20 20S4 35.046 4 24S12.954 4 24 4s20 8.954 20 20ZM33.63 39.21A17.915 17.915 0 0 1 24 42a17.916 17.916 0 0 1-9.832-2.92c-.24-.3-.483-.61-.73-.93A2.144 2.144 0 0 1 13 36.845c0-1.077.774-1.98 1.809-2.131c6.845-1 11.558-.914 18.412.035A2.077 2.077 0 0 1 35 36.818c0 .48-.165.946-.463 1.31c-.307.374-.61.735-.907 1.082Zm3.355-2.744c-.16-1.872-1.581-3.434-3.49-3.698c-7.016-.971-11.92-1.064-18.975-.033c-1.92.28-3.335 1.856-3.503 3.733A17.94 17.94 0 0 1 6 24c0-9.941 8.059-18 18-18s18 8.059 18 18a17.94 17.94 0 0 1-5.015 12.466Z" />
-                        </g>
-                    </svg>
+                    @if ($user->profile_photo_path == null)
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48">
+                            <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                                <path d="M24 27a8 8 0 1 0 0-16a8 8 0 0 0 0 16Zm0-2a6 6 0 1 0 0-12a6 6 0 0 0 0 12Z" />
+                                <path
+                                    d="M44 24c0 11.046-8.954 20-20 20S4 35.046 4 24S12.954 4 24 4s20 8.954 20 20ZM33.63 39.21A17.915 17.915 0 0 1 24 42a17.916 17.916 0 0 1-9.832-2.92c-.24-.3-.483-.61-.73-.93A2.144 2.144 0 0 1 13 36.845c0-1.077.774-1.98 1.809-2.131c6.845-1 11.558-.914 18.412.035A2.077 2.077 0 0 1 35 36.818c0 .48-.165.946-.463 1.31c-.307.374-.61.735-.907 1.082Zm3.355-2.744c-.16-1.872-1.581-3.434-3.49-3.698c-7.016-.971-11.92-1.064-18.975-.033c-1.92.28-3.335 1.856-3.503 3.733A17.94 17.94 0 0 1 6 24c0-9.941 8.059-18 18-18s18 8.059 18 18a17.94 17.94 0 0 1-5.015 12.466Z" />
+                            </g>
+                        </svg>
+                    @else
+                        <img class="w-20 h-auto mx-2 my-3 border border-slate-300 rounded-full"
+                            src="{{ asset('foto-profil/' . $user->profile_photo_path) }}" alt="Foto Profil">
+                    @endif
                     <div class="flex flex-col w-full h-auto justify-center pl-3">
                         <h1 class="font-bold text-lg">{{ $user->name }}</h1>
                         <h1 class="text-base">{{ $user->role }}</h1>
@@ -35,7 +40,8 @@
                     @php
                         $userId = Crypt::encrypt($user->id);
                     @endphp
-                    <a href="/profil/lengkapi-dokumen/{{ $userId }}" class="flex w-full h-auto items-center space-x-6 py-4">
+                    <a href="/profil/lengkapi-dokumen/{{ $userId }}"
+                        class="flex w-full h-auto items-center space-x-6 py-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd"
                                 d="M14.25 2.5a.25.25 0 0 0-.25-.25H7A2.75 2.75 0 0 0 4.25 5v14A2.75 2.75 0 0 0 7 21.75h10A2.75 2.75 0 0 0 19.75 19V9.147a.25.25 0 0 0-.25-.25H15a.75.75 0 0 1-.75-.75V2.5Zm.75 9.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5h6Zm0 4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5h6Z"
@@ -66,7 +72,8 @@
                     <div class="w-full h-auto border-t border-gray-200 pt-6">
                         <div class="w-full h-auto">
                             <h1 class="text-lg font-semibold mb-3 px-6">Data Pribadi</h1>
-                            <form action="/profil/data-pribadi/{{ $user->id }}" method="POST">
+                            <form action="/profil/data-pribadi/{{ $user->id }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Nama Lengkap</h1>
@@ -106,8 +113,8 @@
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Foto Profil</h1>
                                     @if (!@empty($user->profile_photo_path))
-                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="profile_photo_path" value="{{ $user->profile_photo_path }}">
+                                        {{-- <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="profile_photo_path" value="{{ $user->profile_photo_path }}"> --}}
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
@@ -115,7 +122,8 @@
                                             </div>
                                             <div class="relative flex items-center">
                                                 <input type="file" id="profile_photo_path" accept=".jpg, .jpeg, .png"
-                                                    class="hidden" name="profile_photo_path" onchange="displayFileNameProfilePhotoPath()" />
+                                                    class="hidden" name="profile_photo_path"
+                                                    onchange="displayFileNameProfilePhotoPath()" />
                                                 <label for="profile_photo_path"
                                                     class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
                                                     Ganti File
@@ -128,7 +136,8 @@
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="relative flex items-center">
                                                 <input type="file" id="profile_photo_path" accept=".jpg, .jpeg, .png"
-                                                    class="hidden" name="profile_photo_path" onchange="displayFileNameProfilePhotoPath()" />
+                                                    class="hidden" name="profile_photo_path"
+                                                    onchange="displayFileNameProfilePhotoPath()" />
                                                 <label for="profile_photo_path"
                                                     class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
                                                     Pilih File
