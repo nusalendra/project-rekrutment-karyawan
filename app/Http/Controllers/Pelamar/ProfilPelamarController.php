@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Pelamar;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\File;
 
 class ProfilPelamarController extends Controller
 {
@@ -77,7 +78,16 @@ class ProfilPelamarController extends Controller
         $user->TTL = $request->TTL;
         $user->jenis_kelamin = $request->jenis_kelamin;
         $user->agama = $request->agama;
-
+        if ($request->file('profile_photo_path')) {
+            if ($user->profile_photo_path) {
+                File::delete(public_path('foto-profil/' . $user->profile_photo_path));
+                // dd($user->profile_photo_path);
+            }
+            $file = $request->file('profile_photo_path');
+            $filename = date('dmYHis') . 'FotoProfil' . $user->name . mt_rand(100000, 999999) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('foto-profil'), $filename);
+            $user->profile_photo_path = $filename;
+        }
         $user->save();
 
         return redirect('/profil');
