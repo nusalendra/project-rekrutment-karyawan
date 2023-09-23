@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pelamar;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Pelamar;
 
 class LamaranSayaController extends Controller
@@ -51,7 +52,10 @@ class LamaranSayaController extends Controller
      */
     public function show($id)
     {
-        //
+        $pelamarIdDecrypt = Crypt::decrypt($id);
+        $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
+
+        return view('pages.pelamar.lamaran-saya.detail', ['title' => 'Detail Lamaran', compact($data)]);
     }
 
     /**

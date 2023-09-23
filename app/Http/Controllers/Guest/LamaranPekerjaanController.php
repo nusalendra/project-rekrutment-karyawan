@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\LowonganPekerjaan;
 use App\Models\Periode;
 use App\Models\Jabatan;
+use Illuminate\Support\Facades\Crypt;
 
 class LamaranPekerjaanController extends Controller
 {
@@ -101,7 +102,8 @@ class LamaranPekerjaanController extends Controller
 
     public function getDetail($id)
     {
-        $jabatan = Jabatan::findOrFail($id);
+        $jabatanIdDecrypt = Crypt::decrypt($id);
+        $jabatan = Jabatan::findOrFail($jabatanIdDecrypt);
 
         // Mengambil informasi lowongan pekerjaan terkait
         $lowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->first();

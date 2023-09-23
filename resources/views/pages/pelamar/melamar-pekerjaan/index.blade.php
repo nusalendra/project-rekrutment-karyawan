@@ -19,7 +19,10 @@
             </div>
             <div class="card-container mt-5">
                 @foreach ($data as $item)
-                    <a href="#" onclick="showDetail('{{ $item->id }}')"
+                    @php
+                        $jabatanIdEncrypt = Crypt::encrypt($item->jabatan->id);
+                    @endphp
+                    <a href="#" onclick="showDetail('{{ $jabatanIdEncrypt }}')"
                         class="block max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mb-3">
                         <div class="content overflow-y-hidden h-24">
                             <h5 class="mb-2 text-lg underline font-semibold tracking-tight text-gray-900 dark:text-white">
@@ -51,6 +54,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         function showDetail(id) {
+
+            history.pushState({}, '', `/melamar-pekerjaan/${id}`);
+
             axios.get(`/get-detail-jabatanId/${id}`)
                 .then(response => {
                     const detailCard = document.getElementById('detailCard');

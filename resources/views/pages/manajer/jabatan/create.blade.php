@@ -45,13 +45,7 @@
                             <label for="deskripsi"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Jabatan <span
                                     class="text-red-700">*</span></label>
-                            <textarea
-                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                name="deskripsi" id="" cols="30" rows="5" placeholder="Tulis Deskripsi Jabatan..."></textarea>
-                            {{-- <input required type="hidden" id="deskripsi" name="deskripsi">
-                            <trix-editor input="deskripsi" class="trix-content"
-                                placeholder="Tulis Deskripsi Jabatan..."></trix-editor> --}}
-
+                            <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
                         </div>
                     </div>
                     <div class="mt-4">
@@ -59,13 +53,7 @@
                             <label for="benefit_pekerjaan"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Benefit Pekerjaan <span
                                     class="text-red-700">*</span></label>
-                            <textarea
-                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                name="benefit_pekerjaan" id="" cols="30" rows="5" placeholder="Tulis Benefit Pekerjaan dari Jabatan ini..."></textarea>
-                            {{-- <input required type="hidden" id="deskripsi" name="deskripsi">
-                            <trix-editor input="deskripsi" class="trix-content"
-                                placeholder="Tulis Deskripsi Jabatan..."></trix-editor> --}}
-
+                            <textarea class="form-control" id="benefit_pekerjaan" name="benefit_pekerjaan"></textarea>
                         </div>
                     </div>
                     <div class="mt-4">
@@ -73,12 +61,7 @@
                             <label for="kriteria"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kriteria <span
                                     class="text-red-700">*</span></label>
-                            <textarea
-                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                name="kriteria" id="" cols="30" rows="5" placeholder="Tulis Kriteria Jabatan..."></textarea>
-                            {{-- <input required type="hidden" id="kriteria" name="kriteria">
-                            <trix-editor input="kriteria" class="trix-content"
-                                placeholder="Tulis Kriteria Jabatan..."></trix-editor> --}}
+                            <textarea class="form-control" id="kriteria" name="kriteria"></textarea>
                         </div>
                     </div>
                     <div class="flex mx-3 mt-5">
@@ -94,13 +77,46 @@
     </div>
     <?php $showSidebar = false; ?>
 
-    <!-- Trix Editor -->
-    {{-- <link rel="stylesheet" type="text/css" href="/trix-editor/trix.css">
-    <script type="text/javascript" src="/trix-editor/trix.js"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
 
     <script>
-        document.addEventListener("trix-file-accept", event => {
-            event.preventDefault()
-        });
-    </script> --}}
+        ClassicEditor
+            .create(document.querySelector('#deskripsi'), {
+                toolbar: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList', 'undo', 'redo']
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#benefit_pekerjaan'), {
+                toolbar: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList', 'undo', 'redo']
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#kriteria'), {
+                toolbar: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList', 'undo', 'redo']
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+    <style>
+        .ck-editor__editable[role="textbox"] {
+            /* editing area */
+            padding-left: 25px;
+            min-height: 200px;
+        }
+
+        .ck-content .image {
+            /* block images */
+            max-width: 80%;
+            margin: 20px auto;
+        }
+    </style>
 @endsection
