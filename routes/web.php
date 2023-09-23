@@ -44,6 +44,7 @@ use App\Http\Controllers\Pelamar\NotifikasiController;
 Route::get('/', [BerandaController::class, 'beranda']);
 
 Route::get('/lamaran-pekerjaan', [LamaranPekerjaanController::class, 'index']);
+Route::get('/lamaran-pekerjaan/{id}', [LamaranPekerjaanController::class, 'getDetail'])->name('lamaran-pekerjaan-id');
 Route::get('/get-detail-jabatan/{id}', [LamaranPekerjaanController::class, 'getDetail'])->name('detail-jabatan');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -113,7 +114,6 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
         Route::get('/', [JabatanController::class, 'index'])->name('jabatan');
         Route::get('/create', [JabatanController::class, 'create'])->name('jabatan-create');
         Route::post('/create', [JabatanController::class, 'store'])->name('jabatan-store');
-        Route::get('/show/{id}', [JabatanController::class, 'show'])->name('jabatan-show');
         Route::get('/edit/{id}', [JabatanController::class, 'edit'])->name('jabatan-edit');
         Route::put('/edit/{id}', [JabatanController::class, 'update'])->name('jabatan-update');
         Route::get('/delete/{id}', [JabatanController::class, 'destroy'])->name('jabatan-destroy');
@@ -151,17 +151,17 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
     Route::POST('/profil/kontak-pribadi/{id}', [ProfilPelamarController::class, 'updateKontakPribadi'])->name('update-kontak-pribadi');
     Route::get('/profil/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'editLengkapiDokumen'])->name('edit-lengkapi-dokumen');
     Route::POST('/profil/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'updateLengkapiDokumen'])->name('update-lengkapi-dokumen');
-    
+
     Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
 
     Route::get('/melamar-pekerjaan', [MelamarPekerjaanController::class, 'index'])->name('melamar-pekerjaan');
+    Route::get('/melamar-pekerjaan/{id}', [MelamarPekerjaanController::class, 'index'])->name('melamar-pekerjaan-id');
     Route::get('/get-detail-jabatanId/{id}', [MelamarPekerjaanController::class, 'getDetail'])->name('detail-jabatan');
     Route::get('/lamar/{id}', [MelamarPekerjaanController::class, 'create'])->name('lamar-create');
     Route::POST('/lamar/{id}', [MelamarPekerjaanController::class, 'store'])->name('lamar-store');
 
     Route::get('/lamaran-saya', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
-
-    Route::get('/lamaran-saya', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
+    Route::get('/lamaran-saya/detail/{id}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
 
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
     Route::post('/notifikasi/mark-as-read', [NotifikasiController::class, 'markAsRead'])->name('notifikasi-markAsRead');

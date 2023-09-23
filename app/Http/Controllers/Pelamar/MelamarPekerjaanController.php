@@ -12,6 +12,7 @@ use App\Models\Kriteria;
 use App\Models\Pelamar;
 use App\Models\Penilaian;
 use App\Models\Notifikasi;
+use Illuminate\Support\Facades\Crypt;
 
 use function Symfony\Component\String\b;
 
@@ -48,8 +49,10 @@ class MelamarPekerjaanController extends Controller
      */
     public function create($id)
     {
+        $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
+        
         $user = Auth::user();
-        $lowonganPekerjaan = LowonganPekerjaan::with('jabatan', 'periode')->findOrFail($id);
+        $lowonganPekerjaan = LowonganPekerjaan::with('jabatan', 'periode')->find($lowonganPekerjaanIdDecrypt);
         $kriteriaWithSubkriteria = Kriteria::with('subkriteria')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
 
         return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'kriteriaWithSubkriteria', 'user'));
@@ -119,11 +122,11 @@ class MelamarPekerjaanController extends Controller
         }
 
         $pelamar = Pelamar::findOrFail($pelamarId);
-        
+
         $notifikasi = new Notifikasi();
         $notifikasi->user_id = $request->user_id;
         $notifikasi->pesan = "Lamaran Pekerjaan pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah terkirim. Kami mengapresiasi waktu yang Anda luangkan untuk melamar. Kami akan mengevaluasi setiap lamaran dengan cermat dan akan menghubungi Anda jika Anda dipilih untuk tahap berikutnya.";
-        
+
         $notifikasi->save();
 
         return redirect('/beranda');
@@ -176,7 +179,8 @@ class MelamarPekerjaanController extends Controller
 
     public function getDetail($id)
     {
-        $jabatan = Jabatan::findOrFail($id);
+        $jabatanIdDecrypt = Crypt::decrypt($id);
+        $jabatan = Jabatan::findOrFail($jabatanIdDecrypt);
 
         $lowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->first();
 
