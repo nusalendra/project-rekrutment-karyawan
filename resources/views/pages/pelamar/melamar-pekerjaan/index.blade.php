@@ -27,7 +27,6 @@
                         <div class="content overflow-y-hidden h-24">
                             <h5 class="mb-2 text-lg underline font-semibold tracking-tight text-gray-900 dark:text-white">
                                 {{ $item->jabatan->nama }}</h5>
-                            <p class="text-xs text-gray-700 dark:text-gray-400">{!! substr($item->jabatan->deskripsi, 0, 60) !!}...</p>
                             <p class="text-xs text-gray-700 dark:text-gray-400">Lamaran Dibuka :
                                 {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d-m-Y') }}
 
