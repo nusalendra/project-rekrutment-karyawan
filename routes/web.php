@@ -13,7 +13,7 @@ use App\Http\Controllers\Guest\LamaranPekerjaanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HRD\PeriodeController;
 use App\Http\Controllers\HRD\LowonganPekerjaanController;
-use App\Http\Controllers\HRD\AntrianPelamarController;
+use App\Http\Controllers\HRD\ProsesSeleksiController;
 use App\Http\Controllers\HRD\PelamarDisetujuiController;
 use App\Http\Controllers\HRD\PelamarDitolakController;
 use App\Http\Controllers\HRD\HasilValidasiController;
@@ -79,24 +79,30 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/delete/{id}', [LowonganPekerjaanController::class, 'destroy'])->name('lowongan-pekerjaan-destroy');
     })->name('lowongan-pekerjaan');
 
-    Route::prefix('antrian-pelamar')->group(function () {
-        Route::get('/', [AntrianPelamarController::class, 'index'])->name('antrian-pelamar');
-        Route::get('/detail/{id}', [AntrianPelamarController::class, 'edit'])->name('antrian-pelamar-detail');
-        Route::POST('/detail', [AntrianPelamarController::class, 'update'])->name('antrian-pelamar-update');
-    })->name('antrian-pelamar');
+    Route::prefix('proses-seleksi')->group(function () {
+        Route::get('/', [ProsesSeleksiController::class, 'index'])->name('proses-seleksi');
+        Route::get('/data/{id}', [ProsesSeleksiController::class, 'show'])->name('proses-seleksi-data');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [ProsesSeleksiController::class, 'edit'])->name('proses-seleksi-detail');
+        Route::POST('/detail/{lowonganPekerjaanId}', [ProsesSeleksiController::class, 'update'])->name('proses-seleksi-update');
+    })->name('proses-seleksi');
 
     Route::prefix('pelamar-disetujui')->group(function () {
         Route::get('/', [PelamarDisetujuiController::class, 'index'])->name('pelamar-disetujui');
-        Route::get('/detail/{id}', [PelamarDisetujuiController::class, 'edit'])->name('pelamar-disetujui-detail');
+        Route::get('/data/{id}', [PelamarDisetujuiController::class, 'show'])->name('pelamar-disetujui-data');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDisetujuiController::class, 'edit'])->name('pelamar-disetujui-detail');
+        Route::POST('/validasi/{lowonganPekerjaanId}', [PelamarDisetujuiController::class, 'validasi'])->name('validasi');
     })->name('pelamar-disetujui');
 
     Route::prefix('pelamar-ditolak')->group(function () {
         Route::get('/', [PelamarDitolakController::class, 'index'])->name('pelamar-ditolak');
-        Route::get('/detail/{id}', [PelamarDitolakController::class, 'edit'])->name('pelamar-ditolak-detail');
+        Route::get('/data/{id}', [PelamarDitolakController::class, 'show'])->name('pelamar-ditolak-data');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDitolakController::class, 'edit'])->name('pelamar-ditolak-detail');
     })->name('pelamar-ditolak');
 
     Route::prefix('hasil-validasi')->group(function () {
         Route::get('/', [HasilValidasiController::class, 'index'])->name('hasil-validasi');
+        Route::get('/data/{id}', [HasilValidasiController::class, 'show'])->name('hasil-validasi-data');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [HasilValidasiController::class, 'edit'])->name('hasil-validasi-detail');
     })->name('hasil-validasi');
 
     Route::fallback(function () {

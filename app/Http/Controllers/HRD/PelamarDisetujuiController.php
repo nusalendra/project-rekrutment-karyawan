@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\LowonganPekerjaan;
+use Carbon\Carbon;
+use App\Models\Penilaian;
+use App\Models\Kriteria;
+use App\Models\HasilValidasi;
 
 class PelamarDisetujuiController extends Controller
 {
@@ -16,9 +21,15 @@ class PelamarDisetujuiController extends Controller
      */
     public function index()
     {
-        $data = Pelamar::with('user', 'lowonganPekerjaan', 'hasilValidasi')->where('status_lamaran', 'Disetujui')->get();
-        
-        return view('pages.HRD.pelamar-disetujui.index', ['title' => 'Pelamar Disetujui'], compact('data'));
+        // $data = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Proses')->get();
+        $data = LowonganPekerjaan::with('periode', 'jabatan')->get();
+
+        $tanggal = Carbon::now();
+        $tanggalSekarang = $tanggal->format('Y-m-d');
+
+        $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Disetujui')->get();
+
+        return view('pages.HRD.pelamar-disetujui.index', ['title' => 'Pelamar Disetujui'], compact('data', 'tanggalSekarang', 'pelamar'));
     }
 
     /**
@@ -50,8 +61,90 @@ class PelamarDisetujuiController extends Controller
      */
     public function show($id)
     {
-        //
+        $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
+        $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Disetujui')->get();
+
+        return view('pages.HRD.pelamar-disetujui.show', ['title' => 'Pelamar Disetujui'], compact('data', 'lowonganPekerjaanIdDecrypt'));
     }
+
+    public function validasi($lowonganPekerjaanId)
+    {
+        $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->get();
+
+        foreach ($pelamars as $pelamar) {
+            $penilaians = Penilaian::where('pelamar_id', $pelamar->id)->get();
+
+            // Inisialisasi array untuk setiap pelamar
+            $nilaiSubkriteriaPelamar = [];
+
+            foreach ($penilaians as $penilaian) {
+                // Ambil tipe kriteria dari tabel kriteria
+                $tipeKriteria = $penilaian->kriteria->tipe;
+
+                $nilaiSubkriteria = $penilaian->subkriteria->nilai;
+
+                // Inisialisasi subarray jika belum ada untuk tipe kriteria ini
+                if (!isset($nilaiSubkriteriaPelamar[$tipeKriteria])) {
+                    $nilaiSubkriteriaPelamar[$tipeKriteria] = [];
+                }
+
+                // Simpan nilai subkriteria dalam struktur data yang sesuai
+                $nilaiSubkriteriaPelamar[$tipeKriteria][] = $nilaiSubkriteria;
+            }
+
+            // Iterasi kembali untuk menghitung nilai normalisasi dan menyimpannya
+            foreach ($penilaians as $penilaian) {
+                $tipeKriteria = $penilaian->kriteria->tipe;
+                $nilaiSubkriteria = $penilaian->subkriteria->nilai;
+
+                // Hitung nilai maksimum (max) untuk tipe kriteria "Benefit"
+                if ($tipeKriteria == 'Benefit') {
+                    $maxValue = max($nilaiSubkriteriaPelamar[$tipeKriteria]);
+                    $nilaiNormalisasi = $nilaiSubkriteria / $maxValue;
+                }
+                // Hitung nilai minimum (min) untuk tipe kriteria "Cost"
+                elseif ($tipeKriteria == 'Cost') {
+                    $minValue = min($nilaiSubkriteriaPelamar[$tipeKriteria]);
+                    $nilaiNormalisasi = $minValue / $nilaiSubkriteria;
+                }
+
+                // Simpan nilai normalisasi kembali ke dalam tabel Penilaian
+                $penilaian->nilai_normalisasi = $nilaiNormalisasi;
+                $penilaian->save();
+            }
+
+            // Menghitung Hasil Penilaian
+            $bobotKriteria = Kriteria::pluck('bobot', 'nama');
+
+            $totalNilai = 0;
+
+            foreach ($bobotKriteria as $kriteriaNama => $bobot) {
+                $kriteria = Kriteria::where('nama', $kriteriaNama)->first();
+                // Mengambil nilai normalisasi dari tabel penilaian jika ada
+                $penilaian = $pelamar->penilaian->where('kriteria_id', $kriteria->id)->first();
+
+                if ($penilaian) {
+                    // Jika ada penilaian, maka ambil nilai normalisasi
+                    $nilaiKriteria = $penilaian->nilai_normalisasi;
+
+                    // Mengalikan nilai normalisasi dengan bobot kriteria
+                    $totalNilai += $nilaiKriteria * $bobot;
+                }
+            }
+
+            $hasilValidasi = new HasilValidasi();
+
+            $hasilValidasi->pelamar_id = $pelamar->id;
+            $hasilValidasi->hasil_penilaian = $totalNilai;
+
+            $hasilValidasi->save();
+        }
+
+        return redirect()->route('pelamar-disetujui-data', $lowonganPekerjaanId);
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -59,14 +152,16 @@ class PelamarDisetujuiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($pelamarId, $lowonganPekerjaanId)
     {
-        $pelamarId = Crypt::decrypt($id);
-        $data = Pelamar::with('user')->findOrFail($pelamarId);
+        $pelamarIdDecrypt = Crypt::decrypt($pelamarId);
+        $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
+
+        // $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
 
         $dataPenilaian = $data->penilaian;
 
-        return view('pages.HRD.pelamar-disetujui.detail', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId'));
+        return view('pages.HRD.pelamar-disetujui.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId'));
     }
 
     /**
