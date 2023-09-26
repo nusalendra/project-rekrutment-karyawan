@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\Kriteria;
 use App\Models\Notifikasi;
 use App\Models\Jabatan;
+use App\Models\LowonganPekerjaan;
+use Carbon\Carbon;
 
-class AntrianPelamarController extends Controller
+class ProsesSeleksiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +22,14 @@ class AntrianPelamarController extends Controller
      */
     public function index()
     {
-        $data = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Proses')->get();
+        $data = LowonganPekerjaan::with('periode', 'jabatan')->get();
 
-        return view('pages.HRD.antrian-pelamar.index', ['title' => 'Antrian Pelamar'], compact('data'));
+        $tanggal = Carbon::now();
+        $tanggalSekarang = $tanggal->format('Y-m-d');
+
+        $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Proses')->get();
+
+        return view('pages.HRD.proses-seleksi.index', ['title' => 'Proses Seleksi'], compact('data', 'tanggalSekarang', 'pelamar'));
     }
 
     /**
@@ -54,7 +61,10 @@ class AntrianPelamarController extends Controller
      */
     public function show($id)
     {
-        //
+        $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
+        $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Proses')->get();
+
+        return view('pages.HRD.proses-seleksi.show', ['title' => 'Antrian Pelamar'], compact('data', 'lowonganPekerjaanIdDecrypt'));
     }
 
     /**
@@ -63,14 +73,14 @@ class AntrianPelamarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($pelamarId, $lowonganPekerjaanId)
     {
-        $pelamarId = Crypt::decrypt($id);
-        $data = Pelamar::with('user')->findOrFail($pelamarId);
+        $pelamarIdDecrypt = Crypt::decrypt($pelamarId);
+        $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
 
         $dataPenilaian = $data->penilaian;
 
-        return view('pages.HRD.antrian-pelamar.detail', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId'));
+        return view('pages.HRD.proses-seleksi.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId'));
     }
 
     /**
@@ -80,7 +90,7 @@ class AntrianPelamarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $lowonganPekerjaanId)
     {
         $statusLamaran = $request->input('status_lamaran');
 
@@ -89,37 +99,13 @@ class AntrianPelamarController extends Controller
         } elseif ($statusLamaran === 'Ditolak') {
             $this->lamaranDitolak($request);
         }
-        return redirect('antrian-pelamar');
+        return redirect()->route('proses-seleksi-data', $lowonganPekerjaanId);
     }
 
     public function lamaranDisetujui(Request $request)
     {
-        $bobotKriteria = Kriteria::pluck('bobot', 'nama');
         $pelamarId = $request->input('pelamar_id');
         $dataPelamar = Pelamar::with('penilaian', 'lowonganPekerjaan')->findOrFail($pelamarId);
-
-        $totalNilai = 0;
-
-        foreach ($bobotKriteria as $kriteriaNama => $bobot) {
-            $kriteria = Kriteria::where('nama', $kriteriaNama)->first();
-            // Mengambil nilai normalisasi dari tabel penilaian jika ada
-            $penilaian = $dataPelamar->penilaian->where('kriteria_id', $kriteria->id)->first();
-
-            if ($penilaian) {
-                // Jika ada penilaian, maka ambil nilai normalisasi
-                $nilaiKriteria = $penilaian->nilai_normalisasi;
-
-                // Mengalikan nilai normalisasi dengan bobot kriteria
-                $totalNilai += $nilaiKriteria * $bobot;
-            }
-        }
-
-        $hasilValidasi = new HasilValidasi();
-
-        $hasilValidasi->pelamar_id = $pelamarId;
-        $hasilValidasi->hasil_penilaian = $totalNilai;
-
-        $hasilValidasi->save();
 
         $dataPelamar->status_lamaran = 'Disetujui';
 

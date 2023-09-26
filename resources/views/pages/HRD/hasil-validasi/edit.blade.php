@@ -91,20 +91,14 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="pt-6">
-                        <button
-                            class="text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Lamaran
-                            {{ $data->status_lamaran }}</button>
-                    </div>
                 </div>
-                <div class="mt-9">
-                    <a href="{{ route('pelamar-ditolak') }}"
-                        class="tidakLulusButton text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Kembali</a>
-                </div>
+            </div>
+
+            <div class="mt-9">
+                <a href="/hasil-validasi/data/{{ $lowonganPekerjaanId }}"
+                    class="text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Kembali</a>
             </div>
         </div>
     </div>
-
-
     <?php $showSidebar = false; ?>
 @endsection

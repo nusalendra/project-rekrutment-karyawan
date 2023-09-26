@@ -26,6 +26,12 @@
                                     <h1 class="flex w-full justify-center">Tanggal Mulai s/d Tutup</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    <h1 class="flex w-full justify-center">Status</h1>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <h1 class="flex w-full justify-center">Sisa Kuota Lamaran</h1>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
                                 </th>
                             </tr>
@@ -52,11 +58,29 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
+                                            @if ($tanggalSekarang >= $item->tanggal_mulai && $tanggalSekarang <= $item->tanggal_akhir)
+                                                @if ($item->kuota > 0)
+                                                    Dibuka
+                                                @else
+                                                    Kuota Habis
+                                                @endif
+                                            @elseif ($item->kuota === 0)
+                                                Kuota Habis
+                                            @else
+                                                Ditutup
+                                            @endif
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">{{ $item->kuota }}
+                                        </h1>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">
                                             @php
                                                 $lowonganPekerjaanIdEncrypt = Crypt::encrypt($item->id);
                                             @endphp
                                             {{-- Edit --}}
-                                            <a href="/pelamar-ditolak/data/{{ $lowonganPekerjaanIdEncrypt }}"
+                                            <a href="/proses-seleksi/data/{{ $lowonganPekerjaanIdEncrypt }}"
                                                 class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                                     fill="currentColor" class="bi bi-clipboard-data-fill mt-0.5"

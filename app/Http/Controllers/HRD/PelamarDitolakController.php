@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\LowonganPekerjaan;
+use Carbon\Carbon;
 
 class PelamarDitolakController extends Controller
 {
@@ -16,9 +18,15 @@ class PelamarDitolakController extends Controller
      */
     public function index()
     {
-        $data = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Ditolak')->get();
+        $data = LowonganPekerjaan::with('periode', 'jabatan')->get();
 
-        return view('pages.HRD.pelamar-ditolak.index', ['title' => 'Pelamar Ditolak'], compact('data'));
+        $tanggal = Carbon::now();
+        $tanggalSekarang = $tanggal->format('Y-m-d');
+
+        $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Proses')->get();
+
+
+        return view('pages.HRD.pelamar-ditolak.index', ['title' => 'Pelamar Ditolak'], compact('data', 'tanggalSekarang', 'pelamar'));
     }
 
     /**
@@ -50,7 +58,10 @@ class PelamarDitolakController extends Controller
      */
     public function show($id)
     {
-        //
+        $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
+        $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Ditolak')->get();
+
+        return view('pages.HRD.pelamar-ditolak.show', ['title' => 'Pelamar Ditolak'], compact('data', 'lowonganPekerjaanIdDecrypt'));
     }
 
     /**
@@ -59,14 +70,14 @@ class PelamarDitolakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($pelamarId, $lowonganPekerjaanId)
     {
-        $pelamarId = Crypt::decrypt($id);
-        $data = Pelamar::with('user')->findOrFail($pelamarId);
+        $pelamarIdDecrypt = Crypt::decrypt($pelamarId);
+        $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
 
         $dataPenilaian = $data->penilaian;
 
-        return view('pages.HRD.pelamar-ditolak.detail', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId'));
+        return view('pages.HRD.pelamar-ditolak.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId'));
     }
 
     /**

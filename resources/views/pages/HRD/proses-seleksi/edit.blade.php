@@ -68,10 +68,12 @@
             </div>
 
             <div class="mt-9">
-                <div class="flex w-full bg-green-600 pt-4 pb-2 px-4  border-b-8 border-emerald-200 text-white space-x-3 rounded-t-lg">
+                <div
+                    class="flex w-full bg-green-600 pt-4 pb-2 px-4  border-b-8 border-emerald-200 text-white space-x-3 rounded-t-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
                         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="1.5" d="M9 6h11M5 6.01l.01-.011M5 12.01l.01-.011M3.8 17.8l.8.8l2-2M9 12h11M9 18h11" />
+                            stroke-width="1.5"
+                            d="M9 6h11M5 6.01l.01-.011M5 12.01l.01-.011M3.8 17.8l.8.8l2-2M9 12h11M9 18h11" />
                     </svg>
                     <h1 class="text-lg font-bold">Data Seleksi Pelamar</h1>
                 </div>
@@ -90,7 +92,7 @@
                         </div>
                     @endforeach
                     <div class="pt-6">
-                        <form action="{{ route('antrian-pelamar-update') }}" method="POST">
+                        <form action="{{ route('proses-seleksi-update', ['lowonganPekerjaanId' => $lowonganPekerjaanId]) }}" method="POST">
                             @csrf
 
                             <input type="hidden" name="pelamar_id" value="{{ $data->id }}">
@@ -117,14 +119,12 @@
                     </div>
                 </div>
             </div>
-
+           
             <div class="mt-9">
-                <a href="{{ route('antrian-pelamar') }}"
+                <a href="/proses-seleksi/data/{{ $lowonganPekerjaanId }}"
                     class="tidakLulusButton text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Kembali</a>
             </div>
         </div>
     </div>
-
-
     <?php $showSidebar = false; ?>
 @endsection
