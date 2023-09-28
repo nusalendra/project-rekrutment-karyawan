@@ -12,6 +12,7 @@ use App\Models\Kriteria;
 use App\Models\Pelamar;
 use App\Models\Penilaian;
 use App\Models\Notifikasi;
+use App\Models\Pengukuran;
 use Illuminate\Support\Facades\Crypt;
 
 use function Symfony\Component\String\b;
@@ -98,33 +99,11 @@ class MelamarPekerjaanController extends Controller
             $penilaian->subkriteria_id = $subkriteriaId;
             $penilaian->nilai_normalisasi = 0;
 
+            $pengukuran = Pengukuran::where('subkriteria_id', $subkriteriaId)->first();
+            $penilaian->pengukuran_id = $pengukuran->id;
+
             $penilaian->save();
         }
-
-        // $penilaians = Penilaian::where('pelamar_id', $pelamarId)->get();
-
-        // foreach ($penilaians as $penilaian) {
-        //     // Ambil tipe kriteria dari tabel kriteria
-        //     $tipeKriteria = $penilaian->kriteria->tipe;
-
-        //     // Ambil nilai maksimum dan minimum dari field max dan min pada tabel Subkriteria
-        //     $nilaiMax = $penilaian->subkriteria->max;
-        //     $nilaiMin = $penilaian->subkriteria->min;
-
-        //     // Ambil nilai penilaian dari field nilai pada tabel Penilaian
-        //     $nilai = $penilaian->subkriteria->nilai;
-
-        //     // Lakukan perhitungan nilai normalisasi sesuai dengan tipe
-        //     if ($tipeKriteria == 'Benefit') {
-        //         $normalisasi = $nilai / $nilaiMax;
-        //     } elseif ($tipeKriteria == 'Cost') {
-        //         $normalisasi = $nilai / $nilaiMin;
-        //     }
-
-        //     // Simpan nilai normalisasi kembali ke dalam tabel Penilaian
-        //     $penilaian->nilai_normalisasi = $normalisasi;
-        //     $penilaian->save();
-        // }
 
         $pelamar = Pelamar::findOrFail($pelamarId);
 

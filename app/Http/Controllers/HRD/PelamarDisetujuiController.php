@@ -76,37 +76,37 @@ class PelamarDisetujuiController extends Controller
             $penilaians = Penilaian::where('pelamar_id', $pelamar->id)->get();
 
             // Inisialisasi array untuk setiap pelamar
-            $nilaiSubkriteriaPelamar = [];
+            $skorPengukuranPelamar = [];
 
             foreach ($penilaians as $penilaian) {
                 // Ambil tipe kriteria dari tabel kriteria
                 $tipeKriteria = $penilaian->kriteria->tipe;
 
-                $nilaiSubkriteria = $penilaian->subkriteria->nilai;
+                $skorPengukuran = $penilaian->pengukuran->skor;
 
                 // Inisialisasi subarray jika belum ada untuk tipe kriteria ini
-                if (!isset($nilaiSubkriteriaPelamar[$tipeKriteria])) {
-                    $nilaiSubkriteriaPelamar[$tipeKriteria] = [];
+                if (!isset($skorPengukuranPelamar[$tipeKriteria])) {
+                    $skorPengukuranPelamar[$tipeKriteria] = [];
                 }
 
                 // Simpan nilai subkriteria dalam struktur data yang sesuai
-                $nilaiSubkriteriaPelamar[$tipeKriteria][] = $nilaiSubkriteria;
+                $skorPengukuranPelamar[$tipeKriteria][] = $skorPengukuran;
             }
 
             // Iterasi kembali untuk menghitung nilai normalisasi dan menyimpannya
             foreach ($penilaians as $penilaian) {
                 $tipeKriteria = $penilaian->kriteria->tipe;
-                $nilaiSubkriteria = $penilaian->subkriteria->nilai;
+                $skorPengukuran = $penilaian->pengukuran->skor;
 
                 // Hitung nilai maksimum (max) untuk tipe kriteria "Benefit"
                 if ($tipeKriteria == 'Benefit') {
-                    $maxValue = max($nilaiSubkriteriaPelamar[$tipeKriteria]);
-                    $nilaiNormalisasi = $nilaiSubkriteria / $maxValue;
+                    $maxValue = max($skorPengukuranPelamar[$tipeKriteria]);
+                    $nilaiNormalisasi = $skorPengukuran / $maxValue;
                 }
                 // Hitung nilai minimum (min) untuk tipe kriteria "Cost"
                 elseif ($tipeKriteria == 'Cost') {
-                    $minValue = min($nilaiSubkriteriaPelamar[$tipeKriteria]);
-                    $nilaiNormalisasi = $minValue / $nilaiSubkriteria;
+                    $minValue = min($skorPengukuranPelamar[$tipeKriteria]);
+                    $nilaiNormalisasi = $minValue / $skorPengukuran;
                 }
 
                 // Simpan nilai normalisasi kembali ke dalam tabel Penilaian

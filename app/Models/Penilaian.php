@@ -31,4 +31,8 @@ class Penilaian extends Model
     public function subkriteria() {
         return $this->belongsTo(Subkriteria::class);
     }
+
+    public function pengukuran() {
+        return $this->belongsTo(Pengukuran::class);
+    }
 }
