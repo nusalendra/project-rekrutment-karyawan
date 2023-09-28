@@ -9,22 +9,31 @@ class Jabatan extends Model
 {
     use HasFactory;
     protected $table = 'jabatans';
-    protected $fillable = ['nama', 'deskripsi', 'benefit_pekerjaan' ,'kriteria', 'gaji_awal', 'gaji_akhir'];
+    protected $fillable = ['nama', 'deskripsi', 'benefit_pekerjaan', 'kriteria', 'gaji_awal', 'gaji_akhir'];
     protected $guarded = [];
 
-    public function kriteria() {
+    public function kriteria()
+    {
         return $this->hasMany(Kriteria::class);
     }
 
-    public function subkriteria() {
+    public function subkriteria()
+    {
         return $this->hasMany(Subkriteria::class);
     }
 
-    public function lowonganPekerjaan() {
+    public function pengukuran()
+    {
+        return $this->hasMany(Pengukuran::class);
+    }
+
+    public function lowonganPekerjaan()
+    {
         return $this->hasMany(LowonganPekerjaan::class);
     }
 
-    public function penilaian() {
+    public function penilaian()
+    {
         return $this->hasMany(Penilaian::class);
     }
 }

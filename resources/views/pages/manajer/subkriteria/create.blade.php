@@ -22,7 +22,8 @@
                                     @endforeach
                                 </select>
                             </div>
-
+                        </div>
+                        <div class="flex mb-1 mt-5">
                             <div class="w-1/2 mx-3">
                                 <label for="kriteria_id"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kriteria <span
@@ -33,7 +34,6 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="flex mb-1">
                             {{-- Nama Subkriteria --}}
                             <div class="w-1/2 mx-3 mt-5">
@@ -42,17 +42,6 @@
                                         class="text-red-700">*</span></label>
                                 <input required type="text" id="nama" name="nama"
                                     placeholder="Masukkan Nama Subkriteria"
-                                    title="Tidak diperbolehkan menggunakan karakter khusus"
-                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            </div>
-
-                            {{-- Nilai Subkriteria --}}
-                            <div class="w-1/2 mx-3 mt-5">
-                                <label for="nilai"
-                                    class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Nilai <span
-                                        class="text-red-700">*</span></label>
-                                <input required type="text" id="nilai" name="nilai"
-                                    placeholder="Masukkan Nilai dari Subkriteria"
                                     title="Tidak diperbolehkan menggunakan karakter khusus"
                                     class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>

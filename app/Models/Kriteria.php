@@ -12,15 +12,23 @@ class Kriteria extends Model
     protected $fillable = ['jabatan_id', 'nama', 'tipe', 'bobot'];
     protected $guarded = [];
 
-    public function jabatan() {
+    public function jabatan()
+    {
         return $this->belongsTo(Jabatan::class);
     }
 
-    public function subkriteria() {
+    public function subkriteria()
+    {
         return $this->hasMany(Subkriteria::class);
     }
 
-    public function penilaian() {
+    public function pengukuran()
+    {
+        return $this->hasMany(Pengukuran::class);
+    }
+
+    public function penilaian()
+    {
         return $this->hasMany(Penilaian::class);
     }
 }

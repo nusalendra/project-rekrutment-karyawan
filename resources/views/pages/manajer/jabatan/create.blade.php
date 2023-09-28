@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-        <div class="content bg-white bg-auto h-216 mt-2 rounded overflow-y-auto max-h-[820px]">
+        <div class="content bg-white bg-auto mt-2 rounded overflow-y-auto max-h-[730px]">
             <div class="px-11 py-9 text-black">
                 <h2 class="font-bold text-xl mb-7">Tambah Data</h2>
 
