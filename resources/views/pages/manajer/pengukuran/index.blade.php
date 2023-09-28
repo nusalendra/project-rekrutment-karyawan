@@ -20,7 +20,7 @@
                                 class="block w-full px-4 py-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Cari Pelatihan...">
                         </div> --}}
-                        <a href="/subkriteria/create"
+                        <a href="/pengukuran/create"
                             class="{{ $title === 'Tambah Data' }} w-36 h-8 text-black flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-person-fill-add my-2" viewBox="0 0 16 16">
@@ -48,10 +48,13 @@
                                     <h1 class="flex w-full justify-center">Kriteria</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Tipe Kriteria</h1>
+                                    <h1 class="flex w-full justify-center">Subkriteria</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Subkriteria</h1>
+                                    <h1 class="flex w-full justify-center">Pengukuran</h1>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <h1 class="flex w-full justify-center">Skor</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
@@ -72,18 +75,20 @@
                                         <h1 class="flex w-full justify-center">{{ $item->kriteria->nama }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->kriteria->tipe }}</h1>
+                                        <h1 class="flex w-full justify-center">{{ $item->subkriteria->nama }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">{{ $item->nama }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">{{ $item->skor }}</h1>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
                                             @php
-                                                $subkriteriaId = Crypt::encrypt($item->id);
+                                                $pengukuranId = Crypt::encrypt($item->id);
                                             @endphp
-                                            {{-- Edit --}}
-                                            <a href="/subkriteria/edit/{{ $subkriteriaId }}"
+                                            <a href="/pengukuran/edit/{{ $pengukuranId }}"
                                                 class="{{ $title === 'Edit Data' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-pencil-square my-2"
@@ -94,8 +99,7 @@
                                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                                 </svg>
                                             </a>
-                                            {{-- Delete --}}
-                                            <a href="/subkriteria/delete/{{ $item->id }}"
+                                            <a href="/pengukuran/delete/{{ $item->id }}"
                                                 class="text-black flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash3 my-2" viewBox="0 0 16 16">

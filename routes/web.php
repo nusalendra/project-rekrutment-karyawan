@@ -22,6 +22,7 @@ use App\Http\Controllers\HRD\HasilValidasiController;
 use App\Http\Controllers\Manajer\JabatanController;
 use App\Http\Controllers\Manajer\KriteriaController;
 use App\Http\Controllers\Manajer\SubkriteriaController;
+use App\Http\Controllers\Manajer\PengukuranController;
 
 // Pelamar Controller
 use App\Http\Controllers\Pelamar\MelamarPekerjaanController;
@@ -143,6 +144,17 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
         Route::put('/edit/{id}', [SubkriteriaController::class, 'update'])->name('subkriteria-update');
         Route::get('/delete/{id}', [SubkriteriaController::class, 'destroy'])->name('subkriteria-destroy');
     })->name('subkriteria');
+
+    Route::prefix('pengukuran')->group(function () {
+        Route::get('/', [PengukuranController::class, 'index'])->name('pengukuran');
+        Route::get('/create', [PengukuranController::class, 'create'])->name('pengukuran-create');
+        Route::post('/create', [PengukuranController::class, 'store'])->name('pengukuran-store');
+        Route::get('/get-kriteria/{jabatanId}', [PengukuranController::class, 'getKriteriaByJabatan'])->name('get-kriteria-by-jabatan');
+        Route::get('/get-subkriteria/{kriteriaId}', [PengukuranController::class, 'getSubkriteriaByKriteria'])->name('get-subkriteria-by-kriteria');
+        Route::get('/edit/{id}', [PengukuranController::class, 'edit'])->name('pengukuran-edit');
+        Route::put('/edit/{id}', [PengukuranController::class, 'update'])->name('pengukuran-update');
+        Route::get('/delete/{id}', [PengukuranController::class, 'destroy'])->name('pengukuran-destroy');
+    })->name('pengukuran');
 
     Route::fallback(function () {
         return view('pages/utility/404');

@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Manajer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Subkriteria;
-use App\Models\Kriteria;
+use App\Models\Pengukuran;
 use App\Models\Jabatan;
+use App\Models\Kriteria;
+use App\Models\Subkriteria;
 use Illuminate\Support\Facades\Crypt;
 
-class SubkriteriaController extends Controller
+class PengukuranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,9 @@ class SubkriteriaController extends Controller
      */
     public function index()
     {
-        $data = Subkriteria::simplePaginate(8);
-        
-        return view('pages.manajer.subkriteria.index', ['title' => 'Subkriteria'], compact('data'));
+        $data = Pengukuran::simplePaginate(8);
+
+        return view('pages.manajer.pengukuran.index', ['title' => 'Pengukuran'], compact('data'));
     }
 
     /**
@@ -32,8 +33,9 @@ class SubkriteriaController extends Controller
     {
         $jabatan = Jabatan::get();
         $kriteria = Kriteria::get();
+        $subkriteria = Subkriteria::get();
 
-        return view('pages.manajer.subkriteria.create', ['title' => 'Tambah Data'], compact('jabatan', 'kriteria'));
+        return view('pages.manajer.pengukuran.create', ['title' => 'Tambah Data'], compact('jabatan', 'kriteria', 'subkriteria'));
     }
 
     /**
@@ -44,15 +46,17 @@ class SubkriteriaController extends Controller
      */
     public function store(Request $request)
     {
-        $subkriteria = new Subkriteria;
+        $pengukuran = new Pengukuran();
 
-        $subkriteria->jabatan_id = $request->input('jabatan_id');
-        $subkriteria->kriteria_id = $request->input('kriteria_id');
-        $subkriteria->nama = $request->input('nama');
+        $pengukuran->jabatan_id = $request->jabatan_id;
+        $pengukuran->kriteria_id = $request->kriteria_id;
+        $pengukuran->subkriteria_id = $request->subkriteria_id;
+        $pengukuran->nama = $request->nama;
+        $pengukuran->skor = $request->skor;
 
-        $subkriteria->save();
+        $pengukuran->save();
 
-        return redirect('subkriteria');
+        return redirect('/pengukuran');
     }
 
     /**
@@ -74,12 +78,13 @@ class SubkriteriaController extends Controller
      */
     public function edit($id)
     {
-        $subkriteriaId = Crypt::decrypt($id);
-        $subkriteria = Subkriteria::findOrFail($subkriteriaId);
+        $pengukuranId = Crypt::decrypt($id);
+        $pengukuran = Pengukuran::findOrFail($pengukuranId);
         $jabatan = Jabatan::get();
         $kriteria = Kriteria::get();
+        $subkriteria = Subkriteria::get();
 
-        return view('pages.manajer.subkriteria.edit', ['title' => 'Edit Data'], compact('jabatan', 'kriteria', 'subkriteria'));
+        return view('pages.manajer.pengukuran.edit', ['title' => 'Edit Data'], compact('pengukuran', 'jabatan', 'kriteria', 'subkriteria'));
     }
 
     /**
@@ -91,17 +96,17 @@ class SubkriteriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $subkriteria = Subkriteria::findOrFail($id);
+        $pengukuran = Pengukuran::findOrFail($id);
+        $pengukuran->jabatan_id = $request->jabatan_id;
+        $pengukuran->kriteria_id = $request->kriteria_id;
+        $pengukuran->subkriteria_id = $request->subkriteria_id;
+        $pengukuran->nama = $request->nama;
+        $pengukuran->skor = $request->skor;
 
-        $subkriteria->jabatan_id = $request->input('jabatan_id');
-        $subkriteria->kriteria_id = $request->input('kriteria_id');
-        $subkriteria->nama = $request->input('nama');
+        $pengukuran->save();
 
-        $subkriteria->save();
-
-        return redirect('subkriteria');
+        return redirect('/pengukuran');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -111,16 +116,22 @@ class SubkriteriaController extends Controller
      */
     public function destroy($id)
     {
-        $subkriteria = Subkriteria::findOrFail($id);
+        $pengukuran = Pengukuran::findOrFail($id);
 
-        $subkriteria->delete();
+        $pengukuran->delete();
 
-        return redirect('subkriteria');
+        return redirect('/pengukuran');
     }
 
     public function getKriteriaByJabatan($jabatanId)
     {
         $kriteria = Kriteria::where('jabatan_id', $jabatanId)->get();
         return response()->json(['kriteria' => $kriteria]);
+    }
+
+    public function getSubkriteriaByKriteria($kriteriaId)
+    {
+        $subkriteria = Subkriteria::where('kriteria_id', $kriteriaId)->get();
+        return response()->json(['subkriteria' => $subkriteria]);
     }
 }

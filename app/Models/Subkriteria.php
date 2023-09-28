@@ -9,7 +9,7 @@ class Subkriteria extends Model
 {
     use HasFactory;
     protected $table = 'subkriterias';
-    protected $fillable = ['jabatan_id' ,'kriteria_id', 'nama', 'min', 'max', 'nilai'];
+    protected $fillable = ['jabatan_id' ,'kriteria_id', 'nama'];
     protected $guarded = [];
 
     public function jabatan() {
@@ -20,7 +20,13 @@ class Subkriteria extends Model
         return $this->belongsTo(Kriteria::class);
     }
 
+    public function pengukuran() {
+        return $this->hasMany(Pengukuran::class);
+    }
+
     public function penilaian() {
         return $this->hasMany(Penilaian::class);
     }
+
+   
 }
