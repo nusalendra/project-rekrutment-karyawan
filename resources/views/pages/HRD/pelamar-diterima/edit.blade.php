@@ -91,18 +91,11 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="pt-6">
-                        <button type="submit"
-                            class="text-white bg-green-500 hover:bg-green-600 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                            disabled>
-                            Lamaran Disetujui
-                        </button>
-                    </div>
                 </div>
             </div>
 
             <div class="mt-9">
-                <a href="/pelamar-disetujui/data/{{ $lowonganPekerjaanId }}"
+                <a href="/pelamar-diterima/data/{{ $lowonganPekerjaanId }}"
                     class="text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Kembali</a>
             </div>
         </div>

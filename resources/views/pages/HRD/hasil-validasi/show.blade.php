@@ -21,11 +21,43 @@
                         Pelamar
                     </h2>
                 </div>
+                <div class="flex justify-start mb-4">
+                    <button type="button"
+                        class="text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                        id="toggleButton">
+                        Pilih Pelamar
+                    </button>
+
+
+                    <button type="button"
+                        class="text-white mr-2 bg-red-700 hover:bg-red-800 border border-red-700 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                        id="cancelButton" style="display: none;">
+                        Batal
+                    </button>
+
+                    @php
+                        $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaanIdDecrypt);
+                    @endphp
+                    <form
+                        action="{{ route('kirim-notifikasi-pelamar', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+                        method="POST">
+                        @csrf
+                        <input type="hidden" name="pilihPelamar[]" id="pilihPelamar">
+                        <button type="submit"
+                            class="text-white bg-green-600 hover:bg-green-700 border border-green-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                            id="sendButton" style="display: none;">
+                            Kirim Notifikasi
+                        </button>
+                    </form>
+                </div>
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-base text-left text-black dark:text-gray-400">
                         <thead
                             class="text-md border-x border-gray-300 text-gray-700 bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    <h1 class="flex w-full justify-start"></h1>
+                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Peringkat</h1>
                                 </th>
@@ -47,6 +79,10 @@
                             @foreach ($data as $index => $item)
                                 <tr
                                     class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                                    <td class="px-6 py-4">
+                                        <input type="checkbox" name="pilihPelamar[]" value="{{ $item->id }}"
+                                            data-pelamar-id="{{ $item->id }}" disabled>
+                                    </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
                                     </td>
@@ -94,4 +130,85 @@
         </div>
     </div>
     <?php $showSidebar = false; ?>
+    <script>
+        const checkboxes = document.querySelectorAll('input[name="pilihPelamar[]"]');
+        const pilihPelamarInput = document.getElementById('pilihPelamar'); // Input hidden
+        const toggleButton = document.getElementById('toggleButton');
+        const cancelButton = document.getElementById('cancelButton');
+        const sendButton = document.getElementById('sendButton');
+        const errorContainer = document.getElementById('errorContainer');
+
+        function toggleButtons(activateSendButton) {
+            checkboxes.forEach(checkbox => {
+                checkbox.disabled = !activateSendButton;
+            });
+
+            toggleButton.style.display = 'none';
+            cancelButton.style.display = activateSendButton ? 'inline-block' : 'none';
+            sendButton.style.display = activateSendButton ? 'inline-block' : 'none';
+        }
+
+        toggleButton.addEventListener('click', function() {
+            toggleButtons(true);
+        });
+
+        cancelButton.addEventListener('click', function() {
+            checkboxes.forEach(checkbox => {
+                checkbox.disabled = true;
+                checkbox.checked = false;
+            });
+
+            toggleButtons(false);
+        });
+
+        sendButton.addEventListener('click', function() {
+            const selectedPelamar = [];
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedPelamar.push(checkbox.value);
+                }
+            });
+
+            if (selectedPelamar.length === 0) {
+                errorContainer.textContent = 'Pilih setidaknya satu pelamar sebelum mengirim notifikasi.';
+                return;
+            }
+
+            errorContainer.textContent = ''; // Menghapus pesan kesalahan sebelum menampilkan yang baru
+
+            pilihPelamarInput.value = selectedPelamar.join(',');
+
+            $.ajax({
+                url: '{{ route('kirim-notifikasi-pelamar', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    pilihPelamar: selectedPelamar
+                },
+                success: function(response) {
+                    console.log(response);
+                    checkboxes.forEach(checkbox => {
+                        checkbox.disabled = true;
+                    });
+                    toggleButtons(false);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const selectedPelamar = [];
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        selectedPelamar.push(checkbox.value);
+                    }
+                });
+                pilihPelamarInput.value = selectedPelamar.join(',');
+            });
+        });
+    </script>
 @endsection

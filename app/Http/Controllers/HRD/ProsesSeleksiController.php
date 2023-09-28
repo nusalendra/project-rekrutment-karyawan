@@ -94,28 +94,22 @@ class ProsesSeleksiController extends Controller
     {
         $statusLamaran = $request->input('status_lamaran');
 
-        if ($statusLamaran === 'Disetujui') {
-            $this->lamaranDisetujui($request);
+        if ($statusLamaran === 'Diterima') {
+            $this->lamaranDiterima($request);
         } elseif ($statusLamaran === 'Ditolak') {
             $this->lamaranDitolak($request);
         }
         return redirect()->route('proses-seleksi-data', $lowonganPekerjaanId);
     }
 
-    public function lamaranDisetujui(Request $request)
+    public function lamaranDiterima(Request $request)
     {
         $pelamarId = $request->input('pelamar_id');
         $dataPelamar = Pelamar::with('penilaian', 'lowonganPekerjaan')->findOrFail($pelamarId);
 
-        $dataPelamar->status_lamaran = 'Disetujui';
+        $dataPelamar->status_lamaran = 'Diterima';
 
         $dataPelamar->save();
-
-        $notifikasi = new Notifikasi();
-        $notifikasi->user_id = $dataPelamar->user->id;
-        $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $dataPelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk langkah selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
-
-        $notifikasi->save();
     }
 
     public function lamaranDitolak(Request $request)

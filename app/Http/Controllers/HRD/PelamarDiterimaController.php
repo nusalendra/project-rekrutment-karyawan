@@ -12,7 +12,7 @@ use App\Models\Penilaian;
 use App\Models\Kriteria;
 use App\Models\HasilValidasi;
 
-class PelamarDisetujuiController extends Controller
+class PelamarDiterimaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,9 +27,9 @@ class PelamarDisetujuiController extends Controller
         $tanggal = Carbon::now();
         $tanggalSekarang = $tanggal->format('Y-m-d');
 
-        $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Disetujui')->get();
+        $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Diterima')->get();
 
-        return view('pages.HRD.pelamar-disetujui.index', ['title' => 'Pelamar Disetujui'], compact('data', 'tanggalSekarang', 'pelamar'));
+        return view('pages.HRD.pelamar-diterima.index', ['title' => 'Pelamar Diterima'], compact('data', 'tanggalSekarang', 'pelamar'));
     }
 
     /**
@@ -62,9 +62,9 @@ class PelamarDisetujuiController extends Controller
     public function show($id)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
-        $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Disetujui')->get();
+        $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Diterima')->get();
 
-        return view('pages.HRD.pelamar-disetujui.show', ['title' => 'Pelamar Disetujui'], compact('data', 'lowonganPekerjaanIdDecrypt'));
+        return view('pages.HRD.pelamar-diterima.show', ['title' => 'Pelamar Disetujui'], compact('data', 'lowonganPekerjaanIdDecrypt'));
     }
 
     public function validasi($lowonganPekerjaanId)
@@ -139,9 +139,12 @@ class PelamarDisetujuiController extends Controller
             $hasilValidasi->hasil_penilaian = $totalNilai;
 
             $hasilValidasi->save();
+
+            $pelamar->status_lamaran = 'Divalidasi';
+            $pelamar->save();
         }
 
-        return redirect()->route('pelamar-disetujui-data', $lowonganPekerjaanId);
+        return redirect()->route('pelamar-diterima-data', $lowonganPekerjaanId);
     }
 
 
@@ -161,7 +164,7 @@ class PelamarDisetujuiController extends Controller
 
         $dataPenilaian = $data->penilaian;
 
-        return view('pages.HRD.pelamar-disetujui.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId'));
+        return view('pages.HRD.pelamar-diterima.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId'));
     }
 
     /**
