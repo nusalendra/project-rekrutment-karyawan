@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('jabatan_id')->constrained('jabatans')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('kriteria_id')->constrained('kriterias')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('subkriteria_id')->constrained('subkriterias')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('pengukuran_id')->constrained('pengukurans')->cascadeOnUpdate()->cascadeOnDelete();
             $table->double('nilai_normalisasi');
             $table->timestamps();
         });
