@@ -92,11 +92,6 @@
                         </div>
                     @endforeach
                     <div class="pt-6">
-                        <button type="submit"
-                            class="text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                            disabled>
-                            Lamaran Ditolak
-                        </button>
                     </div>
                 </div>
             </div>

@@ -56,7 +56,7 @@
                                                 $lowonganPekerjaanIdEncrypt = Crypt::encrypt($item->id);
                                             @endphp
                                             {{-- Edit --}}
-                                            <a href="/pelamar-disetujui/data/{{ $lowonganPekerjaanIdEncrypt }}"
+                                            <a href="/pelamar-diterima/data/{{ $lowonganPekerjaanIdEncrypt }}"
                                                 class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                                     fill="currentColor" class="bi bi-clipboard-data-fill mt-0.5"

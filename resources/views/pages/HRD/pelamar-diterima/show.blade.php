@@ -4,7 +4,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         <div class="bg-stone-200 bg-auto rounded h-216">
             <div class="flex-1 mt-2 ml-12 text-blue-600">
-                <a href="/pelamar-disetujui">
+                <a href="/pelamar-diterima">
                     <div class="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor"
                             class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
@@ -17,7 +17,7 @@
             </div>
             <div class="px-12 pt-5 text-black">
                 <div class="flex justify-between items-center mb-3">
-                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Pelamar Disetujui
+                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Lamaran Pelamar Diterima
                     </h2>
                 </div>
                 <div class="flex justify-end mb-4">
@@ -85,7 +85,7 @@
                                                 $pelamarIdEncrypt = Crypt::encrypt($item->id);
                                             @endphp
                                             {{-- Edit --}}
-                                            <a href="{{ route('pelamar-disetujui-detail', ['pelamarId' => $pelamarIdEncrypt, 'lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+                                            <a href="{{ route('pelamar-diterima-detail', ['pelamarId' => $pelamarIdEncrypt, 'lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                                                 class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                                     fill="currentColor" class="bi bi-person-lines-fill mt-0.5"

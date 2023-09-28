@@ -14,7 +14,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HRD\PeriodeController;
 use App\Http\Controllers\HRD\LowonganPekerjaanController;
 use App\Http\Controllers\HRD\ProsesSeleksiController;
-use App\Http\Controllers\HRD\PelamarDisetujuiController;
+use App\Http\Controllers\HRD\PelamarDiterimaController;
 use App\Http\Controllers\HRD\PelamarDitolakController;
 use App\Http\Controllers\HRD\HasilValidasiController;
 
@@ -87,12 +87,12 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::POST('/detail/{lowonganPekerjaanId}', [ProsesSeleksiController::class, 'update'])->name('proses-seleksi-update');
     })->name('proses-seleksi');
 
-    Route::prefix('pelamar-disetujui')->group(function () {
-        Route::get('/', [PelamarDisetujuiController::class, 'index'])->name('pelamar-disetujui');
-        Route::get('/data/{id}', [PelamarDisetujuiController::class, 'show'])->name('pelamar-disetujui-data');
-        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDisetujuiController::class, 'edit'])->name('pelamar-disetujui-detail');
-        Route::POST('/validasi/{lowonganPekerjaanId}', [PelamarDisetujuiController::class, 'validasi'])->name('validasi');
-    })->name('pelamar-disetujui');
+    Route::prefix('pelamar-diterima')->group(function () {
+        Route::get('/', [PelamarDiterimaController::class, 'index'])->name('pelamar-diterima');
+        Route::get('/data/{id}', [PelamarDiterimaController::class, 'show'])->name('pelamar-diterima-data');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDiterimaController::class, 'edit'])->name('pelamar-diterima-detail');
+        Route::POST('/validasi/{lowonganPekerjaanId}', [PelamarDiterimaController::class, 'validasi'])->name('validasi');
+    })->name('pelamar-diterima');
 
     Route::prefix('pelamar-ditolak')->group(function () {
         Route::get('/', [PelamarDitolakController::class, 'index'])->name('pelamar-ditolak');
@@ -104,6 +104,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/', [HasilValidasiController::class, 'index'])->name('hasil-validasi');
         Route::get('/data/{id}', [HasilValidasiController::class, 'show'])->name('hasil-validasi-data');
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [HasilValidasiController::class, 'edit'])->name('hasil-validasi-detail');
+        Route::post('/kirim-notifikasi/{lowonganPekerjaanId}', [HasilValidasiController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-pelamar');
     })->name('hasil-validasi');
 
     Route::fallback(function () {

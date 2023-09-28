@@ -91,35 +91,27 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="pt-6">
-                        <form action="{{ route('proses-seleksi-update', ['lowonganPekerjaanId' => $lowonganPekerjaanId]) }}" method="POST">
+                    <div class="pt-6 flex justify-end">
+                        <form action="{{ route('proses-seleksi-update', ['lowonganPekerjaanId' => $lowonganPekerjaanId]) }}"
+                            method="POST">
                             @csrf
 
                             <input type="hidden" name="pelamar_id" value="{{ $data->id }}">
 
-                            @if ($data->status_lamaran === 'Disetujui')
-                                <button
-                                    class="text-white bg-green-500 hover:bg-green-600 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                                    disabled>{{ $data->status_lamaran }}</button>
-                            @elseif ($data->status_lamaran === 'Ditolak')
-                                <button
-                                    class="text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                                    disabled>{{ $data->status_lamaran }}</button>
-                            @else
-                                <button type="submit" name="status_lamaran" value="Disetujui"
-                                    class="lulusButton text-white bg-green-500 hover:bg-green-600 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                                    Disetujui
-                                </button>
-                                <button type="submit" name="status_lamaran" value="Ditolak"
-                                    class="tidakLulusButton text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                                    Ditolak
-                                </button>
-                            @endif
+                            <button type="submit" name="status_lamaran" value="Diterima"
+                                class="lulusButton text-white bg-green-500 hover:bg-green-600 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                                Lamaran Diterima
+                            </button>
+                            <button type="submit" name="status_lamaran" value="Ditolak"
+                                class="tidakLulusButton text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                                Lamaran Ditolak
+                            </button>
+
                         </form>
                     </div>
                 </div>
             </div>
-           
+
             <div class="mt-9">
                 <a href="/proses-seleksi/data/{{ $lowonganPekerjaanId }}"
                     class="tidakLulusButton text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Kembali</a>
