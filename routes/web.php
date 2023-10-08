@@ -85,6 +85,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/data/{id}', [ProsesSeleksiController::class, 'show'])->name('proses-seleksi-data');
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [ProsesSeleksiController::class, 'edit'])->name('proses-seleksi-detail');
         Route::POST('/detail/{lowonganPekerjaanId}', [ProsesSeleksiController::class, 'update'])->name('proses-seleksi-update');
+        Route::get('/download/{filename}/{pelamarName}', [ProsesSeleksiController::class, 'download'])->name('download-dokumen');
     })->name('proses-seleksi');
 
     Route::prefix('pelamar-diterima')->group(function () {
@@ -179,8 +180,11 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
     Route::get('/lamar/{id}', [MelamarPekerjaanController::class, 'create'])->name('lamar-create');
     Route::POST('/lamar/{id}', [MelamarPekerjaanController::class, 'store'])->name('lamar-store');
 
-    Route::get('/lamaran-saya', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
-    Route::get('/lamaran-saya/detail/{id}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
+    Route::prefix('lamaran-saya')->group(function () {
+        Route::get('/', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
+        Route::get('/detail/{id}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
+        Route::get('/download/{filename}/{pelamarName}', [LamaranSayaController::class, 'download'])->name('unduh-dokumen-lamaran');
+    })->name('lamaran-saya');
 
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
     Route::post('/notifikasi/mark-as-read', [NotifikasiController::class, 'markAsRead'])->name('notifikasi-markAsRead');

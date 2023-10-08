@@ -117,6 +117,7 @@ class HasilValidasiController extends Controller
     public function kirimNotifikasi(Request $request, $lowonganPekerjaanId)
     {
         $pilihPelamar = $request->input('pilihPelamar', []);
+        dd($pilihPelamar);
 
         foreach ($pilihPelamar as $pelamarId) {
             $pelamar = Pelamar::find($pelamarId);

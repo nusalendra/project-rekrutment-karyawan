@@ -64,7 +64,7 @@ class PelamarDiterimaController extends Controller
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
         $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Diterima')->get();
 
-        return view('pages.HRD.pelamar-diterima.show', ['title' => 'Pelamar Disetujui'], compact('data', 'lowonganPekerjaanIdDecrypt'));
+        return view('pages.HRD.pelamar-diterima.show', ['title' => 'Pelamar Diterima'], compact('data', 'lowonganPekerjaanIdDecrypt'));
     }
 
     public function validasi($lowonganPekerjaanId)

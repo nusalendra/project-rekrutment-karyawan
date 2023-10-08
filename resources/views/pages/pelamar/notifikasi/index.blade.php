@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-        <div class="bg-white bg-auto rounded h-[840px] overflow-y-auto">
+        <div class="bg-white bg-auto rounded h-[750px] overflow-y-auto">
             <div class="px-12 pt-5 text-black">
                 <div class="flex justify-between bg-white rounded-md items-center mb-5">
                     <h1 class="font-semibold text-xl p-2.5">Notifikasi</h1>
@@ -15,7 +15,7 @@
                     @foreach ($notifikasi as $notification)
                         <div class="flex border-b border-gray-300 py-3 px-2.5 notification @if ($notification->status) read @endif"
                             data-id="{{ $notification->id }}">
-                            <a href="/beranda">
+                            <a href="/notifikasi">
                                 <h2 class="font-normal text-sm">{!! $notification->pesan !!}</h2>
                                 <p class="text-xs text-stone-800 mt-1.5">
                                     {{ \Carbon\Carbon::parse($notification->created_at)->format('d-m-Y, H:i:s') }}</p>
