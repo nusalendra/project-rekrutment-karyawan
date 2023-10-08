@@ -15,11 +15,19 @@ class KriteriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Kriteria::with('jabatan')->simplePaginate(8);
+        $searchTerm = $request->input('search');
 
-        return view('pages.manajer.kriteria.index', ['title' => 'Kriteria'], compact('data'));
+        $data = Kriteria::join('jabatans', 'kriterias.jabatan_id', '=', 'jabatans.id')
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->where('kriterias.nama', 'like', "%$searchTerm%")->orWhere('jabatans.nama', 'like', "%$searchTerm%");
+            })
+            ->orderByDesc('kriterias.created_at')
+            ->select('kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'kriterias.tipe', 'kriterias.bobot')
+            ->simplePaginate(10);
+
+        return view('pages.manajer.kriteria.index', ['title' => 'Kriteria'], compact('data', 'searchTerm'));
     }
 
     /**

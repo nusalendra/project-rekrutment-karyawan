@@ -84,29 +84,54 @@
                                 <div class="flex w-full h-16">
                                     <label for="nama"
                                         class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">{{ $item->kriteria->nama }}</label>
-                                    <p class="flex w-2/3 pl-3 text-gray-700 tracking-wide items-center">
-                                        {{ $item->subkriteria->nama }}
-                                    </p>
+                                    <p class="flex w-1/3 pl-3 text-gray-700 tracking-wide items-center">
+                                        {{ $item->subkriteria->nama }}</p>
+                                    @php
+                                        $unduhDokumenTampil = false; // Inisialisasi variabel untuk mengontrol tampilan tombol "Unduh Dokumen"
+                                    @endphp
+                                    @foreach ($dataDokumenPenilaian as $dokumenPenilaian)
+                                        @if ($dokumenPenilaian->kriteria_id == $item->kriteria->id)
+                                            @if (!$unduhDokumenTampil)
+                                                <div class="flex items-center">
+                                                    <a href="{{ route('download-dokumen', ['filename' => basename($dokumenPenilaian->dokumen), 'pelamarName' => $data->user->name]) }}"
+                                                        class="flex justify-center items-center bg-blue-500 h-10 px-3 py-1 space-x-1 rounded-lg hover:bg-blue-600">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="17"
+                                                            height="17" viewBox="0 0 24 24">
+                                                            <path fill="white"
+                                                                d="M6.5 20q-2.275 0-3.888-1.575T1 14.575q0-1.95 1.175-3.475T5.25 9.15q.425-1.8 2.125-3.425T11 4.1q.825 0 1.413.588T13 6.1v6.05l1.6-1.55L16 12l-4 4l-4-4l1.4-1.4l1.6 1.55V6.1q-1.9.35-2.95 1.838T7 11h-.5q-1.45 0-2.475 1.025T3 14.5q0 1.45 1.025 2.475T6.5 18h12q1.05 0 1.775-.725T21 15.5q0-1.05-.725-1.775T18.5 13H17v-2q0-1.2-.55-2.238T15 7V4.675q1.85.875 2.925 2.588T19 11q1.725.2 2.863 1.488T23 15.5q0 1.875-1.313 3.188T18.5 20h-12Zm5.5-8.95Z" />
+                                                        </svg>
+                                                        <h1 class="text-white">Unduh Dokumen</h1>
+                                                    </a>
+                                                    @php
+                                                        $unduhDokumenTampil = true; // Setel variabel agar tombol tidak ditampilkan lagi
+                                                    @endphp
+                                                </div>
+                                            @endif
+                                        @endif
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>
                     @endforeach
+
                     <div class="pt-6 flex justify-end">
-                        <form action="{{ route('proses-seleksi-update', ['lowonganPekerjaanId' => $lowonganPekerjaanId]) }}"
+                        <form
+                            action="{{ route('proses-seleksi-update', ['lowonganPekerjaanId' => $lowonganPekerjaanId]) }}"
                             method="POST">
                             @csrf
 
                             <input type="hidden" name="pelamar_id" value="{{ $data->id }}">
 
-                            <button type="submit" name="status_lamaran" value="Diterima"
-                                class="lulusButton text-white bg-green-500 hover:bg-green-600 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                                Lamaran Diterima
-                            </button>
+
                             <button type="submit" name="status_lamaran" value="Ditolak"
                                 class="tidakLulusButton text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
                                 Lamaran Ditolak
                             </button>
-
+                            <button type="submit" name="status_lamaran" value="Diterima"
+                                class="lulusButton text-white bg-green-500 hover:bg-green-600 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                                Lamaran Diterima
+                            </button>
                         </form>
                     </div>
                 </div>

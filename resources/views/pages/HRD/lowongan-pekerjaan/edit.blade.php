@@ -112,5 +112,34 @@
 
         </div>
     </div>
+    {{-- Flatpicker script --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    {{-- Menentukan tanggal/bulan/tahun flatpicker --}}
+    <script>
+        flatpickr(
+            "#tanggal_mulai, #tanggal_akhir", {
+                dateFormat: "d-m-Y",
+                minDate: "today",
+                allowInput: true,
+            });
+    </script>
+
+    <script>
+        const checkboxItems = document.querySelectorAll('.checkbox-item');
+        const selectedValues = document.getElementById('selectedValues');
+
+        checkboxItems.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                let values = [];
+                checkboxItems.forEach(function(item) {
+                    if (item.checked) {
+                        values.push(item.nextElementSibling.textContent);
+                    }
+                });
+                selectedValues.textContent = values.join(', ');
+            });
+        });
+    </script>
     <?php $showSidebar = false; ?>
 @endsection

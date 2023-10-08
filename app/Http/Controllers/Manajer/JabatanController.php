@@ -14,11 +14,17 @@ class JabatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Jabatan::simplePaginate(8);
-
-        return view('pages.manajer.jabatan.index', ['title' => 'Jabatan'], compact('data'));
+        $searchTerm = $request->input('search');
+        
+        $data = Jabatan::when($searchTerm, function ($query, $searchTerm) {
+            return $query->where('nama', 'like', "%$searchTerm%");
+        })
+            ->orderByDesc('created_at')
+            ->simplePaginate(10);
+        
+        return view('pages.manajer.jabatan.index', ['title' => 'Jabatan'], compact('data', 'searchTerm'));
     }
 
     /**

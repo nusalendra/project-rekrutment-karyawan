@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
+use App\Models\DokumenPenilaian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\LowonganPekerjaan;
@@ -14,6 +15,7 @@ use App\Models\Penilaian;
 use App\Models\Notifikasi;
 use App\Models\Pengukuran;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
 
 use function Symfony\Component\String\b;
 
@@ -87,6 +89,8 @@ class MelamarPekerjaanController extends Controller
         // Ambil data kriteria dan subkriteria yang dipilih oleh pengguna dari input request
         $kriteriaData = $request->input('kriteria');
 
+        $pelamar = Pelamar::findOrFail($pelamarId);
+
         // Lakukan iterasi melalui data kriteria yang dipilih
         foreach ($kriteriaData as $kriteriaId => $subkriteriaId) {
             $penilaian = new Penilaian();
@@ -105,7 +109,42 @@ class MelamarPekerjaanController extends Controller
             $penilaian->save();
         }
 
-        $pelamar = Pelamar::findOrFail($pelamarId);
+        $filesByKriteria = $request->file('dokumen');
+
+        foreach ($filesByKriteria as $kriteriaId => $files) {
+            foreach ($files as $file) {
+                // Validasi tipe MIME di sini jika diperlukan
+                $validator = Validator::make(['file' => $file], [
+                    'file' => 'mimes:pdf|max:5120',
+                ]);
+
+                if ($validator->fails()) {
+                    // Handle validasi yang gagal
+                    return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+                }
+
+                $dokumenPenilaian = new DokumenPenilaian();
+
+                $dokumenPenilaian->pelamar_id = $pelamarId;
+                $dokumenPenilaian->jabatan_id = $request->jabatan_id;
+                $dokumenPenilaian->kriteria_id = $kriteriaId;
+
+                $namaPeserta = $pelamar->user->name;
+                $kriteria = Kriteria::find($kriteriaId);
+                $kriteria = Kriteria::find($kriteriaId);
+                $kriteriaName = str_replace(' ', '_', $kriteria->nama);
+                $fileName = $kriteriaName . '.pdf';
+                
+                $filePath = $file->storeAs("dokumen-pendukung/{$namaPeserta}", $fileName);
+                $dokumenPenilaian->dokumen = $fileName;
+
+                $dokumenPenilaian->save();
+            }
+        }
+
+
 
         $notifikasi = new Notifikasi();
         $notifikasi->user_id = $request->user_id;

@@ -19,7 +19,7 @@ class LamaranSayaController extends Controller
     {
         $user = Auth::user();
         $data = Pelamar::with('lowonganPekerjaan', 'user')->where('user_id', $user->id)->get();
-        
+
         return view('pages.pelamar.lamaran-saya.index', ['title' => 'Lamaran Saya'], compact('data'));
     }
 
@@ -55,7 +55,11 @@ class LamaranSayaController extends Controller
         $pelamarIdDecrypt = Crypt::decrypt($id);
         $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
 
-        return view('pages.pelamar.lamaran-saya.detail', ['title' => 'Detail Lamaran', compact($data)]);
+        $dataPenilaian = $data->penilaian;
+
+        $dataDokumenPenilaian = $data->dokumenPenilaian;
+
+        return view('pages.pelamar.lamaran-saya.detail', ['title' => 'Detail Lamaran'], compact('data', 'dataPenilaian', 'dataDokumenPenilaian'));
     }
 
     /**
@@ -90,5 +94,18 @@ class LamaranSayaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function download($filename, $pelamarName)
+    {
+        // Tentukan path lengkap file gambar
+        $filePath = storage_path('app/dokumen-pendukung/' . $pelamarName . '/' . $filename);
+
+        // Pastikan file ada sebelum menginisialisasi unduhan
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }

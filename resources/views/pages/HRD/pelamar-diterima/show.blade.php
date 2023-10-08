@@ -3,24 +3,19 @@
 @section('content')
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         <div class="bg-stone-200 bg-auto rounded h-216">
-            <div class="flex-1 mt-2 ml-12 text-blue-600">
-                <a href="/pelamar-diterima">
-                    <div class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor"
-                            class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
-                        </svg>
-                        <p class="font-semibold text-lg">Kembali</p>
-                    </div>
-                </a>
-            </div>
+
             <div class="px-12 pt-5 text-black">
                 <div class="flex justify-between items-center mb-3">
-                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Lamaran Pelamar Diterima
+                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Lamaran Pelamar
+                        Diterima
                     </h2>
                 </div>
-                <div class="flex justify-end mb-4">
+                <div class="flex mb-4">
+                    <a href="/pelamar-diterima"
+                        class="mr-2 text-white bg-cyan-500 hover:bg-cyan-600 border border-cyan-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"">
+                        <p class="font-semibold text-sm">Kembali</p>
+                    </a>
+
                     @php
                         $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaanIdDecrypt);
                     @endphp

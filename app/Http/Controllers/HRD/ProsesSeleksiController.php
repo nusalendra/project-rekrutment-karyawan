@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
+use App\Models\DokumenPenilaian;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
 use App\Models\HasilValidasi;
@@ -77,10 +78,12 @@ class ProsesSeleksiController extends Controller
     {
         $pelamarIdDecrypt = Crypt::decrypt($pelamarId);
         $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
-
+        
         $dataPenilaian = $data->penilaian;
 
-        return view('pages.HRD.proses-seleksi.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId'));
+        $dataDokumenPenilaian = $data->dokumenPenilaian;
+
+        return view('pages.HRD.proses-seleksi.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPenilaian'));
     }
 
     /**
@@ -137,5 +140,18 @@ class ProsesSeleksiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function download($filename, $pelamarName)
+    {
+        // Tentukan path lengkap file gambar
+        $filePath = storage_path('app/dokumen-pendukung/' . $pelamarName . '/' . $filename);
+        
+        // Pastikan file ada sebelum menginisialisasi unduhan
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }
