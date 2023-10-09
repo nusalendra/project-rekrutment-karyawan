@@ -17,14 +17,23 @@ class LowonganPekerjaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = LowonganPekerjaan::with('periode', 'jabatan')->simplePaginate(8);
+        $searchTerm = $request->input('search');
+
+        $data = LowonganPekerjaan::join('jabatans', 'lowongan_pekerjaans.jabatan_id', '=', 'jabatans.id')
+            ->join('periodes', 'lowongan_pekerjaans.periode_id', '=', 'periodes.id')
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->where('jabatans.nama', 'like', "%$searchTerm%")->orWhere('periodes.nama', 'like', "%$searchTerm%");
+            })
+            ->orderByDesc('lowongan_pekerjaans.created_at')
+            ->select('periodes.nama as nama_periode', 'lowongan_pekerjaans.*', 'jabatans.nama as nama_jabatan')
+            ->simplePaginate(10);
 
         $tanggal = Carbon::now();
         $tanggalSekarang = $tanggal->format('Y-m-d');
 
-        return view('pages.HRD.lowongan-pekerjaan.index', ['title' => 'Kelola Lowongan Pekerjaan'], compact('data', 'tanggalSekarang'));
+        return view('pages.HRD.lowongan-pekerjaan.index', ['title' => 'Kelola Lowongan Pekerjaan'], compact('data', 'tanggalSekarang', 'searchTerm'));
     }
 
     /**

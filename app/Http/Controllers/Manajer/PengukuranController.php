@@ -24,7 +24,7 @@ class PengukuranController extends Controller
             ->join('kriterias', 'pengukurans.kriteria_id', '=', 'kriterias.id')
             ->join('subkriterias', 'pengukurans.subkriteria_id', '=', 'subkriterias.id')
             ->when($searchTerm, function ($query, $searchTerm) {
-                return $query->where('jabatans.nama', 'like', "%$searchTerm%")->orWhere('kriterias.nama', 'like', "%$searchTerm%")->orWhere('subkriterias.nama', 'like', "%$searchTerm%")->orWhere('pengukurans.nama', 'like', "%$searchTerm%");
+                return $query->where('jabatans.nama', 'like', "%$searchTerm%");
             })
             ->orderByDesc('pengukurans.created_at')
             ->select('kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'subkriterias.nama as nama_subkriteria', 'pengukurans.nama as nama_pengukuran', 'kriterias.tipe', 'pengukurans.skor')

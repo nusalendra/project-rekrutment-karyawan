@@ -22,7 +22,7 @@ class SubkriteriaController extends Controller
         $data = Subkriteria::join('jabatans', 'subkriterias.jabatan_id', '=', 'jabatans.id')
             ->join('kriterias', 'subkriterias.kriteria_id', '=', 'kriterias.id')
             ->when($searchTerm, function ($query, $searchTerm) {
-                return $query->where('jabatans.nama', 'like', "%$searchTerm%")->orWhere('kriterias.nama', 'like', "%$searchTerm%")->orWhere('subkriterias.nama', 'like', "%$searchTerm%");
+                return $query->where('jabatans.nama', 'like', "%$searchTerm%");
             })
             ->orderByDesc('subkriterias.created_at')
             ->select('kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'subkriterias.nama as nama_subkriteria', 'kriterias.tipe')
