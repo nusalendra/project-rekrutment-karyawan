@@ -14,11 +14,17 @@ class PeriodeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Periode::simplePaginate(8);
+        $searchTerm = $request->input('search');
 
-        return view('pages.HRD.periode.index', ['title' => 'Periode'], compact('data'));
+        $data = Periode::when($searchTerm, function ($query, $searchTerm) {
+            return $query->where('nama', 'like', "%$searchTerm%");
+        })
+            ->orderByDesc('created_at')
+            ->simplePaginate(10);
+
+        return view('pages.HRD.periode.index', ['title' => 'Periode'], compact('data', 'searchTerm'));
     }
 
     /**

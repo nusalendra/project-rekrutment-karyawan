@@ -21,16 +21,25 @@ class ProsesSeleksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = LowonganPekerjaan::with('periode', 'jabatan')->get();
+        $searchTerm = $request->input('search');
+
+        $data = LowonganPekerjaan::join('jabatans', 'lowongan_pekerjaans.jabatan_id', '=', 'jabatans.id')
+            ->join('periodes', 'lowongan_pekerjaans.periode_id', '=', 'periodes.id')
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->where('jabatans.nama', 'like', "%$searchTerm%")->orWhere('periodes.nama', 'like', "%$searchTerm%");
+            })
+            ->orderByDesc('lowongan_pekerjaans.created_at')
+            ->select('periodes.nama as nama_periode', 'lowongan_pekerjaans.*', 'jabatans.nama as nama_jabatan')
+            ->simplePaginate(10);
 
         $tanggal = Carbon::now();
         $tanggalSekarang = $tanggal->format('Y-m-d');
 
         $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Proses')->get();
 
-        return view('pages.HRD.proses-seleksi.index', ['title' => 'Proses Seleksi'], compact('data', 'tanggalSekarang', 'pelamar'));
+        return view('pages.HRD.proses-seleksi.index', ['title' => 'Proses Seleksi'], compact('data', 'tanggalSekarang', 'pelamar', 'searchTerm'));
     }
 
     /**

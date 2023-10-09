@@ -16,19 +16,22 @@ class HasilValidasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $data = Pelamar::with('user', 'lowonganPekerjaan')
-        //     ->join('hasil_validasis', 'pelamars.id', 'hasil_validasis.pelamar_id')
-        //     ->where('status_lamaran', 'Divalidasi')
-        //     ->orderBy('hasil_validasis.hasil_penilaian', 'desc')
-        //     ->get();
+        $searchTerm = $request->input('search');
 
-        $data = LowonganPekerjaan::with('periode', 'jabatan')->get();
+        $data = LowonganPekerjaan::join('jabatans', 'lowongan_pekerjaans.jabatan_id', '=', 'jabatans.id')
+            ->join('periodes', 'lowongan_pekerjaans.periode_id', '=', 'periodes.id')
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->where('jabatans.nama', 'like', "%$searchTerm%")->orWhere('periodes.nama', 'like', "%$searchTerm%");
+            })
+            ->orderByDesc('lowongan_pekerjaans.created_at')
+            ->select('periodes.nama as nama_periode', 'lowongan_pekerjaans.*', 'jabatans.nama as nama_jabatan')
+            ->simplePaginate(10);
 
         $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Divalidasi')->get();
 
-        return view('pages.HRD.hasil-validasi.index', ['title' => 'Hasil Validasi Pelamar'], compact('data', 'pelamar'));
+        return view('pages.HRD.hasil-validasi.index', ['title' => 'Hasil Validasi Pelamar'], compact('data', 'pelamar', 'searchTerm'));
     }
 
     /**
