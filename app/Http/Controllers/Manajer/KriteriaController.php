@@ -21,7 +21,7 @@ class KriteriaController extends Controller
 
         $data = Kriteria::join('jabatans', 'kriterias.jabatan_id', '=', 'jabatans.id')
             ->when($searchTerm, function ($query, $searchTerm) {
-                return $query->where('kriterias.nama', 'like', "%$searchTerm%")->orWhere('jabatans.nama', 'like', "%$searchTerm%");
+                return $query->where('jabatans.nama', 'like', "%$searchTerm%");
             })
             ->orderByDesc('kriterias.created_at')
             ->select('kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'kriterias.tipe', 'kriterias.bobot')
