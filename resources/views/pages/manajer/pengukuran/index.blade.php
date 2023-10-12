@@ -4,7 +4,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         <div class="bg-stone-200 bg-auto rounded h-216">
             <div class="px-12 pt-9 text-black">
-                <div class="flex justify-between items-center mb-8">
+                <div class="flex justify-between items-center mb-3">
                     <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Pengukuran
                     </h2>
                     <div class="flex space-x-6 items-center">
@@ -32,7 +32,7 @@
                         </div>
                         <input type="search" id="searchInput" value="{{ $searchTerm }}"
                             class="block w-full px-10 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Cari Jabatan...">
+                            placeholder="Cari Jabatan / Kriteria / Sub...">
                     </div>
                 </div>
                 <div class="relative overflow-x-auto">
@@ -115,9 +115,8 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $data->links() }}
                     @if ($data->hasPages())
-                        <div class="pagination-links pt-6">
+                        <div class="pagination-links pt-3">
                             {{ $data->appends(['search' => $searchTerm])->links() }}
                         </div>
                     @endif

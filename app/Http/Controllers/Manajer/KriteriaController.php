@@ -24,8 +24,8 @@ class KriteriaController extends Controller
                 return $query->where('jabatans.nama', 'like', "%$searchTerm%");
             })
             ->orderByDesc('kriterias.created_at')
-            ->select('kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'kriterias.tipe', 'kriterias.bobot')
-            ->simplePaginate(10);
+            ->select('kriterias.id', 'kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'kriterias.tipe', 'kriterias.bobot')
+            ->simplePaginate(6);
 
         return view('pages.manajer.kriteria.index', ['title' => 'Kriteria'], compact('data', 'searchTerm'));
     }
@@ -86,7 +86,7 @@ class KriteriaController extends Controller
     public function edit($id)
     {
         $kriteriaId = Crypt::decrypt($id);
-        $kriteria = Kriteria::findOrFail($kriteriaId);
+        $kriteria = Kriteria::find($kriteriaId);
         $jabatan = Jabatan::all();
 
         $pilihTipeKriteria = [
@@ -106,6 +106,7 @@ class KriteriaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($id);
         $validatedData = $request->validate([
             'tipe' => 'required|in:Benefit,Cost'
         ]);

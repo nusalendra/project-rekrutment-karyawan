@@ -19,17 +19,15 @@ class LamaranPekerjaanController extends Controller
     public function index(Request $request)
     {
         $searchTerm = $request->input('search');
-        $data = LowonganPekerjaan::when($searchTerm, function ($query, $searchTerm) {
-            return $query->orWhere('nama', 'like', "%$searchTerm%");
-        })
-            ->whereHas('periode', function ($query) {
-                $query->whereDate('tanggal_mulai', '<=', now())
-                    ->whereDate('tanggal_akhir', '>=', now());
-            })
-            ->where('kuota', '>', 0)
-            ->orderByDesc('created_at')
-            ->simplePaginate(10);
 
+        $data = LowonganPekerjaan::join('jabatans', 'lowongan_pekerjaans.jabatan_id', '=', 'jabatans.id')
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->orWhere('jabatans.nama', 'like', "%$searchTerm%");
+            })
+            ->where('lowongan_pekerjaans.kuota', '>', 0)
+            ->orderByDesc('lowongan_pekerjaans.created_at')
+            ->simplePaginate(10);
+        
         $periode = Periode::all();
 
         return view('pages.guest.lamaran-pekerjaan.index', ['title' => 'Lamaran Pekerjaan'], compact('data', 'searchTerm', 'periode'));
