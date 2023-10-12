@@ -32,7 +32,7 @@
                         </div>
                         <input type="search" id="searchInput" value="{{ $searchTerm }}"
                             class="block w-full px-10 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Cari Jabatan...">
+                            placeholder="Cari Jabatan / Kriteria">
                     </div>
                 </div>
                 <div class="relative overflow-x-auto">
@@ -111,9 +111,8 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $data->links() }}
                     @if ($data->hasPages())
-                        <div class="pagination-links pt-6">
+                        <div class="pagination-links pt-3">
                             {{ $data->appends(['search' => $searchTerm])->links() }}
                         </div>
                     @endif

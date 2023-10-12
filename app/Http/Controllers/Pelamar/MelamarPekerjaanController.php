@@ -29,15 +29,13 @@ class MelamarPekerjaanController extends Controller
     public function index(Request $request)
     {
         $searchTerm = $request->input('search');
-        $data = LowonganPekerjaan::when($searchTerm, function ($query, $searchTerm) {
-            return $query->orWhere('nama', 'like', "%$searchTerm%");
-        })
-            ->whereHas('periode', function ($query) {
-                $query->whereDate('tanggal_mulai', '<=', now())
-                    ->whereDate('tanggal_akhir', '>=', now());
+
+        $data = LowonganPekerjaan::join('jabatans', 'lowongan_pekerjaans.jabatan_id', '=', 'jabatans.id')
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->orWhere('jabatans.nama', 'like', "%$searchTerm%");
             })
-            ->where('kuota', '>', 0)
-            ->orderByDesc('created_at')
+            ->where('lowongan_pekerjaans.kuota', '>', 0)
+            ->orderByDesc('lowongan_pekerjaans.created_at')
             ->simplePaginate(10);
 
         $periode = Periode::all();
@@ -136,7 +134,7 @@ class MelamarPekerjaanController extends Controller
                 $kriteria = Kriteria::find($kriteriaId);
                 $kriteriaName = str_replace(' ', '_', $kriteria->nama);
                 $fileName = $kriteriaName . '.pdf';
-                
+
                 $filePath = $file->storeAs("dokumen-pendukung/{$namaPeserta}", $fileName);
                 $dokumenPenilaian->dokumen = $fileName;
 

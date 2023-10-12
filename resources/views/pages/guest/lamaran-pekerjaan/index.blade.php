@@ -17,7 +17,7 @@
                     class="block w-full px-4 py-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Cari Posisi Jabatan...">
             </div>
-            <div class="card-container mt-5">
+            <div class="card-container mt-5" id="cardJabatan">
                 @foreach ($data as $item)
                     @php
                         $jabatanIdEncrypt = Crypt::encrypt($item->jabatan->id);
@@ -29,7 +29,7 @@
                                 {{ $item->jabatan->nama }}</h5>
                             <p class="text-xs text-gray-700 dark:text-gray-400">Lamaran Dibuka :
                                 {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d-m-Y') }}
-
+                                s/d
                                 {{ \Carbon\Carbon::parse($item->tanggal_akhir)->format('d-m-Y') }}</p>
                             <p class="text-xs text-gray-700 dark:text-gray-400">Sisa Kuota Lamaran : {{ $item->kuota }}</p>
                         </div>
@@ -67,18 +67,37 @@
                 });
         }
     </script>
-    {{-- <script>
-        const periodeDropdown = document.getElementById('periode_id');
-        const tanggalAwalSpan = document.getElementById('tanggal_awal');
-        const tanggalAkhirSpan = document.getElementById('tanggal_akhir');
+    <script>
+        let searchTerm = ''; // Variabel untuk menyimpan term pencarian saat ini
+        const cardJabatan = document.getElementById('cardJabatan');
 
-        periodeDropdown.addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            const tanggalAwal = selectedOption.getAttribute('data-tanggal-awal');
-            const tanggalAkhir = selectedOption.getAttribute('data-tanggal-akhir');
+        // Fungsi untuk memuat data dengan parameter pencarian dan halaman
+        const loadData = async (searchTerm, page) => {
+            try {
+                const response = await fetch(`/lamaran-pekerjaan?search=${searchTerm}&page=${page}`);
+                const html = await response.text();
+                const tempContainer = document.createElement('div');
+                tempContainer.innerHTML = html;
+                const newData = tempContainer.querySelector('#cardJabatan');
 
-            tanggalAwalSpan.textContent = tanggalAwal;
-            tanggalAkhirSpan.textContent = tanggalAkhir;
-        });
-    </script> --}}
+                if (newData) {
+                    cardJabatan.innerHTML = newData.innerHTML;
+                } else {
+                    console.error('Invalid response format:', html);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        // Fungsi untuk menangani input pengguna
+        const handleSearchInput = () => {
+            searchTerm = searchInput.value; // Simpan term pencarian saat ini
+            loadData(searchTerm, 1); // Ganti page ke 1 saat pencarian berubah
+        };
+
+        searchInput.addEventListener('input', handleSearchInput);
+
+        // ...
+    </script>
 @endsection

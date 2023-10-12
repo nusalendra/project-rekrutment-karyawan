@@ -46,7 +46,7 @@ Route::get('/', [BerandaController::class, 'beranda']);
 
 Route::get('/lamaran-pekerjaan', [LamaranPekerjaanController::class, 'index']);
 Route::get('/lamaran-pekerjaan/{id}', [LamaranPekerjaanController::class, 'getDetail'])->name('lamaran-pekerjaan-id');
-Route::get('/get-detail-jabatan/{id}', [LamaranPekerjaanController::class, 'getDetail'])->name('detail-jabatan');
+Route::get('/get-detail-jabatan/{id}', [LamaranPekerjaanController::class, 'getDetail'])->name('detail-jabatan-guest');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::POST('/login', [LoginController::class, 'store']);

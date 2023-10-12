@@ -18,7 +18,7 @@ class LamaranSayaController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $data = Pelamar::with('lowonganPekerjaan', 'user')->where('user_id', $user->id)->get();
+        $data = Pelamar::with('lowonganPekerjaan', 'user')->where('user_id', $user->id)->simplePaginate(10);
 
         return view('pages.pelamar.lamaran-saya.index', ['title' => 'Lamaran Saya'], compact('data'));
     }
