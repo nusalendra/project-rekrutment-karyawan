@@ -28,5 +28,9 @@ class Subkriteria extends Model
         return $this->hasMany(Penilaian::class);
     }
 
+    public function dokumenPendukung() {
+        return $this->hasMany(DokumenPendukung::class);
+    }
+
    
 }

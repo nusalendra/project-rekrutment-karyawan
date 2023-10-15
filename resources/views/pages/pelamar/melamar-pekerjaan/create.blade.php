@@ -16,21 +16,43 @@
 
                     @foreach ($kriteriaWithSubkriteria as $kriteria)
                         <label class="text-base font-semibold text-gray-900 dark:text-white">{{ $kriteria->nama }}</label>
-                        <select id="kriteria_{{ $kriteria->id }}" name="kriteria[{{ $kriteria->id }}]"
-                            class="bg-gray-50 border mt-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected disabled></option>
-                            @foreach ($kriteria->subkriteria as $subkriteria)
-                                <option value="{{ $subkriteria->id }}">{{ $subkriteria->nama }}</option>
+                        @foreach ($kriteria->subkriteria as $subkriteria)
+                            <div class="flex items-center">
+                                <input type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    value="{{ $subkriteria->nama }}" disabled>
+                                <div class="p-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+                                    </svg>
+                                </div>
+                                <select id="kriteria_{{ $kriteria->id }}_{{ $subkriteria->id }}"
+                                    name="pengukuran_id[{{ $kriteria->id }}][{{ $subkriteria->id }}]"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <option selected disabled></option>
+                                    @foreach ($subkriteria->pengukuran as $pengukuran)
+                                        <option value="{{ $pengukuran->id }}">{{ $pengukuran->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @foreach ($subkriteria->pengukuran as $pengukuran)
+                                <li class="text-xs ml-5">{{ $pengukuran->keterangan }}</li>
                             @endforeach
-                        </select>
-                        <div class="pt-2.5 mb-5">
-                            <label for="" class="text-xs font-bold text-gray-900 dark:text-white">Dokumen
-                                {{ $kriteria->nama }} (Upload File : pdf)</label><br>
-                            <input type="file" name="dokumen[{{ $kriteria->id }}][]" accept="application/pdf"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                multiple>
-                        </div>
+                            <div class="pt-2.5 mb-5">
+                                <label for="" class="text-xs font-bold text-gray-900 dark:text-white">Upload Dokumen
+                                    Pendukung (File : pdf)</label><br>
+                                <input type="file" name="dokumen[{{ $kriteria->id }}][{{ $subkriteria->id }}][]"
+                                    value="{{ $subkriteria->id }}" accept="application/pdf"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mt-1.5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    multiple>
+                                <label for="" class="text-xs font-medium">Jika terdapat banyak file disarankan untuk
+                                    penggabungan file</label>
+                            </div>
+                        @endforeach
                     @endforeach
+
                     <div class="flex mt-5">
                         <a href="/melamar-pekerjaan"
                             class=" text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Batal</a>

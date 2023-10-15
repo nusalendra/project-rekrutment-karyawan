@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-        <div class="bg-white bg-auto rounded h-[750px] overflow-y-auto">
+        <div class="bg-white bg-auto rounded h-[830px] overflow-y-auto pb-5">
             <div class="px-12 pt-5 text-black">
                 <div class="flex justify-between bg-white rounded-md items-center mb-5">
                     <h1 class="font-semibold text-xl p-2.5">Notifikasi</h1>
