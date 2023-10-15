@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DokumenPenilaian extends Model
+class DokumenPendukung extends Model
 {
     use HasFactory;
-    protected $table = 'dokumen_penilaians';
-    protected $fillable = ['pelamar_id', 'jabatan_id', 'kriteria_id', 'dokumen'];
+    protected $table = 'dokumen_pendukungs';
+    protected $fillable = ['pelamar_id', 'jabatan_id', 'kriteria_id', 'subkriteria_id', 'dokumen'];
     protected $guarded = [];
 
     public function pelamar() {
@@ -22,5 +22,9 @@ class DokumenPenilaian extends Model
 
     public function kriteria() {
         return $this->belongsTo(Kriteria::class);
+    }
+
+    public function subkriteria() {
+        return $this->belongsTo(Subkriteria::class);
     }
 }

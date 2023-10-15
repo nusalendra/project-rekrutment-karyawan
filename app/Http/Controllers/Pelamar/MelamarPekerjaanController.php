@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
-use App\Models\DokumenPenilaian;
+use App\Models\DokumenPendukung;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\LowonganPekerjaan;
@@ -14,8 +14,10 @@ use App\Models\Pelamar;
 use App\Models\Penilaian;
 use App\Models\Notifikasi;
 use App\Models\Pengukuran;
+use App\Models\Subkriteria;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use Psy\Readline\Hoa\Console;
 
 use function Symfony\Component\String\b;
 
@@ -56,7 +58,9 @@ class MelamarPekerjaanController extends Controller
         $lowonganPekerjaan = LowonganPekerjaan::with('jabatan', 'periode')->find($lowonganPekerjaanIdDecrypt);
         $kriteriaWithSubkriteria = Kriteria::with('subkriteria')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
 
-        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'kriteriaWithSubkriteria', 'user'));
+        $subkriteria = Subkriteria::with('pengukuran')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
+        // dd($subkriteria);
+        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'kriteriaWithSubkriteria', 'user', 'subkriteria'));
     }
 
     /**
@@ -84,64 +88,59 @@ class MelamarPekerjaanController extends Controller
         // Ambil ID pelamar yang baru saja dibuat
         $pelamarId = $pelamar->getKey();
 
-        // Ambil data kriteria dan subkriteria yang dipilih oleh pengguna dari input request
-        $kriteriaData = $request->input('kriteria');
-
         $pelamar = Pelamar::findOrFail($pelamarId);
 
-        // Lakukan iterasi melalui data kriteria yang dipilih
-        foreach ($kriteriaData as $kriteriaId => $subkriteriaId) {
-            $penilaian = new Penilaian();
+        $pengukuranData = $request->input('pengukuran_id');
 
-            // Set atribut-atribut penilaian sesuai dengan data yang diterima
-            $penilaian->pelamar_id = $pelamarId;
-            $penilaian->periode_id = $request->periode_id;
-            $penilaian->jabatan_id = $request->jabatan_id;
-            $penilaian->kriteria_id = $kriteriaId;
-            $penilaian->subkriteria_id = $subkriteriaId;
-            $penilaian->nilai_normalisasi = 0;
+        foreach ($pengukuranData as $kriteriaId => $subkriteriaValues) {
+            foreach ($subkriteriaValues as $subkriteriaId => $selectedPengukuran) {
+                $penilaian = new Penilaian();
 
-            $pengukuran = Pengukuran::where('subkriteria_id', $subkriteriaId)->first();
-            $penilaian->pengukuran_id = $pengukuran->id;
+                // Set atribut-atribut penilaian sesuai dengan data yang diterima
+                $penilaian->pelamar_id = $pelamarId;
+                $penilaian->periode_id = $request->periode_id;
+                $penilaian->jabatan_id = $request->jabatan_id;
+                $penilaian->kriteria_id = $kriteriaId;
+                $penilaian->subkriteria_id = $subkriteriaId;
+                $penilaian->pengukuran_id = $selectedPengukuran;
+                $penilaian->nilai_normalisasi = 0;
+                $penilaian->save();
 
-            $penilaian->save();
-        }
+                $filesByKriteria = $request->file('dokumen');
 
-        $filesByKriteria = $request->file('dokumen');
+                if (!empty($filesByKriteria[$kriteriaId][$subkriteriaId])) {
+                    $dokumenFiles = $filesByKriteria[$kriteriaId][$subkriteriaId];
 
-        foreach ($filesByKriteria as $kriteriaId => $files) {
-            foreach ($files as $file) {
-                // Validasi tipe MIME di sini jika diperlukan
-                $validator = Validator::make(['file' => $file], [
-                    'file' => 'mimes:pdf|max:5120',
-                ]);
+                    foreach ($dokumenFiles as $singleFile) {
+                        $validator = Validator::make(['file' => $singleFile], [
+                            'file' => 'mimes:pdf|max:5120',
+                        ]);
 
-                if ($validator->fails()) {
-                    // Handle validasi yang gagal
-                    return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+                        if ($validator->fails()) {
+                            return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput();
+                        }
+
+                        $dokumenPendukung = new DokumenPendukung();
+                        $dokumenPendukung->pelamar_id = $pelamarId;
+                        $dokumenPendukung->jabatan_id = $request->jabatan_id;
+                        $dokumenPendukung->kriteria_id = $kriteriaId;
+                        $dokumenPendukung->subkriteria_id = $subkriteriaId;
+
+                        $namaPeserta = $pelamar->user->name;
+                        $subkriteria = Subkriteria::find($subkriteriaId);
+                        $subkriteriaName = str_replace(' ', '_', $subkriteria->nama);
+                        $fileName = $subkriteriaName . '.pdf';
+
+                        $filePath = $singleFile->move(public_path("dokumen-pendukung/{$namaPeserta}"), $fileName);
+                        $dokumenPendukung->dokumen = $fileName;
+
+                        $dokumenPendukung->save();
+                    }
                 }
-
-                $dokumenPenilaian = new DokumenPenilaian();
-
-                $dokumenPenilaian->pelamar_id = $pelamarId;
-                $dokumenPenilaian->jabatan_id = $request->jabatan_id;
-                $dokumenPenilaian->kriteria_id = $kriteriaId;
-
-                $namaPeserta = $pelamar->user->name;
-                $kriteria = Kriteria::find($kriteriaId);
-                $kriteria = Kriteria::find($kriteriaId);
-                $kriteriaName = str_replace(' ', '_', $kriteria->nama);
-                $fileName = $kriteriaName . '.pdf';
-
-                $filePath = $file->storeAs("dokumen-pendukung/{$namaPeserta}", $fileName);
-                $dokumenPenilaian->dokumen = $fileName;
-
-                $dokumenPenilaian->save();
             }
         }
-
 
 
         $notifikasi = new Notifikasi();

@@ -9,7 +9,7 @@ class Penilaian extends Model
 {
     use HasFactory;
     protected $table = 'penilaians';
-    protected $fillable = ['pelamar_id', 'periode_id', 'jabatan_id', 'kriteria_id', 'subkriteria_id', 'nilai_normalisasi'];
+    protected $fillable = ['pelamar_id', 'periode_id', 'jabatan_id', 'kriteria_id', 'subkriteria_id', 'pengukuran_id', 'nilai_normalisasi'];
     protected $guarded = [];
 
     public function pelamar() {

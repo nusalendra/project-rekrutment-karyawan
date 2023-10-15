@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('subkriteria_id')->constrained('subkriterias')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama');
             $table->integer('skor');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }
