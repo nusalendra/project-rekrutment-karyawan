@@ -92,6 +92,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/', [PelamarDiterimaController::class, 'index'])->name('pelamar-diterima');
         Route::get('/data/{id}', [PelamarDiterimaController::class, 'show'])->name('pelamar-diterima-data');
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDiterimaController::class, 'edit'])->name('pelamar-diterima-detail');
+        Route::get('/download/{filename}/{pelamarName}', [PelamarDiterimaController::class, 'download'])->name('download-dokumen-pelamar-diterima');
         Route::POST('/validasi/{lowonganPekerjaanId}', [PelamarDiterimaController::class, 'validasi'])->name('validasi');
     })->name('pelamar-diterima');
 
@@ -99,6 +100,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/', [PelamarDitolakController::class, 'index'])->name('pelamar-ditolak');
         Route::get('/data/{id}', [PelamarDitolakController::class, 'show'])->name('pelamar-ditolak-data');
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDitolakController::class, 'edit'])->name('pelamar-ditolak-detail');
+        Route::get('/download/{filename}/{pelamarName}', [PelamarDitolakController::class, 'download'])->name('download-dokumen-pelamar-ditolak');
     })->name('pelamar-ditolak');
 
     Route::prefix('hasil-validasi')->group(function () {
@@ -106,6 +108,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/data/{id}', [HasilValidasiController::class, 'show'])->name('hasil-validasi-data');
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [HasilValidasiController::class, 'edit'])->name('hasil-validasi-detail');
         Route::post('/kirim-notifikasi/{lowonganPekerjaanId}', [HasilValidasiController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-pelamar');
+        Route::get('/download/{filename}/{pelamarName}', [HasilValidasiController::class, 'download'])->name('download-dokumen-pelamar-validasi');
     })->name('hasil-validasi');
 
     Route::fallback(function () {

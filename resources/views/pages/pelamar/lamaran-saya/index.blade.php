@@ -26,7 +26,7 @@
                                     <h1 class="flex w-full justify-center">Tanggal Melamar</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Tanggal Lamaran Divalidasi</h1>
+                                    <h1 class="flex w-full justify-center">Tanggal Diputuskan</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>

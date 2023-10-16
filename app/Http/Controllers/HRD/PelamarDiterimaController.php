@@ -78,7 +78,7 @@ class PelamarDiterimaController extends Controller
     public function validasi($lowonganPekerjaanId)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
-        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->get();
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Diterima')->get();
 
         foreach ($pelamars as $pelamar) {
             $penilaians = Penilaian::where('pelamar_id', $pelamar->id)->get();
@@ -171,8 +171,9 @@ class PelamarDiterimaController extends Controller
         // $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
 
         $dataPenilaian = $data->penilaian;
+        $dataDokumenPendukung = $data->dokumenPendukung;
 
-        return view('pages.HRD.pelamar-diterima.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId'));
+        return view('pages.HRD.pelamar-diterima.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPendukung'));
     }
 
     /**
@@ -196,5 +197,18 @@ class PelamarDiterimaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function download($filename, $pelamarName)
+    {
+        // Tentukan path lengkap file gambar
+        $filePath = public_path('dokumen-pendukung/' . $pelamarName . '/' . $filename);
+
+        // Pastikan file ada sebelum menginisialisasi unduhan
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }

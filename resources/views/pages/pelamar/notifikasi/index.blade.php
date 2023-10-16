@@ -15,7 +15,7 @@
                     @foreach ($notifikasi as $notification)
                         <div class="flex border-b border-gray-300 py-3 px-2.5 notification @if ($notification->status) read @endif"
                             data-id="{{ $notification->id }}">
-                            <a href="/notifikasi">
+                            <a href="#">
                                 <h2 class="font-normal text-sm">{!! $notification->pesan !!}</h2>
                                 <p class="text-xs text-stone-800 mt-1.5">
                                     {{ \Carbon\Carbon::parse($notification->created_at)->format('d-m-Y, H:i:s') }}</p>

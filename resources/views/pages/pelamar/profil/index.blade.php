@@ -15,7 +15,7 @@
                             </g>
                         </svg>
                     @else
-                        <img class="w-20 h-auto mx-2 my-3 border border-slate-300 rounded-full"
+                        <img class="w-20 h-20 mx-2 my-3 border border-slate-300 rounded-full"
                             src="{{ asset('foto-profil/' . $user->profile_photo_path) }}" alt="Foto Profil">
                     @endif
                     <div class="flex flex-col w-full h-auto justify-center pl-3">
