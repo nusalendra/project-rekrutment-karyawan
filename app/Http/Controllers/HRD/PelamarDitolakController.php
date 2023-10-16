@@ -85,8 +85,9 @@ class PelamarDitolakController extends Controller
         $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
 
         $dataPenilaian = $data->penilaian;
+        $dataDokumenPendukung = $data->dokumenPendukung;
 
-        return view('pages.HRD.pelamar-ditolak.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId'));
+        return view('pages.HRD.pelamar-ditolak.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPendukung'));
     }
 
     /**
@@ -110,5 +111,18 @@ class PelamarDitolakController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function download($filename, $pelamarName)
+    {
+        // Tentukan path lengkap file gambar
+        $filePath = public_path('dokumen-pendukung/' . $pelamarName . '/' . $filename);
+
+        // Pastikan file ada sebelum menginisialisasi unduhan
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }

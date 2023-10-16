@@ -58,8 +58,9 @@ class LamaranSayaController extends Controller
         $dataPenilaian = $data->penilaian;
 
         $dataDokumenPenilaian = $data->dokumenPenilaian;
+        $dataDokumenPendukung = $data->dokumenPendukung;
 
-        return view('pages.pelamar.lamaran-saya.detail', ['title' => 'Detail Lamaran'], compact('data', 'dataPenilaian', 'dataDokumenPenilaian'));
+        return view('pages.pelamar.lamaran-saya.detail', ['title' => 'Detail Lamaran'], compact('data', 'dataPenilaian', 'dataDokumenPenilaian', 'dataDokumenPendukung'));
     }
 
     /**
@@ -99,7 +100,7 @@ class LamaranSayaController extends Controller
     public function download($filename, $pelamarName)
     {
         // Tentukan path lengkap file gambar
-        $filePath = storage_path('app/dokumen-pendukung/' . $pelamarName . '/' . $filename);
+        $filePath = public_path('dokumen-pendukung/' . $pelamarName . '/' . $filename);
 
         // Pastikan file ada sebelum menginisialisasi unduhan
         if (file_exists($filePath)) {

@@ -54,7 +54,7 @@
                         <!-- Foto pelamar kanan -->
                         @if ($data->user->profile_photo_path != null)
                             <img src="{{ asset('foto-profil/' . $data->user->profile_photo_path) }}" alt="Foto Pelamar"
-                                class="w-48 h-auto rounded">
+                                class="w-1/3 h-2/3 rounded">
                         @else
                             <div class="flex w-48 h-56 items-end rounded border-4 border-gray-600 text-gray-600 bg-gray-50">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 36 32">
@@ -78,15 +78,55 @@
                     <h1 class="text-lg font-bold">Data Seleksi Pelamar</h1>
                 </div>
                 <div class="bg-white px-4 py-4 shadow space-y-0.5">
+                    @php
+                        $kriteriaSebelumnya = null; // Inisialisasi variabel untuk menyimpan kriteria sebelumnya
+                    @endphp
+
                     @foreach ($dataPenilaian as $item)
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="col-span-1 font-semibold">
-                                <div class="flex w-full h-16">
-                                    <label for="nama"
-                                        class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">{{ $item->kriteria->nama }}</label>
-                                    <p class="flex w-2/3 pl-3 text-gray-700 tracking-wide items-center">
-                                        {{ $item->subkriteria->nama }}
+                            <div class="col-span-1 font-semibold mt-2.5">
+                                @if ($item->kriteria->nama != $kriteriaSebelumnya)
+                                    <div class="bg-blue-50 p-2 rounded-md">
+                                        <label for="nama"
+                                            class="text-gray-600 text-lg">{{ $item->kriteria->nama }}</label>
+                                    </div>
+                                    @php
+                                        $kriteriaSebelumnya = $item->kriteria->nama;
+                                    @endphp
+                                @endif
+
+                                <div class="flex w-full items-center h-16 border-t border-gray-300 mt-2">
+                                    <p class="w-1/3 pl-3 text-gray-700 text-lg tracking-wide">{{ $item->subkriteria->nama }}
                                     </p>
+                                    <p class="flex w-1/3 pl-3 text-gray-700 text-lg tracking-wide">
+                                        {{ $item->pengukuran->nama }}</p>
+
+                                    @php
+                                        $unduhDokumenTampil = false; // Inisialisasi variabel untuk mengontrol tampilan tombol "Unduh Dokumen"
+                                    @endphp
+
+                                    @foreach ($dataDokumenPendukung as $dokumenPendukung)
+                                        @if ($dokumenPendukung->subkriteria_id == $item->subkriteria->id)
+                                            @if (!$unduhDokumenTampil)
+                                                <div class="flex items-center pl-3 mt-2">
+                                                    <a href="{{ route('download-dokumen-pelamar-diterima', ['filename' => basename($dokumenPendukung->dokumen), 'pelamarName' => $data->user->name]) }}"
+                                                        class="flex justify-center items-center bg-blue-500 h-10 px-3 py-1 space-x-1 rounded-lg hover:bg-blue-600">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="17"
+                                                            height="17" fill="currentColor"
+                                                            class="bi bi-cloud-arrow-down-fill text-white"
+                                                            viewBox="0 0 17 17">
+                                                            <path
+                                                                d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                                        </svg>
+                                                        <h1 class="text-white">Unduh Dokumen</h1>
+                                                    </a>
+                                                    @php
+                                                        $unduhDokumenTampil = true; // Setel variabel agar tombol tidak ditampilkan lagi
+                                                    @endphp
+                                                </div>
+                                            @endif
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

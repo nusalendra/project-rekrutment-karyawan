@@ -46,7 +46,7 @@
     <style>
         .card-container {
             max-height: 620px;
-            /* Atur tinggi maksimal container sesuai kebutuhan */
+            
         }
     </style>
 

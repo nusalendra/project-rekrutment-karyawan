@@ -86,13 +86,14 @@ class ProsesSeleksiController extends Controller
     public function edit($pelamarId, $lowonganPekerjaanId)
     {
         $pelamarIdDecrypt = Crypt::decrypt($pelamarId);
+        // dd($pelamarIdDecrypt);
         $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
         
         $dataPenilaian = $data->penilaian;
-
-        $dataDokumenPenilaian = $data->dokumenPenilaian;
-
-        return view('pages.HRD.proses-seleksi.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPenilaian'));
+        // dd($dataPenilaian);
+        $dataDokumenPendukung = $data->dokumenPendukung;
+        // dd($dataDokumenPendukung);
+        return view('pages.HRD.proses-seleksi.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPendukung'));
     }
 
     /**
@@ -122,6 +123,12 @@ class ProsesSeleksiController extends Controller
         $dataPelamar->status_lamaran = 'Diterima';
 
         $dataPelamar->save();
+
+        $notifikasi = new Notifikasi();
+        $notifikasi->user_id = $dataPelamar->user->id;
+        $notifikasi->pesan = "Kami ingin memberitahu anda bahwa lamaran anda pada Posisi <strong>" . $dataPelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah diterima oleh HRD. Kami akan segera menghubungi anda untuk memberikan informasi lebih lanjut tentang tahapan selanjutnya dalam proses rekrutmen kami.";
+
+        $notifikasi->save();
     }
 
     public function lamaranDitolak(Request $request)
@@ -154,7 +161,7 @@ class ProsesSeleksiController extends Controller
     public function download($filename, $pelamarName)
     {
         // Tentukan path lengkap file gambar
-        $filePath = storage_path('app/dokumen-pendukung/' . $pelamarName . '/' . $filename);
+        $filePath = public_path('dokumen-pendukung/' . $pelamarName . '/' . $filename);
         
         // Pastikan file ada sebelum menginisialisasi unduhan
         if (file_exists($filePath)) {

@@ -90,8 +90,9 @@ class HasilValidasiController extends Controller
         $data = Pelamar::with('user')->find($pelamarIdDecrypt);
 
         $dataPenilaian = $data->penilaian;
+        $dataDokumenPendukung = $data->dokumenPendukung;
 
-        return view('pages.HRD.hasil-validasi.edit', ['title' => 'Detail Pelamar'], compact('data', 'pelamarId', 'lowonganPekerjaanId', 'dataPenilaian'));
+        return view('pages.HRD.hasil-validasi.edit', ['title' => 'Detail Pelamar'], compact('data', 'pelamarId', 'lowonganPekerjaanId', 'dataPenilaian', 'dataDokumenPendukung'));
     }
 
     /**
@@ -120,7 +121,6 @@ class HasilValidasiController extends Controller
     public function kirimNotifikasi(Request $request, $lowonganPekerjaanId)
     {
         $pilihPelamar = $request->input('pilihPelamar', []);
-        dd($pilihPelamar);
 
         foreach ($pilihPelamar as $pelamarId) {
             $pelamar = Pelamar::find($pelamarId);
@@ -130,10 +130,23 @@ class HasilValidasiController extends Controller
 
             $notifikasi = new Notifikasi();
             $notifikasi->user_id = $pelamar->user->id;
-            $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk langkah selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
+            $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk tahap selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
 
             $notifikasi->save();
         }
         return redirect()->route('hasil-validasi-data', $lowonganPekerjaanId);
+    }
+
+    public function download($filename, $pelamarName)
+    {
+        // Tentukan path lengkap file gambar
+        $filePath = public_path('dokumen-pendukung/' . $pelamarName . '/' . $filename);
+
+        // Pastikan file ada sebelum menginisialisasi unduhan
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }
