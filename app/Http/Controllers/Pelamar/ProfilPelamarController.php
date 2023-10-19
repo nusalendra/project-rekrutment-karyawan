@@ -137,7 +137,7 @@ class ProfilPelamarController extends Controller
             $fileName = 'Curriculum Vitae_' . $user->name . '.' . $fileCV->getClientOriginalExtension();
 
             // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = storage_path('app/dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
+            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
             if (!file_exists($userDirectory)) {
                 mkdir($userDirectory, 0755, true);
             }
@@ -153,7 +153,7 @@ class ProfilPelamarController extends Controller
             $fileName = 'Pas Foto_' . $user->name . '.' . $filePasFoto->getClientOriginalExtension();
 
             // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = storage_path('app/dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
+            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
             if (!file_exists($userDirectory)) {
                 mkdir($userDirectory, 0755, true);
             }
@@ -169,7 +169,7 @@ class ProfilPelamarController extends Controller
             $fileName = 'Ijazah & Transkrip_' . $user->name . '.' . $fileIjazahTranskrip->getClientOriginalExtension();
 
             // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = storage_path('app/dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
+            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
             if (!file_exists($userDirectory)) {
                 mkdir($userDirectory, 0755, true);
             }
@@ -185,7 +185,7 @@ class ProfilPelamarController extends Controller
             $fileName = 'Surat Lamaran Kerja_' . $user->name . '.' . $fileSuratLamaranKerja->getClientOriginalExtension();
 
             // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = storage_path('app/dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
+            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
             if (!file_exists($userDirectory)) {
                 mkdir($userDirectory, 0755, true);
             }

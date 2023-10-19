@@ -97,10 +97,23 @@ class LamaranSayaController extends Controller
         //
     }
 
-    public function download($filename, $pelamarName)
+    public function downloadDokumenPendukung($fileName, $pelamarName)
     {
         // Tentukan path lengkap file gambar
-        $filePath = public_path('dokumen-pendukung/' . $pelamarName . '/' . $filename);
+        $filePath = public_path('dokumen-pendukung/' . $pelamarName . '/' . $fileName);
+
+        // Pastikan file ada sebelum menginisialisasi unduhan
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
+
+    public function downloadDokumenPeserta($dokumenName, $fileName)
+    {
+
+        $filePath = public_path('dokumen-peserta/Dokumen_' . $dokumenName . '/' . $fileName);
 
         // Pastikan file ada sebelum menginisialisasi unduhan
         if (file_exists($filePath)) {

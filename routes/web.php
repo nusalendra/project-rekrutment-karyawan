@@ -111,6 +111,10 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/download/{filename}/{pelamarName}', [HasilValidasiController::class, 'download'])->name('download-dokumen-pelamar-validasi');
     })->name('hasil-validasi');
 
+    Route::prefix('tes-potensi-akademik')->group(function () {
+        Route::get('/', [HasilValidasiController::class, 'index'])->name('tes-potensi-akademik');
+        
+    })->name('tes-potensi-akademik');
     Route::fallback(function () {
         return view('pages/utility/404');
     });
@@ -186,7 +190,8 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
     Route::prefix('lamaran-saya')->group(function () {
         Route::get('/', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
         Route::get('/detail/{id}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
-        Route::get('/download/{filename}/{pelamarName}', [LamaranSayaController::class, 'download'])->name('unduh-dokumen-lamaran');
+        Route::get('/download/{fileName}/{pelamarName}', [LamaranSayaController::class, 'downloadDokumenPendukung'])->name('unduh-dokumen-lamaran');
+        Route::get('/download-dokumen-peserta/{dokumenName}/{fileName}', [LamaranSayaController::class, 'downloadDokumenPeserta'])->name('unduh-dokumen-peserta');
     })->name('lamaran-saya');
 
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
