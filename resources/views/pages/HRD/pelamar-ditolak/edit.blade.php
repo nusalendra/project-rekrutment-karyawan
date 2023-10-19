@@ -49,12 +49,78 @@
                             <p class="flex w-2/3 pl-3 text-gray-700 tracking-wide items-center">
                                 {{ $data->user->nomor_handphone }}</p>
                         </div>
+                        <div class="flex w-full h-16">
+                            <label for="curriculum_vitae"
+                                class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">Curriculum Vitae</label>
+                            <div class="flex items-center pl-3 mt-2">
+                                <a href="{{ route('unduh-dokumen-pelamar-ditolak', ['dokumenName' => basename($data->user->name), 'fileName' => $data->user->curriculum_vitae]) }}"
+                                    class="flex justify-center items-center bg-blue-500 h-10 px-3 py-1 space-x-1 rounded-lg hover:bg-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        fill="currentColor" class="bi bi-cloud-arrow-down-fill text-white"
+                                        viewBox="0 0 17 17">
+                                        <path
+                                            d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                    </svg>
+                                    <h1 class="text-white">Unduh Dokumen</h1>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex w-full h-16">
+                            <label for="pas_foto" class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">Pas
+                                Foto</label>
+                            <div class="flex items-center pl-3 mt-2">
+                                <a href="{{ route('unduh-dokumen-pelamar-ditolak', ['dokumenName' => basename($data->user->name), 'fileName' => $data->user->pas_foto]) }}"
+                                    class="flex justify-center items-center bg-blue-500 h-10 px-3 py-1 space-x-1 rounded-lg hover:bg-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        fill="currentColor" class="bi bi-cloud-arrow-down-fill text-white"
+                                        viewBox="0 0 17 17">
+                                        <path
+                                            d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                    </svg>
+                                    <h1 class="text-white">Unduh Dokumen</h1>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex w-full h-16">
+                            <label for="ijazah_transkrip"
+                                class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">Ijazah / Transkrip
+                                Nilai</label>
+                            <div class="flex items-center pl-3 mt-2">
+                                <a href="{{ route('unduh-dokumen-pelamar-ditolak', ['dokumenName' => basename($data->user->name), 'fileName' => $data->user->ijazah_transkrip]) }}"
+                                    class="flex justify-center items-center bg-blue-500 h-10 px-3 py-1 space-x-1 rounded-lg hover:bg-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        fill="currentColor" class="bi bi-cloud-arrow-down-fill text-white"
+                                        viewBox="0 0 17 17">
+                                        <path
+                                            d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                    </svg>
+                                    <h1 class="text-white">Unduh Dokumen</h1>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex w-full h-16">
+                            <label for="surat_lamaran_kerja"
+                                class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">Surat
+                                Lamaran Kerja</label>
+                            <div class="flex items-center pl-3 mt-2">
+                                <a href="{{ route('unduh-dokumen-pelamar-ditolak', ['dokumenName' => basename($data->user->name), 'fileName' => $data->user->surat_lamaran_kerja]) }}"
+                                    class="flex justify-center items-center bg-blue-500 h-10 px-3 py-1 space-x-1 rounded-lg hover:bg-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        fill="currentColor" class="bi bi-cloud-arrow-down-fill text-white"
+                                        viewBox="0 0 17 17">
+                                        <path
+                                            d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                    </svg>
+                                    <h1 class="text-white">Unduh Dokumen</h1>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-span-1">
                         <!-- Foto pelamar kanan -->
-                        @if ($data->user->profile_photo_path != null)
-                            <img src="{{ asset('foto-profil/' . $data->user->profile_photo_path) }}" alt="Foto Pelamar"
-                                class="w-1/3 h-2/3 rounded">
+                        @if ($data->user->pas_foto != null)
+                            <img src="{{ asset('dokumen-peserta/Dokumen_' . $data->user->name . '/' . $data->user->pas_foto) }}"
+                                alt="Foto Pelamar" class="w-1/3 rounded">
                         @else
                             <div class="flex w-48 h-56 items-end rounded border-4 border-gray-600 text-gray-600 bg-gray-50">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 36 32">
@@ -96,7 +162,8 @@
                                 @endif
 
                                 <div class="flex w-full items-center h-16 border-t border-gray-300 mt-2">
-                                    <p class="w-1/3 pl-3 text-gray-700 text-lg tracking-wide">{{ $item->subkriteria->nama }}
+                                    <p class="w-1/3 pl-3 text-gray-700 text-lg tracking-wide">
+                                        {{ $item->subkriteria->nama }}
                                     </p>
                                     <p class="flex w-1/3 pl-3 text-gray-700 text-lg tracking-wide">
                                         {{ $item->pengukuran->nama }}</p>
@@ -109,7 +176,7 @@
                                         @if ($dokumenPendukung->subkriteria_id == $item->subkriteria->id)
                                             @if (!$unduhDokumenTampil)
                                                 <div class="flex items-center pl-3 mt-2">
-                                                    <a href="{{ route('download-dokumen-pelamar-diterima', ['filename' => basename($dokumenPendukung->dokumen), 'pelamarName' => $data->user->name]) }}"
+                                                    <a href="{{ route('download-dokumen-pelamar-ditolak', ['filename' => basename($dokumenPendukung->dokumen), 'pelamarName' => $data->user->name]) }}"
                                                         class="flex justify-center items-center bg-blue-500 h-10 px-3 py-1 space-x-1 rounded-lg hover:bg-blue-600">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="17"
                                                             height="17" fill="currentColor"
@@ -131,8 +198,6 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="pt-6">
-                    </div>
                 </div>
             </div>
 

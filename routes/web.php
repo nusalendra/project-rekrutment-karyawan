@@ -86,6 +86,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [ProsesSeleksiController::class, 'edit'])->name('proses-seleksi-detail');
         Route::POST('/detail/{lowonganPekerjaanId}', [ProsesSeleksiController::class, 'update'])->name('proses-seleksi-update');
         Route::get('/download/{filename}/{pelamarName}', [ProsesSeleksiController::class, 'download'])->name('download-dokumen');
+        Route::get('/download-dokumen-seleksi-pelamar/{dokumenName}/{fileName}', [ProsesSeleksiController::class, 'downloadDokumenPelamar'])->name('unduh-dokumen-seleksi-pelamar');
     })->name('proses-seleksi');
 
     Route::prefix('pelamar-diterima')->group(function () {
@@ -94,6 +95,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDiterimaController::class, 'edit'])->name('pelamar-diterima-detail');
         Route::get('/download/{filename}/{pelamarName}', [PelamarDiterimaController::class, 'download'])->name('download-dokumen-pelamar-diterima');
         Route::POST('/validasi/{lowonganPekerjaanId}', [PelamarDiterimaController::class, 'validasi'])->name('validasi');
+        Route::get('/download-dokumen-pelamar-diterima/{dokumenName}/{fileName}', [PelamarDiterimaController::class, 'downloadDokumenPelamar'])->name('unduh-dokumen-pelamar-diterima');
     })->name('pelamar-diterima');
 
     Route::prefix('pelamar-ditolak')->group(function () {
@@ -101,6 +103,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/data/{id}', [PelamarDitolakController::class, 'show'])->name('pelamar-ditolak-data');
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDitolakController::class, 'edit'])->name('pelamar-ditolak-detail');
         Route::get('/download/{filename}/{pelamarName}', [PelamarDitolakController::class, 'download'])->name('download-dokumen-pelamar-ditolak');
+        Route::get('/download-dokumen-pelamar-ditolak/{dokumenName}/{fileName}', [PelamarDitolakController::class, 'downloadDokumenPelamar'])->name('unduh-dokumen-pelamar-ditolak');
     })->name('pelamar-ditolak');
 
     Route::prefix('hasil-validasi')->group(function () {
@@ -109,6 +112,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [HasilValidasiController::class, 'edit'])->name('hasil-validasi-detail');
         Route::post('/kirim-notifikasi/{lowonganPekerjaanId}', [HasilValidasiController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-pelamar');
         Route::get('/download/{filename}/{pelamarName}', [HasilValidasiController::class, 'download'])->name('download-dokumen-pelamar-validasi');
+        Route::get('/download-dokumen-validasi-pelamar/{dokumenName}/{fileName}', [HasilValidasiController::class, 'downloadDokumenPelamar'])->name('unduh-dokumen-validasi-pelamar');
     })->name('hasil-validasi');
 
     Route::prefix('tes-potensi-akademik')->group(function () {

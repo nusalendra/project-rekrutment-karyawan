@@ -125,4 +125,17 @@ class PelamarDitolakController extends Controller
             abort(404, 'File not found');
         }
     }
+
+    public function downloadDokumenPelamar($dokumenName, $fileName)
+    {
+
+        $filePath = public_path('dokumen-peserta/Dokumen_' . $dokumenName . '/' . $fileName);
+
+        // Pastikan file ada sebelum menginisialisasi unduhan
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
 }
