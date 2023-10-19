@@ -13,11 +13,10 @@ use App\Models\Kriteria;
 use App\Models\Pelamar;
 use App\Models\Penilaian;
 use App\Models\Notifikasi;
-use App\Models\Pengukuran;
 use App\Models\Subkriteria;
+use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
-use Psy\Readline\Hoa\Console;
 
 use function Symfony\Component\String\b;
 
@@ -59,8 +58,10 @@ class MelamarPekerjaanController extends Controller
         $kriteriaWithSubkriteria = Kriteria::with('subkriteria')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
 
         $subkriteria = Subkriteria::with('pengukuran')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
-        // dd($subkriteria);
-        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'kriteriaWithSubkriteria', 'user', 'subkriteria'));
+
+        $dataUserExist = User::where('id', $user->id)->select('TTL', 'alamat', 'jenis_kelamin', 'nomor_handphone', 'agama', 'curriculum_vitae', 'pas_foto', 'ijazah_transkrip', 'surat_lamaran_kerja')->first();
+        
+        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'kriteriaWithSubkriteria', 'user', 'subkriteria', 'dataUserExist'));
     }
 
     /**
@@ -208,6 +209,8 @@ class MelamarPekerjaanController extends Controller
         $statusLamaran = Pelamar::where('user_id', $user->id)
             ->where('lowongan_pekerjaan_id', $lowonganPekerjaan->id)
             ->value('status_lamaran');
+
+        // $dataUserExist = User::where('id', $user->id)->select('TTL', 'alamat', 'jenis_kelamin', 'nomor_handphone', 'agama', 'curriculum_vitae', 'pas_foto', 'ijazah_transkrip', 'surat_lamaran_kerja')->first();
 
         return view('pages.pelamar.melamar-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan', 'statusLamaran'));
     }

@@ -23,4 +23,8 @@ class LowonganPekerjaan extends Model
     public function jabatan() {
         return $this->belongsTo(Jabatan::class);
     }
+
+    public function tesPotensiAkademik() {
+        return $this->hasMany(TesPotensiAkademik::class);
+    }
 }
