@@ -40,7 +40,7 @@
                         <button type="submit"
                             class="text-white bg-green-600 hover:bg-green-700 border border-green-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
                             id="sendButton" style="display: none;">
-                            Kirim Notifikasi
+                            Setujui Lamaran & Kirim Notifikasi
                         </button>
                     </form>
                 </div>
