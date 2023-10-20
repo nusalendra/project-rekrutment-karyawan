@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('nama');
             $table->dateTime('tanggal_waktu_mulai');
             $table->dateTime('tanggal_waktu_selesai');
-            $table->boolean('tampil');
             $table->timestamps();
         });
     }

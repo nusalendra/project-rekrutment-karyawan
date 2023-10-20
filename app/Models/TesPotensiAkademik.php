@@ -9,7 +9,7 @@ class TesPotensiAkademik extends Model
 {
     use HasFactory;
     protected $table = 'tes_potensi_akademiks';
-    protected $fillable = ['lowongan_pekerjaan_id' ,'nama', 'tanggal_waktu_mulai', 'tanggal_waktu_selesai', 'tampil'];
+    protected $fillable = ['lowongan_pekerjaan_id', 'nama', 'tanggal_waktu_mulai', 'tanggal_waktu_selesai'];
     protected $guarded = [];
 
     public function lowonganPekerjaan() {

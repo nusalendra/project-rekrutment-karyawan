@@ -17,6 +17,7 @@ use App\Http\Controllers\HRD\ProsesSeleksiController;
 use App\Http\Controllers\HRD\PelamarDiterimaController;
 use App\Http\Controllers\HRD\PelamarDitolakController;
 use App\Http\Controllers\HRD\HasilValidasiController;
+use App\Http\Controllers\HRD\TesPotensiAkademikController;
 
 // Manajer Controller
 use App\Http\Controllers\Manajer\JabatanController;
@@ -29,7 +30,7 @@ use App\Http\Controllers\Pelamar\MelamarPekerjaanController;
 use App\Http\Controllers\Pelamar\ProfilPelamarController;
 use App\Http\Controllers\Pelamar\LamaranSayaController;
 use App\Http\Controllers\Pelamar\NotifikasiController;
-
+use App\Models\TesPotensiAkademik;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,9 +117,17 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     })->name('hasil-validasi');
 
     Route::prefix('tes-potensi-akademik')->group(function () {
-        Route::get('/', [HasilValidasiController::class, 'index'])->name('tes-potensi-akademik');
-        
+        Route::get('/', [TesPotensiAkademikController::class, 'index'])->name('tes-potensi-akademik');
+        Route::get('/create', [TesPotensiAkademikController::class, 'create'])->name('tes-potensi-akademik-create');
+        Route::post('/create', [TesPotensiAkademikController::class, 'store'])->name('tes-potensi-akademik-store');
+        Route::get('/edit/{id}', [TesPotensiAkademikController::class, 'edit'])->name('tes-potensi-akademik-edit');
+        Route::put('/edit/{id}', [TesPotensiAkademikController::class, 'update'])->name('tes-potensi-akademik-update');
+        Route::get('/delete/{id}', [TesPotensiAkademikController::class, 'destroy'])->name('tes-potensi-akademik-destroy');
+        Route::get('/pertanyaan/{id}', [TesPotensiAkademikController::class, 'createPertanyaan'])->name('tes-potensi-akademik-create-pertanyaan');
+        Route::post('/pertanyaan/{id}', [TesPotensiAkademikController::class, 'storePertanyaan'])->name('tes-potensi-akademik-store-pertanyaan');
+        Route::delete('/pertanyaan/delete/{tesPotensiAkademikId}/{pertanyaanTesPotensiAkademikId}', [TesPotensiAkademikController::class, 'destroyPertanyaan'])->name('tes-potensi-akademik-delete-pertanyaan');
     })->name('tes-potensi-akademik');
+
     Route::fallback(function () {
         return view('pages/utility/404');
     });

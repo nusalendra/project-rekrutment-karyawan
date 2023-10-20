@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tes_potensi_akademik_id')->constrained('tes_potensi_akademiks')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('pertanyaan');
-            $table->text('a');
-            $table->text('b');
-            $table->text('c');
-            $table->text('d');
+            $table->text('pilihan_a');
+            $table->text('pilihan_b');
+            $table->text('pilihan_c');
+            $table->text('pilihan_d');
             $table->text('jawaban');
             $table->timestamps();
         });
