@@ -8,8 +8,7 @@
                 <div class="grid grid-cols-2 mb-6 ">
                     <div class="rounded border border-neutral-300 py-4 px-6">
                         <div class="mb-3">
-                            <label for="" class="w-32 text-right font-bold text-gray-700">Tambah Pertanyaan Post
-                                Test</label>
+                            <label for="" class="w-32 text-right font-bold text-gray-700">Form Pertanyaan Tes</label>
                         </div>
                         <form action="{{ route('tes-potensi-akademik-store-pertanyaan', $tesPotensiAkademikId) }}"
                             method="post" class="w-full grid space-y-6">

@@ -173,7 +173,57 @@
                         </div>
                     </li>
                     {{-- Tes Potensi Akadamik --}}
-                    <li
+                    <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['tes-potensi-akademik', 'lamaran-disetujui'])) {{ 'bg-gray' }} @endif"
+                        x-data="{ open: {{ in_array(Request::segment(1), ['tes-potensi-akademik', 'lamaran-disetujui']) ? 1 : 0 }} }">
+                        <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['proses_rekruitmen'])) {{ 'hover:text-black' }} @endif"
+                            href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                        <path
+                                            class="fill-current @if (in_array(Request::segment(1), ['tes-potensi-akademik', 'lamaran-disetujui'])) {{ 'text-indigo-300' }}@else{{ 'text-slate-400' }} @endif"
+                                            d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
+                                        <path
+                                            class="fill-current @if (in_array(Request::segment(1), ['tes-potensi-akademik', 'lamaran-disetujui'])) {{ 'text-indigo-600' }}@else{{ 'text-slate-700' }} @endif"
+                                            d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
+                                        <path
+                                            class="fill-current @if (in_array(Request::segment(1), ['tes-potensi-akademik', 'lamaran-disetujui'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif"
+                                            d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
+                                    </svg>
+                                    <span
+                                        class="text-base font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 @if (in_array(Request::segment(1), ['tes-potensi-akademik', 'lamaran-disetujui'])) {{ 'text-blue-600' }} @endif">Tahap 2 (TPA)</span>
+                                </div>
+                                <!-- Icon -->
+                                <div
+                                    class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if (in_array(Request::segment(1), ['ecommerce'])) {{ 'rotate-180' }} @endif"
+                                        :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
+                                        <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                            <ul class="pl-9 mt-1 @if (!in_array(Request::segment(1), ['ecommerce'])) {{ 'hidden' }} @endif"
+                                :class="open ? '!block' : 'hidden'">
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('tes-potensi-akademik')) {{ 'text-blue-600' }} @endif"
+                                        href="/tes-potensi-akademik">
+                                        <span
+                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Tes Potensi Akademik</span>
+                                    </a>
+                                </li>
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-black hover:text-blue-600 transition duration-150 truncate mt-2 @if (Route::is('lamaran-disetujui')) {{ 'text-blue-600' }} @endif"
+                                        href="/lamaran-disetujui">
+                                        <span
+                                            class="text-base font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Lamaran Disetujui</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {{-- <li
                         class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['tes-potensi-akademik'])) {{ 'bg-gray' }} @endif">
                         <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['tes-potensi-akademik'])) {{ 'hover:text-blue-600' }} @endif"
                             href="/tes-potensi-akademik">
@@ -203,7 +253,7 @@
                                 </div>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

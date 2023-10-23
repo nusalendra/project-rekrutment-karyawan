@@ -17,6 +17,7 @@ use App\Http\Controllers\HRD\ProsesSeleksiController;
 use App\Http\Controllers\HRD\PelamarDiterimaController;
 use App\Http\Controllers\HRD\PelamarDitolakController;
 use App\Http\Controllers\HRD\HasilValidasiController;
+use App\Http\Controllers\HRD\LamaranDisetujuiController;
 use App\Http\Controllers\HRD\TesPotensiAkademikController;
 
 // Manajer Controller
@@ -128,6 +129,14 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::delete('/pertanyaan/delete/{tesPotensiAkademikId}/{pertanyaanTesPotensiAkademikId}', [TesPotensiAkademikController::class, 'destroyPertanyaan'])->name('tes-potensi-akademik-delete-pertanyaan');
     })->name('tes-potensi-akademik');
 
+    Route::prefix('lamaran-disetujui')->group(function () {
+        Route::get('/', [LamaranDisetujuiController::class, 'index'])->name('lamaran-disetujui');
+        Route::get('/data/{id}', [LamaranDisetujuiController::class, 'show'])->name('lamaran-disetujui-data');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [LamaranDisetujuiController::class, 'edit'])->name('lamaran-disetujui-detail');
+        Route::get('/download/{filename}/{pelamarName}', [LamaranDisetujuiController::class, 'download'])->name('download-dokumen-lamaran-disetujui');
+        Route::get('/download-dokumen-lamaran-disetujui/{dokumenName}/{fileName}', [LamaranDisetujuiController::class, 'downloadDokumenPelamar'])->name('unduh-dokumen-lamaran-disetujui');
+    })->name('lamaran-disetujui');
+
     Route::fallback(function () {
         return view('pages/utility/404');
     });
@@ -171,7 +180,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
         Route::get('/', [PengukuranController::class, 'index'])->name('pengukuran');
         Route::get('/create', [PengukuranController::class, 'create'])->name('pengukuran-create');
         Route::post('/create', [PengukuranController::class, 'store'])->name('pengukuran-store');
-        Route::get('/get-kriteria/{jabatanId}', [PengukuranController::class, 'getKriteriaByJabatan'])->name('get-kriteria-by-jabatan');
+        Route::get('/get-kriteria/{jabatanId}', [PengukuranController::class, 'getKriteriaByJabatan'])->name('get-kriteria-by-jabatan-in-pengukuran');
         Route::get('/get-subkriteria/{kriteriaId}', [PengukuranController::class, 'getSubkriteriaByKriteria'])->name('get-subkriteria-by-kriteria');
         Route::get('/edit/{id}', [PengukuranController::class, 'edit'])->name('pengukuran-edit');
         Route::put('/edit/{id}', [PengukuranController::class, 'update'])->name('pengukuran-update');

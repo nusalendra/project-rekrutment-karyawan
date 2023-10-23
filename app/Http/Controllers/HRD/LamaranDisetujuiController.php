@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Guest;
+namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\LowonganPekerjaan;
-use App\Models\Periode;
-use App\Models\Jabatan;
+use App\Models\Pelamar;
 use Illuminate\Support\Facades\Crypt;
 
-class LamaranPekerjaanController extends Controller
+class LamaranDisetujuiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,16 +21,19 @@ class LamaranPekerjaanController extends Controller
         $searchTerm = $request->input('search');
 
         $data = LowonganPekerjaan::join('jabatans', 'lowongan_pekerjaans.jabatan_id', '=', 'jabatans.id')
+            ->join('periodes', 'lowongan_pekerjaans.periode_id', '=', 'periodes.id')
             ->when($searchTerm, function ($query, $searchTerm) {
-                return $query->orWhere('jabatans.nama', 'like', "%$searchTerm%");
+                return $query->where('jabatans.nama', 'like', "%$searchTerm%")->orWhere('periodes.nama', 'like', "%$searchTerm%");
             })
-            ->where('lowongan_pekerjaans.kuota', '>', 0)
             ->orderByDesc('lowongan_pekerjaans.created_at')
+            ->select('periodes.nama as nama_periode', 'lowongan_pekerjaans.*', 'jabatans.nama as nama_jabatan')
             ->simplePaginate(6);
-        
-        $periode = Periode::all();
 
-        return view('pages.guest.lamaran-pekerjaan.index', ['title' => 'Lamaran Pekerjaan'], compact('data', 'searchTerm', 'periode'));
+        $tanggal = Carbon::now();
+        $tanggalSekarang = $tanggal->format('Y-m-d');
+
+        $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Diterima')->get();
+        return view('pages.HRD.lamaran-disetujui.index', ['title' => 'Lamaran Disetujui'], compact('data', 'tanggalSekarang', 'pelamar', 'searchTerm'));
     }
 
     /**
@@ -38,9 +41,8 @@ class LamaranPekerjaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
     }
 
     /**
@@ -62,6 +64,10 @@ class LamaranPekerjaanController extends Controller
      */
     public function show($id)
     {
+        $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
+        $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Disetujui')->get();
+
+        return view('pages.HRD.lamaran-disetujui.show', ['title' => 'Lamaran Disetujui'], compact('data', 'lowonganPekerjaanIdDecrypt'));
     }
 
     /**
@@ -70,9 +76,17 @@ class LamaranPekerjaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($pelamarId, $lowonganPekerjaanId)
     {
-        //
+        $pelamarIdDecrypt = Crypt::decrypt($pelamarId);
+        $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
+
+        // $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
+
+        $dataPenilaian = $data->penilaian;
+        $dataDokumenPendukung = $data->dokumenPendukung;
+
+        return view('pages.HRD.lamaran-disetujui.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPendukung'));
     }
 
     /**
@@ -96,18 +110,5 @@ class LamaranPekerjaanController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getDetail($id)
-    {
-        $jabatanIdDecrypt = Crypt::decrypt($id);
-        $jabatan = Jabatan::findOrFail($jabatanIdDecrypt);
-
-        // Mengambil informasi lowongan pekerjaan terkait
-        $lowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->first();
-
-        // Lakukan proses untuk mengambil data detail sesuai dengan ID card yang dipilih
-        // Misalnya, buat view untuk menampilkan data detail
-        return view('pages.guest.lamaran-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan'));
     }
 }
