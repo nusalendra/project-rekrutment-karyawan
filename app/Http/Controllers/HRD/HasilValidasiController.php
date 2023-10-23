@@ -8,7 +8,6 @@ use App\Models\Pelamar;
 use App\Models\LowonganPekerjaan;
 use App\Models\Notifikasi;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Log;
 
 class HasilValidasiController extends Controller
 {
@@ -120,30 +119,25 @@ class HasilValidasiController extends Controller
 
     public function kirimNotifikasi(Request $request, $lowonganPekerjaanId)
     {
-        try {
-            $pilihPelamar = $request->input('pilihPelamar', []);
+        $pilihPelamar = $request->input('pilihPelamar', []);
 
-            foreach ($pilihPelamar as $pelamarId) {
-                // Di sini Anda dapat menggunakan $pelamarId untuk mencari pelamar dan melakukan operasi yang diperlukan.
-                $pelamar = Pelamar::find($pelamarId);
+        foreach ($pilihPelamar as $pelamarId) {
+            // Di sini Anda dapat menggunakan $pelamarId untuk mencari pelamar dan melakukan operasi yang diperlukan.
+            $pelamar = Pelamar::find($pelamarId);
 
-                if ($pelamar) {
-                    $pelamar->status_lamaran = 'Disetujui';
-                    $pelamar->save();
+            if ($pelamar) {
+                $pelamar->status_lamaran = 'Disetujui';
+                $pelamar->save();
 
-                    $notifikasi = new Notifikasi();
-                    $notifikasi->user_id = $pelamar->user->id;
-                    $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk tahap selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
+                $notifikasi = new Notifikasi();
+                $notifikasi->user_id = $pelamar->user->id;
+                $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk tahap selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
 
-                    $notifikasi->save();
-                }
+                $notifikasi->save();
             }
-
-            return redirect()->route('hasil-validasi-data', $lowonganPekerjaanId);
-        } catch (\Exception $e) {
-            Log::error($e); // Log pesan kesalahan
-            return response()->json(['error' => 'Terjadi kesalahan dalam pemrosesan permintaan.'], 500);
         }
+
+        return redirect()->route('hasil-validasi-data', $lowonganPekerjaanId);
     }
 
 

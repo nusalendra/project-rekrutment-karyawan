@@ -132,6 +132,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     Route::prefix('lamaran-disetujui')->group(function () {
         Route::get('/', [LamaranDisetujuiController::class, 'index'])->name('lamaran-disetujui');
         Route::get('/data/{id}', [LamaranDisetujuiController::class, 'show'])->name('lamaran-disetujui-data');
+        Route::post('/kirim-notifikasi-tes/{lowonganPekerjaanId}', [LamaranDisetujuiController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-tes');
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [LamaranDisetujuiController::class, 'edit'])->name('lamaran-disetujui-detail');
         Route::get('/download/{filename}/{pelamarName}', [LamaranDisetujuiController::class, 'download'])->name('download-dokumen-lamaran-disetujui');
         Route::get('/download-dokumen-lamaran-disetujui/{dokumenName}/{fileName}', [LamaranDisetujuiController::class, 'downloadDokumenPelamar'])->name('unduh-dokumen-lamaran-disetujui');

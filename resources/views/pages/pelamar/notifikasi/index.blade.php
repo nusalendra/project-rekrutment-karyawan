@@ -16,7 +16,7 @@
                         <div class="flex border-b border-gray-300 py-3 px-2.5 notification @if ($notification->status) read @endif"
                             data-id="{{ $notification->id }}" data-message="{!! $notification->pesan !!}">
                             <a href="#">
-                                <h2 class="font-normal text-sm">{!! $notification->pesan !!}</h2>
+                                <h2 class="font-normal text-sm" id="cutNotification">{!! $notification->pesan !!}</h2>
                                 <p class="text-xs text-stone-800 mt-1.5">
                                     {{ \Carbon\Carbon::parse($notification->created_at)->format('d-m-Y, H:i:s') }}</p>
                             </a>
@@ -53,6 +53,14 @@
     </div>
 
     <script>
+        var notificationElement = document.getElementById("cutNotification");
+        var pesan = notificationElement.innerHTML;
+
+        // Menggunakan JavaScript untuk memotong pesan
+        if (pesan.length > 200) {
+            notificationElement.innerHTML = pesan.substring(0, 200) + "...";
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const markAllAsReadButton = document.getElementById('mark-all-as-read');
             const notifications = document.querySelectorAll('.notification');

@@ -19,14 +19,16 @@
                     @php
                         $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaanIdDecrypt);
                     @endphp
-                    <form action="{{ route('validasi', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+                    <form
+                        action="{{ route('kirim-notifikasi-tes', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                         method="POST">
                         @csrf
                         <button type="submit"
                             class="text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                            Validasi Semua Pelamar
+                            Kirim Notifikasi Tes TPA
                         </button>
                     </form>
+
                 </div>
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-base text-left text-black dark:text-gray-400">
