@@ -60,7 +60,7 @@
                                     <h1 class="flex w-full justify-center">Nama Lengkap</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Posisi Dilamar</h1>
+                                    <h1 class="flex w-full justify-center">Status Lamaran</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Skor Pelamar</h1>
@@ -85,7 +85,7 @@
                                         <h1 class="flex w-full justify-center">{{ $item->nama_user }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->nama_jabatan }}
+                                        <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}
                                         </h1>
                                     </td>
                                     <td class="px-6 py-4">
@@ -125,6 +125,8 @@
         </div>
     </div>
     <?php $showSidebar = false; ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         const checkboxes = document.querySelectorAll('input[name="pilihPelamar[]"]');
         const pilihPelamarInput = document.getElementById('pilihPelamar'); // Input hidden
@@ -166,28 +168,35 @@
                 }
             });
 
+            console.log(selectedPelamar);
+
             if (selectedPelamar.length === 0) {
                 errorContainer.textContent = 'Pilih setidaknya satu pelamar sebelum mengirim notifikasi.';
                 return;
             }
 
-            errorContainer.textContent = ''; // Menghapus pesan kesalahan sebelum menampilkan yang baru
+            // errorContainer.textContent = ''; // Menghapus pesan kesalahan sebelum menampilkan yang baru
 
             pilihPelamarInput.value = selectedPelamar.join(',');
 
             $.ajax({
-                url: '{{ route('kirim-notifikasi-pelamar', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}',
+                url: '/hasil-validasi/kirim-notifikasi/' + encodeURIComponent(
+                    '{{ $lowonganPekerjaanIdEncrypt }}'),
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
                     pilihPelamar: selectedPelamar
                 },
                 success: function(response) {
-                    console.log(response);
-                    checkboxes.forEach(checkbox => {
-                        checkbox.disabled = true;
-                    });
-                    toggleButtons(false);
+                    if (response.error) {
+                        console.error("Error: " + response.error);
+                    } else {
+                        console.log(response);
+                        checkboxes.forEach(checkbox => {
+                            checkbox.disabled = true;
+                        });
+                        toggleButtons(false);
+                    }
                 },
                 error: function(error) {
                     console.error(error);

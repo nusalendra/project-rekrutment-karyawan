@@ -8,6 +8,7 @@ use App\Models\Pelamar;
 use App\Models\LowonganPekerjaan;
 use App\Models\Notifikasi;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
 
 class HasilValidasiController extends Controller
 {
@@ -27,7 +28,7 @@ class HasilValidasiController extends Controller
             })
             ->orderByDesc('lowongan_pekerjaans.created_at')
             ->select('periodes.nama as nama_periode', 'lowongan_pekerjaans.*', 'jabatans.nama as nama_jabatan')
-            ->simplePaginate(10);
+            ->simplePaginate(6);
 
         $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Divalidasi')->get();
 
@@ -64,11 +65,10 @@ class HasilValidasiController extends Controller
     public function show($id)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
-        $data = Pelamar::select('pelamars.id', 'users.name as nama_user', 'jabatans.nama as nama_jabatan', 'hasil_validasis.hasil_penilaian')
+        $data = Pelamar::select('pelamars.id', 'pelamars.status_lamaran', 'users.name as nama_user', 'hasil_validasis.hasil_penilaian')
             ->join('hasil_validasis', 'pelamars.id', 'hasil_validasis.pelamar_id')
             ->join('lowongan_pekerjaans', 'pelamars.lowongan_pekerjaan_id', 'lowongan_pekerjaans.id')
             ->join('users', 'pelamars.user_id', 'users.id')
-            ->join('jabatans', 'lowongan_pekerjaans.jabatan_id', 'jabatans.id')
             ->where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)
             ->where('status_lamaran', 'Divalidasi')
             ->orderByDesc('hasil_validasis.hasil_penilaian')
@@ -120,22 +120,33 @@ class HasilValidasiController extends Controller
 
     public function kirimNotifikasi(Request $request, $lowonganPekerjaanId)
     {
-        $pilihPelamar = $request->input('pilihPelamar', []);
+        try {
+            $pilihPelamar = $request->input('pilihPelamar', []);
 
-        foreach ($pilihPelamar as $pelamarId) {
-            $pelamar = Pelamar::find($pelamarId);
-            $pelamar->status_lamaran = 'Disetujui';
+            foreach ($pilihPelamar as $pelamarId) {
+                // Di sini Anda dapat menggunakan $pelamarId untuk mencari pelamar dan melakukan operasi yang diperlukan.
+                $pelamar = Pelamar::find($pelamarId);
 
-            $pelamar->save();
+                if ($pelamar) {
+                    $pelamar->status_lamaran = 'Disetujui';
+                    $pelamar->save();
 
-            $notifikasi = new Notifikasi();
-            $notifikasi->user_id = $pelamar->user->id;
-            $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk tahap selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
+                    $notifikasi = new Notifikasi();
+                    $notifikasi->user_id = $pelamar->user->id;
+                    $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk tahap selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
 
-            $notifikasi->save();
+                    $notifikasi->save();
+                }
+            }
+
+            return redirect()->route('hasil-validasi-data', $lowonganPekerjaanId);
+        } catch (\Exception $e) {
+            Log::error($e); // Log pesan kesalahan
+            return response()->json(['error' => 'Terjadi kesalahan dalam pemrosesan permintaan.'], 500);
         }
-        return redirect()->route('hasil-validasi-data', $lowonganPekerjaanId);
     }
+
+
 
     public function download($filename, $pelamarName)
     {

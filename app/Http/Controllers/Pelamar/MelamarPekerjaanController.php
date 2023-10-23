@@ -37,7 +37,7 @@ class MelamarPekerjaanController extends Controller
             })
             ->where('lowongan_pekerjaans.kuota', '>', 0)
             ->orderByDesc('lowongan_pekerjaans.created_at')
-            ->simplePaginate(10);
+            ->simplePaginate(6);
 
         $periode = Periode::all();
 
