@@ -25,13 +25,14 @@ use App\Http\Controllers\Manajer\JabatanController;
 use App\Http\Controllers\Manajer\KriteriaController;
 use App\Http\Controllers\Manajer\SubkriteriaController;
 use App\Http\Controllers\Manajer\PengukuranController;
-
+use App\Http\Controllers\Pelamar\HasilTesTPAController;
 // Pelamar Controller
 use App\Http\Controllers\Pelamar\MelamarPekerjaanController;
 use App\Http\Controllers\Pelamar\ProfilPelamarController;
 use App\Http\Controllers\Pelamar\LamaranSayaController;
 use App\Http\Controllers\Pelamar\NotifikasiController;
-use App\Models\TesPotensiAkademik;
+use App\Http\Controllers\Pelamar\TesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +139,10 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/download-dokumen-lamaran-disetujui/{dokumenName}/{fileName}', [LamaranDisetujuiController::class, 'downloadDokumenPelamar'])->name('unduh-dokumen-lamaran-disetujui');
     })->name('lamaran-disetujui');
 
+    Route::prefix('hasil-tes-potensi-akademik')->group(function () {
+        Route::get('/', [HasilTesTPAController::class, 'index'])->name('hasil-tes-potensi-akademik');
+    })->name('hasil-tes-potensi-akademik');
+
     Route::fallback(function () {
         return view('pages/utility/404');
     });
@@ -210,6 +215,13 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
     Route::get('/lamar/{id}', [MelamarPekerjaanController::class, 'create'])->name('lamar-create');
     Route::POST('/lamar/{id}', [MelamarPekerjaanController::class, 'store'])->name('lamar-store');
 
+    Route::prefix('notifikasi')->group(function () {
+        Route::get('/', [NotifikasiController::class, 'index'])->name('notifikasi');
+        Route::post('/mark-as-read', [NotifikasiController::class, 'markAsRead'])->name('notifikasi-markAsRead');
+        Route::post('/mark-all-as-read', [NotifikasiController::class, 'markAllAsRead'])->name('notifikasi-markAllAsRead');
+        Route::get('/delete/{id}', [NotifikasiController::class, 'destroy'])->name('notifikasi-destroy');
+    })->name('notifikasi');
+
     Route::prefix('lamaran-saya')->group(function () {
         Route::get('/', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
         Route::get('/detail/{id}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
@@ -217,8 +229,10 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
         Route::get('/download-dokumen-peserta/{dokumenName}/{fileName}', [LamaranSayaController::class, 'downloadDokumenPeserta'])->name('unduh-dokumen-peserta');
     })->name('lamaran-saya');
 
-    Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
-    Route::post('/notifikasi/mark-as-read', [NotifikasiController::class, 'markAsRead'])->name('notifikasi-markAsRead');
-    Route::post('/notifikasi/mark-all-as-read', [NotifikasiController::class, 'markAllAsRead'])->name('notifikasi-markAllAsRead');
-    Route::get('/notifikasi/delete/{id}', [NotifikasiController::class, 'destroy'])->name('notifikasi-destroy');
+    Route::prefix('tes-tpa')->group(function () {
+        Route::get('/', [TesController::class, 'index'])->name('tes-potensi-akademik-pelamar');
+        Route::get('/detail/{id}', [TesController::class, 'show'])->name('tes-potensi-akademik-pelamar-detail');
+        Route::get('/mulai-tes/{id}', [TesController::class, 'create'])->name('tes-potensi-akademik-pelamar-create');
+        Route::post('/kirim-jawaban/{id}/{pelamarTesId}', [TesController::class, 'store'])->name('kirim-jawaban');
+    })->name('tes-tpa');
 });

@@ -13,7 +13,7 @@
                 <div class="bg-gray-300 dark:bg-gray-700 dark:text-gray-400 rounded isi-notifikasi">
                     <!-- Loop melalui notifikasi -->
                     @foreach ($notifikasi as $notification)
-                        <div class="flex border-b border-gray-300 py-3 px-2.5 notification @if ($notification->status) read @endif"
+                        <div class="border-b border-gray-300 py-3 px-2.5 notification @if ($notification->status) read @endif"
                             data-id="{{ $notification->id }}" data-message="{!! $notification->pesan !!}">
                             <a href="#">
                                 <h2 class="font-normal text-sm" id="cutNotification">{!! $notification->pesan !!}</h2>

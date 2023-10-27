@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
+use App\Models\JawabanTesPotensiAkademik;
 use Illuminate\Http\Request;
 use App\Models\TesPotensiAkademik;
 use App\Models\LowonganPekerjaan;
 use App\Models\PertanyaanTesPotensiAkademik;
+use App\Models\Pelamar;
+use App\Models\PelamarTesPotensiAkademik;
 use Illuminate\Support\Facades\Crypt;
 
 class TesPotensiAkademikController extends Controller
@@ -62,14 +65,27 @@ class TesPotensiAkademikController extends Controller
     {
         $tanggal_waktu_mulai_tes = \Carbon\Carbon::createFromFormat('d-m-Y / H:i', $request->tanggal_waktu_mulai)->format('Y-m-d H:i:s');
         $tanggal_waktu_selesai_tes = \Carbon\Carbon::createFromFormat('d-m-Y / H:i', $request->tanggal_waktu_selesai)->format('Y-m-d H:i:s');
+        $lowonganPekerjaanId = $request->input('lowongan_pekerjaan_id');
 
         $tesPotensiAkademik = new TesPotensiAkademik();
         $tesPotensiAkademik->nama = $request->nama;
-        $tesPotensiAkademik->lowongan_pekerjaan_id = $request->lowongan_pekerjaan_id;
+        $tesPotensiAkademik->lowongan_pekerjaan_id = $lowonganPekerjaanId;
         $tesPotensiAkademik->tanggal_waktu_mulai = $tanggal_waktu_mulai_tes;
         $tesPotensiAkademik->tanggal_waktu_selesai = $tanggal_waktu_selesai_tes;
 
         $tesPotensiAkademik->save();
+
+        $tpa_id = $tesPotensiAkademik->getKey();
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanId)->where('status_lamaran', 'Disetujui')->get();
+
+        foreach ($pelamars as $pelamar) {
+            $pelamarTPA = new PelamarTesPotensiAkademik();
+            $pelamarTPA->pelamar_id = $pelamar->id;
+            $pelamarTPA->tes_potensi_akademik_id = $tpa_id;
+            $pelamarTPA->updated_at = null;
+
+            $pelamarTPA->save();
+        }
 
         return redirect('/tes-potensi-akademik');
     }

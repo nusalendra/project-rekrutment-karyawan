@@ -16,7 +16,11 @@ class TesPotensiAkademik extends Model
         return $this->belongsTo(LowonganPekerjaan::class);
     }
 
-    public function pertanyaanPostPotensiAkademik() {
-        return $this->hasMany(PertanyaanTesPotensiAkademik::class);
+    public function pertanyaanTesPotensiAkademik() {
+        return $this->hasMany(PertanyaanTesPotensiAkademik::class, 'tes_potensi_akademik_id');
+    }
+
+    public function pelamarTesPotensiAkademik() {
+        return $this->hasMany(PelamarTesPotensiAkademik::class);
     }
 }

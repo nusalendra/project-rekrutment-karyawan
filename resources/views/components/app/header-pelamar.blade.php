@@ -15,12 +15,18 @@
                 </button>
                 <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67"
                         alt=""></a>
-                <a href="/beranda" class="{{ Request::is('beranda') ? 'text-blue-600' : 'hover:text-blue-700' }}">Beranda</a>
-                <a href="/melamar-pekerjaan" class="{{ Request::is('melamar-pekerjaan') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
+                <a href="/beranda"
+                    class="{{ Request::is('beranda') ? 'text-blue-600' : 'hover:text-blue-700' }}">Beranda</a>
+                <a href="/melamar-pekerjaan"
+                    class="{{ Request::is('melamar-pekerjaan') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Pekerjaan</a>
-                <a href="/notifikasi" class="{{ Request::is('notifikasi') ? 'text-blue-600' : 'hover:text-blue-700' }}">Notifikasi</a>
-                <a href="/lamaran-saya" class="{{ Request::is('lamaran-saya') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
+                <a href="/notifikasi"
+                    class="{{ Request::is('notifikasi') ? 'text-blue-600' : 'hover:text-blue-700' }}">Notifikasi</a>
+                <a href="/lamaran-saya"
+                    class="{{ Request::is('lamaran-saya') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Saya</a>
+                <a href="/tes-tpa"
+                    class="{{ Request::is('tes-tpa') ? 'text-blue-600' : 'hover:text-blue-700' }}">Tes Potensi Akademik</a>
             </div>
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">

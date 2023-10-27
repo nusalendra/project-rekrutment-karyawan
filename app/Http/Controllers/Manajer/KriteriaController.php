@@ -106,7 +106,6 @@ class KriteriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($id);
         $validatedData = $request->validate([
             'tipe' => 'required|in:Benefit,Cost'
         ]);
