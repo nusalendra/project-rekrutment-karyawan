@@ -66,7 +66,7 @@ class LamaranDisetujuiController extends Controller
     public function show($id)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
-        
+
         $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Disetujui')->get();
 
         return view('pages.HRD.lamaran-disetujui.show', ['title' => 'Lamaran Disetujui'], compact('data', 'lowonganPekerjaanIdDecrypt'));
@@ -82,7 +82,7 @@ class LamaranDisetujuiController extends Controller
             $notifikasi->user_id = $pelamar->user->id;
             $notifikasi->pesan = "Selamat, kami ingin memberitahu Anda bahwa Anda telah sukses melewati tahap awal dalam proses seleksi pelamar kami. Selanjutnya, Anda akan lanjut ke tahap berikutnya, yaitu tes TPA (Tes Potensi Akademik). <br><br>
 
-            Kami sangat menyarankan Anda untuk mempersiapkan diri dengan baik untuk tahap ini, mengingat tes TPA ini memiliki peran yang sangat penting dalam proses seleksi kami. Untuk informasi lebih lanjut mengenai tes TPA, silakan kunjungi bagian Menu TPA. <br><br>
+            Kami sangat menyarankan Anda untuk mempersiapkan diri dengan baik untuk tahap ini, mengingat tes TPA ini memiliki peran yang sangat penting dalam proses seleksi kami. Untuk informasi lebih lanjut mengenai tes TPA, silakan klik <a href='/tes-tpa' class='text-blue-500'>di sini</a>. <br><br>
             
             Terima kasih atas partisipasi Anda, dan kami berharap Anda akan berhasil melewati tahap ini. Tetap semangat!";
 

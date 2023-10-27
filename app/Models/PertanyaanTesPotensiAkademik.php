@@ -13,6 +13,10 @@ class PertanyaanTesPotensiAkademik extends Model
     protected $guarded = [];
 
     public function TesPotensiAkademik() {
-        return $this->belongsTo(TesPotensiAkademik::class);
+        return $this->belongsTo(TesPotensiAkademik::class, 'tes_potensi_akademik_id');
+    }
+
+    public function jawabanTesPotensiAkademik() {
+        return $this->hasMany(JawabanTesPotensiAkademik::class, 'pertanyaan_tpa_id');
     }
 }
