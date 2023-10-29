@@ -63,7 +63,6 @@ class PengukuranController extends Controller
         $pengukuran->subkriteria_id = $request->subkriteria_id;
         $pengukuran->nama = $request->nama;
         $pengukuran->skor = $request->skor;
-        $pengukuran->keterangan = $request->keterangan;
 
         $pengukuran->save();
 
@@ -113,7 +112,6 @@ class PengukuranController extends Controller
         $pengukuran->subkriteria_id = $request->subkriteria_id;
         $pengukuran->nama = $request->nama;
         $pengukuran->skor = $request->skor;
-        $pengukuran->keterangan = $request->keterangan;
 
         $pengukuran->save();
 
