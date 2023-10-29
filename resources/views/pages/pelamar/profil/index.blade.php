@@ -40,7 +40,8 @@
                         </svg>
                         <h1 class="font-semibold text-lg tracking-wide">Profil</h1>
                     </a>
-                    <a href="/profil/lengkapi-dokumen/{{ $userId }}" class="flex w-full h-auto items-center space-x-6 py-4">
+                    <a href="/profil/lengkapi-dokumen/{{ $userId }}"
+                        class="flex w-full h-auto items-center space-x-6 py-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd"
                                 d="M14.25 2.5a.25.25 0 0 0-.25-.25H7A2.75 2.75 0 0 0 4.25 5v14A2.75 2.75 0 0 0 7 21.75h10A2.75 2.75 0 0 0 19.75 19V9.147a.25.25 0 0 0-.25-.25H15a.75.75 0 0 1-.75-.75V2.5Zm.75 9.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5h6Zm0 4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5h6Z"
@@ -67,6 +68,17 @@
                             </svg>
                             <h1 class="font-semibold text-lg tracking-wide">
                                 Data Pribadi
+                            </h1>
+                        </a>
+                        <a href="/profil/riwayat-pendidikan-pengalaman/{{ $userId }}"
+                            class="flex w-full h-auto items-center px-6 space-x-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-book-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                            </svg>
+                            <h1 class="font-semibold text-lg tracking-wide">
+                                Riwayat Pendidikan & Pengalaman
                             </h1>
                         </a>
                         <a href="/profil/kontak-pribadi/{{ $userId }}"

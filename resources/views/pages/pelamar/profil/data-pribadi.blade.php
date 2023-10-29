@@ -81,33 +81,128 @@
                                         name="name" value="{{ $user->name }}">
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
-                                    <h1>Tempat & Tanggal Lahir</h1>
-                                    @if (!@empty($user))
+                                    <h1>Tempat Lahir</h1>
+                                    @if (!@empty($dataUser))
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="TTL" value="{{ $user->TTL }}">
+                                            name="tempat_lahir" value="{{ $dataUser->tempat_lahir }}">
                                     @else
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="TTL">
+                                            name="tempat_lahir">
                                     @endif
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
+                                    <h1>Tanggal Lahir</h1>
+                                    <div class="relative w-full">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                        @if (!empty($dataUser) && !empty($dataUser->tanggal_lahir))
+                                            @php
+                                                $tanggalLahir = \Carbon\Carbon::parse($dataUser->tanggal_lahir)->format('d-m-Y');
+                                            @endphp
+                                            <input type="text" id="tanggal_lahir" name="tanggal_lahir"
+                                                value="{{ $tanggalLahir }}" placeholder="dd-mm-yyyy"
+                                                class="h-auto px-3 py-1 rounded-xl border-2 border-gray-200 bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        @else
+                                            <input type="text" id="tanggal_lahir" name="tanggal_lahir"
+                                                placeholder="dd-mm-yyyy"
+                                                class="h-auto px-3 py-1 rounded-xl border-2 border-gray-200 bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Jenis Kelamin</h1>
-                                    @if (!@empty($user))
-                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="jenis_kelamin" value="{{ $user->jenis_kelamin }}">
+                                    @if (!@empty($dataUser))
+                                        <select id="countries" name="jenis_kelamin"
+                                            class="text-md block p-2.5 dark:text-white w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                            <option selected disabled></option>
+                                            <option value="Laki-Laki" @if ($dataUser->jenis_kelamin === 'Laki-Laki') selected @endif>
+                                                Laki-Laki</option>
+                                            <option value="Perempuan" @if ($dataUser->jenis_kelamin === 'Perempuan') selected @endif>
+                                                Perempuan</option>
+                                        </select>
+                                        {{-- <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="jenis_kelamin" value="{{ $dataUser->jenis_kelamin }}"> --}}
                                     @else
-                                        <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="jenis_kelamin">
+                                        <select id="countries" name="jenis_kelamin"
+                                            class="text-md block p-2.5 dark:text-white w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                            <option selected disabled></option>
+                                            <option value="Laki-Laki">Laki-Laki</option>
+                                            <option value="Perempuan">Perempuan</option>
+                                        </select>
+                                        {{-- <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="jenis_kelamin"> --}}
                                     @endif
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Agama</h1>
-                                    @if (!@empty($user))
+                                    @if (!@empty($dataUser))
+                                        <select id="countries" name="agama"
+                                            class="text-md block p-2.5 dark:text-white w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                            <option selected disabled></option>
+                                            <option value="Islam" @if ($dataUser->agama === 'Islam') selected @endif>
+                                                Islam</option>
+                                            <option value="Kristen Protestan" @if ($dataUser->agama === 'Kristen Protestan') selected @endif>
+                                                Kristen Protestan</option>
+                                            <option value="Kristen Katolik" @if ($dataUser->agama === 'Kristen Katolik') selected @endif>
+                                                Kristen Katolik</option>
+                                            <option value="Hindu" @if ($dataUser->agama === 'Hindu') selected @endif>
+                                                Hindu</option>
+                                            <option value="Budha" @if ($dataUser->agama === 'Budha') selected @endif>
+                                                Budha</option>
+                                            <option value="Khonghucu" @if ($dataUser->agama === 'Khonghucu') selected @endif>
+                                                Khonghucu</option>
+                                        </select>
+                                    @else
+                                        <select id="countries" name="agama"
+                                            class="text-md block p-2.5 dark:text-white w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                            <option selected disabled></option>
+                                            <option value="Islam">Islam</option>
+                                            <option value="Kristen Protestan">Kristen Protestan</option>
+                                            <option value="Kristen Katolik">Kristen Katolik</option>
+                                            <option value="Hindu">Hindu</option>
+                                            <option value="Budha">Budha</option>
+                                            <option value="Khonghucu">Khonghucu</option>
+                                        </select>
+                                    @endif
+                                </div>
+                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
+                                    <h1>Status</h1>
+                                    @if (!@empty($dataUser))
+                                        <select id="countries" name="status"
+                                            class="text-md block p-2.5 dark:text-white w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                            <option selected disabled></option>
+                                            <option value="Sudah Menikah" @if ($dataUser->status === 'Sudah Menikah') selected @endif>
+                                                Sudah Menikah</option>
+                                            <option value="Belum Menikah" @if ($dataUser->status === 'Belum Menikah') selected @endif>
+                                                Belum Menikah</option>
+                                        </select>
+                                        {{-- <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="jenis_kelamin" value="{{ $dataUser->jenis_kelamin }}"> --}}
+                                    @else
+                                        <select id="countries" name="status"
+                                            class="text-md block p-2.5 dark:text-white w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200">
+                                            <option selected disabled></option>
+                                            <option value="Sudah Menikah">Sudah Menikah</option>
+                                            <option value="Belum Menikah">Belum Menikah</option>
+                                        </select>
+                                        {{-- <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
+                                            name="jenis_kelamin"> --}}
+                                    @endif
+                                </div>
+                                <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
+                                    <h1>Alamat Domisili</h1>
+                                    @if (!@empty($dataUser))
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="agama" value="{{ $user->agama }}">
+                                            name="alamat_domisili" value="{{ $dataUser->alamat_domisili }}">
                                     @else
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="agama">
+                                            name="alamat_domisili">
                                     @endif
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
@@ -159,6 +254,19 @@
             </div>
         </div>
     </div>
+    {{-- Flatpicker script --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        flatpickr(
+            "#tanggal_lahir", {
+                dateFormat: "d-m-Y",
+                allowInput: true,
+                yearDropdown: true,
+            });
+    </script>
+
     <script>
         function displayFileNameProfilePhotoPath() {
             var fileInput = document.getElementById("profile_photo_path");

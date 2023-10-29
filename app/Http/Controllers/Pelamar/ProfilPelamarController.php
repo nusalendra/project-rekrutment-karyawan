@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pelamar;
@@ -67,7 +68,9 @@ class ProfilPelamarController extends Controller
         $userIdDecrypt = Crypt::decrypt($id);
         $user = User::findOrFail($userIdDecrypt);
 
-        return view('pages.pelamar.profil.data-pribadi', ['title' => 'Data Pribadi'], compact('user'));
+        $dataUser = $user->dataUser()->first();
+
+        return view('pages.pelamar.profil.data-pribadi', ['title' => 'Data Pribadi'], compact('user', 'dataUser'));
     }
 
     public function updateDataPribadi(Request $request, $id)
@@ -75,9 +78,6 @@ class ProfilPelamarController extends Controller
         $user = User::findOrFail($id);
 
         $user->name = $request->name;
-        $user->TTL = $request->TTL;
-        $user->jenis_kelamin = $request->jenis_kelamin;
-        $user->agama = $request->agama;
         if ($request->file('profile_photo_path')) {
             if ($user->profile_photo_path) {
                 File::delete(public_path('foto-profil/' . $user->profile_photo_path));
@@ -90,6 +90,58 @@ class ProfilPelamarController extends Controller
         }
         $user->save();
 
+        $validatedData = $request->validate([
+            'jenis_kelamin' => 'in:Laki-Laki,Perempuan',
+            'agama' => 'in:Islam,Kristen Protestan,Kristen Katolik, Hindu, Budha,Khonghucu',
+            'status' => 'in:Sudah Menikah,Belum Menikah'
+        ]);
+
+        $dataUser = DataUser::where('user_id', $user->id)->first();
+        $tanggalLahirPelamar = \Carbon\Carbon::createFromFormat('d-m-Y', $request->input('tanggal_lahir'))->format('Y-m-d');
+
+        if ($dataUser) {
+            $dataUser->tempat_lahir = $request->tempat_lahir;
+            $dataUser->tanggal_lahir = $tanggalLahirPelamar;
+            $dataUser->jenis_kelamin = $request->jenis_kelamin;
+            $dataUser->agama = $request->agama;
+            $dataUser->status = $request->status;
+            $dataUser->alamat_domisili = $request->alamat_domisili;
+            $dataUser->save();
+        }
+
+        return redirect('/profil');
+    }
+
+    public function editRiwayatPendidikanPengalaman($id)
+    {
+        $userIdDecrypt = Crypt::decrypt($id);
+        $user = User::findOrFail($userIdDecrypt);
+
+        $dataUser = $user->dataUser()->first();
+
+        return view('pages.pelamar.profil.riwayat-pendidikan-pengalaman', ['title' => 'Riwayat Pendidikan dan Pengalaman'], compact('user', 'dataUser'));
+    }
+
+    public function updateRiwayatPendidikanPengalaman(Request $request, $id)
+    {
+        $pengalamanKerja = $request->input('pengalaman_kerja');
+        $pengalamanKerjaJSON = json_encode($pengalamanKerja);
+        $pengalamanOrganisasi = $request->input('pengalaman_organisasi');
+        $pengalamanOrganisasiJSON = json_encode($pengalamanOrganisasi);
+
+        $user = User::findOrFail($id);
+
+        $dataUser = DataUser::where('user_id', $user->id)->first();
+
+        if ($dataUser) {
+            $dataUser->pendidikan_terakhir = $request->pendidikan_terakhir;
+            $dataUser->IPK = $request->IPK;
+            $dataUser->pengalaman_kerja = $pengalamanKerjaJSON;
+            $dataUser->pengalaman_organisasi = $pengalamanOrganisasiJSON;
+
+            $dataUser->save();
+        }
+
         return redirect('/profil');
     }
 
@@ -98,7 +150,9 @@ class ProfilPelamarController extends Controller
         $userIdDecrypt = Crypt::decrypt($id);
         $user = User::findOrFail($userIdDecrypt);
 
-        return view('pages.pelamar.profil.kontak-pribadi', ['title' => 'Kontak Pribadi'], compact('user'));
+        $dataUser = $user->dataUser()->first();
+
+        return view('pages.pelamar.profil.kontak-pribadi', ['title' => 'Kontak Pribadi'], compact('user', 'dataUser'));
     }
 
     public function updateKontakPribadi(Request $request, $id)
@@ -106,10 +160,21 @@ class ProfilPelamarController extends Controller
         $user = User::findOrFail($id);
 
         $user->email = $request->email;
-        $user->alamat = $request->alamat;
-        $user->nomor_handphone = $request->nomor_handphone;
 
         $user->save();
+
+        $sosialMedia = $request->input('sosial_media');
+        $sosialMediaJSON = json_encode($sosialMedia);
+        // dd($sosialMediaJSON);
+
+        $dataUser = DataUser::where('user_id', $user->id)->first();
+
+        if ($dataUser) {
+            $dataUser->nomor_handphone = $request->nomor_handphone;
+            $dataUser->sosial_media = $sosialMediaJSON;
+            // dd($dataUser);
+            $dataUser->save();
+        }
 
         return redirect('/profil');
     }
@@ -118,85 +183,93 @@ class ProfilPelamarController extends Controller
     {
         $userIdDecrypt = Crypt::decrypt($id);
         $user = User::findOrFail($userIdDecrypt);
-        return view('pages.pelamar.profil.lengkapi-dokumen', ['title' => 'Lengkapi Dokumen'], compact('user'));
+
+        $dataUser = $user->dataUser()->first();
+
+        return view('pages.pelamar.profil.lengkapi-dokumen', ['title' => 'Lengkapi Dokumen'], compact('user', 'dataUser'));
     }
 
     public function updateLengkapiDokumen(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
-        $request->validate([
-            'curriculum_vitae' => 'mimes:pdf|max:2048', // Maksimum 2MB
-            'pas_foto' => 'image|mimes:jpg,jpeg,png|dimensions:ratio=2/3', // 4X6
-            'ijazah_transkrip' => 'mimes:pdf|max:5120', // Maksimum 5MB
-            'surat_lamaran_kerja' => 'mimes:pdf|max:2048', // Maksimum 2MB
-        ]);
+        $dataUser = DataUser::where('user_id', $user->id)->first();
 
-        if ($request->hasFile('curriculum_vitae')) {
-            $fileCV = $request->file('curriculum_vitae');
-            $fileName = 'Curriculum Vitae_' . $user->name . '.' . $fileCV->getClientOriginalExtension();
+        if ($dataUser) {
+            $request->validate([
+                'curriculum_vitae' => 'mimes:pdf|max:2048', // Maksimum 2MB
+                'pas_foto' => 'image|mimes:jpg,jpeg,png|dimensions:ratio=2/3', // 4X6
+                'ijazah_transkrip' => 'mimes:pdf|max:5120', // Maksimum 5MB
+                'surat_lamaran_kerja' => 'mimes:pdf|max:2048', // Maksimum 2MB
+            ]);
 
-            // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
-            if (!file_exists($userDirectory)) {
-                mkdir($userDirectory, 0755, true);
+            if ($request->hasFile('curriculum_vitae')) {
+                $fileCV = $request->file('curriculum_vitae');
+                $fileName = 'Curriculum Vitae_' . $dataUser->user->name . '.' . $fileCV->getClientOriginalExtension();
+
+                // Membuat direktori berdasarkan ID pengguna jika belum ada
+                $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $dataUser->user->name);
+                if (!file_exists($userDirectory)) {
+                    mkdir($userDirectory, 0755, true);
+                }
+
+                // Memindahkan file ke direktori yang sesuai
+                $fileCV->move($userDirectory, $fileName);
+
+                $dataUser->curriculum_vitae = $fileName;
             }
 
-            // Memindahkan file ke direktori yang sesuai
-            $fileCV->move($userDirectory, $fileName);
+            if ($request->hasFile('pas_foto')) {
+                $filePasFoto = $request->file('pas_foto');
+                $fileName = 'Pas Foto_' . $dataUser->user->name . '.' . $filePasFoto->getClientOriginalExtension();
 
-            $user->curriculum_vitae = $fileName;
-        }
+                // Membuat direktori berdasarkan ID pengguna jika belum ada
+                $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $dataUser->user->name);
+                if (!file_exists($userDirectory)) {
+                    mkdir($userDirectory, 0755, true);
+                }
 
-        if ($request->hasFile('pas_foto')) {
-            $filePasFoto = $request->file('pas_foto');
-            $fileName = 'Pas Foto_' . $user->name . '.' . $filePasFoto->getClientOriginalExtension();
+                // Memindahkan file ke direktori yang sesuai
+                $filePasFoto->move($userDirectory, $fileName);
 
-            // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
-            if (!file_exists($userDirectory)) {
-                mkdir($userDirectory, 0755, true);
+                $dataUser->pas_foto = $fileName;
             }
 
-            // Memindahkan file ke direktori yang sesuai
-            $filePasFoto->move($userDirectory, $fileName);
+            if ($request->hasFile('ijazah_transkrip')) {
+                $fileIjazahTranskrip = $request->file('ijazah_transkrip');
+                $fileName = 'Ijazah & Transkrip_' . $dataUser->user->name . '.' . $fileIjazahTranskrip->getClientOriginalExtension();
 
-            $user->pas_foto = $fileName;
-        }
+                // Membuat direktori berdasarkan ID pengguna jika belum ada
+                $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $dataUser->user->name);
+                if (!file_exists($userDirectory)) {
+                    mkdir($userDirectory, 0755, true);
+                }
 
-        if ($request->hasFile('ijazah_transkrip')) {
-            $fileIjazahTranskrip = $request->file('ijazah_transkrip');
-            $fileName = 'Ijazah & Transkrip_' . $user->name . '.' . $fileIjazahTranskrip->getClientOriginalExtension();
+                // Memindahkan file ke direktori yang sesuai
+                $fileIjazahTranskrip->move($userDirectory, $fileName);
 
-            // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
-            if (!file_exists($userDirectory)) {
-                mkdir($userDirectory, 0755, true);
+                $dataUser->ijazah_transkrip = $fileName;
             }
 
-            // Memindahkan file ke direktori yang sesuai
-            $fileIjazahTranskrip->move($userDirectory, $fileName);
+            if ($request->hasFile('surat_lamaran_kerja')) {
+                $fileSuratLamaranKerja = $request->file('surat_lamaran_kerja');
+                $fileName = 'Surat Lamaran Kerja_' . $dataUser->user->name . '.' . $fileSuratLamaranKerja->getClientOriginalExtension();
 
-            $user->ijazah_transkrip = $fileName;
-        }
+                // Membuat direktori berdasarkan ID pengguna jika belum ada
+                $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $dataUser->user->name);
+                if (!file_exists($userDirectory)) {
+                    mkdir($userDirectory, 0755, true);
+                }
 
-        if ($request->hasFile('surat_lamaran_kerja')) {
-            $fileSuratLamaranKerja = $request->file('surat_lamaran_kerja');
-            $fileName = 'Surat Lamaran Kerja_' . $user->name . '.' . $fileSuratLamaranKerja->getClientOriginalExtension();
+                // Memindahkan file ke direktori yang sesuai
+                $fileSuratLamaranKerja->move($userDirectory, $fileName);
 
-            // Membuat direktori berdasarkan ID pengguna jika belum ada
-            $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $user->name);
-            if (!file_exists($userDirectory)) {
-                mkdir($userDirectory, 0755, true);
+                $dataUser->surat_lamaran_kerja = $fileName;
             }
 
-            // Memindahkan file ke direktori yang sesuai
-            $fileSuratLamaranKerja->move($userDirectory, $fileName);
-
-            $user->surat_lamaran_kerja = $fileName;
+            $dataUser->save();
         }
 
-        $user->save();
 
         return redirect('/profil');
     }

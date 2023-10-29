@@ -128,6 +128,6 @@
             });
         });
     </script>
-    
+
     <?php $showSidebar = false; ?>
 @endsection
