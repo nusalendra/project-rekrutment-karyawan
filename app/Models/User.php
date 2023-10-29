@@ -74,6 +74,10 @@ class User extends Authenticatable
         return $this->hasOne(Pelamar::class, 'user_id');
     }
 
+    public function dataUser() {
+        return $this->hasOne(DataUser::class);
+    }
+
     public function notifikasi()
 {
     return $this->hasMany(Notifikasi::class, 'user_id');

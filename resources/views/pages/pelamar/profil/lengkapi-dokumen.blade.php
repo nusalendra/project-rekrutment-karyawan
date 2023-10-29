@@ -74,11 +74,11 @@
                                     <h1 class="font-bold">Curriculum Vitae</h1>
                                     <p class="font-extralight text-sm">Unggah CV kamu dalam format PDF dengan ukuran file
                                         maksimal 2 MB.</p>
-                                    @if (!empty($user->curriculum_vitae))
+                                    @if (!empty($dataUser->curriculum_vitae))
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
-                                                <h1>{{ $user->curriculum_vitae }}</h1>
+                                                <h1>{{ $dataUser->curriculum_vitae }}</h1>
                                                 {{-- <a href="{{ asset('dokumen-peserta/' . $user->id . '/' . $user->CV) }}"
                                                     class="bg-green-500 hover:bg-green-600 text-white font-medium py-0.5 px-6 rounded-lg border border-green-500">Lihat
                                                     File Asli</a> --}}
@@ -112,11 +112,11 @@
                                     <h1 class="font-bold">Pas Foto</h1>
                                     <p class="font-extralight text-sm">Unggah Pas Foto kamu dengan ukuran file 4x6 (jpeg,
                                         png, jpg).</p>
-                                    @if (!@empty($user->pas_foto))
+                                    @if (!@empty($dataUser->pas_foto))
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
-                                                <h1>{{ $user->pas_foto }}</h1>
+                                                <h1>{{ $dataUser->pas_foto }}</h1>
                                             </div>
                                             <div class="relative flex items-center">
                                                 <input type="file" id="pasFoto" accept=".jpg, .jpeg, .png"
@@ -147,11 +147,11 @@
                                     <h1 class="font-bold">Ijazah dan Transkrip Nilai</h1>
                                     <p class="font-extralight text-sm">Unggah Ijazah dan Transkrip Nilai kamu dalam format
                                         PDF dengan ukuran file maksimal 5 MB.</p>
-                                    @if (!@empty($user->ijazah_transkrip))
+                                    @if (!@empty($dataUser->ijazah_transkrip))
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
-                                                <h1>{{ $user->ijazah_transkrip }}</h1>
+                                                <h1>{{ $dataUser->ijazah_transkrip }}</h1>
                                             </div>
                                             <div class="relative flex items-center">
                                                 <input type="file" id="ijazahTranskrip" accept=".pdf" class="hidden"
@@ -182,11 +182,11 @@
                                     <h1 class="font-bold">Surat Lamaran Kerja</h1>
                                     <p class="font-extralight text-sm">Unggah Surat Lamaran Kerja kamu dalam format PDF
                                         dengan ukuran file maksimal 2 MB.</p>
-                                    @if (!@empty($user->surat_lamaran_kerja))
+                                    @if (!@empty($dataUser->surat_lamaran_kerja))
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
-                                                <h1>{{ $user->surat_lamaran_kerja }}</h1>
+                                                <h1>{{ $dataUser->surat_lamaran_kerja }}</h1>
                                             </div>
                                             <div class="relative flex items-center">
                                                 <input type="file" id="suratLamaranKerja" accept=".pdf"

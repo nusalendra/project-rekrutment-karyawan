@@ -23,8 +23,11 @@ use App\Http\Controllers\HRD\TesPotensiAkademikController;
 // Manajer Controller
 use App\Http\Controllers\Manajer\JabatanController;
 use App\Http\Controllers\Manajer\KriteriaController;
+use App\Http\Controllers\Manajer\KriteriaScreeningController;
 use App\Http\Controllers\Manajer\SubkriteriaController;
 use App\Http\Controllers\Manajer\PengukuranController;
+use App\Http\Controllers\Manajer\PengukuranScreeningController;
+use App\Http\Controllers\Manajer\SubkriteriaScreeningController;
 use App\Http\Controllers\Pelamar\HasilTesTPAController;
 // Pelamar Controller
 use App\Http\Controllers\Pelamar\MelamarPekerjaanController;
@@ -154,6 +157,24 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
 
     Route::get('/dashboard-manajer', [DashboardController::class, 'indexManajer'])->name('dashboard-manajer');
 
+    Route::prefix('kriteria-screening')->group(function () {
+        Route::get('/', [KriteriaScreeningController::class, 'index'])->name('kriteria-screening');
+        Route::get('/create', [KriteriaScreeningController::class, 'create'])->name('kriteria-screening-create');
+        Route::post('/create', [KriteriaScreeningController::class, 'store'])->name('kriteria-screening-store');
+        Route::get('/edit/{id}', [KriteriaScreeningController::class, 'edit'])->name('kriteria-screening-edit');
+        Route::put('/edit/{id}', [KriteriaScreeningController::class, 'update'])->name('kriteria-screening-update');
+        Route::get('/delete/{id}', [KriteriaScreeningController::class, 'destroy'])->name('kriteria-screening-destroy');
+    })->name('kriteria-screening');
+
+    Route::prefix('subkriteria-screening')->group(function () {
+        Route::get('/', [SubkriteriaScreeningController::class, 'index'])->name('subkriteria-screening');
+        Route::get('/create', [SubkriteriaScreeningController::class, 'create'])->name('subkriteria-screening-create');
+        Route::post('/create', [SubkriteriaScreeningController::class, 'store'])->name('subkriteria-screening-store');
+        Route::get('/edit/{id}', [SubkriteriaScreeningController::class, 'edit'])->name('subkriteria-screening-edit');
+        Route::put('/edit/{id}', [SubkriteriaScreeningController::class, 'update'])->name('subkriteria-screening-update');
+        Route::get('/delete/{id}', [SubkriteriaScreeningController::class, 'destroy'])->name('subkriteria-screening-destroy');
+    })->name('subkriteria-screening');
+
     Route::prefix('jabatan')->group(function () {
         Route::get('/', [JabatanController::class, 'index'])->name('jabatan');
         Route::get('/create', [JabatanController::class, 'create'])->name('jabatan-create');
@@ -199,13 +220,17 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
 });
 
 Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function () {
-    Route::get('/profil', [ProfilPelamarController::class, 'index'])->name('profil');
-    Route::get('/profil/data-pribadi/{id}', [ProfilPelamarController::class, 'editDataPribadi'])->name('edit-data-pribadi');
-    Route::POST('/profil/data-pribadi/{id}', [ProfilPelamarController::class, 'updateDataPribadi'])->name('update-data-pribadi');
-    Route::get('/profil/kontak-pribadi/{id}', [ProfilPelamarController::class, 'editKontakPribadi'])->name('edit-kontak-pribadi');
-    Route::POST('/profil/kontak-pribadi/{id}', [ProfilPelamarController::class, 'updateKontakPribadi'])->name('update-kontak-pribadi');
-    Route::get('/profil/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'editLengkapiDokumen'])->name('edit-lengkapi-dokumen');
-    Route::POST('/profil/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'updateLengkapiDokumen'])->name('update-lengkapi-dokumen');
+    Route::prefix('profil')->group(function () {
+        Route::get('/', [ProfilPelamarController::class, 'index'])->name('profil');
+        Route::get('/data-pribadi/{id}', [ProfilPelamarController::class, 'editDataPribadi'])->name('edit-data-pribadi');
+        Route::POST('/data-pribadi/{id}', [ProfilPelamarController::class, 'updateDataPribadi'])->name('update-data-pribadi');
+        Route::get('/riwayat-pendidikan-pengalaman/{id}', [ProfilPelamarController::class, 'editRiwayatPendidikanPengalaman'])->name('edit-riwayat-pendidikan-pengalaman');
+        Route::POST('/riwayat-pendidikan-pengalaman/{id}', [ProfilPelamarController::class, 'updateRiwayatPendidikanPengalaman'])->name('update-riwayat-pendidikan-pengalaman');
+        Route::get('/kontak-pribadi/{id}', [ProfilPelamarController::class, 'editKontakPribadi'])->name('edit-kontak-pribadi');
+        Route::POST('/kontak-pribadi/{id}', [ProfilPelamarController::class, 'updateKontakPribadi'])->name('update-kontak-pribadi');
+        Route::get('/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'editLengkapiDokumen'])->name('edit-lengkapi-dokumen');
+        Route::POST('/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'updateLengkapiDokumen'])->name('update-lengkapi-dokumen');
+    })->name('profil');
 
     Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
 
