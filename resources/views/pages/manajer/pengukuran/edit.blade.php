@@ -34,11 +34,11 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option disabled>Pilih Kriteria</option>
                                     @foreach ($kriteria as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ $item->id == $pengukuran->kriteria_id ? 'selected' : '' }}>
-                                        {{ $item->nama }}
-                                    </option>
-                                @endforeach
+                                        <option value="{{ $item->id }}"
+                                            {{ $item->id == $pengukuran->kriteria_id ? 'selected' : '' }}>
+                                            {{ $item->nama }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="w-1/2 mx-3">
@@ -71,18 +71,10 @@
                                 <label for="skor"
                                     class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Skor <span
                                         class="text-red-700">*</span></label>
-                                <input required type="text" id="skor" name="skor" placeholder="Masukkan Skor" value="{{ $pengukuran->skor }}"
-                                    title="Tidak diperbolehkan menggunakan karakter khusus"
+                                <input required type="text" id="skor" name="skor" placeholder="Masukkan Skor"
+                                    value="{{ $pengukuran->skor }}" title="Tidak diperbolehkan menggunakan karakter khusus"
                                     class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
-                        </div>
-                        <div class="mx-3 mt-5">
-                            <label for="keterangan"
-                                class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Keterangan Pengukuran (Opsional)</label>
-                            <input required type="text" id="keterangan" name="keterangan"
-                                placeholder="Contoh : Memilih IPK C apabila IPK < 3"
-                                title="Tidak diperbolehkan menggunakan karakter khusus" value="{{ $pengukuran->keterangan }}"
-                                class="w-full h-28 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
                     </div>
                     <div class="flex mx-3 mt-5">

@@ -25,7 +25,7 @@ class SubkriteriaController extends Controller
                 return $query->where('jabatans.nama', 'like', "%$searchTerm%")->orWhere('kriterias.nama', 'like', "%$searchTerm%");
             })
             ->orderByDesc('subkriterias.created_at')
-            ->select('subkriterias.id', 'kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'subkriterias.nama as nama_subkriteria', 'kriterias.tipe')
+            ->select('subkriterias.id', 'kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'subkriterias.nama as nama_subkriteria', 'kriterias.tipe', 'subkriterias.bobot_kriteria_per_subkriteria')
             ->simplePaginate(6);
 
         return view('pages.manajer.subkriteria.index', ['title' => 'Subkriteria'], compact('data', 'searchTerm'));
@@ -53,12 +53,32 @@ class SubkriteriaController extends Controller
     public function store(Request $request)
     {
         $subkriteria = new Subkriteria;
-
         $subkriteria->jabatan_id = $request->input('jabatan_id');
         $subkriteria->kriteria_id = $request->input('kriteria_id');
         $subkriteria->nama = $request->input('nama');
-
+        $subkriteria->bobot_kriteria_per_subkriteria = null;
         $subkriteria->save();
+
+        // Dapatkan jumlah subkriteria yang sudah ada untuk kriteria yang sama
+        $countSubkriteria = Subkriteria::where('kriteria_id', $request->input('kriteria_id'))->count();
+
+        // Dapatkan kriteria yang sesuai
+        $kriteria = Kriteria::find($request->input('kriteria_id'));
+
+        // Lakukan perhitungan bobot
+        if ($countSubkriteria > 0) {
+            $bobotPerKriteria = $kriteria->bobot / $countSubkriteria;
+        } else {
+            $bobotPerKriteria = 0; // Hindari pembagian oleh nol jika belum ada subkriteria.
+        }
+
+        // Update bobot_kriteria_per_subkriteria pada semua subkriteria yang terkait dengan kriteria ini
+        Subkriteria::where('kriteria_id', $request->input('kriteria_id'))->update([
+            'bobot_kriteria_per_subkriteria' => $bobotPerKriteria,
+        ]);
+
+        // Tambahkan logika lain yang mungkin diperlukan
+
 
         return redirect('subkriteria');
     }

@@ -9,7 +9,7 @@ class Pengukuran extends Model
 {
     use HasFactory;
     protected $table = 'pengukurans';
-    protected $fillable = ['jabatan_id', 'kriteria_id', 'subkriteria_id', 'nama', 'skor', 'keterangan'];
+    protected $fillable = ['jabatan_id', 'kriteria_id', 'subkriteria_id', 'nama', 'skor'];
     protected $guarded = [];
 
     public function jabatan()

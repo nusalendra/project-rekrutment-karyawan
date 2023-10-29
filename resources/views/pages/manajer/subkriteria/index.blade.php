@@ -56,6 +56,9 @@
                                     <h1 class="flex w-full justify-center">Subkriteria</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    <h1 class="flex w-full justify-center">Bobot Kriteria Per-Subkriteria</h1>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
                                 </th>
                             </tr>
@@ -78,6 +81,9 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">{{ $item->nama_subkriteria }}</h1>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">{{ $item->bobot_kriteria_per_subkriteria }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
