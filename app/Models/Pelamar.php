@@ -31,11 +31,6 @@ class Pelamar extends Model
         return $this->hasOne(HasilValidasi::class);
     }
 
-    public function dokumenPendukung()
-    {
-        return $this->hasMany(DokumenPendukung::class);
-    }
-
     public function jawabanTesPotensiAkademik() {
         return $this->hasMany(JawabanTesPotensiAkademik::class);
     }

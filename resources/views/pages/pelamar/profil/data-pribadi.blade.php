@@ -81,13 +81,13 @@
                                         name="name" value="{{ $user->name }}">
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
-                                    <h1>Tempat Lahir</h1>
+                                    <h1>Kota Tempat Lahir</h1>
                                     @if (!@empty($dataUser))
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="tempat_lahir" value="{{ $dataUser->tempat_lahir }}">
+                                            name="kota_tempat_lahir" value="{{ $dataUser->kota_tempat_lahir }}">
                                     @else
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="tempat_lahir">
+                                            name="kota_tempat_lahir">
                                     @endif
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
@@ -199,10 +199,10 @@
                                     <h1>Alamat Domisili</h1>
                                     @if (!@empty($dataUser))
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="alamat_domisili" value="{{ $dataUser->alamat_domisili }}">
+                                            name="alamat_tinggal" value="{{ $dataUser->alamat_tinggal }}">
                                     @else
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            name="alamat_domisili">
+                                            name="alamat_tinggal">
                                     @endif
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">

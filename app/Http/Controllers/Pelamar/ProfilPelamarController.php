@@ -93,19 +93,19 @@ class ProfilPelamarController extends Controller
         $validatedData = $request->validate([
             'jenis_kelamin' => 'in:Laki-Laki,Perempuan',
             'agama' => 'in:Islam,Kristen Protestan,Kristen Katolik, Hindu, Budha,Khonghucu',
-            'status' => 'in:Sudah Menikah,Belum Menikah'
+            'status' => 'in:Sudah Menikah,Belum Menikah',
         ]);
 
         $dataUser = DataUser::where('user_id', $user->id)->first();
         $tanggalLahirPelamar = \Carbon\Carbon::createFromFormat('d-m-Y', $request->input('tanggal_lahir'))->format('Y-m-d');
 
         if ($dataUser) {
-            $dataUser->tempat_lahir = $request->tempat_lahir;
+            $dataUser->kota_tempat_lahir = $request->kota_tempat_lahir;
             $dataUser->tanggal_lahir = $tanggalLahirPelamar;
             $dataUser->jenis_kelamin = $request->jenis_kelamin;
             $dataUser->agama = $request->agama;
             $dataUser->status = $request->status;
-            $dataUser->alamat_domisili = $request->alamat_domisili;
+            $dataUser->alamat_tinggal = $request->alamat_tinggal;
             $dataUser->save();
         }
 
@@ -199,7 +199,7 @@ class ProfilPelamarController extends Controller
             $request->validate([
                 'curriculum_vitae' => 'mimes:pdf|max:2048', // Maksimum 2MB
                 'pas_foto' => 'image|mimes:jpg,jpeg,png|dimensions:ratio=2/3', // 4X6
-                'ijazah_transkrip' => 'mimes:pdf|max:5120', // Maksimum 5MB
+                'ijazah' => 'mimes:pdf|max:5120', // Maksimum 5MB
                 'surat_lamaran_kerja' => 'mimes:pdf|max:2048', // Maksimum 2MB
             ]);
 
@@ -235,9 +235,9 @@ class ProfilPelamarController extends Controller
                 $dataUser->pas_foto = $fileName;
             }
 
-            if ($request->hasFile('ijazah_transkrip')) {
-                $fileIjazahTranskrip = $request->file('ijazah_transkrip');
-                $fileName = 'Ijazah & Transkrip_' . $dataUser->user->name . '.' . $fileIjazahTranskrip->getClientOriginalExtension();
+            if ($request->hasFile('ijazah')) {
+                $fileIjazahTranskrip = $request->file('ijazah');
+                $fileName = 'Ijazah_' . $dataUser->user->name . '.' . $fileIjazahTranskrip->getClientOriginalExtension();
 
                 // Membuat direktori berdasarkan ID pengguna jika belum ada
                 $userDirectory = public_path('dokumen-peserta/' . 'Dokumen' . '_' . $dataUser->user->name);
@@ -248,7 +248,7 @@ class ProfilPelamarController extends Controller
                 // Memindahkan file ke direktori yang sesuai
                 $fileIjazahTranskrip->move($userDirectory, $fileName);
 
-                $dataUser->ijazah_transkrip = $fileName;
+                $dataUser->ijazah = $fileName;
             }
 
             if ($request->hasFile('surat_lamaran_kerja')) {

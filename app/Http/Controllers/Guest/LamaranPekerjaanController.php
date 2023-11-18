@@ -25,8 +25,8 @@ class LamaranPekerjaanController extends Controller
                 return $query->orWhere('jabatans.nama', 'like', "%$searchTerm%");
             })
             ->where('lowongan_pekerjaans.kuota', '>', 0)
-            ->orderByDesc('lowongan_pekerjaans.created_at')
-            ->simplePaginate(6);
+            ->orderBy('lowongan_pekerjaans.created_at', 'asc')
+            ->get();
         
         $periode = Periode::all();
 

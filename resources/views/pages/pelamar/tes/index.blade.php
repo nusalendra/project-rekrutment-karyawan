@@ -38,18 +38,16 @@
 
         <!-- Bagian Informasi Panduan (Sebelah Kanan) -->
         <div class="w-1/2 bg-white p-4 rounded-md shadow-md">
-            <h2 class="text-xl font-semibold mb-4">Panduan Mengikuti Tes Potensi Akademik</h2>
-            <p class="text-gray-600">Silakan pilih posisi yang sesuai dengan Anda di sebelah kiri. Kemudian, ikuti panduan
-                berikut:</p>
-            <ol class="list-decimal list-inside text-gray-600 ml-4">
+            <h1 class="text-2xl font-semibold mb-4">Tes Potensi Akademik Online</h1>
+            <p>Selamat datang di tes potensi akademik online. Silakan ikuti panduan berikut:</p>
+            <ol class="list-decimal pl-4 my-4">
                 <li>Pastikan Anda berada di ruangan yang tenang dan bebas gangguan.</li>
-                <li>Siapkan kertas dan pena jika diperlukan untuk perhitungan atau catatan.</li>
+                <li>Siapkan perangkat Anda dan pastikan koneksi internet stabil.</li>
                 <li>Baca instruksi setiap soal dengan teliti.</li>
                 <li>Pilih jawaban yang menurut Anda benar.</li>
                 <li>Klik tombol "Selesai" saat Anda telah menyelesaikan tes.</li>
+                <li>Jika Anda memiliki pertanyaan atau mengalami kesulitan, hubungi tim dukungan kami.</li>
             </ol>
-            <p class="text-gray-600 mt-4">Jika Anda memiliki pertanyaan atau mengalami kesulitan, hubungi tim dukungan kami.
-            </p>
         </div>
     </div>
 @endsection

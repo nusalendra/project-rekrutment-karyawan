@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Models\Penilaian;
 use App\Models\Kriteria;
 use App\Models\HasilValidasi;
+use App\Models\Subkriteria;
 
 class PelamarDiterimaController extends Controller
 {
@@ -86,35 +87,42 @@ class PelamarDiterimaController extends Controller
             // Inisialisasi array untuk setiap pelamar
             $skorPengukuranPelamar = [];
 
+            // Iterasi untuk mengumpulkan skor pengukuran per kriteria dan tipe kriteria
             foreach ($penilaians as $penilaian) {
-                // Ambil tipe kriteria dari tabel kriteria
-                $tipeKriteria = $penilaian->kriteria->tipe;
-
+                $kriteria_id = $penilaian->kriteria_id;
+                $tipe_kriteria = $penilaian->kriteria->tipe;
                 $skorPengukuran = $penilaian->pengukuran->skor;
 
                 // Inisialisasi subarray jika belum ada untuk tipe kriteria ini
-                if (!isset($skorPengukuranPelamar[$tipeKriteria])) {
-                    $skorPengukuranPelamar[$tipeKriteria] = [];
+                if (!isset($skorPengukuranPelamar[$kriteria_id])) {
+                    $skorPengukuranPelamar[$kriteria_id] = [
+                        'Benefit' => [],
+                        'Cost' => [],
+                    ];
                 }
 
-                // Simpan nilai subkriteria dalam struktur data yang sesuai
-                $skorPengukuranPelamar[$tipeKriteria][] = $skorPengukuran;
+                // Simpan nilai subkriteria dalam struktur data yang sesuai berdasarkan tipe kriteria
+                $skorPengukuranPelamar[$kriteria_id][$tipe_kriteria][] = $skorPengukuran;
             }
 
             // Iterasi kembali untuk menghitung nilai normalisasi dan menyimpannya
             foreach ($penilaians as $penilaian) {
-                $tipeKriteria = $penilaian->kriteria->tipe;
+                $kriteria_id = $penilaian->kriteria_id;
+                $tipe_kriteria = $penilaian->kriteria->tipe;
                 $skorPengukuran = $penilaian->pengukuran->skor;
 
-                // Hitung nilai maksimum (max) untuk tipe kriteria "Benefit"
-                if ($tipeKriteria == 'Benefit') {
-                    $maxValue = max($skorPengukuranPelamar[$tipeKriteria]);
-                    $nilaiNormalisasi = $skorPengukuran / $maxValue;
-                }
-                // Hitung nilai minimum (min) untuk tipe kriteria "Cost"
-                elseif ($tipeKriteria == 'Cost') {
-                    $minValue = min($skorPengukuranPelamar[$tipeKriteria]);
-                    $nilaiNormalisasi = $minValue / $skorPengukuran;
+                // Tambahkan kondisi untuk menangani nilai 0
+                if ($skorPengukuran == 0) {
+                    $nilaiNormalisasi = 0;
+                } else {
+                    // Hitung nilai maksimum (max) atau minimum (min) berdasarkan tipe kriteria
+                    if ($tipe_kriteria == 'Benefit') {
+                        $maxValue = max($skorPengukuranPelamar[$kriteria_id]['Benefit']);
+                        $nilaiNormalisasi = $maxValue != 0 ? $skorPengukuran / $maxValue : 0;
+                    } elseif ($tipe_kriteria == 'Cost') {
+                        $minValue = min($skorPengukuranPelamar[$kriteria_id]['Cost']);
+                        $nilaiNormalisasi = $minValue != 0 ? $minValue / $skorPengukuran : 0;
+                    }
                 }
 
                 // Simpan nilai normalisasi kembali ke dalam tabel Penilaian
@@ -123,29 +131,25 @@ class PelamarDiterimaController extends Controller
             }
 
             // Menghitung Hasil Penilaian
-            $bobotKriteria = Kriteria::pluck('bobot', 'nama');
+            $hasilValidasi = new HasilValidasi();
+            $hasilValidasi->pelamar_id = $pelamar->id;
 
             $totalNilai = 0;
 
-            foreach ($bobotKriteria as $kriteriaNama => $bobot) {
-                $kriteria = Kriteria::where('nama', $kriteriaNama)->first();
-                // Mengambil nilai normalisasi dari tabel penilaian jika ada
-                $penilaian = $pelamar->penilaian->where('kriteria_id', $kriteria->id)->first();
+            foreach ($penilaians as $penilaian) {
+                $kriteria_id = $penilaian->kriteria_id;
+                $bobot = Kriteria::where('id', $kriteria_id)->pluck('bobot')->first();
 
-                if ($penilaian) {
-                    // Jika ada penilaian, maka ambil nilai normalisasi
-                    $nilaiKriteria = $penilaian->nilai_normalisasi;
+                // Pastikan ada nilai normalisasi
+                if ($penilaian->nilai_normalisasi !== null) {
+                    $nilaiNormalisasi = $penilaian->nilai_normalisasi;
 
                     // Mengalikan nilai normalisasi dengan bobot kriteria
-                    $totalNilai += $nilaiKriteria * $bobot;
+                    $totalNilai += $nilaiNormalisasi * $bobot;
                 }
             }
 
-            $hasilValidasi = new HasilValidasi();
-
-            $hasilValidasi->pelamar_id = $pelamar->id;
             $hasilValidasi->hasil_penilaian = $totalNilai;
-
             $hasilValidasi->save();
 
             $pelamar->status_lamaran = 'Divalidasi';
@@ -154,6 +158,80 @@ class PelamarDiterimaController extends Controller
 
         return redirect()->route('pelamar-diterima-data', $lowonganPekerjaanId);
     }
+
+
+    // public function validasi($lowonganPekerjaanId)
+    // {
+    //     $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
+    //     $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Diterima')->get();
+
+    //     foreach ($pelamars as $pelamar) {
+    //         // Mengambil semua penilaian untuk pelamar ini
+    //         $penilaians = Penilaian::where('pelamar_id', $pelamar->id)->get();
+    //         // dd($penilaians);
+    //         // Inisialisasi array untuk total skor pengukuran per subkriteria pada pelamar ini
+    //         $totalSkorPerSubkriteria = [];
+
+    //         foreach ($penilaians as $penilaian) {
+    //             $subkriteriaId = $penilaian->subkriteria_id;
+
+    //             $skorPengukuran = $penilaian->pengukuran->skor;
+
+    //             // Inisialisasi total skor pengukuran per subkriteria jika belum ada
+    //             if (!isset($totalSkorPerSubkriteria[$subkriteriaId])) {
+    //                 $totalSkorPerSubkriteria[$subkriteriaId] = 0;
+    //             }
+
+    //             // Tambahkan skor pengukuran ke total skor pengukuran per subkriteria
+    //             $totalSkorPerSubkriteria[$subkriteriaId] += $skorPengukuran;
+
+    //         }
+
+    //         // dd($totalSkorPerSubkriteria);
+    //         foreach ($penilaians as $penilaian) {
+    //             $subkriteriaId = $penilaian->subkriteria_id;
+    //             $skorPengukuran = $penilaian->pengukuran->skor;
+
+    //             // Hitung nilai normalisasi untuk subkriteria ini
+    //             $maxValue = $totalSkorPerSubkriteria[$subkriteriaId];
+    //             $nilaiNormalisasi = $skorPengukuran / $maxValue;
+    //             // Simpan nilai normalisasi kembali ke dalam tabel Penilaian
+    //             $penilaian->nilai_normalisasi = $nilaiNormalisasi;
+    //             $penilaian->save();
+    //         }
+
+    //         // Menghitung Hasil Penilaian
+    //         $bobotKriteria = Kriteria::pluck('bobot', 'nama');
+
+    //         $totalNilai = 0;
+
+    //         foreach ($bobotKriteria as $kriteriaNama => $bobot) {
+    //             $kriteria = Kriteria::where('nama', $kriteriaNama)->first();
+    //             // Mengambil nilai normalisasi dari tabel penilaian jika ada
+    //             $penilaian = $penilaians->where('kriteria_id', $kriteria->id)->first();
+
+    //             if ($penilaian) {
+    //                 // Jika ada penilaian, maka ambil nilai normalisasi
+    //                 $nilaiKriteria = $penilaian->nilai_normalisasi;
+
+    //                 // Mengalikan nilai normalisasi dengan bobot kriteria
+    //                 $totalNilai += $nilaiKriteria * $bobot;
+    //             }
+    //         }
+
+    //         $hasilValidasi = new HasilValidasi();
+
+    //         $hasilValidasi->pelamar_id = $pelamar->id;
+    //         $hasilValidasi->hasil_penilaian = $totalNilai;
+
+    //         $hasilValidasi->save();
+
+    //         $pelamar->status_lamaran = 'Divalidasi';
+    //         $pelamar->save();
+    //     }
+
+    //     return redirect()->route('pelamar-diterima-data', $lowonganPekerjaanId);
+    // }
 
 
 

@@ -36,8 +36,8 @@ class MelamarPekerjaanController extends Controller
                 return $query->orWhere('jabatans.nama', 'like', "%$searchTerm%");
             })
             ->where('lowongan_pekerjaans.kuota', '>', 0)
-            ->orderByDesc('lowongan_pekerjaans.created_at')
-            ->simplePaginate(6);
+            ->orderBy('lowongan_pekerjaans.created_at', 'asc')
+            ->get();
 
         $periode = Periode::all();
 
@@ -54,14 +54,12 @@ class MelamarPekerjaanController extends Controller
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
 
         $user = Auth::user();
+
+        $dataUser = $user->dataUser;
+
         $lowonganPekerjaan = LowonganPekerjaan::with('jabatan', 'periode')->find($lowonganPekerjaanIdDecrypt);
-        $kriteriaWithSubkriteria = Kriteria::with('subkriteria')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
 
-        $subkriteria = Subkriteria::with('pengukuran')->where('jabatan_id', $lowonganPekerjaan->jabatan->id)->get();
-
-        $dataUserExist = User::where('id', $user->id)->select('TTL', 'alamat', 'jenis_kelamin', 'nomor_handphone', 'agama', 'curriculum_vitae', 'pas_foto', 'ijazah_transkrip', 'surat_lamaran_kerja')->first();
-        
-        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'kriteriaWithSubkriteria', 'user', 'subkriteria', 'dataUserExist'));
+        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'user', 'dataUser'));
     }
 
     /**
@@ -93,56 +91,22 @@ class MelamarPekerjaanController extends Controller
 
         $pengukuranData = $request->input('pengukuran_id');
 
-        foreach ($pengukuranData as $kriteriaId => $subkriteriaValues) {
-            foreach ($subkriteriaValues as $subkriteriaId => $selectedPengukuran) {
-                $penilaian = new Penilaian();
+        // foreach ($pengukuranData as $kriteriaId => $subkriteriaValues) {
+        //     foreach ($subkriteriaValues as $subkriteriaId => $selectedPengukuran) {
+        //         $penilaian = new Penilaian();
 
-                // Set atribut-atribut penilaian sesuai dengan data yang diterima
-                $penilaian->pelamar_id = $pelamarId;
-                $penilaian->periode_id = $request->periode_id;
-                $penilaian->jabatan_id = $request->jabatan_id;
-                $penilaian->kriteria_id = $kriteriaId;
-                $penilaian->subkriteria_id = $subkriteriaId;
-                $penilaian->pengukuran_id = $selectedPengukuran;
-                $penilaian->nilai_normalisasi = 0;
-                $penilaian->save();
+        //         // Set atribut-atribut penilaian sesuai dengan data yang diterima
+        //         $penilaian->pelamar_id = $pelamarId;
+        //         $penilaian->periode_id = $request->periode_id;
+        //         $penilaian->jabatan_id = $request->jabatan_id;
+        //         $penilaian->kriteria_id = $kriteriaId;
+        //         $penilaian->subkriteria_id = $subkriteriaId;
+        //         $penilaian->pengukuran_id = $selectedPengukuran;
+        //         $penilaian->nilai_normalisasi = 0;
+        //         $penilaian->save();
 
-                $filesByKriteria = $request->file('dokumen');
-
-                if (!empty($filesByKriteria[$kriteriaId][$subkriteriaId])) {
-                    $dokumenFiles = $filesByKriteria[$kriteriaId][$subkriteriaId];
-
-                    foreach ($dokumenFiles as $singleFile) {
-                        $validator = Validator::make(['file' => $singleFile], [
-                            'file' => 'mimes:pdf|max:5120',
-                        ]);
-
-                        if ($validator->fails()) {
-                            return redirect()->back()
-                                ->withErrors($validator)
-                                ->withInput();
-                        }
-
-                        $dokumenPendukung = new DokumenPendukung();
-                        $dokumenPendukung->pelamar_id = $pelamarId;
-                        $dokumenPendukung->jabatan_id = $request->jabatan_id;
-                        $dokumenPendukung->kriteria_id = $kriteriaId;
-                        $dokumenPendukung->subkriteria_id = $subkriteriaId;
-
-                        $namaPeserta = $pelamar->user->name;
-                        $subkriteria = Subkriteria::find($subkriteriaId);
-                        $subkriteriaName = str_replace(' ', '_', $subkriteria->nama);
-                        $fileName = $subkriteriaName . '.pdf';
-
-                        $filePath = $singleFile->move(public_path("dokumen-pendukung/{$namaPeserta}"), $fileName);
-                        $dokumenPendukung->dokumen = $fileName;
-
-                        $dokumenPendukung->save();
-                    }
-                }
-            }
-        }
-
+        //     }
+        // }
 
         $notifikasi = new Notifikasi();
         $notifikasi->user_id = $request->user_id;
@@ -210,8 +174,18 @@ class MelamarPekerjaanController extends Controller
             ->where('lowongan_pekerjaan_id', $lowonganPekerjaan->id)
             ->value('status_lamaran');
 
-        // $dataUserExist = User::where('id', $user->id)->select('TTL', 'alamat', 'jenis_kelamin', 'nomor_handphone', 'agama', 'curriculum_vitae', 'pas_foto', 'ijazah_transkrip', 'surat_lamaran_kerja')->first();
-
         return view('pages.pelamar.melamar-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan', 'statusLamaran'));
+    }
+
+    public function downloadDokumen($dokumenName, $fileName)
+    {
+        $filePath = public_path('dokumen-peserta/Dokumen_' . $dokumenName . '/' . $fileName);
+
+        // Pastikan file ada sebelum menginisialisasi unduhan
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }

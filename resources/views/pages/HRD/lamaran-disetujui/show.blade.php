@@ -7,7 +7,7 @@
             <div class="px-12 pt-5 text-black">
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Lamaran Pelamar
-                        Diterima
+                        Disetujui
                     </h2>
                 </div>
                 <div class="flex mb-4">
@@ -47,9 +47,6 @@
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Tanggal Melamar</h1>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Aksi</h1>
-                                </th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -69,12 +66,12 @@
                                         <h1 class="flex w-full justify-center">
                                             {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y, H:i:s') }}</h1>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    {{-- <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
                                             @php
                                                 $pelamarIdEncrypt = Crypt::encrypt($item->id);
                                             @endphp
-                                            {{-- Edit --}}
+                                            
                                             <a href="{{ route('lamaran-disetujui-detail', ['pelamarId' => $pelamarIdEncrypt, 'lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                                                 class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
@@ -86,7 +83,7 @@
                                                 <p class="ml-1">Detail</p>
                                             </a>
                                         </h1>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
 
