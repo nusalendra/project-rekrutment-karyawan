@@ -111,7 +111,7 @@
                                             </label>
 
                                             <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                                placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
+                                                placeholder="Link Sosial Media" name="sosial_media[]"
                                                 value="{{ $sosialMediaArray[0] ?? '' }}">
                                             {{-- Instagram --}}
                                             <label for="">
@@ -126,7 +126,7 @@
                                                 </div>
                                             </label>
                                             <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                                placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
+                                                placeholder="Link Sosial Media" name="sosial_media[]"
                                                 value="{{ $sosialMediaArray[1] ?? '' }}">
 
                                             {{-- Twitter --}}
@@ -142,7 +142,7 @@
                                                 </div>
                                             </label>
                                             <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                                placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
+                                                placeholder="Link Sosial Media" name="sosial_media[]"
                                                 value="{{ $sosialMediaArray[2] ?? '' }}">
                                             {{-- Blog --}}
                                             <label for="">
@@ -157,7 +157,7 @@
                                                 </div>
                                             </label>
                                             <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                                placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
+                                                placeholder="Link Sosial Media" name="sosial_media[]"
                                                 value="{{ $sosialMediaArray[3] ?? '' }}">
                                             {{-- Github --}}
                                             <label for="">
@@ -172,7 +172,7 @@
                                                 </div>
                                             </label>
                                             <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                                placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
+                                                placeholder="Link Sosial Media" name="sosial_media[]"
                                                 value="{{ $sosialMediaArray[4] ?? '' }}">
                                         @endif
                                     @else
@@ -188,8 +188,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
-                                            value="">
+                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
                                         {{-- Instagram --}}
                                         <label for="">
                                             <div class="flex align-items-center mt-1.5">
@@ -202,8 +201,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
-                                            value="">
+                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
                                         {{-- Twitter --}}
                                         <label for="">
                                             <div class="flex align-items-center mt-1.5">
@@ -216,8 +214,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
-                                            value="">
+                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
                                         {{-- Blog --}}
                                         <label for="">
                                             <div class="flex align-items-center mt-1.5">
@@ -231,8 +228,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
-                                            value="">
+                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
                                         {{-- Github --}}
                                         <label for="">
                                             <div class="flex align-items-center mt-1.5">
@@ -245,8 +241,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Contoh Pengisian : Nama Akun (Link)" name="sosial_media[]"
-                                            value="">
+                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
                                     @endif
                                 </div>
                                 <div class="flex w-full h-auto items-center justify-center border-t border-gray-200 pt-3">

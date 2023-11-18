@@ -12,6 +12,9 @@ use App\Models\Kriteria;
 use App\Models\Notifikasi;
 use App\Models\Jabatan;
 use App\Models\LowonganPekerjaan;
+use App\Models\Pengukuran;
+use App\Models\Penilaian;
+use App\Models\Subkriteria;
 use Carbon\Carbon;
 
 class ProsesSeleksiController extends Controller
@@ -89,11 +92,31 @@ class ProsesSeleksiController extends Controller
         // dd($pelamarIdDecrypt);
         $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
 
+        $dataUser = $data->user->dataUser;
+
         $dataPenilaian = $data->penilaian;
-        // dd($dataPenilaian);
-        $dataDokumenPendukung = $data->dokumenPendukung;
-        // dd($dataDokumenPendukung);
-        return view('pages.HRD.proses-seleksi.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPendukung'));
+
+        $lowonganIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
+        $lowonganPekerjaan = LowonganPekerjaan::find($lowonganIdDecrypt);
+        // dd($lowonganPekerjaan);
+
+        $jabatanId = $lowonganPekerjaan->jabatan_id;
+        $jabatan = Jabatan::find($jabatanId);
+
+        $kriteria = Kriteria::where('jabatan_id', $jabatan->id)->get();
+
+        $subkriteria = collect();
+
+        foreach ($kriteria as $item) {
+            $subkriteria = $subkriteria->concat($item->subkriteria);
+        }
+
+        $subkriteriaIds = $subkriteria->pluck('id')->all();
+
+        $pengukuran = Pengukuran::whereIn('subkriteria_id', $subkriteriaIds)->get();
+
+        // $pengukuran = Pengukuran::where('jabatan_id', $jabatan->id)->where('kriteria_id', $kriteria->id)->where('subkriteria_id', $subkriteria->id)->first();
+        return view('pages.HRD.proses-seleksi.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'lowonganPekerjaan', 'dataUser', 'subkriteria', 'pengukuran'));
     }
 
     /**
@@ -123,6 +146,28 @@ class ProsesSeleksiController extends Controller
         $dataPelamar->status_lamaran = 'Diterima';
 
         $dataPelamar->save();
+
+        $pengukuranId = $request->input('pengukuran_id');
+        $periode = $request->input('periode_id');
+        $jabatan = $request->input('jabatan_id');
+
+        foreach ($pengukuranId as $id) {
+            // Dapatkan kriteria dan subkriteria berdasarkan $id
+            $kriteria = Pengukuran::where('id', $id)->value('kriteria_id');
+            $subkriteria = Pengukuran::where('id', $id)->value('subkriteria_id');
+
+            // Simpan data ke tabel Penilaian
+            $penilaian = new Penilaian();
+            $penilaian->pelamar_id = $pelamarId;
+            $penilaian->periode_id = $periode;
+            $penilaian->jabatan_id = $jabatan;
+            $penilaian->kriteria_id = $kriteria;
+            $penilaian->subkriteria_id = $subkriteria;
+            $penilaian->pengukuran_id = $id;
+            $penilaian->nilai_normalisasi = 0;
+
+            $penilaian->save();
+        }
 
         $notifikasi = new Notifikasi();
         $notifikasi->user_id = $dataPelamar->user->id;

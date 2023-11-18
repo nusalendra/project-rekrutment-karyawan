@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('kriteria_id')->constrained('kriterias')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('subkriteria_id')->constrained('subkriterias')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama');
-            $table->integer('skor');
+            $table->double('skor');
             $table->timestamps();
         });
     }

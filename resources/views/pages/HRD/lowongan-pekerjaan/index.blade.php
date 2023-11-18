@@ -133,7 +133,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $data->links() }}
                     @if ($data->hasPages())
                         <div class="pagination-links pt-6">
                             {{ $data->appends(['search' => $searchTerm])->links() }}

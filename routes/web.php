@@ -131,6 +131,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/pertanyaan/{id}', [TesPotensiAkademikController::class, 'createPertanyaan'])->name('tes-potensi-akademik-create-pertanyaan');
         Route::post('/pertanyaan/{id}', [TesPotensiAkademikController::class, 'storePertanyaan'])->name('tes-potensi-akademik-store-pertanyaan');
         Route::delete('/pertanyaan/delete/{tesPotensiAkademikId}/{pertanyaanTesPotensiAkademikId}', [TesPotensiAkademikController::class, 'destroyPertanyaan'])->name('tes-potensi-akademik-delete-pertanyaan');
+        // Route::get('/pelamar-tes/{id}', [TesPotensiAkademikController::class, 'pelamarTes'])->name('tes-potensi-akademik-pelamar-tes');
     })->name('tes-potensi-akademik');
 
     Route::prefix('lamaran-disetujui')->group(function () {
@@ -144,6 +145,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
 
     Route::prefix('hasil-tes-potensi-akademik')->group(function () {
         Route::get('/', [HasilTesTPAController::class, 'index'])->name('hasil-tes-potensi-akademik');
+        Route::get('/koreksi-tes/{pelamarTPAId}', [HasilTesTPAController::class, 'create'])->name('koreksi-tes-potensi-akademik');
     })->name('hasil-tes-potensi-akademik');
 
     Route::fallback(function () {
@@ -157,23 +159,23 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
 
     Route::get('/dashboard-manajer', [DashboardController::class, 'indexManajer'])->name('dashboard-manajer');
 
-    Route::prefix('kriteria-screening')->group(function () {
-        Route::get('/', [KriteriaScreeningController::class, 'index'])->name('kriteria-screening');
-        Route::get('/create', [KriteriaScreeningController::class, 'create'])->name('kriteria-screening-create');
-        Route::post('/create', [KriteriaScreeningController::class, 'store'])->name('kriteria-screening-store');
-        Route::get('/edit/{id}', [KriteriaScreeningController::class, 'edit'])->name('kriteria-screening-edit');
-        Route::put('/edit/{id}', [KriteriaScreeningController::class, 'update'])->name('kriteria-screening-update');
-        Route::get('/delete/{id}', [KriteriaScreeningController::class, 'destroy'])->name('kriteria-screening-destroy');
-    })->name('kriteria-screening');
+    // Route::prefix('kriteria-screening')->group(function () {
+    //     Route::get('/', [KriteriaScreeningController::class, 'index'])->name('kriteria-screening');
+    //     Route::get('/create', [KriteriaScreeningController::class, 'create'])->name('kriteria-screening-create');
+    //     Route::post('/create', [KriteriaScreeningController::class, 'store'])->name('kriteria-screening-store');
+    //     Route::get('/edit/{id}', [KriteriaScreeningController::class, 'edit'])->name('kriteria-screening-edit');
+    //     Route::put('/edit/{id}', [KriteriaScreeningController::class, 'update'])->name('kriteria-screening-update');
+    //     Route::get('/delete/{id}', [KriteriaScreeningController::class, 'destroy'])->name('kriteria-screening-destroy');
+    // })->name('kriteria-screening');
 
-    Route::prefix('subkriteria-screening')->group(function () {
-        Route::get('/', [SubkriteriaScreeningController::class, 'index'])->name('subkriteria-screening');
-        Route::get('/create', [SubkriteriaScreeningController::class, 'create'])->name('subkriteria-screening-create');
-        Route::post('/create', [SubkriteriaScreeningController::class, 'store'])->name('subkriteria-screening-store');
-        Route::get('/edit/{id}', [SubkriteriaScreeningController::class, 'edit'])->name('subkriteria-screening-edit');
-        Route::put('/edit/{id}', [SubkriteriaScreeningController::class, 'update'])->name('subkriteria-screening-update');
-        Route::get('/delete/{id}', [SubkriteriaScreeningController::class, 'destroy'])->name('subkriteria-screening-destroy');
-    })->name('subkriteria-screening');
+    // Route::prefix('subkriteria-screening')->group(function () {
+    //     Route::get('/', [SubkriteriaScreeningController::class, 'index'])->name('subkriteria-screening');
+    //     Route::get('/create', [SubkriteriaScreeningController::class, 'create'])->name('subkriteria-screening-create');
+    //     Route::post('/create', [SubkriteriaScreeningController::class, 'store'])->name('subkriteria-screening-store');
+    //     Route::get('/edit/{id}', [SubkriteriaScreeningController::class, 'edit'])->name('subkriteria-screening-edit');
+    //     Route::put('/edit/{id}', [SubkriteriaScreeningController::class, 'update'])->name('subkriteria-screening-update');
+    //     Route::get('/delete/{id}', [SubkriteriaScreeningController::class, 'destroy'])->name('subkriteria-screening-destroy');
+    // })->name('subkriteria-screening');
 
     Route::prefix('jabatan')->group(function () {
         Route::get('/', [JabatanController::class, 'index'])->name('jabatan');
@@ -249,9 +251,10 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
 
     Route::prefix('lamaran-saya')->group(function () {
         Route::get('/', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
-        Route::get('/detail/{id}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
+        Route::get('/detail/{id}/{lowonganPekerjaanId}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
         Route::get('/download/{fileName}/{pelamarName}', [LamaranSayaController::class, 'downloadDokumenPendukung'])->name('unduh-dokumen-lamaran');
         Route::get('/download-dokumen-peserta/{dokumenName}/{fileName}', [LamaranSayaController::class, 'downloadDokumenPeserta'])->name('unduh-dokumen-peserta');
+        Route::get('/delete/{id}', [LamaranSayaController::class, 'destroy'])->name('lamaran-saya-destroy');
     })->name('lamaran-saya');
 
     Route::prefix('tes-tpa')->group(function () {

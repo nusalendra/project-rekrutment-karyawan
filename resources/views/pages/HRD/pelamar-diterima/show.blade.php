@@ -40,17 +40,14 @@
                                     <h1 class="flex w-full justify-center">Nama Lengkap</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Posisi Dilamar</h1>
-                                </th>
-                                <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Status Lamaran</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Tanggal Melamar</h1>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                {{-- <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
-                                </th>
+                                </th> --}}
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -64,22 +61,18 @@
                                         <h1 class="flex w-full justify-center">{{ $item->user->name }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->lowonganPekerjaan->jabatan->nama }}
-                                        </h1>
-                                    </td>
-                                    <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
                                             {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y, H:i:s') }}</h1>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    {{-- <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
                                             @php
                                                 $pelamarIdEncrypt = Crypt::encrypt($item->id);
                                             @endphp
-                                            {{-- Edit --}}
+
                                             <a href="{{ route('pelamar-diterima-detail', ['pelamarId' => $pelamarIdEncrypt, 'lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                                                 class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
@@ -91,7 +84,7 @@
                                                 <p class="ml-1">Detail</p>
                                             </a>
                                         </h1>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
 

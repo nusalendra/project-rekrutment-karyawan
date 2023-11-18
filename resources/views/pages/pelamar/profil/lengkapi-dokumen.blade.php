@@ -144,18 +144,18 @@
                                     @endif
                                 </div>
                                 <div class="w-full h-auto space-y-3 mb-6 px-6">
-                                    <h1 class="font-bold">Ijazah dan Transkrip Nilai</h1>
-                                    <p class="font-extralight text-sm">Unggah Ijazah dan Transkrip Nilai kamu dalam format
+                                    <h1 class="font-bold">Ijazah</h1>
+                                    <p class="font-extralight text-sm">Unggah Ijazah kamu dalam format
                                         PDF dengan ukuran file maksimal 5 MB.</p>
-                                    @if (!@empty($dataUser->ijazah_transkrip))
+                                    @if (!@empty($dataUser->ijazah))
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
-                                                <h1>{{ $dataUser->ijazah_transkrip }}</h1>
+                                                <h1>{{ $dataUser->ijazah }}</h1>
                                             </div>
                                             <div class="relative flex items-center">
                                                 <input type="file" id="ijazahTranskrip" accept=".pdf" class="hidden"
-                                                    name="ijazah_transkrip" onchange="displayFileNameIjazah()" />
+                                                    name="ijazah" onchange="displayFileNameIjazah()" />
                                                 <label for="ijazahTranskrip"
                                                     class="bg-white hover:bg-gray-100 text-black font-medium py-0.5 px-6 rounded-lg border border-black cursor-pointer">
                                                     Ganti File
@@ -168,7 +168,7 @@
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="relative flex items-center">
                                                 <input type="file" id="ijazahTranskrip" accept=".pdf" class="hidden"
-                                                    name="ijazah_transkrip" onchange="displayFileNameIjazah()" />
+                                                    name="ijazah" onchange="displayFileNameIjazah()" />
                                                 <label for="ijazahTranskrip"
                                                     class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-0.5 px-6 rounded-lg border border-blue-500">
                                                     Pilih File

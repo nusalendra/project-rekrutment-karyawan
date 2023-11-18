@@ -29,6 +29,6 @@ class Pengukuran extends Model
 
     public function penilaian()
     {
-        return $this->belongsTo(Penilaian::class);
+        return $this->hasMany(Penilaian::class);
     }
 }

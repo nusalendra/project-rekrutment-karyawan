@@ -35,6 +35,14 @@ class TesPotensiAkademikController extends Controller
         return view('pages.HRD.tes-potensi-akademik.index', ['title' => 'Tes Potensi Akademik'], compact('searchTerm', 'data'));
     }
 
+    // public function pelamarTes($id) {
+    //     $tesPotensiAkademikId = Crypt::decrypt($id);
+    //     $pelamarTes = PelamarTesPotensiAkademik::with('tesPotensiAkademik')->whereNotNull('updated_at')->get();
+    //     // dd($pelamarTes);
+
+    //     return view('pages.HRD.tes-potensi-akademik.pelamar-tes', ['title' => 'Data TPA Pelamar'], compact('pelamarTes'));
+    // }
+
     /**
      * Show the form for creating a new resource.
      *

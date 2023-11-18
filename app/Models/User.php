@@ -29,14 +29,6 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'alamat',
-        'jenis_kelamin',
-        'nomor_handphone',
-        'agama',
-        'curriculum_vitae',
-        'pas_foto',
-        'ijazah_transkrip',
-        'surat_lamaran_kerja'
     ];
 
     /**

@@ -36,9 +36,4 @@ class Jabatan extends Model
     {
         return $this->hasMany(Penilaian::class);
     }
-    
-    public function dokumenPenilaian()
-    {
-        return $this->hasMany(DokumenPenilaian::class);
-    }
 }

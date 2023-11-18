@@ -65,9 +65,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Skor Pelamar</h1>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                {{-- <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
-                                </th>
+                                </th> --}}
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -89,15 +89,15 @@
                                         </h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->hasil_penilaian }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">{{ number_format($item->hasil_penilaian, 3) }}</h1>
+                                    </td>                                    
+                                    {{-- <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
                                             @php
                                                 $pelamarIdEncrypt = Crypt::encrypt($item->id);
                                                 $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaanIdDecrypt);
                                             @endphp
-                                            {{-- Edit --}}
+                                            
                                             <a href="{{ route('hasil-validasi-detail', ['pelamarId' => $pelamarIdEncrypt, 'lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                                                 class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
@@ -109,7 +109,7 @@
                                                 <p class="ml-1">Detail</p>
                                             </a>
                                         </h1>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

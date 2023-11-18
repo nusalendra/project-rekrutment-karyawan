@@ -21,7 +21,7 @@
                             </p>
                         </div>
                         <div class="flex w-full h-16">
-                            <label for="tempat_lahir" class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">Tempat,
+                            <label for="kota_tempat_lahir" class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">Tempat,
                                 Tanggal Lahir</label>
                             <p class="flex w-2/3 pl-3 text-gray-700 tracking-wide items-center">{{ $data->user->TTL }}
                             </p>
@@ -82,11 +82,11 @@
                             </div>
                         </div>
                         <div class="flex w-full h-16">
-                            <label for="ijazah_transkrip"
+                            <label for="ijazah"
                                 class="flex w-1/3 pl-3 text-gray-600 bg-blue-50 items-center">Ijazah / Transkrip
                                 Nilai</label>
                             <div class="flex items-center pl-3 mt-2">
-                                <a href="{{ route('unduh-dokumen-pelamar-diterima', ['dokumenName' => basename($data->user->name), 'fileName' => $data->user->ijazah_transkrip]) }}"
+                                <a href="{{ route('unduh-dokumen-pelamar-diterima', ['dokumenName' => basename($data->user->name), 'fileName' => $data->user->ijazah]) }}"
                                     class="flex justify-center items-center bg-blue-500 h-10 px-3 py-1 space-x-1 rounded-lg hover:bg-blue-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                         fill="currentColor" class="bi bi-cloud-arrow-down-fill text-white"

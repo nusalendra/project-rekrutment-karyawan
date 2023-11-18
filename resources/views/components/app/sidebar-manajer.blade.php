@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     {{-- Form Isian Pelamar --}}
-                    <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['kriteria-screening', 'subkriteria-screening'])) {{ 'bg-gray' }} @endif"
+                    {{-- <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['kriteria-screening', 'subkriteria-screening'])) {{ 'bg-gray' }} @endif"
                         x-data="{ open: {{ in_array(Request::segment(1), ['kriteria-screening', 'subkriteria-screening']) ? 1 : 0 }} }">
                         <a class="block text-black hover:text-blue-600 truncate transition duration-150 @if (in_array(Request::segment(1), ['manajemen_posisi'])) {{ 'hover:text-black' }} @endif"
                             href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
@@ -100,7 +100,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
                     <!-- Manajemen Posisi -->
                     <li class="px-3 py-2 rounded-sm mb-0.5 mt-3 last:mb-0 @if (in_array(Request::segment(1), ['jabatan', 'kriteria', 'subkriteria', 'pengukuran'])) {{ 'bg-gray' }} @endif"
                         x-data="{ open: {{ in_array(Request::segment(1), ['jabatan', 'kriteria', 'subkriteria', 'pengukuran']) ? 1 : 0 }} }">

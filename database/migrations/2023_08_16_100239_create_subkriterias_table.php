@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('jabatan_id')->constrained('jabatans')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('kriteria_id')->constrained('kriterias')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->double('bobot_kriteria_per_subkriteria')->nullable();
             $table->string('nama');
             $table->timestamps();
         });
