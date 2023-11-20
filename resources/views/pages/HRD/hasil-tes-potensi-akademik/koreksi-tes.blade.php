@@ -37,7 +37,14 @@
                         <div class="w-full h-auto space-y-3 mb-6">
                             <div class="flex space-x-3 text-xl font-bold">
                                 <h1>{{ $loop->index + 1 }}.</h1>
-                                <h1 class="">{{ $soal->pertanyaan }}</h1>
+                                @if ($soal->file_input_pertanyaan)
+                                    <!-- Pemeriksaan apakah kolom berisi gambar -->
+                                    <img width="450" height="450"
+                                        src="{{ asset('file-pertanyaan/' . $soal->file_input_pertanyaan) }}"
+                                        alt="Pertanyaan Image">
+                                @else
+                                    <h1>{{ $soal->pertanyaan }}</h1>
+                                @endif
                             </div>
                             <div class="pl-6 space-y-3">
                                 @php
@@ -50,9 +57,16 @@
                                         <input type="radio" name="pilihan[{{ $soal->id }}]"
                                             value="{{ $option }}" disabled
                                             {{ $jawabanPelamar && $jawabanPelamar->pilihan_jawaban === $option ? 'checked' : '' }}>
-                                        <label for="pilihan_{{ $soal->id }}_{{ $option }}">
-                                            {{ $soal->{'pilihan_' . strtolower($option)} }}
-                                        </label>
+                                        @if ($soal->{'file_input_pilihan_' . strtolower($option)})
+                                            <!-- Pemeriksaan apakah kolom berisi gambar pada pilihan -->
+                                            <img width="350" height="350"
+                                                src="{{ asset('file-pertanyaan/' . $soal->{'file_input_pilihan_' . strtolower($option)}) }}"
+                                                alt="Pilihan {{ $option }} Image">
+                                        @else
+                                            <label for="pilihan_{{ $soal->id }}_{{ $option }}">
+                                                {{ $soal->{'pilihan_' . strtolower($option)} }}
+                                            </label>
+                                        @endif
                                         @if ($jawabanPelamar)
                                             @if ($jawabanPelamar->pilihan_jawaban === $option)
                                                 @if ($jawabanPelamar->pilihan_jawaban === $jawabanBenar)
@@ -98,7 +112,7 @@
                         <h2 class="font-bold text-green-700 text-md">Benar : {{ $jumlahBenar }}</h2>
                         <h2 class="font-bold text-red-700 text-md">Salah : {{ $jumlahSalah }}</h2>
                     </div>
-                    
+
                     <div class="w-full flex justify-center">
                         <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
