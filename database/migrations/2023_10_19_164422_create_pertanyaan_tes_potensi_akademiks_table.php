@@ -16,11 +16,16 @@ return new class extends Migration
         Schema::create('pertanyaan_tes_potensi_akademiks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tes_potensi_akademik_id')->constrained('tes_potensi_akademiks')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->text('pertanyaan');
-            $table->text('pilihan_a');
-            $table->text('pilihan_b');
-            $table->text('pilihan_c');
-            $table->text('pilihan_d');
+            $table->text('pertanyaan')->nullable();
+            $table->string('file_input_pertanyaan')->nullable();
+            $table->text('pilihan_a')->nullable();
+            $table->string('file_input_pilihan_a')->nullable();
+            $table->text('pilihan_b')->nullable();
+            $table->string('file_input_pilihan_b')->nullable();
+            $table->text('pilihan_c')->nullable();
+            $table->string('file_input_pilihan_c')->nullable();
+            $table->text('pilihan_d')->nullable();
+            $table->string('file_input_pilihan_d')->nullable();
             $table->text('jawaban');
             $table->timestamps();
         });

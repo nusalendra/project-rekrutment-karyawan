@@ -25,8 +25,8 @@
                 <a href="/lamaran-saya"
                     class="{{ Request::is('lamaran-saya') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Saya</a>
-                {{-- <a href="/tes-tpa"
-                    class="{{ Request::is('tes-tpa') ? 'text-blue-600' : 'hover:text-blue-700' }}">Tes Potensi Akademik</a> --}}
+                <a href="/tes-tpa"
+                    class="{{ Request::is('tes-tpa') ? 'text-blue-600' : 'hover:text-blue-700' }}">Tes Potensi Akademik</a>
             </div>
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">

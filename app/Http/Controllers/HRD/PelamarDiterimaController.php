@@ -105,7 +105,6 @@ class PelamarDiterimaController extends Controller
                 $skorPengukuranPelamar[$kriteria_id][$tipe_kriteria][] = $skorPengukuran;
             }
 
-            // Iterasi kembali untuk menghitung nilai normalisasi dan menyimpannya
             foreach ($penilaians as $penilaian) {
                 $kriteria_id = $penilaian->kriteria_id;
                 $tipe_kriteria = $penilaian->kriteria->tipe;
@@ -125,7 +124,6 @@ class PelamarDiterimaController extends Controller
                     }
                 }
 
-                // Simpan nilai normalisasi kembali ke dalam tabel Penilaian
                 $penilaian->nilai_normalisasi = $nilaiNormalisasi;
                 $penilaian->save();
             }
@@ -156,7 +154,7 @@ class PelamarDiterimaController extends Controller
             $pelamar->save();
         }
 
-        return redirect()->route('pelamar-diterima-data', $lowonganPekerjaanId);
+        return redirect()->route('pelamar-diterima');
     }
 
 

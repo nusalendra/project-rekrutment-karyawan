@@ -104,11 +104,72 @@ class TesPotensiAkademikController extends Controller
         $pertanyaanTesPotensiAkademik = new PertanyaanTesPotensiAkademik();
 
         $pertanyaanTesPotensiAkademik->tes_potensi_akademik_id = $request->tes_potensi_akademik_id;
-        $pertanyaanTesPotensiAkademik->pertanyaan = $request->pertanyaan;
-        $pertanyaanTesPotensiAkademik->pilihan_a = $request->pilihan_a;
-        $pertanyaanTesPotensiAkademik->pilihan_b = $request->pilihan_b;
-        $pertanyaanTesPotensiAkademik->pilihan_c = $request->pilihan_c;
-        $pertanyaanTesPotensiAkademik->pilihan_d = $request->pilihan_d;
+
+        if ($request->has('pertanyaan')) {
+            $pertanyaanTesPotensiAkademik->pertanyaan = $request->pertanyaan;
+        }
+
+        if ($request->hasFile('file_input_pertanyaan')) {
+            $filePertanyaan = $request->file('file_input_pertanyaan');
+            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
+            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
+
+            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
+            $pertanyaanTesPotensiAkademik->pertanyaan = 'file-pertanyaan/' . $fileNamePertanyaan;
+        }
+
+        if ($request->has('pilihan_a')) {
+            $pertanyaanTesPotensiAkademik->pilihan_a = $request->pilihan_a;
+        }
+
+        if ($request->hasFile('file_input_pilihan_a')) {
+            $filePertanyaan = $request->file('file_input_pilihan_a');
+            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
+            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
+
+            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
+            $pertanyaanTesPotensiAkademik->pilihan_a = 'file-pertanyaan/' . $fileNamePertanyaan;
+        }
+
+        if ($request->has('pilihan_b')) {
+            $pertanyaanTesPotensiAkademik->pilihan_b = $request->pilihan_b;
+        }
+
+        if ($request->hasFile('file_input_pilihan_b')) {
+            $filePertanyaan = $request->file('file_input_pilihan_b');
+            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
+            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
+
+            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
+            $pertanyaanTesPotensiAkademik->pilihan_b = 'file-pertanyaan/' . $fileNamePertanyaan;
+        }
+
+        if ($request->has('pilihan_c')) {
+            $pertanyaanTesPotensiAkademik->pilihan_c = $request->pilihan_c;
+        }
+
+        if ($request->hasFile('file_input_pilihan_c')) {
+            $filePertanyaan = $request->file('file_input_pilihan_c');
+            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
+            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
+
+            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
+            $pertanyaanTesPotensiAkademik->pilihan_c = 'file-pertanyaan/' . $fileNamePertanyaan;
+        }
+
+        if ($request->has('pilihan_d')) {
+            $pertanyaanTesPotensiAkademik->pilihan_d = $request->pilihan_d;
+        }
+
+        if ($request->hasFile('file_input_pilihan_d')) {
+            $filePertanyaan = $request->file('file_input_pilihan_d');
+            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
+            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
+
+            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
+            $pertanyaanTesPotensiAkademik->pilihan_d = 'file-pertanyaan/' . $fileNamePertanyaan;
+        }
+
         $pertanyaanTesPotensiAkademik->jawaban = $request->jawaban;
 
         $pertanyaanTesPotensiAkademik->save();

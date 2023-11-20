@@ -98,6 +98,7 @@
                                 </div>
                                 <div>
                                     <h1 class="text-lg font-semibold">Pengalaman Kerja</h1>
+                                    <p class="text-sm mb-3">Jika Anda belum memiliki pengalaman kerja, isilah dengan "-".</p>
                                     @if (!empty($dataUser) && is_array(json_decode($dataUser->pengalaman_kerja)))
                                         @foreach (json_decode($dataUser->pengalaman_kerja) as $pengalamanKerja)
                                             <div class="input-container-pengalaman-kerja">
@@ -124,6 +125,7 @@
 
                                 <div>
                                     <h1 class="text-lg font-semibold">Pengalaman Organisasi</h1>
+                                    <p class="text-sm mb-3">Jika Anda belum memiliki pengalaman organisasi, isilah dengan "-".</p>
                                     @if (!empty($dataUser) && is_array(json_decode($dataUser->pengalaman_organisasi)))
                                         @foreach (json_decode($dataUser->pengalaman_organisasi) as $pengalaman)
                                             <div class="input-container-pengalaman-organisasi">
@@ -139,6 +141,7 @@
                                                 name="pengalaman_organisasi[]">
                                         </div>
                                     @endif
+                                    
                                     <button type="button" onclick="tambahPengalamanOrganisasi()"
                                         class="text-blue-500 mt-2 hover:text-blue-600"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="28" height="28"

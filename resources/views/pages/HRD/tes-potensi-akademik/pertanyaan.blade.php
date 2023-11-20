@@ -19,28 +19,48 @@
                                 <label for="pertanyaan" class="w-1/5 pr-4 text-left text-gray-700">Pertanyaan</label>
                                 <div class="flex-1">
                                     <textarea required name="pertanyaan" id="pertanyaan" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                        class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    <input
+                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        id="file_input" name="file_input_pertanyaan" type="file">
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
+                                        : PNG / JPG</p>
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
                                 <label for="pilihan_a" class="w-1/5 pr-4 text-left text-gray-700">A</label>
                                 <div class="flex-1">
                                     <textarea required type="text" name="pilihan_a" id="pilihan_a" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                        class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    <input
+                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        id="file_input" name="file_input_pilihan_a" type="file">
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
+                                        : PNG / JPG</p>
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
                                 <label for="pilihan_b" class="w-1/5 pr-4 text-left text-gray-700">B</label>
                                 <div class="flex-1">
                                     <textarea required type="text" name="pilihan_b" id="pilihan_b" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                        class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    <input
+                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        id="file_input" name="file_input_pilihan_b" type="file">
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
+                                        : PNG / JPG</p>
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
                                 <label for="pilihan_c" class="w-1/5 pr-4 text-left text-gray-700">C</label>
                                 <div class="flex-1">
                                     <textarea required type="text" name="pilihan_c" id="pilihan_c" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                        class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    <input
+                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        id="file_input" name="file_input_pilihan_c" type="file">
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
+                                        : PNG / JPG</p>
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
@@ -48,16 +68,13 @@
                                 <div class="flex-1">
                                     <textarea required type="text" name="pilihan_d" id="pilihan_d" rows="1" oninput="autoResizeTextarea(this)"
                                         class="w-full rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    <input
+                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        id="file_input" name="file_input_pilihan_d" type="file">
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
+                                        : PNG / JPG</p>
                                 </div>
                             </div>
-                            {{-- <div class="flex justify-between items-center">
-                            <label for="jawaban" class="w-1/5 pr-4 text-left text-gray-700">Jawaban</label>
-                            <div class="flex-1">
-                                <input required type="text" name="jawaban" id="jawaban" maxlength="1"
-                                    pattern="[A-D]" title="Harus menggunakan huruf besar dan diantara A sampai D"
-                                    class="w-full rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent">
-                            </div>
-                        </div> --}}
                             <div class="flex justify-between items-center">
                                 <label for="jawaban" class="w-1/5 pr-4 text-left text-gray-700">Jawaban</label>
                                 <div class="flex w-4/5 justify-between">
@@ -183,6 +200,19 @@
             textarea.style.height = (textarea.scrollHeight > textarea.clientHeight ? textarea.scrollHeight : textarea
                 .clientHeight) + "px";
         }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".pertanyaan").on("input", function() {
+                $(this).parent().find(".file_input").prop("required", !$(this).val());
+            });
+
+            $(".file_input").on("input", function() {
+                $(this).parent().find(".pertanyaan").prop("required", !$(this).val());
+            });
+        });
     </script>
     <?php $showSidebar = false; ?>
 @endsection
