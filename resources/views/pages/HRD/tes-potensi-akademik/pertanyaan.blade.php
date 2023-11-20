@@ -11,70 +11,103 @@
                             <label for="" class="w-32 text-right font-bold text-gray-700">Form Pertanyaan Tes</label>
                         </div>
                         <form action="{{ route('tes-potensi-akademik-store-pertanyaan', $tesPotensiAkademikId) }}"
-                            method="post" class="w-full grid space-y-6">
+                            method="post" enctype="multipart/form-data" class="w-full grid space-y-6">
                             @csrf
                             <input type="hidden" name="tes_potensi_akademik_id" value="{{ $tesPotensiAkademikId }}">
 
-                            <div class="flex justify-between items-center mb-6">
-                                <label for="pertanyaan" class="w-1/5 pr-4 text-left text-gray-700">Pertanyaan</label>
-                                <div class="flex-1">
-                                    <textarea required name="pertanyaan" id="pertanyaan" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
-                                    <input
-                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        id="file_input" name="file_input_pertanyaan" type="file">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
-                                        : PNG / JPG</p>
+                            <div class="formContainer">
+                                <div class="flex justify-between items-center mb-6">
+                                    <label for="jenis_input" class="w-1/5 pr-4 text-left text-gray-700">Jenis Input</label>
+                                    <div class="flex-1">
+                                        <select name="jenis_input"
+                                            class="jenisInputDropdown w-full appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent">
+                                            <option value="textarea">Textarea</option>
+                                            <option value="file">File Input</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                {{-- Pertanyaan --}}
+                                <div class="flex justify-between items-center mb-3">
+                                    <label for="pertanyaan" class="w-1/5 pr-4 text-left text-gray-700">Pertanyaan</label>
+                                    <div class="flex-1 textareaContainer">
+                                        <textarea name="pertanyaan" id="pertanyaan" rows="1" oninput="autoResizeTextarea(this)"
+                                            class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    </div>
+                                    <div class="flex-1 hidden fileInputContainer">
+                                        <input
+                                            class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                            id="file_input" name="file_input_pertanyaan" type="file">
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                            id="file_input_help_pertanyaan">File Type
+                                            : PNG / JPG</p>
+                                    </div>
+                                </div>
+                                {{-- Pilihan A --}}
+                                <div class="flex justify-between items-center mb-3">
+                                    <label for="pilihan_a" class="w-1/5 pr-4 text-left text-gray-700">A</label>
+                                    <div class="flex-1 textareaContainer">
+                                        <textarea type="text" name="pilihan_a" rows="1" oninput="autoResizeTextarea(this)"
+                                            class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    </div>
+                                    <div class="flex-1 hidden fileInputContainer">
+                                        <input
+                                            class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                            id="file_input" name="file_input_pilihan_a" type="file">
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File
+                                            Type
+                                            : PNG / JPG</p>
+                                    </div>
+                                </div>
+                                {{-- Pilihan B --}}
+                                <div class="flex justify-between items-center mb-3">
+                                    <label for="pilihan_a" class="w-1/5 pr-4 text-left text-gray-700">B</label>
+                                    <div class="flex-1 textareaContainer">
+                                        <textarea type="text" name="pilihan_b" rows="1" oninput="autoResizeTextarea(this)"
+                                            class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    </div>
+                                    <div class="flex-1 hidden fileInputContainer">
+                                        <input
+                                            class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                            id="file_input" name="file_input_pilihan_b" type="file">
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File
+                                            Type
+                                            : PNG / JPG</p>
+                                    </div>
+                                </div>
+                                {{-- PIlihan C --}}
+                                <div class="flex justify-between items-center mb-3">
+                                    <label for="pilihan_a" class="w-1/5 pr-4 text-left text-gray-700">C</label>
+                                    <div class="flex-1 textareaContainer">
+                                        <textarea type="text" name="pilihan_c" rows="1" oninput="autoResizeTextarea(this)"
+                                            class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    </div>
+                                    <div class="flex-1 hidden fileInputContainer">
+                                        <input
+                                            class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                            id="file_input" name="file_input_pilihan_c" type="file">
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File
+                                            Type
+                                            : PNG / JPG</p>
+                                    </div>
+                                </div>
+                                {{-- Pilihan D --}}
+                                <div class="flex justify-between items-center">
+                                    <label for="pilihan_a" class="w-1/5 pr-4 text-left text-gray-700">D</label>
+                                    <div class="flex-1 textareaContainer">
+                                        <textarea type="text" name="pilihan_d" rows="1" oninput="autoResizeTextarea(this)"
+                                            class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
+                                    </div>
+                                    <div class="flex-1 hidden fileInputContainer">
+                                        <input
+                                            class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                            id="file_input" name="file_input_pilihan_d" type="file">
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File
+                                            Type
+                                            : PNG / JPG</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <label for="pilihan_a" class="w-1/5 pr-4 text-left text-gray-700">A</label>
-                                <div class="flex-1">
-                                    <textarea required type="text" name="pilihan_a" id="pilihan_a" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
-                                    <input
-                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        id="file_input" name="file_input_pilihan_a" type="file">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
-                                        : PNG / JPG</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <label for="pilihan_b" class="w-1/5 pr-4 text-left text-gray-700">B</label>
-                                <div class="flex-1">
-                                    <textarea required type="text" name="pilihan_b" id="pilihan_b" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
-                                    <input
-                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        id="file_input" name="file_input_pilihan_b" type="file">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
-                                        : PNG / JPG</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <label for="pilihan_c" class="w-1/5 pr-4 text-left text-gray-700">C</label>
-                                <div class="flex-1">
-                                    <textarea required type="text" name="pilihan_c" id="pilihan_c" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full pertanyaan rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
-                                    <input
-                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        id="file_input" name="file_input_pilihan_c" type="file">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
-                                        : PNG / JPG</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <label for="pilihan_d" class="w-1/5 pr-4 text-left text-gray-700">D</label>
-                                <div class="flex-1">
-                                    <textarea required type="text" name="pilihan_d" id="pilihan_d" rows="1" oninput="autoResizeTextarea(this)"
-                                        class="w-full rounded-md appearance-none border border-neutral-300 py-2 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent"></textarea>
-                                    <input
-                                        class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        id="file_input" name="file_input_pilihan_d" type="file">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File Type
-                                        : PNG / JPG</p>
-                                </div>
-                            </div>
+
                             <div class="flex justify-between items-center">
                                 <label for="jawaban" class="w-1/5 pr-4 text-left text-gray-700">Jawaban</label>
                                 <div class="flex w-4/5 justify-between">
@@ -96,6 +129,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="mt-8">
                                 <a href="/tes-potensi-akademik"
                                     class="text-gray-900 bg-white hover:bg-blue-100 focus:ring-2 border border-blue-200 focus:inline-none focus:ring-white-300 font-medium rounded text-sm px-2.5 py-1.5 text-center inline-flex items-center dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-blue-800">Kembali</a>
@@ -147,24 +181,54 @@
                                         <h1 class="flex w-full justify-center">{{ $loop->index + 1 }}</h1>
                                     </th>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center text-gray-600">{{ $pertanyaan->pertanyaan }}
-                                        </h1>
+                                        @if ($pertanyaan->pertanyaan)
+                                            <h1 class="flex w-full justify-center text-gray-600">
+                                                {{ $pertanyaan->pertanyaan }}
+                                            </h1>
+                                        @else
+                                            <h1 class="flex w-full justify-center text-gray-600">Soal Gambar
+                                            </h1>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center text-gray-600">{{ $pertanyaan->pilihan_a }}
-                                        </h1>
+                                        @if ($pertanyaan->pilihan_a)
+                                            <h1 class="flex w-full justify-center text-gray-600">
+                                                {{ $pertanyaan->pilihan_a }}
+                                            </h1>
+                                        @else
+                                            <h1 class="flex w-full justify-center text-gray-600">Pilihan Soal Gambar
+                                            </h1>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center text-gray-600">{{ $pertanyaan->pilihan_b }}
-                                        </h1>
+                                        @if ($pertanyaan->pilihan_b)
+                                            <h1 class="flex w-full justify-center text-gray-600">
+                                                {{ $pertanyaan->pilihan_b }}
+                                            </h1>
+                                        @else
+                                            <h1 class="flex w-full justify-center text-gray-600">Pilihan Soal Gambar
+                                            </h1>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center text-gray-600">{{ $pertanyaan->pilihan_c }}
-                                        </h1>
+                                        @if ($pertanyaan->pilihan_c)
+                                            <h1 class="flex w-full justify-center text-gray-600">
+                                                {{ $pertanyaan->pilihan_c }}
+                                            </h1>
+                                        @else
+                                            <h1 class="flex w-full justify-center text-gray-600">Pilihan Soal Gambar
+                                            </h1>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center text-gray-600">{{ $pertanyaan->pilihan_d }}
-                                        </h1>
+                                        @if ($pertanyaan->pilihan_d)
+                                            <h1 class="flex w-full justify-center text-gray-600">
+                                                {{ $pertanyaan->pilihan_d }}
+                                            </h1>
+                                        @else
+                                            <h1 class="flex w-full justify-center text-gray-600">Pilihan Soal Gambar
+                                            </h1>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center text-gray-600">{{ $pertanyaan->jawaban }}
@@ -202,15 +266,31 @@
         }
     </script>
 
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            $(".pertanyaan").on("input", function() {
-                $(this).parent().find(".file_input").prop("required", !$(this).val());
-            });
+            // Buat fungsi untuk menangani perubahan dropdown
+            function toggleInputType(selectedValue, container) {
+                var textareaContainers = container.find('.textareaContainer');
+                var fileInputContainers = container.find('.fileInputContainer');
 
-            $(".file_input").on("input", function() {
-                $(this).parent().find(".pertanyaan").prop("required", !$(this).val());
+                if (selectedValue === 'textarea') {
+                    textareaContainers.show();
+                    fileInputContainers.hide();
+                } else {
+                    textareaContainers.hide();
+                    fileInputContainers.show();
+                }
+            }
+
+            // Tangani perubahan dropdown
+            $('.jenisInputDropdown').change(function() {
+                var selectedValue = $(this).val();
+                $('.formContainer').each(function() {
+                    toggleInputType(selectedValue, $(this));
+                });
             });
         });
     </script>
