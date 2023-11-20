@@ -96,6 +96,7 @@
                                 </div>
                                 <div class="w-full h-auto space-y-3 font-medium mb-6 px-6">
                                     <h1>Sosial Media</h1>
+                                    <p class="text-sm">Jika Anda tidak memiliki salah satu sosial media, isilah dengan "-"</p>
                                     @if (!empty($dataUser) && is_array($sosialMediaArray = json_decode($dataUser->sosial_media, true)))
                                         @if (count($sosialMediaArray) > 0)
                                             <label for="">

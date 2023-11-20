@@ -3,20 +3,15 @@
 namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
-use App\Models\DokumenPendukung;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\LowonganPekerjaan;
 use App\Models\Periode;
 use App\Models\Jabatan;
-use App\Models\Kriteria;
 use App\Models\Pelamar;
-use App\Models\Penilaian;
 use App\Models\Notifikasi;
-use App\Models\Subkriteria;
-use App\Models\User;
+use App\Models\DataUser;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Validator;
 
 use function Symfony\Component\String\b;
 
@@ -57,9 +52,27 @@ class MelamarPekerjaanController extends Controller
 
         $dataUser = $user->dataUser;
 
+        $dataUserEmpty =
+            empty($dataUser->kota_tempat_lahir) ||
+            empty($dataUser->tanggal_lahir) ||
+            empty($dataUser->jenis_kelamin) ||
+            empty($dataUser->agama) ||
+            empty($dataUser->status) ||
+            empty($dataUser->alamat_tinggal) ||
+            empty($dataUser->pendidikan_terakhir) ||
+            empty($dataUser->IPK) ||
+            empty($dataUser->pengalaman_kerja) ||
+            empty($dataUser->pengalaman_organisasi) ||
+            empty($dataUser->nomor_handphone) ||
+            empty($dataUser->sosial_media) ||
+            empty($dataUser->surat_lamaran_kerja) ||
+            empty($dataUser->curriculum_vitae) ||
+            empty($dataUser->ijazah) ||
+            empty($dataUser->pas_foto);
+
         $lowonganPekerjaan = LowonganPekerjaan::with('jabatan', 'periode')->find($lowonganPekerjaanIdDecrypt);
 
-        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'user', 'dataUser'));
+        return view('pages.pelamar.melamar-pekerjaan.create', ['title' => 'Data Lamaran'], compact('lowonganPekerjaan', 'user', 'dataUser', 'dataUserEmpty'));
     }
 
     /**
