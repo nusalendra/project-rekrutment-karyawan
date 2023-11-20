@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\HRD;
 
 use App\Http\Controllers\Controller;
-use App\Models\JawabanTesPotensiAkademik;
 use Illuminate\Http\Request;
 use App\Models\TesPotensiAkademik;
 use App\Models\LowonganPekerjaan;
@@ -11,6 +10,7 @@ use App\Models\PertanyaanTesPotensiAkademik;
 use App\Models\Pelamar;
 use App\Models\PelamarTesPotensiAkademik;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\File;
 
 class TesPotensiAkademikController extends Controller
 {
@@ -105,69 +105,49 @@ class TesPotensiAkademikController extends Controller
 
         $pertanyaanTesPotensiAkademik->tes_potensi_akademik_id = $request->tes_potensi_akademik_id;
 
-        if ($request->has('pertanyaan')) {
+        if ($request->input('pertanyaan')) {
             $pertanyaanTesPotensiAkademik->pertanyaan = $request->pertanyaan;
+        } elseif ($request->file('file_input_pertanyaan')) {
+            $file = $request->file('file_input_pertanyaan');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('file-pertanyaan'), $fileName);
+            $pertanyaanTesPotensiAkademik->file_input_pertanyaan = $fileName;
         }
 
-        if ($request->hasFile('file_input_pertanyaan')) {
-            $filePertanyaan = $request->file('file_input_pertanyaan');
-            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
-            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
-
-            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
-            $pertanyaanTesPotensiAkademik->pertanyaan = 'file-pertanyaan/' . $fileNamePertanyaan;
-        }
-
-        if ($request->has('pilihan_a')) {
+        if ($request->input('pilihan_a')) {
             $pertanyaanTesPotensiAkademik->pilihan_a = $request->pilihan_a;
+        } elseif ($request->file('file_input_pilihan_a')) {
+            $file = $request->file('file_input_pilihan_a');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('file-pertanyaan'), $fileName);
+            $pertanyaanTesPotensiAkademik->file_input_pilihan_a = $fileName;
         }
 
-        if ($request->hasFile('file_input_pilihan_a')) {
-            $filePertanyaan = $request->file('file_input_pilihan_a');
-            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
-            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
-
-            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
-            $pertanyaanTesPotensiAkademik->pilihan_a = 'file-pertanyaan/' . $fileNamePertanyaan;
-        }
-
-        if ($request->has('pilihan_b')) {
+        if ($request->input('pilihan_b')) {
             $pertanyaanTesPotensiAkademik->pilihan_b = $request->pilihan_b;
+        } elseif ($request->file('file_input_pilihan_b')) {
+            $file = $request->file('file_input_pilihan_b');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('file-pertanyaan'), $fileName);
+            $pertanyaanTesPotensiAkademik->file_input_pilihan_b = $fileName;
         }
 
-        if ($request->hasFile('file_input_pilihan_b')) {
-            $filePertanyaan = $request->file('file_input_pilihan_b');
-            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
-            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
-
-            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
-            $pertanyaanTesPotensiAkademik->pilihan_b = 'file-pertanyaan/' . $fileNamePertanyaan;
-        }
-
-        if ($request->has('pilihan_c')) {
+        if ($request->input('pilihan_c')) {
             $pertanyaanTesPotensiAkademik->pilihan_c = $request->pilihan_c;
+        } elseif ($request->file('file_input_pilihan_c')) {
+            $file = $request->file('file_input_pilihan_c');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('file-pertanyaan'), $fileName);
+            $pertanyaanTesPotensiAkademik->file_input_pilihan_c = $fileName;
         }
 
-        if ($request->hasFile('file_input_pilihan_c')) {
-            $filePertanyaan = $request->file('file_input_pilihan_c');
-            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
-            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
-
-            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
-            $pertanyaanTesPotensiAkademik->pilihan_c = 'file-pertanyaan/' . $fileNamePertanyaan;
-        }
-
-        if ($request->has('pilihan_d')) {
+        if ($request->input('pilihan_d')) {
             $pertanyaanTesPotensiAkademik->pilihan_d = $request->pilihan_d;
-        }
-
-        if ($request->hasFile('file_input_pilihan_d')) {
-            $filePertanyaan = $request->file('file_input_pilihan_d');
-            $fileNamePertanyaan = time() . '_' . $filePertanyaan->getClientOriginalName();
-            $filePertanyaan->storeAs('public/file-pertanyaan', $fileNamePertanyaan);
-
-            // Simpan path file pertanyaan ke kolom file_path_pertanyaan
-            $pertanyaanTesPotensiAkademik->pilihan_d = 'file-pertanyaan/' . $fileNamePertanyaan;
+        } elseif ($request->file('file_input_pilihan_d')) {
+            $file = $request->file('file_input_pilihan_d');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('file-pertanyaan'), $fileName);
+            $pertanyaanTesPotensiAkademik->file_input_pilihan_d = $fileName;
         }
 
         $pertanyaanTesPotensiAkademik->jawaban = $request->jawaban;
@@ -250,7 +230,16 @@ class TesPotensiAkademikController extends Controller
             ->where('id', $pertanyaanTesPotensiAkademikId)
             ->first();
 
+        if ($pertanyaan) {
+            File::delete(public_path('file-pertanyaan/' . $pertanyaan->file_input_pertanyaan));
+            File::delete(public_path('file-pertanyaan/' . $pertanyaan->file_input_pilihan_a));
+            File::delete(public_path('file-pertanyaan/' . $pertanyaan->file_input_pilihan_b));
+            File::delete(public_path('file-pertanyaan/' . $pertanyaan->file_input_pilihan_c));
+            File::delete(public_path('file-pertanyaan/' . $pertanyaan->file_input_pilihan_d));
+        }
+
         $pertanyaan->delete();
+
 
         $tesPotensiAkademikIdEncrypt = Crypt::encrypt($tesPotensiAkademikId);
         return redirect()->route('tes-potensi-akademik-create-pertanyaan', $tesPotensiAkademikIdEncrypt);
