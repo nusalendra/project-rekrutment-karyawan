@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('surat_lamaran_kerja')->nullable();
             $table->string('curriculum_vitae')->nullable();
             $table->string('ijazah')->nullable();
-            $table->string('pas_foto')->nullable();
             $table->timestamps();
         });
     }

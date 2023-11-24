@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Pelamar;
 
 use App\Http\Controllers\Controller;
-use App\Models\JawabanTesPotensiAkademik;
 use Illuminate\Http\Request;
-use App\Models\TesPotensiAkademik;
 use App\Models\PelamarTesPotensiAkademik;
 use App\Models\PertanyaanTesPotensiAkademik;
 use Illuminate\Support\Facades\Crypt;
@@ -20,7 +18,6 @@ class HasilTesTPAController extends Controller
     public function index()
     {
         $pelamarTes = PelamarTesPotensiAkademik::with('tesPotensiAkademik')
-            ->whereNotNull('updated_at')
             ->get();
 
         return view('pages.HRD.hasil-tes-potensi-akademik.index', ['title' => 'Data TPA Pelamar'], compact('pelamarTes'));

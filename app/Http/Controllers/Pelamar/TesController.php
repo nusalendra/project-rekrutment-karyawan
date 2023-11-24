@@ -43,15 +43,16 @@ class TesController extends Controller
     public function create($id)
     {
         
-        $tesPotensiAkademikIdDecrypt = Crypt::decrypt($id);
-        $soalTes = PertanyaanTesPotensiAkademik::where('tes_potensi_akademik_id', $tesPotensiAkademikIdDecrypt)->get();
-
+        $idDecrypt = Crypt::decrypt($id);
+        $tesPotensiAkademik = TesPotensiAkademik::find($idDecrypt);
+        
+        $soalTes = PertanyaanTesPotensiAkademik::where('tes_potensi_akademik_id', $idDecrypt)->get();
         $user = Auth::user();
         $pelamar = Pelamar::where('user_id', $user->id)->first();
         // dd($pelamar);
-        $pelamarTesId = PelamarTesPotensiAkademik::where('tes_potensi_akademik_id', $tesPotensiAkademikIdDecrypt)->where('pelamar_id', $pelamar->id)->first();
+        $pelamarTesId = PelamarTesPotensiAkademik::where('tes_potensi_akademik_id', $idDecrypt)->where('pelamar_id', $pelamar->id)->first();
         // dd($pelamarTesId);
-        return view('pages.pelamar.tes.create', ['title' => 'Mulai Tes'], compact('soalTes', 'id', 'pelamarTesId'));
+        return view('pages.pelamar.tes.create', ['title' => 'Mulai Tes'], compact('tesPotensiAkademik' ,'soalTes', 'id', 'pelamarTesId'));
     }
 
     /**

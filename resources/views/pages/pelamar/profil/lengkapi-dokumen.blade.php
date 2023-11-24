@@ -108,12 +108,11 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="w-full h-auto space-y-3 mb-6 px-6">
+                                {{-- <div class="w-full h-auto space-y-3 mb-6 px-6">
                                     <h1 class="font-bold">Pas Foto</h1>
                                     <p class="font-extralight text-sm">Unggah Pas Foto kamu dengan ukuran file 4x6 (jpeg,
                                         png, jpg).</p>
                                     @if (!@empty($dataUser->pas_foto))
-                                        {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="flex w-full justify-between">
                                                 <h1>{{ $dataUser->pas_foto }}</h1>
@@ -129,7 +128,6 @@
                                             </div>
                                         </div>
                                     @else
-                                        {{-- Belum ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">
                                             <div class="relative flex items-center">
                                                 <input type="file" id="pasFoto" accept=".jpg, .jpeg, .png"
@@ -142,7 +140,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                </div>
+                                </div> --}}
                                 <div class="w-full h-auto space-y-3 mb-6 px-6">
                                     <h1 class="font-bold">Ijazah</h1>
                                     <p class="font-extralight text-sm">Unggah Ijazah kamu dalam format
@@ -234,11 +232,11 @@
             fileName.textContent = fileInput.files[0].name;
         }
 
-        function displayFileNamePasFoto() {
-            var fileInput = document.getElementById("pasFoto");
-            var fileName = document.getElementById("filePasFoto");
-            fileName.textContent = fileInput.files[0].name;
-        }
+        // function displayFileNamePasFoto() {
+        //     var fileInput = document.getElementById("pasFoto");
+        //     var fileName = document.getElementById("filePasFoto");
+        //     fileName.textContent = fileInput.files[0].name;
+        // }
 
         function displayFileNameIjazah() {
             var fileInput = document.getElementById("ijazahTranskrip");
