@@ -80,11 +80,12 @@ class LamaranDisetujuiController extends Controller
         foreach ($pelamars as $pelamar) {
             $notifikasi = new Notifikasi();
             $notifikasi->user_id = $pelamar->user->id;
-            $notifikasi->pesan = "Selamat, kami ingin memberitahu Anda bahwa Anda telah sukses melewati tahap awal dalam proses seleksi pelamar kami. Selanjutnya, Anda akan lanjut ke tahap berikutnya, yaitu tes TPA (Tes Potensi Akademik). <br><br>
+            $notifikasi->pesan = "Selamat, dengan senang hati kami informasikan bahwa Anda telah berhasil melalui fase awal dalam proses seleksi kami. Selanjutnya, Anda akan melanjutkan ke tahap berikutnya, yaitu tes TPA (Tes Potensi Akademik). <br><br>
 
-            Kami sangat menyarankan Anda untuk mempersiapkan diri dengan baik untuk tahap ini, mengingat tes TPA ini memiliki peran yang sangat penting dalam proses seleksi kami. Untuk informasi lebih lanjut mengenai tes TPA, silakan klik <a href='/tes-tpa' class='text-blue-500'>di sini</a>. <br><br>
+            Kami sangat menyarankan Anda untuk bersiap dengan baik menghadapi tahap ini, karena tes TPA memegang peranan yang sangat penting dalam proses seleksi kami. Untuk mendapatkan informasi lebih lanjut tentang tes TPA, silakan klik tombol di bawah ini untuk diarahkan ke halaman Tes. <br><br>
             
-            Terima kasih atas partisipasi Anda, dan kami berharap Anda akan berhasil melewati tahap ini. Tetap semangat!";
+            Terima kasih atas partisipasi Anda, dan kami berharap Anda sukses melewati tahap ini. Tetap semangat! <br><br>
+            <a href='/tes-tpa' class='flex justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Kunjungi Halaman Tes</a>";
 
             $notifikasi->save();
         }

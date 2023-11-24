@@ -23,11 +23,8 @@ use App\Http\Controllers\HRD\TesPotensiAkademikController;
 // Manajer Controller
 use App\Http\Controllers\Manajer\JabatanController;
 use App\Http\Controllers\Manajer\KriteriaController;
-use App\Http\Controllers\Manajer\KriteriaScreeningController;
 use App\Http\Controllers\Manajer\SubkriteriaController;
 use App\Http\Controllers\Manajer\PengukuranController;
-use App\Http\Controllers\Manajer\PengukuranScreeningController;
-use App\Http\Controllers\Manajer\SubkriteriaScreeningController;
 use App\Http\Controllers\Pelamar\HasilTesTPAController;
 // Pelamar Controller
 use App\Http\Controllers\Pelamar\MelamarPekerjaanController;
@@ -158,24 +155,6 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
 
     Route::get('/dashboard-manajer', [DashboardController::class, 'indexManajer'])->name('dashboard-manajer');
-
-    // Route::prefix('kriteria-screening')->group(function () {
-    //     Route::get('/', [KriteriaScreeningController::class, 'index'])->name('kriteria-screening');
-    //     Route::get('/create', [KriteriaScreeningController::class, 'create'])->name('kriteria-screening-create');
-    //     Route::post('/create', [KriteriaScreeningController::class, 'store'])->name('kriteria-screening-store');
-    //     Route::get('/edit/{id}', [KriteriaScreeningController::class, 'edit'])->name('kriteria-screening-edit');
-    //     Route::put('/edit/{id}', [KriteriaScreeningController::class, 'update'])->name('kriteria-screening-update');
-    //     Route::get('/delete/{id}', [KriteriaScreeningController::class, 'destroy'])->name('kriteria-screening-destroy');
-    // })->name('kriteria-screening');
-
-    // Route::prefix('subkriteria-screening')->group(function () {
-    //     Route::get('/', [SubkriteriaScreeningController::class, 'index'])->name('subkriteria-screening');
-    //     Route::get('/create', [SubkriteriaScreeningController::class, 'create'])->name('subkriteria-screening-create');
-    //     Route::post('/create', [SubkriteriaScreeningController::class, 'store'])->name('subkriteria-screening-store');
-    //     Route::get('/edit/{id}', [SubkriteriaScreeningController::class, 'edit'])->name('subkriteria-screening-edit');
-    //     Route::put('/edit/{id}', [SubkriteriaScreeningController::class, 'update'])->name('subkriteria-screening-update');
-    //     Route::get('/delete/{id}', [SubkriteriaScreeningController::class, 'destroy'])->name('subkriteria-screening-destroy');
-    // })->name('subkriteria-screening');
 
     Route::prefix('jabatan')->group(function () {
         Route::get('/', [JabatanController::class, 'index'])->name('jabatan');

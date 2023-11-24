@@ -36,10 +36,11 @@
                                     <div class="flex-1 hidden fileInputContainer">
                                         <input
                                             class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                            id="file_input" name="file_input_pertanyaan" type="file">
+                                            id="file_input" accept=".png, .jpg" maxlength="1048576"
+                                            name="file_input_pertanyaan" type="file">
                                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                             id="file_input_help_pertanyaan">File Type
-                                            : PNG / JPG</p>
+                                            : PNG / JPG (1MB)</p>
                                     </div>
                                 </div>
                                 {{-- Pilihan A --}}
@@ -52,10 +53,11 @@
                                     <div class="flex-1 hidden fileInputContainer">
                                         <input
                                             class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                            id="file_input" name="file_input_pilihan_a" type="file">
+                                            id="file_input" accept=".png, .jpg" maxlength="1048576"
+                                            name="file_input_pilihan_a" type="file">
                                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File
                                             Type
-                                            : PNG / JPG</p>
+                                            : PNG / JPG (1MB)</p>
                                     </div>
                                 </div>
                                 {{-- Pilihan B --}}
@@ -68,10 +70,11 @@
                                     <div class="flex-1 hidden fileInputContainer">
                                         <input
                                             class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                            id="file_input" name="file_input_pilihan_b" type="file">
+                                            id="file_input" accept=".png, .jpg" maxlength="1048576"
+                                            name="file_input_pilihan_b" type="file">
                                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File
                                             Type
-                                            : PNG / JPG</p>
+                                            : PNG / JPG (1MB)</p>
                                     </div>
                                 </div>
                                 {{-- PIlihan C --}}
@@ -84,10 +87,11 @@
                                     <div class="flex-1 hidden fileInputContainer">
                                         <input
                                             class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                            id="file_input" name="file_input_pilihan_c" type="file">
+                                            id="file_input" accept=".png, .jpg" maxlength="1048576"
+                                            name="file_input_pilihan_c" type="file">
                                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File
                                             Type
-                                            : PNG / JPG</p>
+                                            : PNG / JPG (1MB)</p>
                                     </div>
                                 </div>
                                 {{-- Pilihan D --}}
@@ -100,10 +104,11 @@
                                     <div class="flex-1 hidden fileInputContainer">
                                         <input
                                             class="block w-full text-sm file_input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                            id="file_input" name="file_input_pilihan_d" type="file">
+                                            id="file_input" accept=".png, .jpg" maxlength="1048576"
+                                            name="file_input_pilihan_d" type="file">
                                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">File
                                             Type
-                                            : PNG / JPG</p>
+                                            : PNG / JPG (1MB)</p>
                                     </div>
                                 </div>
                             </div>

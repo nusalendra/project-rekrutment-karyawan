@@ -67,8 +67,7 @@ class MelamarPekerjaanController extends Controller
             empty($dataUser->sosial_media) ||
             empty($dataUser->surat_lamaran_kerja) ||
             empty($dataUser->curriculum_vitae) ||
-            empty($dataUser->ijazah) ||
-            empty($dataUser->pas_foto);
+            empty($dataUser->ijazah);
 
         $lowonganPekerjaan = LowonganPekerjaan::with('jabatan', 'periode')->find($lowonganPekerjaanIdDecrypt);
 

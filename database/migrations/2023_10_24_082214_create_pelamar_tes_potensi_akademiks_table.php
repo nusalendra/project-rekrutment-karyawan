@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pelamar_id')->constrained('pelamars')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('tes_potensi_akademik_id')->constrained('tes_potensi_akademiks')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('status_tes')->nullable();
             $table->timestamps();
         });
     }

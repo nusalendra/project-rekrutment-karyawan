@@ -39,8 +39,8 @@
                 </div>
 
                 <div class="flex flex-col w-full justify-center items-center">
-                    
-                    <a href="/tes-tpa/mulai-tes/{{ $id }}"
+
+                    <a id="tenggatWaktu" href="/tes-tpa/mulai-tes/{{ $id }}"
                         class="flex items-center justify-center bg-blue-500 px-3 py-1 mb-14 space-x-3 text-white rounded-lg hover:bg-blue-600">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <path fill="currentColor"
@@ -56,4 +56,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var tenggatWaktu = document.getElementById("tenggatWaktu");
+
+            var waktuMulai = new Date("{{ \Carbon\Carbon::parse($tesPotensiAkademik->tanggal_waktu_mulai) }}");
+            var waktuSelesai = new Date("{{ \Carbon\Carbon::parse($tesPotensiAkademik->tanggal_waktu_selesai) }}");
+            var waktuSekarang = new Date();
+
+            if (waktuSekarang >= waktuMulai && waktuSekarang <= waktuSelesai) {
+                tenggatWaktu.addEventListener("click", function(event) {
+                    window.location.href = tenggatWaktu.getAttribute("href");
+
+                    event.preventDefault();
+                });
+            } else {
+                tenggatWaktu.style.pointerEvents = "none";
+                tenggatWaktu.style.opacity = "0.5"; // Contoh: Mengurangi kejelasan untuk menunjukkan nonaktif
+            }
+        });
+    </script>
 @endsection

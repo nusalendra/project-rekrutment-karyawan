@@ -36,7 +36,7 @@
                                 <span class="text-green-700 mr-2">Status: Sudah Dikerjakan</span>
                                 <a href="/hasil-tes-potensi-akademik/koreksi-tes/{{ $pelamarTPAId }}" class="text-blue-500 hover:underline">Koreksi Tes</a>
                             @else
-                                <p class="text-gray-600">Status: Belum Dikerjakan</p>
+                                <p class="text-red-600">Status: Belum Dikerjakan</p>
                             @endif
                         </div>
                     @endforeach
