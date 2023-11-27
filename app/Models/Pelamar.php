@@ -34,4 +34,8 @@ class Pelamar extends Model
     public function jawabanTesPotensiAkademik() {
         return $this->hasMany(JawabanTesPotensiAkademik::class);
     }
+
+    public function skorTesPelamar() {
+        return $this->hasOne(SkorTesPelamar::class);
+    }
 }

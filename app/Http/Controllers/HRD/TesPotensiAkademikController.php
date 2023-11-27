@@ -100,7 +100,6 @@ class TesPotensiAkademikController extends Controller
 
     public function storePertanyaan(Request $request, $id)
     {
-
         $pertanyaanTesPotensiAkademik = new PertanyaanTesPotensiAkademik();
 
         $pertanyaanTesPotensiAkademik->tes_potensi_akademik_id = $request->tes_potensi_akademik_id;
@@ -154,6 +153,13 @@ class TesPotensiAkademikController extends Controller
 
         $pertanyaanTesPotensiAkademik->save();
 
+        $totalPertanyaan = $pertanyaanTesPotensiAkademik->where('tes_potensi_akademik_id', $id)->count();
+
+        PelamarTesPotensiAkademik::where('tes_potensi_akademik_id', $id)
+            ->update([
+                'total_pertanyaan' => $totalPertanyaan,
+                'updated_at' => null,
+            ]);
         $tesPotensiAkademikId = Crypt::encrypt($id);
 
         return redirect()->route('tes-potensi-akademik-create-pertanyaan', $tesPotensiAkademikId);
@@ -226,6 +232,8 @@ class TesPotensiAkademikController extends Controller
 
     public function destroyPertanyaan($tesPotensiAkademikId, $pertanyaanTesPotensiAkademikId)
     {
+        PelamarTesPotensiAkademik::where('tes_potensi_akademik_id', $tesPotensiAkademikId)->decrement('total_pertanyaan');
+
         $pertanyaan = PertanyaanTesPotensiAkademik::where('tes_potensi_akademik_id', $tesPotensiAkademikId)
             ->where('id', $pertanyaanTesPotensiAkademikId)
             ->first();
@@ -239,7 +247,6 @@ class TesPotensiAkademikController extends Controller
         }
 
         $pertanyaan->delete();
-
 
         $tesPotensiAkademikIdEncrypt = Crypt::encrypt($tesPotensiAkademikId);
         return redirect()->route('tes-potensi-akademik-create-pertanyaan', $tesPotensiAkademikIdEncrypt);

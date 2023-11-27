@@ -17,7 +17,7 @@ use App\Http\Controllers\HRD\ProsesSeleksiController;
 use App\Http\Controllers\HRD\PelamarDiterimaController;
 use App\Http\Controllers\HRD\PelamarDitolakController;
 use App\Http\Controllers\HRD\HasilValidasiController;
-use App\Http\Controllers\HRD\LamaranDisetujuiController;
+use App\Http\Controllers\HRD\PelamarTesController;
 use App\Http\Controllers\HRD\TesPotensiAkademikController;
 
 // Manajer Controller
@@ -131,17 +131,16 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         // Route::get('/pelamar-tes/{id}', [TesPotensiAkademikController::class, 'pelamarTes'])->name('tes-potensi-akademik-pelamar-tes');
     })->name('tes-potensi-akademik');
 
-    Route::prefix('lamaran-disetujui')->group(function () {
-        Route::get('/', [LamaranDisetujuiController::class, 'index'])->name('lamaran-disetujui');
-        Route::get('/data/{id}', [LamaranDisetujuiController::class, 'show'])->name('lamaran-disetujui-data');
-        Route::post('/kirim-notifikasi-tes/{lowonganPekerjaanId}', [LamaranDisetujuiController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-tes');
-        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [LamaranDisetujuiController::class, 'edit'])->name('lamaran-disetujui-detail');
-        Route::get('/download/{filename}/{pelamarName}', [LamaranDisetujuiController::class, 'download'])->name('download-dokumen-lamaran-disetujui');
-        Route::get('/download-dokumen-lamaran-disetujui/{dokumenName}/{fileName}', [LamaranDisetujuiController::class, 'downloadDokumenPelamar'])->name('unduh-dokumen-lamaran-disetujui');
-    })->name('lamaran-disetujui');
+    Route::prefix('pelamar-tes')->group(function () {
+        Route::get('/', [PelamarTesController::class, 'index'])->name('pelamar-tes');
+        Route::get('/data/{id}', [PelamarTesController::class, 'show'])->name('pelamar-tes-data');
+        Route::post('/kirim-notifikasi-tes/{lowonganPekerjaanId}', [PelamarTesController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-tes');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarTesController::class, 'edit'])->name('pelamar-tes-detail');
+    })->name('pelamar-tes');
 
     Route::prefix('hasil-tes-potensi-akademik')->group(function () {
         Route::get('/', [HasilTesTPAController::class, 'index'])->name('hasil-tes-potensi-akademik');
+        Route::post('/hitung-skor', [HasilTesTPAController::class, 'hitungSkor'])->name('hitung-skor');
         Route::get('/koreksi-tes/{pelamarTPAId}', [HasilTesTPAController::class, 'create'])->name('koreksi-tes-potensi-akademik');
     })->name('hasil-tes-potensi-akademik');
 

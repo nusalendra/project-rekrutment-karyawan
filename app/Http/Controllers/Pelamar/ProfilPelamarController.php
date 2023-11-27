@@ -198,8 +198,8 @@ class ProfilPelamarController extends Controller
         if ($dataUser) {
             $request->validate([
                 'curriculum_vitae' => 'mimes:pdf|max:2048', // Maksimum 2MB
-                'pas_foto' => 'image|mimes:jpg,jpeg,png|dimensions:ratio=2/3', // 4X6
-                'ijazah' => 'mimes:pdf|max:5120', // Maksimum 5MB
+                // 'pas_foto' => 'image|mimes:jpg,jpeg,png|dimensions:ratio=2/3', // 4X6
+                'ijazah' => 'mimes:pdf|max:2048', // Maksimum 2MB
                 'surat_lamaran_kerja' => 'mimes:pdf|max:2048', // Maksimum 2MB
             ]);
 

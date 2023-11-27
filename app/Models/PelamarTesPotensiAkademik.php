@@ -9,7 +9,7 @@ class PelamarTesPotensiAkademik extends Model
 {
     use HasFactory;
     protected $table = 'pelamar_tes_potensi_akademiks';
-    protected $fillable = ['pelamar_id' ,'tes_potensi_akademik_id'];
+    protected $fillable = ['pelamar_id' ,'tes_potensi_akademik_id', 'total_pertanyaan', 'total_jawaban_benar', 'total_jawaban_salah'];
     protected $guarded = [];
 
     public function pelamar() {

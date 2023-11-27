@@ -7,7 +7,7 @@
 
                 <div id="countdown" class="fixed top-0 right-32 p-4 text-lg font-bold"></div>
 
-                <div id="popup-modal" tabindex="-1"
+                <div id="waktu-habis" tabindex="-1"
                     class="flex hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-51 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative p-4 w-full max-w-md max-h-full">
                         <div class="relative bg-slate-200 rounded-lg shadow dark:bg-gray-700">
@@ -20,7 +20,7 @@
                                 <h3 class="mb-5 text-lg font-semibold text-black dark:text-gray-400">Waktu pengerjaan tes
                                     telah berakhir!</h3>
                                 <a href="/tes-tpa">
-                                    <button data-modal-hide="popup-modal" type="button"
+                                    <button data-modal-hide="waktu-habis" type="button"
                                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
                                         Kembali
                                     </button>
@@ -29,7 +29,6 @@
                         </div>
                     </div>
                 </div>
-
                 <form action="{{ route('kirim-jawaban', ['id' => $id, 'pelamarTesId' => $pelamarTesId->id]) }}"
                     class="w-full h-auto" method="POST">
 
@@ -161,7 +160,7 @@
             // Jika hitungan mundur berakhir, tampilkan modal
             if (sisaWaktuDetik <= 0) {
                 clearInterval(x);
-                document.getElementById('popup-modal').classList.remove('hidden');
+                document.getElementById('waktu-habis').classList.remove('hidden');
             }
         }, 1000);
     </script>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PelamarTesPotensiAkademik;
 use App\Models\PertanyaanTesPotensiAkademik;
+use App\Models\SkorTesPelamar;
+use App\Models\Pelamar;
 use Illuminate\Support\Facades\Crypt;
 
 class HasilTesTPAController extends Controller
@@ -19,8 +21,15 @@ class HasilTesTPAController extends Controller
     {
         $pelamarTes = PelamarTesPotensiAkademik::with('tesPotensiAkademik')
             ->get();
+        $skorTesPelamar = [];
 
-        return view('pages.HRD.hasil-tes-potensi-akademik.index', ['title' => 'Data TPA Pelamar'], compact('pelamarTes'));
+
+        foreach ($pelamarTes as $pelamarTest) {
+            $skorTes = SkorTesPelamar::where('pelamar_id', $pelamarTest->pelamar->id)->get();
+            $skorTesPelamar[$pelamarTest->pelamar->id] = $skorTes;
+        }
+
+        return view('pages.HRD.hasil-tes-potensi-akademik.index', ['title' => 'Data TPA Pelamar'], compact('pelamarTes', 'skorTesPelamar'));
     }
 
     /**
@@ -44,6 +53,29 @@ class HasilTesTPAController extends Controller
         }
 
         return view('pages.HRD.hasil-tes-potensi-akademik.koreksi-tes', ['title' => 'Koreksi Tes'], compact('pelamarTes', 'pertanyaanTes', 'dataJawaban'));
+    }
+
+    public function hitungSkor()
+    {
+        $pelamar = Pelamar::all();
+
+        foreach ($pelamar as $item) {
+            $pelamarTes = PelamarTesPotensiAkademik::where('pelamar_id', $item->id)->get();
+
+            $totalPertanyaan = $pelamarTes->sum('total_pertanyaan');
+            $totalJawabanBenar = $pelamarTes->sum('total_jawaban_benar');
+
+            $hitungSkor = ($totalJawabanBenar / $totalPertanyaan) * 600 + 200;
+
+            $skorTes = new SkorTesPelamar();
+
+            $skorTes->pelamar_id = $item->id;
+            $skorTes->skor_tes = $hitungSkor;
+
+            $skorTes->save();
+        }
+
+        return redirect('/hasil-tes-potensi-akademik');
     }
 
     /**

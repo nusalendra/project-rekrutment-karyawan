@@ -88,7 +88,7 @@
                                             @endphp
                                             {{-- Detail --}}
                                             <a href="/lamaran-saya/detail/{{ $pelamarIdEncrypt }}/{{ $lowonganPekerjaanIdEncrypt }}"
-                                                class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                class="{{ $title === 'Detail Pelamar' }} text-black mr-2 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                                     fill="currentColor" class="bi bi-person-lines-fill mt-0.5"
                                                     viewBox="0 0 17 17">
@@ -98,31 +98,51 @@
                                                 <p class="ml-1">Detail Lamaran</p>
                                             </a>
                                             {{-- Batalkan Lamaran --}}
-                                            <button id="showModal"
-                                                class="text-black mr-1 flex bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="17" height="17"
-                                                    fill="currentColor" class="bi bi-person-lines-fill mt-0.5"
-                                                    viewBox="0 0 17 17">
-                                                    <path
-                                                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
-                                                </svg>
-                                                <p class="ml-1">Batalkan Lamaran</p>
-                                            </button>
-                                            <div id="modal"
-                                                class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
-                                                <div class="bg-white rounded-lg p-8 w-1/2">
-                                                    <h2 class="text-xl font-semibold text-red-600  mb-4">Konfirmasi</h2>
-                                                    <p>Apakah Anda yakin ingin membatalkan lamaran?</p>
-                                                    <div class="mt-6 flex justify-end">
-                                                        <button id="cancel"
-                                                            class="bg-gray-400 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded mr-4">Tidak</button>
-                                                        <button id="confirm"
-                                                            class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"><a
-                                                                href="/lamaran-saya/delete/{{ $item->id }}">Ya, Saya
-                                                                Yakin</a></button>
+                                            @if ($item->status_lamaran == 'Proses')
+                                                <button id="batalLamaranButton" data-modal-target="popup-modal"
+                                                    data-modal-toggle="popup-modal"
+                                                    class="text-black mr-1 flex bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                    type="button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                                        fill="currentColor" class="bi bi-person-lines-fill mt-0.5"
+                                                        viewBox="0 0 17 17">
+                                                        <path
+                                                            d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                                                    </svg>
+                                                    <p class="ml-1">Batalkan Lamaran</p>
+                                                </button>
+
+                                                <div id="batalLamaranAction" tabindex="-1"
+                                                    class="flex hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                            <div class="p-4 md:p-5 text-center">
+                                                                <svg class="mx-auto mb-4 text-red-700 w-12 h-12 dark:text-red-200"
+                                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="none" viewBox="0 0 20 20">
+                                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
+                                                                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                </svg>
+                                                                <h3
+                                                                    class="mb-5 text-lg font-normal text-black dark:text-gray-400">
+                                                                    Apakah Anda yakin ingin membatalkan lamaran ?</h3>
+                                                                <button id="cancel" data-modal-hide="popup-modal"
+                                                                    type="button"
+                                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                                                                    cancel</button>
+                                                                <button id="confirm" data-modal-hide="popup-modal"
+                                                                    type="button"
+                                                                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                                                                    <a href="/lamaran-saya/delete/{{ $item->id }}">Ya,
+                                                                        Saya
+                                                                        Yakin</a>
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         </h1>
                                     </td>
                                 </tr>
@@ -140,22 +160,22 @@
         </div>
     </div>
     <script>
-        const showModalButton = document.getElementById('showModal');
-        const modal = document.getElementById('modal');
+        const batalLamaranButtonButton = document.getElementById('batalLamaranButton');
+        const batalLamaranAction = document.getElementById('batalLamaranAction');
         const confirmButton = document.getElementById('confirm');
         const cancelButton = document.getElementById('cancel');
 
-        showModalButton.addEventListener('click', () => {
-            modal.classList.remove('hidden');
+        batalLamaranButtonButton.addEventListener('click', () => {
+            batalLamaranAction.classList.remove('hidden');
         });
 
         confirmButton.addEventListener('click', () => {
             // Lakukan tindakan yang sesuai ketika pengguna menekan OK
-            modal.classList.add('hidden');
+            batalLamaranAction.classList.add('hidden');
         });
 
         cancelButton.addEventListener('click', () => {
-            modal.classList.add('hidden');
+            batalLamaranAction.classList.add('hidden');
         });
     </script>
 @endsection

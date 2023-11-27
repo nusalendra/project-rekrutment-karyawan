@@ -12,6 +12,13 @@
                         Total Pelamar yang Telah Menyelesaikan Tes : {{ $pelamarTes->groupBy('pelamar_id')->count() }}
                         Pelamar
                     </p>
+
+                    <form action="{{ route('hitung-skor') }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Hitung
+                            Skor Semua Pelamar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -23,18 +30,36 @@
                     <h3 class="text-lg font-semibold text-blue-500 mb-2">{{ $firstItem->pelamar->user->name }}</h3>
                     <h4 class="text-base font-semibold mt-3">Tes pada Jabatan :
                         {{ $firstItem->tesPotensiAkademik->lowonganPekerjaan->jabatan->nama }}</h4>
+                    @php
+                        // Ambil skorTes untuk pelamar tertentu dari array
+                        $skorTes = $skorTesPelamar[$firstItem->pelamar->id];
+                    @endphp
+                    @if ($skorTes && $skorTes->count() > 0)
+                        @php $totalSkor = $skorTes->sum('skor_tes'); @endphp
+                        @if ($totalSkor < 500)
+                            <h4 class="text-base font-semibold mt-3">Total Skor Tes : <span
+                                    class="text-red-500 ">{{ $totalSkor }}</span></h4>
+                        @else
+                            <h4 class="text-base font-semibold mt-3">Total Skor Tes : <span
+                                    class="text-green-500 ">{{ $totalSkor }}</span>
+                            </h4>
+                        @endif
+                    @else
+                        <h4 class="text-base font-semibold mt-3">Total Skor Tes : 0</h4>
+                    @endif
                     <h4 class="text-base font-semibold mt-3">Tes Potensi Akademik :</h4>
                     @foreach ($pelamarTesGrouped as $item)
-                    @php
-                        $pelamarTPAId = Crypt::encrypt($item->id)
-                    @endphp
+                        @php
+                            $pelamarTPAId = Crypt::encrypt($item->id);
+                        @endphp
                         <div class="bg-blue-100 p-4 rounded-md mb-2 mt-2 transition duration-300 max-h-[150px]">
                             <h5 class="text-lg font-semibold text-blue-500 mb-2">{{ $item->tesPotensiAkademik->nama }}</h5>
                             @if ($item->updated_at)
                                 <p class="text-gray-600">Tanggal / Waktu Menyelesaikan Tes:
                                     {{ \Carbon\Carbon::parse($item->updated_at)->format('d-m-Y / H:i') }}</p>
                                 <span class="text-green-700 mr-2">Status: Sudah Dikerjakan</span>
-                                <a href="/hasil-tes-potensi-akademik/koreksi-tes/{{ $pelamarTPAId }}" class="text-blue-500 hover:underline">Koreksi Tes</a>
+                                <a href="/hasil-tes-potensi-akademik/koreksi-tes/{{ $pelamarTPAId }}"
+                                    class="text-blue-500 hover:underline">Koreksi Tes</a>
                             @else
                                 <p class="text-red-600">Status: Belum Dikerjakan</p>
                             @endif
