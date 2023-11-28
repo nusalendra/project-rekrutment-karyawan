@@ -141,6 +141,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     Route::prefix('hasil-tes-potensi-akademik')->group(function () {
         Route::get('/', [HasilTesTPAController::class, 'index'])->name('hasil-tes-potensi-akademik');
         Route::post('/hitung-skor', [HasilTesTPAController::class, 'hitungSkor'])->name('hitung-skor');
+        Route::get('/get-pelamar-by-lowongan-pekerjaan/{lowonganPekerjaanId}', [HasilTesTPAController::class, 'getPelamarByLowonganPekerjaan'])->name('get-pelamar-by-lowongan-pekerjaan');
         Route::get('/koreksi-tes/{pelamarTPAId}', [HasilTesTPAController::class, 'create'])->name('koreksi-tes-potensi-akademik');
     })->name('hasil-tes-potensi-akademik');
 

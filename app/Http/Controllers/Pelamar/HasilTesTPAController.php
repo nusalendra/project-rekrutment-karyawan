@@ -8,6 +8,8 @@ use App\Models\PelamarTesPotensiAkademik;
 use App\Models\PertanyaanTesPotensiAkademik;
 use App\Models\SkorTesPelamar;
 use App\Models\Pelamar;
+use App\Models\Jabatan;
+use App\Models\LowonganPekerjaan;
 use Illuminate\Support\Facades\Crypt;
 
 class HasilTesTPAController extends Controller
@@ -29,7 +31,15 @@ class HasilTesTPAController extends Controller
             $skorTesPelamar[$pelamarTest->pelamar->id] = $skorTes;
         }
 
-        return view('pages.HRD.hasil-tes-potensi-akademik.index', ['title' => 'Data TPA Pelamar'], compact('pelamarTes', 'skorTesPelamar'));
+        $jabatans = Jabatan::all();
+        $lowonganPekerjaan = [];
+
+        foreach ($jabatans as $jabatan) {
+            $dataLowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->get();
+            $lowonganPekerjaan[$jabatan->id] = $dataLowonganPekerjaan;
+        }
+
+        return view('pages.HRD.hasil-tes-potensi-akademik.index', ['title' => 'Data TPA Pelamar'], compact('pelamarTes', 'skorTesPelamar', 'lowonganPekerjaan'));
     }
 
     /**
@@ -55,14 +65,19 @@ class HasilTesTPAController extends Controller
         return view('pages.HRD.hasil-tes-potensi-akademik.koreksi-tes', ['title' => 'Koreksi Tes'], compact('pelamarTes', 'pertanyaanTes', 'dataJawaban'));
     }
 
-    public function hitungSkor()
+    public function hitungSkor(Request $request)
     {
-        $pelamar = Pelamar::all();
+        $lowonganPekerjaanId = $request->input('lowonganPekerjaanId');
+
+        $pelamar = Pelamar::whereHas('lowonganPekerjaan', function ($query) use ($lowonganPekerjaanId) {
+            $query->where('lowongan_pekerjaans.id', $lowonganPekerjaanId);
+        })->get();
 
         foreach ($pelamar as $item) {
             $pelamarTes = PelamarTesPotensiAkademik::where('pelamar_id', $item->id)->get();
 
             $totalPertanyaan = $pelamarTes->sum('total_pertanyaan');
+            
             $totalJawabanBenar = $pelamarTes->sum('total_jawaban_benar');
 
             $hitungSkor = ($totalJawabanBenar / $totalPertanyaan) * 600 + 200;
@@ -76,6 +91,15 @@ class HasilTesTPAController extends Controller
         }
 
         return redirect('/hasil-tes-potensi-akademik');
+    }
+
+    public function getPelamarByLowonganPekerjaan($lowonganPekerjaanId)
+    {
+        $pelamarTes = PelamarTesPotensiAkademik::whereHas('tesPotensiAkademik.lowonganPekerjaan', function ($query) use ($lowonganPekerjaanId) {
+            $query->where('lowongan_pekerjaans.id', $lowonganPekerjaanId);
+        })->get();
+
+        return response()->json(['pelamarTes' => $pelamarTes]);
     }
 
     /**
