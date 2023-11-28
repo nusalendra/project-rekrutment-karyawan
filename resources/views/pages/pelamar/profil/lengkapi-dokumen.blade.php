@@ -144,7 +144,7 @@
                                 <div class="w-full h-auto space-y-3 mb-6 px-6">
                                     <h1 class="font-bold">Ijazah</h1>
                                     <p class="font-extralight text-sm">Unggah Ijazah kamu dalam format
-                                        PDF dengan ukuran file maksimal 5 MB.</p>
+                                        PDF dengan ukuran file maksimal 2 MB.</p>
                                     @if (!@empty($dataUser->ijazah))
                                         {{-- Sudah ada file --}}
                                         <div class="border-2 border-gray-400 border-dashed px-9 py-6 rounded-lg space-y-3">

@@ -23,18 +23,18 @@
                 <div class="w-full mt-6">
                     <h1 class="flex text-2xl justify-center font-medium mb-10">Anda belum menyelesaikan Tes ini</h1>
                     <div class="flex flex-col px-12 mb-10 justify-center space-y-1">
-                        <h1 class="flex justify-center">Mulai Pengerjaan :
+                        <h1 class="flex justify-center font-semibold text-lg">Mulai Pengerjaan :
                             {{ \Carbon\Carbon::parse($tesPotensiAkademik->tanggal_waktu_mulai)->format('d-m-Y') }}
                             Jam
                             {{ \Carbon\Carbon::parse($tesPotensiAkademik->tanggal_waktu_mulai)->format('H:i') }}
                         </h1>
-                        <h1 class="flex justify-center">
+                        <h1 class="flex justify-center font-semibold text-lg">
                             Batas Pengerjaan :
                             {{ \Carbon\Carbon::parse($tesPotensiAkademik->tanggal_waktu_selesai)->format('d-m-Y') }}
                             Jam
                             {{ \Carbon\Carbon::parse($tesPotensiAkademik->tanggal_waktu_selesai)->format('H:i') }}
-
                         </h1>
+                        <h1 class="pt-5 flex justify-center font-bold text-lg text-red-700">Pertanyaan yang perlu diselesaikan : {{ $tesPotensiAkademik->pertanyaanTesPotensiAkademik->count() }}</h1>
                     </div>
                 </div>
 

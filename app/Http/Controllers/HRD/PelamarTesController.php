@@ -9,8 +9,9 @@ use App\Models\LowonganPekerjaan;
 use App\Models\Pelamar;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Notifikasi;
+use App\Models\SkorTesPelamar;
 
-class LamaranDisetujuiController extends Controller
+class PelamarTesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class LamaranDisetujuiController extends Controller
         $tanggalSekarang = $tanggal->format('Y-m-d');
 
         $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Diterima')->get();
-        return view('pages.HRD.lamaran-disetujui.index', ['title' => 'Lamaran Disetujui'], compact('data', 'tanggalSekarang', 'pelamar', 'searchTerm'));
+        return view('pages.HRD.pelamar-tes.index', ['title' => 'Pelamar Tes'], compact('data', 'tanggalSekarang', 'pelamar', 'searchTerm'));
     }
 
     /**
@@ -42,8 +43,9 @@ class LamaranDisetujuiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
+        //
     }
 
     /**
@@ -67,9 +69,16 @@ class LamaranDisetujuiController extends Controller
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
 
-        $data = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Disetujui')->get();
+        $data = Pelamar::leftJoin('skor_tes_pelamars', function ($join) {
+            $join->on('pelamars.id', '=', 'skor_tes_pelamars.pelamar_id');
+        })
+            ->select('pelamars.*', 'skor_tes_pelamars.skor_tes')
+            ->where('pelamars.lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)
+            ->where('pelamars.status_lamaran', 'Disetujui')
+            ->orderByDesc('skor_tes_pelamars.skor_tes')
+            ->get();
 
-        return view('pages.HRD.lamaran-disetujui.show', ['title' => 'Lamaran Disetujui'], compact('data', 'lowonganPekerjaanIdDecrypt'));
+        return view('pages.HRD.pelamar-tes.show', ['title' => 'Pelamar Tes'], compact('data', 'lowonganPekerjaanIdDecrypt'));
     }
 
     public function kirimNotifikasi($lowonganPekerjaanId)
@@ -81,16 +90,14 @@ class LamaranDisetujuiController extends Controller
             $notifikasi = new Notifikasi();
             $notifikasi->user_id = $pelamar->user->id;
             $notifikasi->pesan = "Selamat, dengan senang hati kami informasikan bahwa Anda telah berhasil melalui fase awal dalam proses seleksi kami. Selanjutnya, Anda akan melanjutkan ke tahap berikutnya, yaitu tes TPA (Tes Potensi Akademik). <br><br>
-
             Kami sangat menyarankan Anda untuk bersiap dengan baik menghadapi tahap ini, karena tes TPA memegang peranan yang sangat penting dalam proses seleksi kami. Untuk mendapatkan informasi lebih lanjut tentang tes TPA, silakan klik tombol di bawah ini untuk diarahkan ke halaman Tes. <br><br>
-            
             Terima kasih atas partisipasi Anda, dan kami berharap Anda sukses melewati tahap ini. Tetap semangat! <br><br>
             <a href='/tes-tpa' class='flex justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Kunjungi Halaman Tes</a>";
 
             $notifikasi->save();
         }
 
-        return redirect()->route('lamaran-disetujui-data', $lowonganPekerjaanId);
+        return redirect()->route('pelamar-tes-data', $lowonganPekerjaanId);
     }
 
     /**
@@ -109,7 +116,7 @@ class LamaranDisetujuiController extends Controller
         $dataPenilaian = $data->penilaian;
         $dataDokumenPendukung = $data->dokumenPendukung;
 
-        return view('pages.HRD.lamaran-disetujui.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPendukung'));
+        return view('pages.HRD.pelamar-tes.edit', ['title' => 'Detail Pelamar'], compact('data', 'dataPenilaian', 'pelamarId', 'lowonganPekerjaanId', 'dataDokumenPendukung'));
     }
 
     /**

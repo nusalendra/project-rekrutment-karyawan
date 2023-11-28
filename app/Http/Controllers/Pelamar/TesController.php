@@ -23,14 +23,14 @@ class TesController extends Controller
     {
         $user = Auth::user();
         $pelamar = Pelamar::where('user_id', $user->id)->first();
-        
+
         $tesPotensiAkademik = TesPotensiAkademik::with('lowonganPekerjaan')
             ->join('pelamar_tes_potensi_akademiks', 'pelamar_tes_potensi_akademiks.tes_potensi_akademik_id', '=', 'tes_potensi_akademiks.id')
             ->select('tes_potensi_akademiks.id', 'tes_potensi_akademiks.lowongan_pekerjaan_id', 'tes_potensi_akademiks.nama', 'tes_potensi_akademiks.tanggal_waktu_mulai', 'tes_potensi_akademiks.tanggal_waktu_selesai', 'pelamar_tes_potensi_akademiks.updated_at')
             ->where('pelamar_tes_potensi_akademiks.pelamar_id', $pelamar->id)
             ->get()
             ->groupBy('lowongan_pekerjaan_id');
-            // dd($tesPotensiAkademik);
+        // dd($tesPotensiAkademik);
 
         return view('pages.pelamar.tes.index', ['title' => 'Tes Potensi Akademik'], compact('tesPotensiAkademik'));
     }
@@ -42,17 +42,17 @@ class TesController extends Controller
      */
     public function create($id)
     {
-        
+
         $idDecrypt = Crypt::decrypt($id);
         $tesPotensiAkademik = TesPotensiAkademik::find($idDecrypt);
-        
+
         $soalTes = PertanyaanTesPotensiAkademik::where('tes_potensi_akademik_id', $idDecrypt)->get();
         $user = Auth::user();
         $pelamar = Pelamar::where('user_id', $user->id)->first();
         // dd($pelamar);
         $pelamarTesId = PelamarTesPotensiAkademik::where('tes_potensi_akademik_id', $idDecrypt)->where('pelamar_id', $pelamar->id)->first();
         // dd($pelamarTesId);
-        return view('pages.pelamar.tes.create', ['title' => 'Mulai Tes'], compact('tesPotensiAkademik' ,'soalTes', 'id', 'pelamarTesId'));
+        return view('pages.pelamar.tes.create', ['title' => 'Mulai Tes'], compact('tesPotensiAkademik', 'soalTes', 'id', 'pelamarTesId'));
     }
 
     /**
@@ -68,16 +68,33 @@ class TesController extends Controller
         $pertanyaanId = $request->input('pertanyaan');
         $jawabanData = $request->input('pilihan');
 
+        $totalJawabanBenar = 0;
+        $totalJawabanSalah = 0;
+
         foreach ($pertanyaanId as $index => $pertanyaan) {
             $jawabanTPA = new JawabanTesPotensiAkademik();
             $jawabanTPA->pelamar_tpa_id = $pelamarTesId;
             $jawabanTPA->pertanyaan_tpa_id = $pertanyaan;
             $jawabanTPA->pilihan_jawaban = $jawabanData[$index]; // Mengambil pilihan jawaban yang sesuai
 
+            // Mendapatkan jawaban yang benar dari pertanyaan
+            $jawabanBenar = PertanyaanTesPotensiAkademik::find($pertanyaan)->jawaban;
+
+            // Memeriksa jawaban yang diberikan dengan jawaban yang benar
+            if ($jawabanTPA->pilihan_jawaban == $jawabanBenar) {
+                $totalJawabanBenar++;
+            } else {
+                $totalJawabanSalah++;
+            }
+
             $jawabanTPA->save();
         }
 
+
+
         PelamarTesPotensiAkademik::where('id', $pelamarTesId)->where('tes_potensi_akademik_id', $tesPotensiAkademikIdDecrypt)->update([
+            'total_jawaban_benar' => $totalJawabanBenar,
+            'total_jawaban_salah' => $totalJawabanSalah,
             'updated_at' => now()
         ]);
 
@@ -96,6 +113,8 @@ class TesController extends Controller
 
         $tesPotensiAkademik = TesPotensiAkademik::findOrFail($tesPotensiAkademikIdDecrypt);
 
+        $pertanyaanTesPotensiAkademik = $tesPotensiAkademik->pertanyaanTesPotensiAkademik;
+        // dd($pertanyaanTesPotensiAkademik);
         return view('pages.pelamar.tes.show', ['title' => 'Persiapan Tes'], compact('tesPotensiAkademik', 'id'));
     }
 
