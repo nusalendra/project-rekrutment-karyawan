@@ -21,12 +21,11 @@ class HasilTesTPAController extends Controller
      */
     public function index()
     {
-        $pelamarTes = PelamarTesPotensiAkademik::with('tesPotensiAkademik')
+        $pelamarTesPotensiAkademik = PelamarTesPotensiAkademik::with('tesPotensiAkademik')
             ->get();
         $skorTesPelamar = [];
 
-
-        foreach ($pelamarTes as $pelamarTest) {
+        foreach ($pelamarTesPotensiAkademik as $pelamarTest) {
             $skorTes = SkorTesPelamar::where('pelamar_id', $pelamarTest->pelamar->id)->get();
             $skorTesPelamar[$pelamarTest->pelamar->id] = $skorTes;
         }
@@ -39,7 +38,7 @@ class HasilTesTPAController extends Controller
             $lowonganPekerjaan[$jabatan->id] = $dataLowonganPekerjaan;
         }
 
-        return view('pages.HRD.hasil-tes-potensi-akademik.index', ['title' => 'Data TPA Pelamar'], compact('pelamarTes', 'skorTesPelamar', 'lowonganPekerjaan'));
+        return view('pages.HRD.hasil-tes-potensi-akademik.index', ['title' => 'Data TPA Pelamar'], compact('pelamarTesPotensiAkademik', 'skorTesPelamar', 'lowonganPekerjaan'));
     }
 
     /**

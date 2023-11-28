@@ -4,20 +4,20 @@
     <div class="container mx-auto p-4 text-black">
         <div class="bg-white p-4 rounded-md shadow-md">
             <div class="flex items-center">
-                <h2 class="text-2xl font-bold mx-4">Data Tes Potensi Akademik Pelamar</h2>
+                <h2 class="text-2xl font-bold mx-4">Data Hasil Tes Potensi Akademik Pelamar</h2>
             </div>
             <div class="bg-white p-4 rounded-md shadow-md">
-                <div class="flex flex-col space-y-2">
-                    <p class="text-lg font-semibold mb-4">
-                        Total Pelamar yang Telah Menyelesaikan Tes : {{ $pelamarTes->groupBy('pelamar_id')->count() }}
-                        Pelamar
-                    </p>
-
-                    <label for="countries" class="block text-sm font-medium dark:text-white">Pilih Jabatan</label>
+                <div class="text-md font-semibold">
+                    <p class="mb-2">Status Skor : </p>
+                    <p class="text-red-500">>= 200 & < 500 Total Skor</p>
+                    <p class="text-green-700">>= 500 & <= 800 Total Skor</p>
+                </div>
+                <div class="mt-5 flex flex-col space-y-2">
+                    <label for="countries" class="block text-sm font-medium dark:text-white">Posisi Jabatan</label>
                     <div class="flex items-center">
                         <select id="lowonganPekerjaanSelect"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 p-2.5 me-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected></option>
+                            <option selected>Pilih</option>
                             @foreach ($lowonganPekerjaan as $jabatanId => $lowonganPekerjaans)
                                 @foreach ($lowonganPekerjaans as $item)
                                     <option value="{{ $item->id }}">{{ $item->jabatan->nama }}</option>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
-            @foreach ($pelamarTes->groupBy('pelamar_id') as $pelamarId => $pelamarTesGrouped)
+            @foreach ($pelamarTesPotensiAkademik->groupBy('pelamar_id') as $pelamarId => $pelamarTesGrouped)
                 <!-- Satu kotak untuk satu pelamar -->
                 <div class="dataContainer bg-white p-4 rounded-md shadow-md overflow-y-auto">
                     @php $firstItem = $pelamarTesGrouped->first(); @endphp
@@ -52,7 +52,7 @@
                                     class="text-red-500 ">{{ $totalSkor }}</span></h4>
                         @else
                             <h4 class="text-base font-semibold mt-3">Total Skor Tes : <span
-                                    class="text-green-500 ">{{ $totalSkor }}</span>
+                                    class="text-green-700 ">{{ $totalSkor }}</span>
                             </h4>
                         @endif
                     @else
