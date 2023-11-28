@@ -2,18 +2,24 @@
 
 @section('content')
     <div class="px-28 pt-5 pb-6 bg-slate-100 mx-auto overflow-y-auto">
-        <div class="h-auto w-full bg-white bg-auto rounded-xl border-2 border-gray-300 p-5 mb-5">
+        <div class="h-auto w-full bg-white bg-auto rounded-xl border-2 text-black border-gray-300 p-5 mb-5">
+            <a href="/hasil-tes-potensi-akademik">
+                <button type="button"
+                    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Kembali</button>
+            </a>
             <h3 class="text-lg font-bold text-blue-500 mb-2">{{ $pelamarTes->pelamar->user->name }}</h3>
-            <h5 class="text-lg font-bold mb-2">Jenis Tes : {{ $pelamarTes->tesPotensiAkademik->nama }}</h5>
+            <h5 class="text-lg font-semibold mb-2">Jenis Tes : {{ $pelamarTes->tesPotensiAkademik->nama }}</h5>
+
             @if ($pelamarTes->updated_at)
-                <p class="text-md font-bold">Tanggal / Waktu Menyelesaikan Tes :
+                <p class="text-md font-semibold mb-2">Tanggal / Waktu Menyelesaikan Tes :
                     {{ \Carbon\Carbon::parse($pelamarTes->updated_at)->format('d-m-Y / H:i') }}</p>
             @endif
-            <div class="text-left p-4">
-                <h1 class="font-bold text-lg">Jumlah Jawaban :</h1>
-                <h2 class="font-bold text-blue-700 text-md">Total Soal : {{ $pelamarTes->total_pertanyaan }} Soal</h2>
-                <h2 class="font-bold text-green-700 text-md">Jawaban Benar : {{ $pelamarTes->total_jawaban_benar }}</h2>
-                <h2 class="font-bold text-red-700 text-md">Jawaban Salah : {{ $pelamarTes->total_jawaban_salah }}</h2>
+            <h1 class="font-semibold text-lg">Total Soal : {{ $pelamarTes->total_pertanyaan }} Soal (<span
+                    class="text-green-700">Jawaban Benar :
+                    {{ $pelamarTes->total_jawaban_benar }}</span>) & (<span class="text-red-700">Jawaban Salah :
+                    {{ $pelamarTes->total_jawaban_salah }}</span>)</h1>
+            <div class="text-left">
+
             </div>
         </div>
         <div class="h-auto w-full bg-white bg-auto rounded-xl border-2 border-gray-300">

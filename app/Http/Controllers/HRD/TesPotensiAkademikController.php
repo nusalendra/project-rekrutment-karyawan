@@ -84,7 +84,7 @@ class TesPotensiAkademikController extends Controller
         $tesPotensiAkademik->save();
 
         $tpa_id = $tesPotensiAkademik->getKey();
-        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanId)->where('status_lamaran', 'Disetujui')->get();
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanId)->where('status_lamaran', 'Tahap Tes Potensi Akademik')->get();
 
         foreach ($pelamars as $pelamar) {
             $pelamarTPA = new PelamarTesPotensiAkademik();

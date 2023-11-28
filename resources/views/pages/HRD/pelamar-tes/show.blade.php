@@ -5,16 +5,15 @@
         <div class="bg-stone-200 bg-auto rounded h-216">
 
             <div class="px-12 pt-5 text-black">
-                <div class="flex justify-between items-center mb-3">
+                <div class="flex items-center mb-3">
+                    <a href="/pelamar-tes"
+                        class="mr-2 text-white bg-cyan-600 hover:bg-cyan-700 border border-cyan-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"">
+                        <p class="font-semibold text-sm">Kembali</p>
+                    </a>
                     <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Pelamar Tes
                     </h2>
                 </div>
-                <div class="flex mb-4">
-                    <a href="/pelamar-tes"
-                        class="mr-2 text-white bg-cyan-500 hover:bg-cyan-600 border border-cyan-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"">
-                        <p class="font-semibold text-sm">Kembali</p>
-                    </a>
-
+                <div class="flex mb-4 justify-center">
                     @php
                         $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaanIdDecrypt);
                     @endphp
@@ -23,11 +22,28 @@
                         method="POST">
                         @csrf
                         <button type="submit"
-                            class="text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                            class="text-white bg-blue-600 hover:bg-blue-700 border border-blue-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 me-2 py-2.5 text-center inline-flex items-center">
                             Kirim Notifikasi Akses Halaman TPA
                         </button>
                     </form>
-
+                    <form
+                        action="{{ route('lulus-tpa', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+                        method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="text-white bg-green-600 hover:bg-green-700 border border-green-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 me-2 py-2.5 text-center inline-flex items-center">
+                            Memasuki Tahap Wawancara Skor >= 500
+                        </button>
+                    </form>
+                    <form
+                        action="{{ route('tidak-lulus-tpa', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+                        method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="text-white bg-red-600 hover:bg-red-700 border border-red-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                            Tolak Pelamar Skor < 500
+                        </button>
+                    </form>
                 </div>
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-base text-left text-black dark:text-gray-400">
@@ -41,7 +57,7 @@
                                     <h1 class="flex w-full justify-center">Nama Lengkap</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Status Lamaran</h1>
+                                    <h1 class="flex w-full justify-center">Status</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Skor Tes</h1>
@@ -67,7 +83,7 @@
                                     @if ($item->skorTesPelamar && $item->skorTesPelamar->skor_tes && $item->skorTesPelamar->skor_tes > 0)
                                         @if ($item->skorTesPelamar->skor_tes < 500)
                                             <td class="px-6 py-4">
-                                                <h1 class="flex text-red-500 w-full justify-center">
+                                                <h1 class="flex text-red-700 w-full justify-center">
                                                     {{ $item->skorTesPelamar->skor_tes }}
                                                 </h1>
                                             </td>

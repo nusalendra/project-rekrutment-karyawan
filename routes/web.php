@@ -135,6 +135,8 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/', [PelamarTesController::class, 'index'])->name('pelamar-tes');
         Route::get('/data/{id}', [PelamarTesController::class, 'show'])->name('pelamar-tes-data');
         Route::post('/kirim-notifikasi-tes/{lowonganPekerjaanId}', [PelamarTesController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-tes');
+        Route::post('/lulus-tpa/{lowonganPekerjaanId}', [PelamarTesController::class, 'lulusTPA'])->name('lulus-tpa');
+        Route::post('/tidak-lulus-tpa/{lowonganPekerjaanId}', [PelamarTesController::class, 'tidakLulusTPA'])->name('tidak-lulus-tpa');
         Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarTesController::class, 'edit'])->name('pelamar-tes-detail');
     })->name('pelamar-tes');
 

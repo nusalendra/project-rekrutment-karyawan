@@ -74,7 +74,7 @@ class PelamarTesController extends Controller
         })
             ->select('pelamars.*', 'skor_tes_pelamars.skor_tes')
             ->where('pelamars.lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)
-            ->where('pelamars.status_lamaran', 'Disetujui')
+            ->where('pelamars.status_lamaran', 'Tahap Tes Potensi Akademik')
             ->orderByDesc('skor_tes_pelamars.skor_tes')
             ->get();
 
@@ -84,7 +84,7 @@ class PelamarTesController extends Controller
     public function kirimNotifikasi($lowonganPekerjaanId)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
-        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Disetujui')->get();
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Tahap Tes Potensi Akademik')->get();
 
         foreach ($pelamars as $pelamar) {
             $notifikasi = new Notifikasi();
@@ -97,6 +97,42 @@ class PelamarTesController extends Controller
             $notifikasi->save();
         }
 
+        return redirect()->route('pelamar-tes-data', $lowonganPekerjaanId);
+    }
+
+    public function lulusTPA($lowonganPekerjaanId)
+    {
+        $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->get();
+
+        foreach ($pelamars as $pelamar) {
+            $skorTes = SkorTesPelamar::where('pelamar_id', $pelamar->id)
+                ->whereBetween('skor_tes', [500, 800])
+                ->get();
+
+            if ($skorTes->count() > 0) {
+                $pelamar->status_lamaran = 'Tahap Wawancara';
+                $pelamar->save();
+            }
+        }
+        return redirect()->route('pelamar-tes-data', $lowonganPekerjaanId);
+    }
+
+    public function tidakLulusTPA($lowonganPekerjaanId)
+    {
+        $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->get();
+
+        foreach ($pelamars as $pelamar) {
+            $skorTes = SkorTesPelamar::where('pelamar_id', $pelamar->id)
+                ->whereBetween('skor_tes', [200, 499])
+                ->get();
+
+            if ($skorTes->count() > 0) {
+                $pelamar->status_lamaran = 'Tes Potensi Akademik Ditolak';
+                $pelamar->save();
+            }
+        }
         return redirect()->route('pelamar-tes-data', $lowonganPekerjaanId);
     }
 

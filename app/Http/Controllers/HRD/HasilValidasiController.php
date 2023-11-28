@@ -126,7 +126,7 @@ class HasilValidasiController extends Controller
             $pelamar = Pelamar::find($pelamarId);
 
             if ($pelamar) {
-                $pelamar->status_lamaran = 'Disetujui';
+                $pelamar->status_lamaran = 'Tahap Tes Potensi Akademik';
                 $pelamar->save();
 
                 $notifikasi = new Notifikasi();

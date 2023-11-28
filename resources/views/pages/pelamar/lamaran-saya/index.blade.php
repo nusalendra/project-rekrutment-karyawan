@@ -20,7 +20,7 @@
                                     <h1 class="flex w-full justify-center">Posisi Dilamar</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Status Lamaran</h1>
+                                    <h1 class="flex w-full justify-center">Status</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Tanggal Melamar</h1>
@@ -57,10 +57,10 @@
                                             <button type="button"
                                                 class="focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
                                                 @disabled(true)>Lamaran Divalidasi</button>
-                                        @elseif($item->status_lamaran == 'Disetujui')
+                                        @elseif($item->status_lamaran == 'Tahap Tes Potensi Akademik')
                                             <button type="button"
                                                 class="focus:outline-none text-white bg-green-800 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
-                                                @disabled(true)>Lamaran Disetujui</button>
+                                                @disabled(true)>Tahap Tes Potensi Akademik</button>
                                         @else
                                             <button type="button"
                                                 class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900"
