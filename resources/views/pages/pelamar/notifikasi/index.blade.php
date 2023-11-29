@@ -40,7 +40,7 @@
             <div class="flex justify-between items-center">
                 <h2 class="text-3xl font-semibold text-blue-500">Notifikasi</h2>
                 <button id="close-notification-modal"
-                    class="text-gray-500 rounded-full hover:text-gray-700 focus:outline-none">
+                    class="text-black rounded-full0 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                         class="bi bi-x" viewBox="0 0 16 16">
                         <path
@@ -48,7 +48,7 @@
                     </svg>
                 </button>
             </div>
-            <p id="modal-notification-content" class="text-lg my-4 text-gray-700"></p>
+            <p id="modal-notification-content" class="text-lg my-4 text-black"></p>
         </div>
     </div>
 

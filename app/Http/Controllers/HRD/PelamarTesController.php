@@ -111,7 +111,7 @@ class PelamarTesController extends Controller
                 ->get();
 
             if ($skorTes->count() > 0) {
-                $pelamar->status_lamaran = 'Tahap Wawancara';
+                $pelamar->status_lamaran = 'Tahap Pengoreksian Tes Potensi Akademik';
                 $pelamar->save();
             }
         }
@@ -121,18 +121,28 @@ class PelamarTesController extends Controller
     public function tidakLulusTPA($lowonganPekerjaanId)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
-        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->get();
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)
+            ->where('status_lamaran', 'Tahap Tes Potensi Akademik')
+            ->get();
 
         foreach ($pelamars as $pelamar) {
             $skorTes = SkorTesPelamar::where('pelamar_id', $pelamar->id)
-                ->whereBetween('skor_tes', [200, 499])
-                ->get();
+                ->where('skor_tes', '>=', 200)
+                ->where('skor_tes', '<', 500)
+                ->first();
 
-            if ($skorTes->count() > 0) {
-                $pelamar->status_lamaran = 'Tes Potensi Akademik Ditolak';
+            if ($skorTes) {
+                $pelamar->status_lamaran = 'Tahap Tes Potensi Akademik Ditolak';
                 $pelamar->save();
+
+                $notifikasi = new Notifikasi();
+                $notifikasi->user_id = $pelamar->user->id;
+                $notifikasi->pesan = "Terkait dengan proses seleksi penerimaan karyawan baru, kami ingin menginformasikan hasil tes potensi akademik Anda untuk Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> dengan Total <strong>" . $skorTes->skor_tes . "</strong> Skor yang diperoleh. <br><br>Kami ingin menyampaikan bahwa pelamar yang memperoleh skor di bawah 500 tidak memenuhi persyaratan minimum yang telah ditetapkan untuk tahap ini. <br><br>Oleh karena itu, dengan penuh penyesalan, kami harus menolak lamaran Anda untuk tahap ini. <br><br>Kami menghargai dedikasi waktu dan usaha yang Anda sumbangkan dalam mengikuti proses seleksi ini. Tetaplah semangat, karena kami yakin bahwa setiap pengalaman ini dapat menjadi landasan berharga untuk pengembangan karier Anda di masa depan.";
+
+                $notifikasi->save();
             }
         }
+
         return redirect()->route('pelamar-tes-data', $lowonganPekerjaanId);
     }
 

@@ -63,7 +63,7 @@
                                     <h1 class="flex w-full justify-center">Status Lamaran</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Skor Pelamar</h1>
+                                    <h1 class="flex w-full justify-center">Skor Hasil Validasi</h1>
                                 </th>
                                 {{-- <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
