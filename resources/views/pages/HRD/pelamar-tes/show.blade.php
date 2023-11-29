@@ -32,7 +32,7 @@
                         @csrf
                         <button type="submit"
                             class="text-white bg-green-600 hover:bg-green-700 border border-green-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 me-2 py-2.5 text-center inline-flex items-center">
-                            Memasuki Tahap Wawancara Skor >= 500
+                            Pindahkan Pelamar ke Antrian Tes Wawancara (Skor >= 500)
                         </button>
                     </form>
                     <form
@@ -41,7 +41,7 @@
                         @csrf
                         <button type="submit"
                             class="text-white bg-red-600 hover:bg-red-700 border border-red-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                            Tolak Pelamar Skor < 500
+                            Tolak Pelamar Untuk Tahap Ini (Skor < 500)
                         </button>
                     </form>
                 </div>
@@ -60,7 +60,7 @@
                                     <h1 class="flex w-full justify-center">Status</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Skor Tes</h1>
+                                    <h1 class="flex w-full justify-center">Skor Tes Potensi Akademik</h1>
                                 </th>
                                 {{-- <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Tanggal Melamar</h1>
