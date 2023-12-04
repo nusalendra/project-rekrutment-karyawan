@@ -8,7 +8,7 @@
             </div>
             <div class="bg-white p-4 rounded-md shadow-md">
                 <div class="text-md font-semibold">
-                    <p class="mb-2">Status Skor : </p>
+                    <p class="mb-2">Status Skor Tes : </p>
                     <p class="text-red-500">>= 200 & < 500 Total Skor</p>
                     <p class="text-green-700">>= 500 & <= 800 Total Skor</p>
                 </div>
@@ -28,7 +28,7 @@
                             @csrf
                             <input type="hidden" name="lowonganPekerjaanId" id="lowonganPekerjaanId">
                             <button type="submit"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Hitung
+                                class="text-white bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Hitung
                                 Skor Semua Pelamar</button>
                         </form>
                     </div>
