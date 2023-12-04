@@ -6,25 +6,26 @@
             <div class="flex-1 mt-2 ml-12 text-blue-600">
             </div>
             <div class="px-12 pt-5 text-black">
-                <div class="flex justify-between items-center mb-8">
-                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Hasil Validasi
-                        Pelamar
+                <div class="flex items-center mb-8">
+                    <a href="/pelamar-wawancara"
+                        class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2">
+                        <p class="font-semibold text-sm">Kembali</p>
+                    </a>
+                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Antrian Pelamar
+                        Wawancara
                     </h2>
                 </div>
                 <div class="flex mb-4">
-                    <a href="/hasil-validasi"
-                        class="mr-2 text-white bg-cyan-500 hover:bg-cyan-600 border border-cyan-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"">
-                        <p class="font-semibold text-sm">Kembali</p>
-                    </a>
+
 
                     <button type="button"
-                        class="text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                        class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                         id="toggleButton">
-                        Pilih Pelamar
+                        Pilih Pelamar & Kirim Notifikasi
                     </button>
 
                     <button type="button"
-                        class="text-white mr-2 bg-red-700 hover:bg-red-800 border border-red-700 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                        class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                         id="cancelButton" style="display: none;">
                         Batal
                     </button>
@@ -33,14 +34,14 @@
                         $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaanIdDecrypt);
                     @endphp
                     <form
-                        action="{{ route('kirim-notifikasi-pelamar', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+                        action="{{ route('kirim-notifikasi-pelamar-wawancara', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                         method="POST">
                         @csrf
                         <input type="hidden" name="pilihPelamar[]" id="pilihPelamar">
                         <button type="submit"
-                            class="text-white bg-green-600 hover:bg-green-700 border border-green-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                             id="sendButton" style="display: none;">
-                            Kirim Notifikasi Lamaran Telah Diseleksi
+                            Kirim Notifikasi Memasuki Tahap Wawancara
                         </button>
                     </form>
                 </div>
@@ -60,20 +61,23 @@
                                     <h1 class="flex w-full justify-center">Nama Lengkap</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Status Lamaran</h1>
+                                    <h1 class="flex w-full justify-center">Email</h1>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <h1 class="flex w-full justify-center">Skor Hasil Validasi</h1>
+                                    <h1 class="flex w-full justify-center">Nomor Handphone</h1>
                                 </th>
-                                {{-- <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3">
+                                    <h1 class="flex w-full justify-center">Skor Tes Potensi Akademik</h1>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     <h1 class="flex w-full justify-center">Aksi</h1>
-                                </th> --}}
+                                </th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
                             @foreach ($data as $index => $item)
                                 <tr
-                                    class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                                    class="border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700 {{ $item->status_lamaran === 'Tahap Wawancara' ? 'bg-blue-400' : 'bg-white' }}">
                                     <td class="px-6 py-4">
                                         <input type="checkbox" name="pilihPelamar[]" value="{{ $item->id }}"
                                             data-pelamar-id="{{ $item->id }}" disabled>
@@ -85,20 +89,22 @@
                                         <h1 class="flex w-full justify-center">{{ $item->nama_user }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}
-                                        </h1>
+                                        <h1 class="flex w-full justify-center">{{ $item->email }}</h1>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ number_format($item->hasil_penilaian, 3) }}</h1>
-                                    </td>                                    
-                                    {{-- <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">{{ $item->nomor_handphone }}</h1>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <h1 class="flex w-full justify-center">{{ $item->skor_tes }}</h1>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
                                             @php
                                                 $pelamarIdEncrypt = Crypt::encrypt($item->id);
                                                 $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaanIdDecrypt);
                                             @endphp
-                                            
-                                            <a href="{{ route('hasil-validasi-detail', ['pelamarId' => $pelamarIdEncrypt, 'lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+
+                                            <a href="{{ route('pelamar-wawancara-detail', ['pelamarId' => $pelamarIdEncrypt, 'lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                                                 class="{{ $title === 'Detail Pelamar' }} text-black mr-1 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                                     fill="currentColor" class="bi bi-person-lines-fill mt-0.5"
@@ -109,7 +115,7 @@
                                                 <p class="ml-1">Detail</p>
                                             </a>
                                         </h1>
-                                    </td> --}}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -180,7 +186,7 @@
             pilihPelamarInput.value = selectedPelamar.join(',');
 
             $.ajax({
-                url: '/hasil-validasi/kirim-notifikasi/' + encodeURIComponent(
+                url: '/pelamar-wawancara/kirim-notifikasi/' + encodeURIComponent(
                     '{{ $lowonganPekerjaanIdEncrypt }}'),
                 method: 'POST',
                 data: {

@@ -131,7 +131,7 @@ class HasilValidasiController extends Controller
 
                 $notifikasi = new Notifikasi();
                 $notifikasi->user_id = $pelamar->user->id;
-                $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah disetujui oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk tahap selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
+                $notifikasi->pesan = "Kami senang memberitahu Anda bahwa Lamaran Anda pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah diseleksi oleh tim HRD kami. Selamat atas pencapaian ini! Kami akan segera menghubungi Anda untuk tahap selanjutnya. Terima kasih atas minat Anda dalam perusahaan kami.";
 
                 $notifikasi->save();
             }

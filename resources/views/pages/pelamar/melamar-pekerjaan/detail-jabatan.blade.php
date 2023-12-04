@@ -9,18 +9,6 @@
             <button type="button"
                 class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                 @disabled(true)>Lamaran Ditolak</button>
-        @elseif($statusLamaran == 'Tahap Tes Potensi Akademik')
-            <button type="button"
-                class="focus:outline-none text-white bg-green-800 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
-                @disabled(true)>Tahap Tes Potensi Akademik</button>
-        @elseif($statusLamaran == 'Tahap Tes Potensi Akademik Ditolak')
-            <button type="button"
-                class="focus:outline-none text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                @disabled(true)>Tahap Tes Potensi Akademik Ditolak</button>
-        @elseif($statusLamaran == 'Tahap Pengoreksian Tes Potensi Akademik')
-            <button type="button"
-                class="focus:outline-none text-white bg-cyan-800 hover:bg-cyan-900 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-900"
-                @disabled(true)>Tahap Pengoreksian Tes Potensi Akademik</button>
         @elseif($statusLamaran == 'Proses')
             <button type="button"
                 class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900"
@@ -33,6 +21,30 @@
             <button type="button"
                 class="focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
                 @disabled(true)>Lamaran Divalidasi</button>
+        @elseif($statusLamaran == 'Tahap Tes Potensi Akademik')
+            <button type="button"
+                class="focus:outline-none text-white bg-green-800 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                @disabled(true)>Tahap Tes Potensi Akademik</button>
+        @elseif($statusLamaran == 'Tahap Tes Potensi Akademik Ditolak')
+            <button type="button"
+                class="focus:outline-none text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                @disabled(true)>Tahap Tes Potensi Akademik Ditolak</button>
+        @elseif($statusLamaran == 'Tahap Pengoreksian Tes Potensi Akademik')
+            <button type="button"
+                class="focus:outline-none text-white bg-cyan-800 hover:bg-cyan-900 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-900"
+                @disabled(true)>Tahap Pengoreksian Tes Potensi Akademik</button>
+        @elseif($statusLamaran == 'Tahap Wawancara')
+            <button type="button"
+                class="focus:outline-none text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
+                @disabled(true)>Tahap Wawancara</button>
+        @elseif($statusLamaran == 'Tahap Wawancara Ditolak')
+            <button type="button"
+                class="focus:outline-none text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                @disabled(true)>Tahap Wawancara Ditolak</button>
+        @elseif($statusLamaran == 'Pelamar Disetujui')
+            <button type="button"
+                class="focus:outline-none text-white bg-green-800 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                @disabled(true)>Pelamar Disetujui</button>
         @else
             @php
                 $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaan->id);

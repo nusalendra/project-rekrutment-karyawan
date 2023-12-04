@@ -17,11 +17,15 @@ use App\Http\Controllers\HRD\ProsesSeleksiController;
 use App\Http\Controllers\HRD\PelamarDiterimaController;
 use App\Http\Controllers\HRD\PelamarDitolakController;
 use App\Http\Controllers\HRD\HasilValidasiController;
+use App\Http\Controllers\HRD\PelamarDisetujuiController;
 use App\Http\Controllers\HRD\PelamarTesController;
+use App\Http\Controllers\HRD\PelamarWawancara;
+use App\Http\Controllers\HRD\PelamarWawancaraController;
 use App\Http\Controllers\HRD\TesPotensiAkademikController;
 
 // Manajer Controller
 use App\Http\Controllers\Manajer\JabatanController;
+use App\Http\Controllers\Manajer\KandidatPosisiController;
 use App\Http\Controllers\Manajer\KriteriaController;
 use App\Http\Controllers\Manajer\SubkriteriaController;
 use App\Http\Controllers\Manajer\PengukuranController;
@@ -147,6 +151,24 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
         Route::get('/koreksi-tes/{pelamarTPAId}', [HasilTesTPAController::class, 'create'])->name('koreksi-tes-potensi-akademik');
     })->name('hasil-tes-potensi-akademik');
 
+    Route::prefix('pelamar-wawancara')->group(function () {
+        Route::get('/', [PelamarWawancaraController::class, 'index'])->name('pelamar-wawancara');
+        Route::get('/data/{id}', [PelamarWawancaraController::class, 'show'])->name('pelamar-wawancara-data');
+        Route::post('/kirim-notifikasi/{lowonganPekerjaanId}', [PelamarWawancaraController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-pelamar-wawancara');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarWawancaraController::class, 'edit'])->name('pelamar-wawancara-detail');
+        Route::get('/download-dokumen-pelamar-wawancara/{dokumenName}/{fileName}', [PelamarWawancaraController::class, 'downloadDokumenPelamarWawancara'])->name('unduh-dokumen-pelamar-wawancara');
+        Route::POST('/detail/{lowonganPekerjaanId}', [PelamarWawancaraController::class, 'update'])->name('pelamar-wawancara-update');
+    })->name('pelamar-wawancara');
+
+    Route::prefix('pelamar-disetujui')->group(function () {
+        Route::get('/', [PelamarDisetujuiController::class, 'index'])->name('pelamar-disetujui');
+        Route::get('/data/{id}', [PelamarDisetujuiController::class, 'show'])->name('pelamar-disetujui-data');
+        Route::post('/kirim-notifikasi/{lowonganPekerjaanId}', [PelamarDisetujuiController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-pelamar-disetujui');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [PelamarDisetujuiController::class, 'edit'])->name('pelamar-disetujui-detail');
+        Route::get('/download-dokumen-pelamar-disetujui/{dokumenName}/{fileName}', [PelamarDisetujuiController::class, 'downloadDokumenPelamarDisetujui'])->name('unduh-dokumen-pelamar-disetujui');
+        Route::POST('/detail/{lowonganPekerjaanId}', [PelamarDisetujuiController::class, 'update'])->name('pelamar-disetujui-update');
+    })->name('pelamar-disetujui');
+
     Route::fallback(function () {
         return view('pages/utility/404');
     });
@@ -196,6 +218,15 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
         Route::put('/edit/{id}', [PengukuranController::class, 'update'])->name('pengukuran-update');
         Route::get('/delete/{id}', [PengukuranController::class, 'destroy'])->name('pengukuran-destroy');
     })->name('pengukuran');
+
+    Route::prefix('kandidat-posisi')->group(function () {
+        Route::get('/', [KandidatPosisiController::class, 'index'])->name('kandidat-posisi');
+        Route::get('/data/{id}', [KandidatPosisiController::class, 'show'])->name('kandidat-posisi-data');
+        Route::post('/kirim-notifikasi/{lowonganPekerjaanId}', [KandidatPosisiController::class, 'kirimNotifikasi'])->name('kirim-notifikasi-kandidat-posisi');
+        Route::get('/detail/{pelamarId}/{lowonganPekerjaanId}', [KandidatPosisiController::class, 'edit'])->name('kandidat-posisi-detail');
+        Route::get('/download-dokumen-kandidat-posisi/{dokumenName}/{fileName}', [KandidatPosisiController::class, 'downloadDokumenKandidat'])->name('unduh-dokumen-kandidat-posisi');
+        Route::POST('/detail/{lowonganPekerjaanId}', [KandidatPosisiController::class, 'update'])->name('kandidat-posisi-update');
+    })->name('kandidat-posisi');
 
     Route::fallback(function () {
         return view('pages/utility/404');
