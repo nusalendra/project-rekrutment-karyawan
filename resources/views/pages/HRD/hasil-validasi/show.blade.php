@@ -6,25 +6,24 @@
             <div class="flex-1 mt-2 ml-12 text-blue-600">
             </div>
             <div class="px-12 pt-5 text-black">
-                <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center mb-3">
+                    <a href="/hasil-validasi"
+                        class="mr-2 text-white bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2">
+                        <p class="font-semibold text-sm">Kembali</p>
+                    </a>
                     <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Hasil Validasi
                         Pelamar
                     </h2>
                 </div>
-                <div class="flex mb-4">
-                    <a href="/hasil-validasi"
-                        class="mr-2 text-white bg-cyan-500 hover:bg-cyan-600 border border-cyan-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"">
-                        <p class="font-semibold text-sm">Kembali</p>
-                    </a>
-
+                <div class="flex mb-4 justify-center">
                     <button type="button"
-                        class="text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                        class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2"
                         id="toggleButton">
                         Pilih Pelamar
                     </button>
 
                     <button type="button"
-                        class="text-white mr-2 bg-red-700 hover:bg-red-800 border border-red-700 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                        class="text-white bg-gradient-to-r from-red-600 via-red-700 to-red-800 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2"
                         id="cancelButton" style="display: none;">
                         Batal
                     </button>
@@ -38,7 +37,7 @@
                         @csrf
                         <input type="hidden" name="pilihPelamar[]" id="pilihPelamar">
                         <button type="submit"
-                            class="text-white bg-green-600 hover:bg-green-700 border border-green-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                            class="text-white bg-gradient-to-r from-green-600 via-green-700 to-green-800 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2"
                             id="sendButton" style="display: none;">
                             Kirim Notifikasi Lamaran Telah Diseleksi
                         </button>
@@ -71,27 +70,36 @@
                             </tr>
                         </thead>
                         <tbody id="tableBody">
-                            @foreach ($data as $index => $item)
+                            @if (count($data) == 0)
                                 <tr
                                     class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-                                    <td class="px-6 py-4">
-                                        <input type="checkbox" name="pilihPelamar[]" value="{{ $item->id }}"
-                                            data-pelamar-id="{{ $item->id }}" disabled>
+                                    <td class="px-6 py-4" colspan="6">
+                                        <h1 class="flex w-full justify-center">Tidak Ada Data Hasil Validasi Pelamar</h1>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->nama_user }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}
-                                        </h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ number_format($item->hasil_penilaian, 3) }}</h1>
-                                    </td>                                    
-                                    {{-- <td class="px-6 py-4">
+                                </tr>
+                            @else
+                                @foreach ($data as $index => $item)
+                                    <tr
+                                        class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4">
+                                            <input type="checkbox" name="pilihPelamar[]" value="{{ $item->id }}"
+                                                data-pelamar-id="{{ $item->id }}" disabled>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $item->nama_user }}</h1>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}
+                                            </h1>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">
+                                                {{ number_format($item->hasil_penilaian, 3) }}</h1>
+                                        </td>
+                                        {{-- <td class="px-6 py-4">
                                         <h1 class="flex w-full justify-center">
                                             @php
                                                 $pelamarIdEncrypt = Crypt::encrypt($item->id);
@@ -110,8 +118,9 @@
                                             </a>
                                         </h1>
                                     </td> --}}
-                                </tr>
-                            @endforeach
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                     {{-- {{ $data->links() }} --}}

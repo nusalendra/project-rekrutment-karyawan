@@ -11,6 +11,7 @@ use App\Http\Controllers\Guest\LamaranPekerjaanController;
 
 // HRD Controller
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HRD\DashboardHRDController;
 use App\Http\Controllers\HRD\PeriodeController;
 use App\Http\Controllers\HRD\LowonganPekerjaanController;
 use App\Http\Controllers\HRD\ProsesSeleksiController;
@@ -19,10 +20,9 @@ use App\Http\Controllers\HRD\PelamarDitolakController;
 use App\Http\Controllers\HRD\HasilValidasiController;
 use App\Http\Controllers\HRD\PelamarDisetujuiController;
 use App\Http\Controllers\HRD\PelamarTesController;
-use App\Http\Controllers\HRD\PelamarWawancara;
 use App\Http\Controllers\HRD\PelamarWawancaraController;
 use App\Http\Controllers\HRD\TesPotensiAkademikController;
-
+use App\Http\Controllers\Manajer\DashboardManajerController;
 // Manajer Controller
 use App\Http\Controllers\Manajer\JabatanController;
 use App\Http\Controllers\Manajer\KandidatPosisiController;
@@ -67,7 +67,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:HRD'])->group(function () {
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
 
-    Route::get('/dashboard-hrd', [DashboardController::class, 'indexHRD'])->name('dashboard-hrd');
+    Route::get('/dashboard-hrd', [DashboardHRDController::class, 'index'])->name('dashboard-hrd');
 
     Route::prefix('periode')->group(function () {
         Route::get('/', [PeriodeController::class, 'index'])->name('periode');
@@ -178,7 +178,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Manajer'])->group(function 
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
 
-    Route::get('/dashboard-manajer', [DashboardController::class, 'indexManajer'])->name('dashboard-manajer');
+    Route::get('/dashboard-manajer', [DashboardManajerController::class, 'index'])->name('dashboard-manajer');
 
     Route::prefix('jabatan')->group(function () {
         Route::get('/', [JabatanController::class, 'index'])->name('jabatan');

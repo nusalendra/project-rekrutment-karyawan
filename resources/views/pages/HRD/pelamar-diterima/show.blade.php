@@ -5,17 +5,16 @@
         <div class="bg-stone-200 bg-auto rounded h-216">
 
             <div class="px-12 pt-5 text-black">
-                <div class="flex justify-between items-center mb-3">
+                <div class="flex items-center mb-3">
+                    <a href="/pelamar-diterima"
+                        class="mr-2 text-white bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2">
+                        <p class="font-semibold text-sm">Kembali</p>
+                    </a>
                     <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Lamaran Pelamar
                         Diterima
                     </h2>
                 </div>
-                <div class="flex mb-4">
-                    <a href="/pelamar-diterima"
-                        class="mr-2 text-white bg-cyan-500 hover:bg-cyan-600 border border-cyan-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"">
-                        <p class="font-semibold text-sm">Kembali</p>
-                    </a>
-
+                <div class="flex justify-center mb-4">
                     @php
                         $lowonganPekerjaanIdEncrypt = Crypt::encrypt($lowonganPekerjaanIdDecrypt);
                     @endphp
@@ -25,7 +24,7 @@
 
                         <!-- Modal toggle -->
                         <button data-modal-target="modal-validasi" data-modal-toggle="modal-validasi"
-                            class="block text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center"
+                            class="block text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2"
                             type="button">
                             Validasi Semua Pelamar
                         </button>
@@ -83,25 +82,33 @@
                             </tr>
                         </thead>
                         <tbody id="tableBody">
-                            @foreach ($data as $index => $item)
+                            @if (count($data) == 0)
                                 <tr
                                     class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->user->name }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">
-                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y, H:i:s') }}</h1>
+                                    <td class="px-6 py-4" colspan="6">
+                                        <h1 class="flex w-full justify-center">Tidak Ada Data Lamaran Pelamar Diterima</h1>
                                     </td>
                                 </tr>
-                            @endforeach
-
+                            @else
+                                @foreach ($data as $index => $item)
+                                    <tr
+                                        class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $item->user->name }}</h1>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}</h1>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">
+                                                {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y, H:i:s') }}</h1>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                     {{-- {{ $data->links() }} --}}
