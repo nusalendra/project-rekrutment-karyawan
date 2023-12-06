@@ -82,8 +82,12 @@
                                 </tr>
                             @else
                                 @foreach ($data as $index => $item)
+                                    @php
+                                        $statusLamaran = $item->status_lamaran === 'Tahap Wawancara';
+                                        $idLowonganPekerjaan = $item->lowongan_pekerjaan_id == $lowonganPekerjaanIdDecrypt;
+                                    @endphp
                                     <tr
-                                        class="border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700 {{ $item->status_lamaran === 'Tahap Wawancara' ? 'bg-blue-400' : 'bg-white' }}">
+                                        class="border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700 {{ $statusLamaran && $idLowonganPekerjaan ? 'bg-blue-400' : 'bg-white' }}">
                                         <td class="px-6 py-4">
                                             <input type="checkbox" name="pilihPelamar[]" value="{{ $item->id }}"
                                                 data-pelamar-id="{{ $item->id }}" disabled>
