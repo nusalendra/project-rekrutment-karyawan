@@ -33,14 +33,36 @@
         </div>
 
     </div> --}}
-        <div class="grid grid-cols-2 gap-4">
+        <div class="">
             <div class="w-full h-auto px-6 py-3 bg-white flex justify-center">
-                <canvas id="chartDataPesertaTahunIni"></canvas>
+                <canvas id="chartDataPelamarTahunIni"></canvas>
             </div>
-            
         </div>
-
-
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="w-full h-auto px-6 py-3 bg-white flex justify-center">
+                <canvas id="chartDataLamaranPelamarPerJabatan"></canvas>
+            </div>
+            <div class="w-full h-auto px-6 py-3 bg-white flex justify-center">
+                <canvas id="chartDataPelamarLolosSeleksi"></canvas>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="w-full h-auto px-6 py-3 bg-white flex justify-center">
+                <canvas id="chartDataPelamarTesPotensiAkademik"></canvas>
+            </div>
+            <div class="w-full h-auto px-6 py-3 bg-white flex justify-center">
+                <canvas id="chartDataPelamarLolosTesPotensiAkademik"></canvas>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="w-full h-auto px-6 py-3 bg-white flex justify-center">
+                <canvas id="chartDataPelamarTesWawancara"></canvas>
+            </div>
+            <div class="w-full h-auto px-6 py-3 bg-white flex justify-center">
+                <canvas id="chartDataPelamarLolosTesWawancara"></canvas>
+            </div>
+        </div>
+        
         <!-- Cards -->
         <div class="grid grid-cols-12 gap-6 h-100 w-50">
 
@@ -88,23 +110,23 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        //chart peserta Tahun ini
-        var ctx_peserta_currentYear = document.getElementById('chartDataPesertaTahunIni').getContext('2d');
+        //chart pelamar Tahun ini
+        var ctx_pelamar_currentYear = document.getElementById('chartDataPelamarTahunIni').getContext('2d');
 
-        var chartDataPesertaTahunIni = @json($chartDataPesertaTahunIni);
+        var chartDataPelamarTahunIni = @json($chartDataPelamarTahunIni);
 
-        var labels_peserta_currentYear = chartDataPesertaTahunIni.map(item => item.bulan);
-        var counts_peserta_currentYear = chartDataPesertaTahunIni.map(item => item.count);
+        var labels_pelamar_currentYear = chartDataPelamarTahunIni.map(item => item.bulan);
+        var counts_pelamar_currentYear = chartDataPelamarTahunIni.map(item => item.count);
 
-        new Chart(ctx_peserta_currentYear, {
+        new Chart(ctx_pelamar_currentYear, {
             type: 'bar',
             data: {
-                labels: labels_peserta_currentYear,
+                labels: labels_pelamar_currentYear,
                 datasets: [{
-                    label: 'Data Bulanan',
-                    data: counts_peserta_currentYear,
-                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    label: 'Jumlah Pelamar',
+                    data: counts_pelamar_currentYear,
+                    backgroundColor: 'rgba(255, 99, 71, 1)',
+                    borderColor: 'rgba(255, 99, 71, 1)',
                     borderWidth: 1
                 }]
             },
@@ -112,7 +134,14 @@
                 responsive: true,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 25,
+                            callback: function(value) {
+                                return value % 25 === 0 || value === 100 ? value : '';
+                            }
+                        }
                     }
                 },
                 plugins: {
@@ -129,6 +158,283 @@
                 }
             }
         });
+
+        // chart Jumlah Lamaran Pelamar di Setiap Posisi Jabatan
+        var dataPelamarPekerjaan = @json($pelamarPekerjaan);
+        var label_lamaran_pelamar = dataPelamarPekerjaan.map(item => item.jabatan);
+        var dataPelamar = dataPelamarPekerjaan.map(item => item.total_pelamar);
+        var idDataPelamarPekerjaan = document.getElementById('chartDataLamaranPelamarPerJabatan').getContext('2d');
+        var myChart = new Chart(idDataPelamarPekerjaan, {
+            type: 'line',
+            data: {
+                labels: label_lamaran_pelamar,
+                datasets: [{
+                    label: 'Jumlah Lamaran',
+                    data: dataPelamar,
+                    backgroundColor: 'rgba(244, 150, 15, 0.7)',
+                    borderColor: 'rgba(244, 150, 15, 0.7)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 25,
+                            callback: function(value) {
+                                return value % 25 === 0 || value === 100 ? value : '';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Lamaran Pelamar Per Posisi Jabatan',
+                        font: {
+                            size: 20
+                        },
+                        fontColor: '#000',
+                        fontFamily: 'Arial, sans-serif',
+                        fontStyle: 'bold'
+                    }
+                }
+            }
+        });
+
+        // Chart Jumlah Pelamar Lolos Seleksi per posisi jabatan
+        var dataPelamarLolosSeleksi = @json($pelamarLolosSeleksi);
+        var label_pelamar_tes_potensi_akademik = dataPelamarLolosSeleksi.map(item => item.jabatan);
+        var pelamarDataLolosSeleksi = dataPelamarLolosSeleksi.map(item => item.total_pelamar_lolos_seleksi);
+        var idDataPelamarLolosSeleksi = document.getElementById('chartDataPelamarLolosSeleksi').getContext('2d');
+        var myChart = new Chart(idDataPelamarLolosSeleksi, {
+            type: 'line',
+            data: {
+                labels: label_pelamar_tes_potensi_akademik,
+                datasets: [{
+                    label: 'Jumlah Pelamar Lolos Seleksi',
+                    data: pelamarDataLolosSeleksi,
+                    backgroundColor: 'rgba(57, 116, 45, 0.8)',
+                    borderColor: 'rgba(57, 116, 45, 0.8)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 25,
+                            callback: function(value) {
+                                return value % 25 === 0 || value === 100 ? value : '';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Pelamar Lolos Tahap Seleksi Per Posisi Jabatan',
+                        font: {
+                            size: 20
+                        },
+                        fontColor: '#000',
+                        fontFamily: 'Arial, sans-serif',
+                        fontStyle: 'bold'
+                    }
+                }
+            }
+        });
+
+        // Chart Jumlah pelamar yang mengikuti tes potensi akademik per posisi jabatan
+        var dataPelamarTesPotensiAkademik = @json($pelamarTesPotensiAkademik);
+        var label_pelamar_tes_potensi_akademik = dataPelamarTesPotensiAkademik.map(item => item.jabatan);
+        var pelamarDataTesPotensiAkademik = dataPelamarTesPotensiAkademik.map(item => item.total_pelamar_tes_potensi_akademik);
+        var idDataPelamarTesPotensiAkademik = document.getElementById('chartDataPelamarTesPotensiAkademik').getContext('2d');
+        var myChart = new Chart(idDataPelamarTesPotensiAkademik, {
+            type: 'line',
+            data: {
+                labels: label_pelamar_tes_potensi_akademik,
+                datasets: [{
+                    label: 'Jumlah Pelamar Tes Potensi Akademik',
+                    data: pelamarDataTesPotensiAkademik,
+                    backgroundColor: 'rgba(16, 8, 133, 0.7)',
+                    borderColor: 'rgba(16, 8, 133, 0.7)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 25,
+                            callback: function(value) {
+                                return value % 25 === 0 || value === 100 ? value : '';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Pelamar Tes Potensi Akademik Per Posisi Jabatan',
+                        font: {
+                            size: 20
+                        },
+                        fontColor: '#000',
+                        fontFamily: 'Arial, sans-serif',
+                        fontStyle: 'bold'
+                    }
+                }
+            }
+        });
+
+        // Chart Jumlah Pelamar Lolos Tahap Tes Potensi Akademik
+        var dataPelamarLolosTesPotensiAkademik = @json($pelamarLolosTesPotensiAkademik);
+        var label_pelamar_tes_potensi_akademik = dataPelamarLolosTesPotensiAkademik.map(item => item.jabatan);
+        var pelamarDataLolosSeleksi = dataPelamarLolosTesPotensiAkademik.map(item => item.total_pelamar_lolos_tes_potensi_akademik);
+        var idDataPelamarLolosTesPotensiAkademik = document.getElementById('chartDataPelamarLolosTesPotensiAkademik').getContext('2d');
+        var myChart = new Chart(idDataPelamarLolosTesPotensiAkademik, {
+            type: 'line', // Mengubah jenis grafik menjadi garis
+            data: {
+                labels: label_pelamar_tes_potensi_akademik,
+                datasets: [{
+                    label: 'Jumlah Pelamar Lolos Tes Potensi Akademik',
+                    data: pelamarDataLolosSeleksi,
+                    backgroundColor: 'rgba(154, 82, 45, 0.8)',
+                    borderColor: 'rgba(154, 82, 45, 0.8)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 25,
+                            callback: function(value) {
+                                return value % 25 === 0 || value === 100 ? value : '';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Pelamar Lolos Tahap Tes Potensi Akademik Per Posisi Jabatan',
+                        font: {
+                            size: 20
+                        },
+                        fontColor: '#000',
+                        fontFamily: 'Arial, sans-serif',
+                        fontStyle: 'bold'
+                    }
+                }
+            }
+        });
+
+        // Chart Jumlah Pelamar yang mengikuti tes wawancara
+        var dataPelamarTesWawancara = @json($pelamarTesWawancara);
+        var label_pelamar_tes_wawancara = dataPelamarTesWawancara.map(item => item.jabatan);
+        var pelamarDataTesWawancara = dataPelamarTesWawancara.map(item => item.total_pelamar_tes_wawancara);
+        var idDataPelamarTesWawancara = document.getElementById('chartDataPelamarTesWawancara').getContext('2d');
+        var myChart = new Chart(idDataPelamarTesWawancara, {
+            type: 'line', // Mengubah jenis grafik menjadi garis
+            data: {
+                labels: label_pelamar_tes_wawancara,
+                datasets: [{
+                    label: 'Jumlah Pelamar Tes Wawancara',
+                    data: pelamarDataTesWawancara,
+                    backgroundColor: 'rgba(45, 112, 182, 1)',
+                    borderColor: 'rgba(45, 112, 182, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 25,
+                            callback: function(value) {
+                                return value % 25 === 0 || value === 100 ? value : '';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Pelamar Tes Wawancara Per Posisi Jabatan',
+                        font: {
+                            size: 20
+                        },
+                        fontColor: '#000',
+                        fontFamily: 'Arial, sans-serif',
+                        fontStyle: 'bold'
+                    }
+                }
+            }
+        });
+
+         // Chart Jumlah Pelamar yang lolos tes wawancara
+         var dataPelamarLolosTesWawancara = @json($pelamarLolosTesWawancara);
+        var label_pelamar_tes_wawancara = dataPelamarLolosTesWawancara.map(item => item.jabatan);
+        var pelamarDataLolosTesWawancara = dataPelamarLolosTesWawancara.map(item => item.total_pelamar_lolos_tes_wawancara);
+        var idDataPelamarLolosTesWawancara = document.getElementById('chartDataPelamarLolosTesWawancara').getContext('2d');
+        var myChart = new Chart(idDataPelamarLolosTesWawancara, {
+            type: 'line', // Mengubah jenis grafik menjadi garis
+            data: {
+                labels: label_pelamar_tes_wawancara,
+                datasets: [{
+                    label: 'Jumlah Pelamar Lolos Tes Wawancara',
+                    data: pelamarDataLolosTesWawancara,
+                    backgroundColor: 'rgba(97, 0, 133, 1)',
+                    borderColor: 'rgba(97, 0, 133, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 25,
+                            callback: function(value) {
+                                return value % 25 === 0 || value === 100 ? value : '';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Pelamar Lolos Tahap Tes Wawancara Per Posisi Jabatan',
+                        font: {
+                            size: 20
+                        },
+                        fontColor: '#000',
+                        fontFamily: 'Arial, sans-serif',
+                        fontStyle: 'bold'
+                    }
+                }
+            }
+        });
+
     </script>
     <?php $showSidebar = true; ?>
 @endsection

@@ -26,8 +26,7 @@
                             Kirim Notifikasi Akses Halaman TPA
                         </button>
                     </form>
-                    <form
-                        action="{{ route('lulus-tpa', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+                    <form action="{{ route('lulus-tpa', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                         method="POST">
                         @csrf
                         <button type="submit"
@@ -35,14 +34,12 @@
                             Pindahkan Pelamar ke Antrian Tes Wawancara (Skor >= 500)
                         </button>
                     </form>
-                    <form
-                        action="{{ route('tidak-lulus-tpa', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
+                    <form action="{{ route('tidak-lulus-tpa', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
                         method="POST">
                         @csrf
                         <button type="submit"
                             class="text-white bg-red-600 hover:bg-red-700 border border-red-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                            Tolak Pelamar Untuk Tahap Ini (Skor < 500)
-                        </button>
+                            Tolak Pelamar Untuk Tahap Ini (Skor < 500) </button>
                     </form>
                 </div>
                 <div class="relative overflow-x-auto">
@@ -68,40 +65,48 @@
                             </tr>
                         </thead>
                         <tbody id="tableBody">
-                            @foreach ($data as $index => $item)
+                            @if (count($data) == 0)
                                 <tr
                                     class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
+                                    <td class="px-6 py-4" colspan="6">
+                                        <h1 class="flex w-full justify-center">Tidak Ada Data Pelamar Tes</h1>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->user->name }}</h1>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}</h1>
-                                    </td>
-                                    @if ($item->skorTesPelamar && $item->skorTesPelamar->skor_tes && $item->skorTesPelamar->skor_tes > 0)
-                                        @if ($item->skorTesPelamar->skor_tes < 500)
-                                            <td class="px-6 py-4">
-                                                <h1 class="flex text-red-700 w-full justify-center">
-                                                    {{ $item->skorTesPelamar->skor_tes }}
-                                                </h1>
-                                            </td>
+                                </tr>
+                            @else
+                                @foreach ($data as $index => $item)
+                                    <tr
+                                        class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $item->user->name }}</h1>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}</h1>
+                                        </td>
+                                        @if ($item->skorTesPelamar && $item->skorTesPelamar->skor_tes && $item->skorTesPelamar->skor_tes > 0)
+                                            @if ($item->skorTesPelamar->skor_tes < 500)
+                                                <td class="px-6 py-4">
+                                                    <h1 class="flex text-red-700 w-full justify-center">
+                                                        {{ $item->skorTesPelamar->skor_tes }}
+                                                    </h1>
+                                                </td>
+                                            @else
+                                                <td class="px-6 py-4">
+                                                    <h1 class="flex text-green-500 w-full justify-center">
+                                                        {{ $item->skor_tes }}
+                                                    </h1>
+                                                </td>
+                                            @endif
                                         @else
                                             <td class="px-6 py-4">
-                                                <h1 class="flex text-green-500 w-full justify-center">
-                                                    {{ $item->skor_tes }}
-                                                </h1>
+                                                <h1 class="flex w-full justify-center">0</h1>
                                             </td>
                                         @endif
-                                    @else
-                                        <td class="px-6 py-4">
-                                            <h1 class="flex w-full justify-center">0</h1>
-                                        </td>
-                                    @endif
-                                </tr>
-                            @endforeach
-
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                     {{-- {{ $data->links() }} --}}
