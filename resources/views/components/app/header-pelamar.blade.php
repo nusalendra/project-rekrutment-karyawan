@@ -15,8 +15,8 @@
                 </button>
                 <a href=""><img class="mx-auto" src="/images/pt-umdi.png" width="180" height="67"
                         alt=""></a>
-                <a href="/beranda"
-                    class="{{ Request::is('beranda') ? 'text-blue-600' : 'hover:text-blue-700' }}">Beranda</a>
+                {{-- <a href="/beranda"
+                    class="{{ Request::is('beranda') ? 'text-blue-600' : 'hover:text-blue-700' }}">Beranda</a> --}}
                 <a href="/melamar-pekerjaan"
                     class="{{ Request::is('melamar-pekerjaan') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Pekerjaan</a>

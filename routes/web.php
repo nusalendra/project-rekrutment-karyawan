@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
 
 // Guest Controller
-use App\Http\Controllers\Guest\BerandaController;
+// use App\Http\Controllers\Guest\BerandaController;
 use App\Http\Controllers\Guest\LoginController;
 use App\Http\Controllers\Guest\RegisterController;
 use App\Http\Controllers\Guest\LamaranPekerjaanController;
@@ -49,9 +49,10 @@ use App\Http\Controllers\Pelamar\TesController;
 |
 */
 
-Route::get('/', [BerandaController::class, 'beranda']);
+// Route::get('/', [BerandaController::class, 'beranda']);
 
-Route::get('/lamaran-pekerjaan', [LamaranPekerjaanController::class, 'index']);
+// Guest
+Route::get('/', [LamaranPekerjaanController::class, 'index']);
 Route::get('/lamaran-pekerjaan/{id}', [LamaranPekerjaanController::class, 'getDetail'])->name('lamaran-pekerjaan-id');
 Route::get('/get-detail-jabatan/{id}', [LamaranPekerjaanController::class, 'getDetail'])->name('detail-jabatan-guest');
 
@@ -246,7 +247,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
         Route::POST('/lengkapi-dokumen/{id}', [ProfilPelamarController::class, 'updateLengkapiDokumen'])->name('update-lengkapi-dokumen');
     })->name('profil');
 
-    Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
+    // Route::get('/beranda', [BerandaController::class, 'berandaPelamar']);
 
     Route::get('/melamar-pekerjaan', [MelamarPekerjaanController::class, 'index'])->name('melamar-pekerjaan');
     Route::get('/melamar-pekerjaan/{id}', [MelamarPekerjaanController::class, 'index'])->name('melamar-pekerjaan-id');
