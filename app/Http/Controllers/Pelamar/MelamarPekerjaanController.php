@@ -101,32 +101,13 @@ class MelamarPekerjaanController extends Controller
 
         $pelamar = Pelamar::findOrFail($pelamarId);
 
-        $pengukuranData = $request->input('pengukuran_id');
-
-        // foreach ($pengukuranData as $kriteriaId => $subkriteriaValues) {
-        //     foreach ($subkriteriaValues as $subkriteriaId => $selectedPengukuran) {
-        //         $penilaian = new Penilaian();
-
-        //         // Set atribut-atribut penilaian sesuai dengan data yang diterima
-        //         $penilaian->pelamar_id = $pelamarId;
-        //         $penilaian->periode_id = $request->periode_id;
-        //         $penilaian->jabatan_id = $request->jabatan_id;
-        //         $penilaian->kriteria_id = $kriteriaId;
-        //         $penilaian->subkriteria_id = $subkriteriaId;
-        //         $penilaian->pengukuran_id = $selectedPengukuran;
-        //         $penilaian->nilai_normalisasi = 0;
-        //         $penilaian->save();
-
-        //     }
-        // }
-
         $notifikasi = new Notifikasi();
         $notifikasi->user_id = $request->user_id;
         $notifikasi->pesan = "Lamaran Pekerjaan pada Posisi <strong>" . $pelamar->lowonganPekerjaan->jabatan->nama . "</strong> telah terkirim. Kami mengapresiasi waktu yang Anda luangkan untuk melamar. Kami akan mengevaluasi setiap lamaran dengan cermat dan akan menghubungi Anda jika Anda dipilih untuk tahap berikutnya.";
 
         $notifikasi->save();
 
-        return redirect('/beranda');
+        return redirect()->back()->with('dataSaved', true);
     }
 
     /**

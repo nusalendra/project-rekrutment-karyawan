@@ -130,14 +130,36 @@
                             <label for="" class="w-3/4">{{ $dataUser->surat_lamaran_kerja }}</label>
                         </div>
                     </div>
-                    <div class="flex mt-6">
+                    <div class="flex mt-10">
                         <a href="/melamar-pekerjaan"
                             class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Batal</a>
-                        <button type="submit"
-                            class="ml-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Kirim
-                            Lamaran</button>
+                        <button id="kirimLamaranButton"
+                            class="block ml-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Kirim
+                            Lamaran
+                        </button>
                     </div>
                 </form>
+                <div id="notification" class="hidden">
+                    <div
+                        class="w-screen h-screen fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div class="fixed bg-white rounded-lg shadow-lg px-6 pt-6 pb-9 w-1/4 max-w-sm">
+                            <div class="text-center">
+                                @if (session()->has('dataSaved'))
+                                    <svg class="mx-auto mb-4 text-green-400 w-12 h-12" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 1024 1024">
+                                        <path fill="currentColor"
+                                            d="M512 64a448 448 0 1 1 0 896a448 448 0 0 1 0-896zm-55.808 536.384l-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z" />
+                                    </svg>
+                                    <h3 id="notification-message" class="mb-9 text-lg font-medium text-gray-800">
+                                        Lamaran Anda Telah Diajukan</h3>
+                                @endif
+                                <a href="/lamaran-saya"
+                                    class="text-white bg-blue-500 hover:bg-blue-600 ring-2 ring-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-200 rounded-lg px-4 py-2 text-base font-medium hover:text-gray-100">Lihat
+                                    Detail Lamaran Saya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -168,7 +190,6 @@
             </div>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Check if any data is empty
@@ -183,4 +204,23 @@
             }
         });
     </script>
+
+    <script>
+        // Saat nomor sertifikat yang diupdate memiliki nomor yang sama akan memunculkan notifikasi
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show notification if session dataSaved or dataExists is set
+            @if (session()->has('dataSaved'))
+                showNotification();
+            @elseif (session()->has('dataExists'))
+                showNotification();
+            @endif
+
+            function showNotification() {
+                var notification = document.getElementById('notification');
+                notification.classList.remove('hidden');
+            }
+        });
+    </script>
+
+
 @endsection
