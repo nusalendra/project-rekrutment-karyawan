@@ -66,17 +66,25 @@ class PelamarWawancaraController extends Controller
     public function show($id)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($id);
-        $data = Pelamar::select('pelamars.id', 'pelamars.status_lamaran', 'users.name as nama_user', 'skor_tes_pelamars.skor_tes', 'users.email', 'data_users.nomor_handphone')
+
+        $data = Pelamar::select('pelamars.*', 'users.name as nama_user', 'skor_tes_pelamars.skor_tes', 'users.email', 'data_users.nomor_handphone')
             ->join('skor_tes_pelamars', 'pelamars.id', 'skor_tes_pelamars.pelamar_id')
             ->join('lowongan_pekerjaans', 'pelamars.lowongan_pekerjaan_id', 'lowongan_pekerjaans.id')
             ->join('users', 'pelamars.user_id', 'users.id')
             ->join('data_users', 'data_users.user_id', 'users.id')
-            ->where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)
-            ->where('pelamars.status_lamaran', 'Tahap Pengoreksian Tes Potensi Akademik')
-            ->orWhere('pelamars.status_lamaran', 'Tahap Wawancara')
+            ->where(function ($query) use ($lowonganPekerjaanIdDecrypt) {
+                $query->where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)
+                    ->where('pelamars.status_lamaran', 'Tahap Pengoreksian Tes Potensi Akademik');
+            })
+            ->orWhere(function ($query) use ($lowonganPekerjaanIdDecrypt) {
+                $query->where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)
+                    ->where('pelamars.status_lamaran', 'Tahap Wawancara');
+            })
             ->orderByDesc('skor_tes_pelamars.skor_tes')
-            ->orderBy('pelamars.updated_at') // Tambahkan ini untuk mengurutkannya berdasarkan updated_at jika skor sama
+            ->orderBy('pelamars.updated_at')
             ->get();
+
+        // dd($data);
 
         return view('pages.HRD.pelamar-wawancara.show', ['title' => 'Pelamar Wawancara'], compact('data', 'lowonganPekerjaanIdDecrypt'));
     }

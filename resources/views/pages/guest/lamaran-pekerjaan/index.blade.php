@@ -74,7 +74,7 @@
         // Fungsi untuk memuat data dengan parameter pencarian dan halaman
         const loadData = async (searchTerm, page) => {
             try {
-                const response = await fetch(`/lamaran-pekerjaan?search=${searchTerm}&page=${page}`);
+                const response = await fetch(`/?search=${searchTerm}&page=${page}`);
                 const html = await response.text();
                 const tempContainer = document.createElement('div');
                 tempContainer.innerHTML = html;
