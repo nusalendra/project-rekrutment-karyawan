@@ -10,6 +10,7 @@ use App\Models\Pelamar;
 use App\Models\LowonganPekerjaan;
 use App\Models\Jabatan;
 use App\Models\Kriteria;
+use App\Models\Notifikasi;
 use App\Models\Pengukuran;
 
 class LamaranSayaController extends Controller
@@ -129,6 +130,16 @@ class LamaranSayaController extends Controller
     public function destroy($id)
     {
         $pelamar = Pelamar::findOrFail($id);
+        $pelamar->status_lamaran = 'Dibatalkan';
+        $pelamar->updated_at = now();
+        $pelamar->save();
+
+        $notifikasi = new Notifikasi();
+        $notifikasi->user_id = $pelamar->user_id;
+        $notifikasi->pesan = 'Kami ingin memberitahukan bahwa lamaran pekerjaan Anda untuk Posisi <strong>' . $pelamar->lowonganPekerjaan->jabatan->nama . '</strong> pada tanggal <strong>' . \Carbon\Carbon::parse($pelamar->updated_at)->format('d-m-Y / H:i:s') . '</strong> telah berhasil dibatalkan. Terima kasih atas ketertarikan Anda pada kesempatan ini. Kami sangat menghargai waktu dan usaha yang Anda habiskan untuk melamar pekerjaan di perusahaan kami. Meskipun lamaran Anda telah dibatalkan, kami menghargai partisipasi Anda dalam proses seleksi. <br><br> Tetap terhubung dengan kami untuk mendapatkan informasi tentang peluang pekerjaan mendatang yang mungkin sesuai dengan profil dan keterampilan Anda. Terima kasih lagi dan semoga Anda berhasil dalam pencarian pekerjaan Anda.';
+
+        $notifikasi->save();
+
         $pelamar->delete();
 
         return redirect('/lamaran-saya');
