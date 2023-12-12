@@ -264,7 +264,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
 
     Route::prefix('lamaran-saya')->group(function () {
         Route::get('/', [LamaranSayaController::class, 'index'])->name('lamaran-saya');
-        Route::get('/detail/{id}/{lowonganPekerjaanId}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
+        Route::get('/detail/{id}', [LamaranSayaController::class, 'show'])->name('lamaran-saya-show');
         Route::get('/download/{fileName}/{pelamarName}', [LamaranSayaController::class, 'downloadDokumenPendukung'])->name('unduh-dokumen-lamaran');
         Route::get('/download-dokumen-peserta/{dokumenName}/{fileName}', [LamaranSayaController::class, 'downloadDokumenPeserta'])->name('unduh-dokumen-peserta');
         Route::get('/delete/{id}', [LamaranSayaController::class, 'destroy'])->name('lamaran-saya-destroy');

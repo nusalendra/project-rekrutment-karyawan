@@ -184,7 +184,7 @@ class DatabaseSeeder extends Seeder
             [
                 'jabatan_id' => 1,
                 'kriteria_id' => 3,
-                'nama' => 'Nomor yang bisa dihubungi',
+                'nama' => 'Nomor Handphone',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -455,24 +455,6 @@ class DatabaseSeeder extends Seeder
                 'jabatan_id' => 1,
                 'kriteria_id' => 3,
                 'subkriteria_id' => 12,
-                'nama' => 'Valid',
-                'skor' => 0.333333333,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'jabatan_id' => 1,
-                'kriteria_id' => 3,
-                'subkriteria_id' => 13,
-                'nama' => 'Tidak Valid',
-                'skor' => 0,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'jabatan_id' => 1,
-                'kriteria_id' => 3,
-                'subkriteria_id' => 13,
                 'nama' => 'Valid',
                 'skor' => 0.333333333,
                 'created_at' => now(),

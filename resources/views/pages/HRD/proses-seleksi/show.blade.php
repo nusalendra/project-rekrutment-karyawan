@@ -9,7 +9,7 @@
                         class="mr-2 text-white bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2">
                         <p class="font-semibold text-sm">Kembali</p>
                     </a>
-                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Antrian Pelamar
+                    <h2 class="flex h-full font-bold text-gray-700 items-center drop-shadow-md text-xl ">Data Lamaran Pelamar
                     </h2>
                 </div>
                 <div class="flex mb-4">
@@ -78,7 +78,7 @@
                                                         <path
                                                             d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
                                                     </svg>
-                                                    <p class="ml-1">Detail</p>
+                                                    <p class="ml-1">Proses Seleksi Lamaran</p>
                                                 </a>
                                             </h1>
                                         </td>
