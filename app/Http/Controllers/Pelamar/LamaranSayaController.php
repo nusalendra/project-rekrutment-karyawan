@@ -7,11 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Pelamar;
-use App\Models\LowonganPekerjaan;
-use App\Models\Jabatan;
-use App\Models\Kriteria;
 use App\Models\Notifikasi;
-use App\Models\Pengukuran;
+use App\Models\DataUser;
 
 class LamaranSayaController extends Controller
 {
@@ -58,44 +55,13 @@ class LamaranSayaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $lowonganPekerjaanId)
+    public function show($id)
     {
         $pelamarIdDecrypt = Crypt::decrypt($id);
-        // dd($pelamarIdDecrypt);
-        $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
+        $data = Pelamar::with('user')->find($pelamarIdDecrypt);
+        $dataUser = DataUser::where('user_id', $data->user_id)->first();
 
-        $dataUser = $data->user->dataUser;
-
-        $dataPenilaian = $data->penilaian;
-
-        $lowonganIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
-        $lowonganPekerjaan = LowonganPekerjaan::find($lowonganIdDecrypt);
-        // dd($lowonganPekerjaan);
-
-        $jabatanId = $lowonganPekerjaan->jabatan_id;
-        $jabatan = Jabatan::find($jabatanId);
-
-        $kriteria = Kriteria::where('jabatan_id', $jabatan->id)->get();
-
-        $subkriteria = collect();
-
-        foreach ($kriteria as $item) {
-            $subkriteria = $subkriteria->concat($item->subkriteria);
-        }
-
-        $subkriteriaIds = $subkriteria->pluck('id')->all();
-
-        $pengukuran = Pengukuran::whereIn('subkriteria_id', $subkriteriaIds)->get();
-
-        // $pelamarIdDecrypt = Crypt::decrypt($id);
-        // $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
-
-        // $dataPenilaian = $data->penilaian;
-
-        // $dataDokumenPenilaian = $data->dokumenPenilaian;
-        // $dataDokumenPendukung = $data->dokumenPendukung;
-
-        return view('pages.pelamar.lamaran-saya.detail', ['title' => 'Detail Lamaran'], compact('data', 'dataPenilaian', 'id', 'lowonganPekerjaanId', 'lowonganPekerjaan', 'dataUser', 'subkriteria', 'pengukuran'));
+        return view('pages.pelamar.lamaran-saya.detail', ['title' => 'Detail Lamaran'], compact('data', 'dataUser'));
     }
 
     /**
@@ -145,22 +111,8 @@ class LamaranSayaController extends Controller
         return redirect('/lamaran-saya');
     }
 
-    public function downloadDokumenPendukung($fileName, $pelamarName)
-    {
-        // Tentukan path lengkap file gambar
-        $filePath = public_path('dokumen-pendukung/' . $pelamarName . '/' . $fileName);
-
-        // Pastikan file ada sebelum menginisialisasi unduhan
-        if (file_exists($filePath)) {
-            return response()->download($filePath);
-        } else {
-            abort(404, 'File not found');
-        }
-    }
-
     public function downloadDokumenPeserta($dokumenName, $fileName)
     {
-
         $filePath = public_path('dokumen-peserta/Dokumen_' . $dokumenName . '/' . $fileName);
 
         // Pastikan file ada sebelum menginisialisasi unduhan

@@ -91,7 +91,7 @@ class ProsesSeleksiController extends Controller
         $pelamarIdDecrypt = Crypt::decrypt($pelamarId);
         // dd($pelamarIdDecrypt);
         $data = Pelamar::with('user')->findOrFail($pelamarIdDecrypt);
-
+        
         $dataUser = $data->user->dataUser;
 
         $dataPenilaian = $data->penilaian;
@@ -148,6 +148,7 @@ class ProsesSeleksiController extends Controller
         $dataPelamar->save();
 
         $pengukuranId = $request->input('pengukuran_id');
+        dd($pengukuranId);
         $periode = $request->input('periode_id');
         $jabatan = $request->input('jabatan_id');
 

@@ -115,10 +115,9 @@
                                             <h1 class="flex w-full justify-center">
                                                 @php
                                                     $pelamarIdEncrypt = Crypt::encrypt($item->id);
-                                                    $lowonganPekerjaanIdEncrypt = Crypt::encrypt($item->lowonganPekerjaan->id);
                                                 @endphp
                                                 {{-- Detail --}}
-                                                <a href="/lamaran-saya/detail/{{ $pelamarIdEncrypt }}/{{ $lowonganPekerjaanIdEncrypt }}"
+                                                <a href="/lamaran-saya/detail/{{ $pelamarIdEncrypt }}"
                                                     class="{{ $title === 'Detail Pelamar' }} text-black mr-2 flex bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                                         fill="currentColor" class="bi bi-person-lines-fill mt-0.5"
@@ -164,8 +163,7 @@
                                                                     <button id="cancel"
                                                                         data-modal-hide="modal-batalkan-lamaran"
                                                                         type="button"
-                                                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
-                                                                        cancel</button>
+                                                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Tidak</button>
                                                                     <button id="confirm"
                                                                         data-modal-hide="modal-batalkan-lamaran"
                                                                         type="button"
