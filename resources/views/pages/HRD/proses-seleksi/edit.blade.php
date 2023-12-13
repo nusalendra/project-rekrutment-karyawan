@@ -14,10 +14,12 @@
                 </div>
                 <div class="flex">
                     <h1 class="text-lg font-bold mr-3">Penilaian Lamaran Pelamar</h1>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="26.67" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                        <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
-                      </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="26.67" fill="currentColor"
+                        class="bi bi-check-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path
+                            d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                    </svg>
                 </div>
             </div>
             <div class="bg-white px-4 py-4 shadow">
@@ -155,13 +157,13 @@
                             <div class="w-1/4">
                                 <select name="pengukuran_id[{{ $item->id }}]"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    
+
                                     @foreach ($subkriteria as $subkriteriaItem)
                                         @if ($subkriteriaItem->id === $item->id)
                                             @foreach ($subkriteriaItem->pengukuran as $subkriteriaPengukuran)
                                                 @php
                                                     $isDataAvailable = false;
-                            
+
                                                     // Tambahkan kondisi untuk kolom lain sesuai kebutuhan
                                                     if ($item->nama === 'Nama Lengkap') {
                                                         $isDataAvailable = $dataUser->user->name != null;
@@ -178,14 +180,15 @@
                                                     } elseif ($item->nama === 'IPK') {
                                                         $isDataAvailable = $dataUser->IPK != null;
                                                     } elseif ($item->nama === 'Pengalaman Kerja') {
-                                                        $isDataAvailable = $dataUser->pengalmaan_kerja != null;
+                                                        $isDataAvailable = $dataUser->pengalaman_kerja != null;
                                                     } elseif ($item->nama === 'Pengalaman Organisasi') {
                                                         $isDataAvailable = $dataUser->pengalaman_organisasi != null;
                                                     }
-                            
+
                                                 @endphp
-                            
-                                                <option value="{{ $subkriteriaPengukuran->id }}" {{ $isDataAvailable ? 'selected' : '' }}>
+
+                                                <option value="{{ $subkriteriaPengukuran->id }}"
+                                                    {{ $isDataAvailable ? 'selected' : '' }}>
                                                     {{ $subkriteriaPengukuran->nama }}
                                                 </option>
                                             @endforeach
@@ -195,16 +198,22 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="pt-6 flex justify-center">
-                        <button type="submit" name="status_lamaran" value="Ditolak"
-                            class="mr-3 tidakLulusButton text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                            Tolak Lamaran
-                        </button>
-                        <button type="submit" name="status_lamaran" value="Diterima"
-                            class="lulusButton text-white bg-green-500 hover:bg-green-600 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                            Terima Lamaran
-                        </button>
-                    </div>
+                    <div class="mt-9 flex justify-between items-center">
+                        <a href="/proses-seleksi/data/{{ $lowonganPekerjaanId }}"
+                            class="text-white bg-blue-500 hover:bg-blue-600 border border-blue-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Kembali</a>
+                    
+                        <div class="mx-auto text-center">
+                            <button type="submit" name="status_lamaran" value="Ditolak"
+                                class="tidakLulusButton text-white bg-red-500 hover:bg-red-600 border border-red-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                                Tolak Lamaran
+                            </button>
+                    
+                            <button type="submit" name="status_lamaran" value="Diterima"
+                                class="lulusButton text-white bg-green-500 hover:bg-green-600 border border-green-500 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                                Terima Lamaran
+                            </button>
+                        </div>
+                    </div>                    
                 </form>
             </div>
         </div>
