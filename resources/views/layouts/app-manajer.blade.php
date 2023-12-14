@@ -52,7 +52,7 @@
 
             <x-app.header-hrd />
 
-            <main class="bg-stone-200 h-full">
+            <main class="bg-stone-200 h-screen overflow-y-auto">
                 @yield('content')
             </main>
 

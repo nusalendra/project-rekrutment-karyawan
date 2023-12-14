@@ -148,7 +148,7 @@ class ProsesSeleksiController extends Controller
         $dataPelamar->save();
 
         $pengukuranId = $request->input('pengukuran_id');
-        dd($pengukuranId);
+        
         $periode = $request->input('periode_id');
         $jabatan = $request->input('jabatan_id');
 

@@ -84,15 +84,20 @@ class PelamarTesController extends Controller
     public function kirimNotifikasi($lowonganPekerjaanId)
     {
         $lowonganPekerjaanIdDecrypt = Crypt::decrypt($lowonganPekerjaanId);
-        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)->where('status_lamaran', 'Tahap Tes Potensi Akademik')->get();
+        $pelamars = Pelamar::where('lowongan_pekerjaan_id', $lowonganPekerjaanIdDecrypt)
+            ->where('status_lamaran', 'Tahap Tes Potensi Akademik')
+            ->get();
 
         foreach ($pelamars as $pelamar) {
+            $pelamarId = $pelamar->id;
+            $encryptedPelamarId = Crypt::encrypt($pelamarId);
+
             $notifikasi = new Notifikasi();
             $notifikasi->user_id = $pelamar->user->id;
             $notifikasi->pesan = "Selamat, dengan senang hati kami informasikan bahwa Anda telah berhasil melalui fase awal dalam proses seleksi kami. Selanjutnya, Anda akan melanjutkan ke tahap berikutnya, yaitu tes TPA (Tes Potensi Akademik). <br><br>
             Kami sangat menyarankan Anda untuk bersiap dengan baik menghadapi tahap ini, karena tes TPA memegang peranan yang sangat penting dalam proses seleksi kami. Untuk mendapatkan informasi lebih lanjut tentang tes TPA, silakan klik tombol di bawah ini untuk diarahkan ke halaman Tes. <br><br>
             Terima kasih atas partisipasi Anda, dan kami berharap Anda sukses melewati tahap ini. Tetap semangat! <br><br>
-            <a href='/tes-tpa' class='flex justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Kunjungi Halaman Tes</a>";
+            <a href='/tes-tpa/$encryptedPelamarId' class='flex justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Kunjungi Halaman Tes</a>";
 
             $notifikasi->save();
         }

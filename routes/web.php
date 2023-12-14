@@ -271,7 +271,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Pelamar'])->group(function 
     })->name('lamaran-saya');
 
     Route::prefix('tes-tpa')->group(function () {
-        Route::get('/', [TesController::class, 'index'])->name('tes-potensi-akademik-pelamar');
+        Route::get('/{encryptedPelamarId}', [TesController::class, 'index'])->name('tes-potensi-akademik-pelamar');
         Route::get('/detail/{id}', [TesController::class, 'show'])->name('tes-potensi-akademik-pelamar-detail');
         Route::get('/mulai-tes/{id}', [TesController::class, 'create'])->name('tes-potensi-akademik-pelamar-create');
         Route::post('/kirim-jawaban/{id}/{pelamarTesId}', [TesController::class, 'store'])->name('kirim-jawaban');

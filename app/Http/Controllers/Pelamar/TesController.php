@@ -19,8 +19,9 @@ class TesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($encryptedPelamarId)
     {
+        
         $user = Auth::user();
         $pelamar = Pelamar::where('user_id', $user->id)->first();
 
