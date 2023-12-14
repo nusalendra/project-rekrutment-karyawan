@@ -26,7 +26,7 @@
                     class="{{ Request::is('lamaran-saya') ? 'text-blue-600' : 'hover:text-blue-700' }}">Lamaran
                     Saya</a>
                 <a href="#" onclick="return false;"
-                    class="flex items-center {{ Request::is('tes-tpa') ? 'text-blue-600' : 'hover:text-blue-700' }}"
+                    class="flex items-center {{ Request::is('tes-tpa*') ? 'text-blue-600' : 'hover:text-blue-700' }}"
                     id="tes-link">
                     Tes Potensi Akademik
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
@@ -61,7 +61,8 @@
                                     hanya dapat dilakukan setelah tim HRD mengirimkan notifikasi persetujuan. <br> Mohon
                                     bersabar dan tunggu hingga tim HRD memberi tahu Anda melalui halaman notifikasi
                                     tentang ketersediaan akses. Proses seleksi saat ini sedang berlangsung, dan kami
-                                    akan memberitahu Anda segera setelah tahap tersebut selesai. <br><br> Terima kasih atas
+                                    akan memberitahu Anda segera setelah tahap tersebut selesai. <br><br> Terima kasih
+                                    atas
                                     pengertian dan kerjasama Anda dalam menjalani proses ini.
                                 </h3>
                             </div>
@@ -99,27 +100,30 @@
             var modalId = 'popup-modal-tpa';
             var tesLink = document.getElementById('tes-link');
             var modal = document.getElementById(modalId);
-
+    
             if (tesLink) {
                 tesLink.addEventListener('click', function(event) {
                     var currentPage = window.location.pathname;
                     var allowedPage = '/tes-tpa';
-
-                    if (currentPage === allowedPage) {
+    
+                    // Ganti sesuai dengan URL yang Anda harapkan setelah enkripsi pelamarId
+                    var allowedPageWithId = '/tes-tpa/';
+    
+                    if (currentPage === allowedPage || currentPage.startsWith(allowedPageWithId)) {
                         return;
                     }
-
+    
                     event.preventDefault();
                     toggleModal();
                 });
             }
-
+    
             function toggleModal() {
                 if (modal) {
                     modal.classList.toggle('hidden');
                 }
             }
-
+    
             // Tambahkan event listener untuk tombol close modal
             var closeModalButton = document.querySelector('[data-modal-hide="' + modalId + '"]');
             if (closeModalButton) {
@@ -128,7 +132,5 @@
                 });
             }
         });
-    </script>
-
-
+    </script>    
 </header>

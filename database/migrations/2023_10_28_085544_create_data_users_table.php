@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('pengalaman_kerja')->nullable();
             $table->string('pengalaman_organisasi')->nullable();
             $table->string('nomor_handphone')->nullable();
-            $table->string('sosial_media')->nullable();
+            $table->text('sosial_media')->nullable();
             $table->string('surat_lamaran_kerja')->nullable();
             $table->string('curriculum_vitae')->nullable();
             $table->string('ijazah')->nullable();

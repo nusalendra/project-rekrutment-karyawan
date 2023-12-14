@@ -35,8 +35,8 @@
         </div>
     </div>
     <div id="notification-modal"
-        class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg mx-auto w-1/2 mt-80 w-full max-w-[50%]">
+        class="fixed top-0 left-0 w-full h-full flex-1 items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg mx-auto w-1/2 mt-80 max-w-[50%]">
             <div class="flex justify-between items-center">
                 <h2 class="text-3xl font-semibold text-blue-500">Notifikasi</h2>
                 <button id="close-notification-modal"

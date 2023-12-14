@@ -57,16 +57,130 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        DB::table('jabatans')->insert([
-            'nama' => 'General Affair',
-            'deskripsi' => Str::random(10),
-            'benefit_pekerjaan' => Str::random(10),
-            'kriteria' => Str::random(10),
-            'gaji_awal' => 1500000,
-            'gaji_akhir' => 5000000,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        DB::table('jabatans')->insert(
+            [
+                [
+                    'nama' => 'General Affair',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Kepala Divisi Keuangan',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Kepala Divisi Marketing',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Kepala Divisi Riset dan Pengembangan',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Kepala Divisi Humas dan Publikasi',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Kepala Divisi Programming dan IT',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Staff General Affair',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Staff Divisi Programming dan IT',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Staff Divisi Keuangan',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Staff Divisi Marketing',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Staff Divisi Riset dan Pengembangan',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'nama' => 'Staff Divisi Humas dan Publikasi',
+                    'deskripsi' => Str::random(10),
+                    'benefit_pekerjaan' => Str::random(10),
+                    'kriteria' => Str::random(10),
+                    'gaji_awal' => 1500000,
+                    'gaji_akhir' => 5000000,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+            ]
+        );
 
         DB::table('kriterias')->insert([
             [
@@ -557,13 +671,114 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('lowongan_pekerjaans')->insert([
-            'periode_id' => 1,
-            'jabatan_id' => 1,
-            'tanggal_mulai' => '2023-11-24',
-            'tanggal_akhir' => '2023-11-30',
-            'kuota' => 100,
-            'created_at' => now(),
-            'updated_at' => now()
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 1,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 2,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 3,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 4,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 5,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 6,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 7,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 8,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 9,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 10,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 11,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'periode_id' => 1,
+                'jabatan_id' => 12,
+                'tanggal_mulai' => '2023-11-24',
+                'tanggal_akhir' => '2023-11-30',
+                'kuota' => 100,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
 
         DB::table('data_users')->insert([

@@ -189,7 +189,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
+                                            placeholder="Link URL Linkedin" name="sosial_media[]" value="">
                                         {{-- Instagram --}}
                                         <label for="">
                                             <div class="flex align-items-center mt-1.5">
@@ -202,7 +202,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
+                                            placeholder="Link URL Instagram" name="sosial_media[]" value="">
                                         {{-- Twitter --}}
                                         <label for="">
                                             <div class="flex align-items-center mt-1.5">
@@ -215,7 +215,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
+                                            placeholder="Link URL Twitter" name="sosial_media[]" value="">
                                         {{-- Blog --}}
                                         <label for="">
                                             <div class="flex align-items-center mt-1.5">
@@ -229,7 +229,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
+                                            placeholder="Link URL Blog" name="sosial_media[]" value="">
                                         {{-- Github --}}
                                         <label for="">
                                             <div class="flex align-items-center mt-1.5">
@@ -242,7 +242,7 @@
                                             </div>
                                         </label>
                                         <input class="w-full h-auto px-3 py-1 rounded-xl border-2 border-gray-200"
-                                            placeholder="Link Sosial Media" name="sosial_media[]" value="">
+                                            placeholder="Link URL Github" name="sosial_media[]" value="">
                                     @endif
                                 </div>
                                 <div class="flex w-full h-auto items-center justify-center border-t border-gray-200 pt-3">
