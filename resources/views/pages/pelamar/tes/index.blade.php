@@ -25,7 +25,7 @@
                                     {{-- <a href="#" class="text-blue-500 hover:underline">Lihat Hasil</a> --}}
                                 </span>
                                 @if (!$statusSudahDikerjakan)
-                                    <a href="tes-tpa/detail/{{ $TPAId }}" class="text-blue-500 hover:underline">Mulai
+                                    <a href="/tes-tpa/detail/{{ $TPAId }}" class="text-blue-500 hover:underline">Mulai
                                         Tes</a>
                                 @endif
                             </div>
@@ -46,7 +46,6 @@
                 <li>Baca instruksi setiap soal dengan teliti.</li>
                 <li>Pilih jawaban yang menurut Anda benar.</li>
                 <li>Klik tombol "Selesai" saat Anda telah menyelesaikan tes.</li>
-                <li>Jika Anda memiliki pertanyaan atau mengalami kesulitan, hubungi tim dukungan kami.</li>
             </ol>
         </div>
     </div>
