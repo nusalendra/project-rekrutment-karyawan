@@ -91,15 +91,18 @@ class TesController extends Controller
             $jawabanTPA->save();
         }
 
-
-
         PelamarTesPotensiAkademik::where('id', $pelamarTesId)->where('tes_potensi_akademik_id', $tesPotensiAkademikIdDecrypt)->update([
             'total_jawaban_benar' => $totalJawabanBenar,
             'total_jawaban_salah' => $totalJawabanSalah,
             'updated_at' => now()
         ]);
 
-        return redirect('tes-tpa');
+        $user = Auth::user();
+        $pelamar = Pelamar::where('user_id', $user->id)->first();
+        
+        $encryptedPelamarId = Crypt::encrypt($pelamar->id);
+        
+        return redirect()->route('tes-potensi-akademik-pelamar', $encryptedPelamarId);
     }
 
     /**
