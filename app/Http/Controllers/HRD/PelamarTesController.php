@@ -112,7 +112,7 @@ class PelamarTesController extends Controller
 
         foreach ($pelamars as $pelamar) {
             $skorTes = SkorTesPelamar::where('pelamar_id', $pelamar->id)
-                ->whereBetween('skor_tes', [500, 800])
+                ->whereBetween('skor_tes', [550, 800])
                 ->get();
 
             if ($skorTes->count() > 0) {
@@ -133,7 +133,7 @@ class PelamarTesController extends Controller
         foreach ($pelamars as $pelamar) {
             $skorTes = SkorTesPelamar::where('pelamar_id', $pelamar->id)
                 ->where('skor_tes', '>=', 200)
-                ->where('skor_tes', '<', 500)
+                ->where('skor_tes', '<', 550)
                 ->first();
 
             if ($skorTes) {

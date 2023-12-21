@@ -9,7 +9,7 @@
         @click.prevent="open = !open"
         :aria-expanded="open"                        
     >
-        <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" width="32" height="32" alt="{{ Auth::user()->name }}" />
+        {{-- <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" width="32" height="32" alt="{{ Auth::user()->name }}" /> --}}
         <div class="flex items-center truncate">
             <span class="truncate ml-2 text-sm font-medium dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">{{ Auth::user()->name }}</span>
             <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
@@ -35,9 +35,9 @@
             <div class="text-xs text-slate-500 dark:text-slate-400 italic">{{ Auth::user()->role }}</div>
         </div>
         <ul>
-            <li>
+            {{-- <li>
                 <a class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" href="{{ route('profile.show') }}" @click="open = false" @focus="open = true" @focusout="open = false">Profil</a>
-            </li>
+            </li> --}}
             <li>
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
