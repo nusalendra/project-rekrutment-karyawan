@@ -9,8 +9,9 @@
             <div class="bg-white p-4 rounded-md shadow-md">
                 <div class="text-md font-semibold">
                     <p class="mb-2">Status Skor Tes : </p>
-                    <p class="text-red-500">>= 200 & < 500 Total Skor</p>
-                    <p class="text-green-700">>= 500 & <= 800 Total Skor</p>
+                    <p class="text-red-500">Kategori Rendah (Skor 200 - 449)</p>
+                    <p class="text-red-500">Kategori Rata-Rata (Skor 450 - 549)</p>
+                    <p class="text-green-700">Kategori Tinggi (Skor 550 - 800)</p>
                 </div>
                 <div class="mt-5 flex flex-col space-y-2">
                     <label for="countries" class="block text-sm font-medium dark:text-white">Posisi Jabatan</label>
@@ -47,7 +48,7 @@
                     @endphp
                     @if ($skorTes && $skorTes->count() > 0)
                         @php $totalSkor = $skorTes->sum('skor_tes'); @endphp
-                        @if ($totalSkor < 500)
+                        @if ($totalSkor < 550)
                             <h4 class="text-base font-semibold mt-3">Total Skor Tes : <span
                                     class="text-red-500 ">{{ $totalSkor }}</span></h4>
                         @else

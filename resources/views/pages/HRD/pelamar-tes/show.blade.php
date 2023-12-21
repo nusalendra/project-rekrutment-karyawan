@@ -31,7 +31,7 @@
                         @csrf
                         <button type="submit"
                             class="text-white bg-green-600 hover:bg-green-700 border border-green-600 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 me-2 py-2.5 text-center inline-flex items-center">
-                            Pindahkan Pelamar ke Antrian Tes Wawancara (Skor >= 500)
+                            Pindahkan Pelamar ke Antrian Tes Wawancara (Skor >= 550)
                         </button>
                     </form>
                     <form action="{{ route('tidak-lulus-tpa', ['lowonganPekerjaanId' => $lowonganPekerjaanIdEncrypt]) }}"
@@ -86,7 +86,7 @@
                                             <h1 class="flex w-full justify-center">{{ $item->status_lamaran }}</h1>
                                         </td>
                                         @if ($item->skorTesPelamar && $item->skorTesPelamar->skor_tes && $item->skorTesPelamar->skor_tes > 0)
-                                            @if ($item->skorTesPelamar->skor_tes < 500)
+                                            @if ($item->skorTesPelamar->skor_tes < 550)
                                                 <td class="px-6 py-4">
                                                     <h1 class="flex text-red-700 w-full justify-center">
                                                         {{ $item->skorTesPelamar->skor_tes }}
