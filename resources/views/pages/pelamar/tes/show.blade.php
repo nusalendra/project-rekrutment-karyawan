@@ -5,7 +5,10 @@
         <div class="h-1/2 w-2/5 bg-white bg-auto rounded-xl border-2 border-gray-300">
             <div class="flex flex-col w-full h-full pt-9 text-black items-center justify-between">
                 <div class="relative flex w-full items-center">
-                    <a href="/tes-tpa"
+                    @php
+                        $pelamarIdEncrypt = Crypt::encrypt($pelamar->id)
+                    @endphp
+                    <a href="/tes-tpa/{{ $pelamarIdEncrypt }}"
                         class="absolute flex z-10 ml-3 py-1 px-3 font-semibold items-center space-x-1 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <g fill="none" fill-rule="evenodd">

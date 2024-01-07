@@ -53,7 +53,7 @@ class TesController extends Controller
         // dd($pelamar);
         $pelamarTesId = PelamarTesPotensiAkademik::where('tes_potensi_akademik_id', $idDecrypt)->where('pelamar_id', $pelamar->id)->first();
         // dd($pelamarTesId);
-        return view('pages.pelamar.tes.create', ['title' => 'Mulai Tes'], compact('tesPotensiAkademik', 'soalTes', 'id', 'pelamarTesId'));
+        return view('pages.pelamar.tes.create', ['title' => 'Mulai Tes'], compact('tesPotensiAkademik', 'soalTes', 'id', 'pelamarTesId', 'pelamar'));
     }
 
     /**
@@ -115,11 +115,14 @@ class TesController extends Controller
     {
         $tesPotensiAkademikIdDecrypt = Crypt::decrypt($id);
 
+        $user = Auth::user();
+        $pelamar = Pelamar::where('user_id', $user->id)->first();
+
         $tesPotensiAkademik = TesPotensiAkademik::findOrFail($tesPotensiAkademikIdDecrypt);
 
         $pertanyaanTesPotensiAkademik = $tesPotensiAkademik->pertanyaanTesPotensiAkademik;
         // dd($pertanyaanTesPotensiAkademik);
-        return view('pages.pelamar.tes.show', ['title' => 'Persiapan Tes'], compact('tesPotensiAkademik', 'id'));
+        return view('pages.pelamar.tes.show', ['title' => 'Persiapan Tes'], compact('tesPotensiAkademik', 'id', 'pelamar'));
     }
 
     /**
