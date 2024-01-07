@@ -22,7 +22,7 @@ class PeriodeController extends Controller
             return $query->where('nama', 'like', "%$searchTerm%");
         })
             ->orderByDesc('created_at')
-            ->simplePaginate(6);
+            ->get();
 
         return view('pages.HRD.periode.index', ['title' => 'Periode'], compact('data', 'searchTerm'));
     }

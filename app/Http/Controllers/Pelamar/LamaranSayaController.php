@@ -23,7 +23,7 @@ class LamaranSayaController extends Controller
         $data = Pelamar::with('lowonganPekerjaan', 'user')
             ->where('user_id', $user->id)
             ->orderBy('created_at')
-            ->simplePaginate(6);
+            ->get();
 
         return view('pages.pelamar.lamaran-saya.index', ['title' => 'Lamaran Saya'], compact('data'));
     }

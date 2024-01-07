@@ -46,7 +46,7 @@
                                     <tr
                                         class="bg-white border-b border-x border-gray-300 dark:bg-gray-800 dark:border-gray-700">
                                         <td class="px-6 py-4">
-                                            <h1 class="flex w-full justify-center">{{ $index + $data->firstItem() }}</h1>
+                                            <h1 class="flex w-full justify-center">{{ $index + 1 }}</h1>
                                         </td>
                                         <td class="px-6 py-4">
                                             <h1 class="flex w-full justify-center">
@@ -184,12 +184,6 @@
                             @endif
                         </tbody>
                     </table>
-                    {{ $data->links() }}
-                    @if ($data->hasPages())
-                        <div class="pagination-links pt-6">
-                            {{ $data->appends(['search' => $searchTerm])->links() }}
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>

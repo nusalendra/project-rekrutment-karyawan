@@ -25,7 +25,7 @@ class KriteriaController extends Controller
             })
             ->orderByDesc('kriterias.created_at')
             ->select('kriterias.id', 'kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'kriterias.tipe', 'kriterias.bobot')
-            ->simplePaginate(6);
+            ->get();
 
         return view('pages.manajer.kriteria.index', ['title' => 'Kriteria'], compact('data', 'searchTerm'));
     }

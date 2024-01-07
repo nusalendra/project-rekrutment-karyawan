@@ -28,7 +28,7 @@ class PengukuranController extends Controller
             })
             ->orderByDesc('pengukurans.created_at')
             ->select('pengukurans.id', 'kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'subkriterias.nama as nama_subkriteria', 'pengukurans.nama as nama_pengukuran', 'kriterias.tipe', 'pengukurans.skor')
-            ->simplePaginate(6);
+            ->get();
 
 
         return view('pages.manajer.pengukuran.index', ['title' => 'Pengukuran'], compact('data', 'searchTerm'));

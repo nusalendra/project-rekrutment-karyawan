@@ -30,7 +30,7 @@ class TesPotensiAkademikController extends Controller
             ->join('jabatans', 'lowongan_pekerjaans.jabatan_id', '=', 'jabatans.id')
             ->select('tes_potensi_akademiks.id', 'tes_potensi_akademiks.nama as nama_tes_potensi_akademik', 'tes_potensi_akademiks.tanggal_waktu_mulai', 'tes_potensi_akademiks.tanggal_waktu_selesai', 'jabatans.nama as nama_jabatan')
             ->orderByDesc('tes_potensi_akademiks.created_at')
-            ->simplePaginate(6);
+            ->get();
 
         return view('pages.HRD.tes-potensi-akademik.index', ['title' => 'Tes Potensi Akademik'], compact('searchTerm', 'data'));
     }

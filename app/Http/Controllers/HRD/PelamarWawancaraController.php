@@ -29,7 +29,7 @@ class PelamarWawancaraController extends Controller
             })
             ->orderByDesc('lowongan_pekerjaans.created_at')
             ->select('periodes.nama as nama_periode', 'lowongan_pekerjaans.*', 'jabatans.nama as nama_jabatan')
-            ->simplePaginate(6);
+            ->get();
 
         $pelamar = Pelamar::with('user', 'lowonganPekerjaan')->where('status_lamaran', 'Divalidasi')->get();
 
