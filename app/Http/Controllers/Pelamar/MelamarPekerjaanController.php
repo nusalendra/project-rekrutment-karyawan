@@ -10,7 +10,7 @@ use App\Models\Periode;
 use App\Models\Jabatan;
 use App\Models\Pelamar;
 use App\Models\Notifikasi;
-use App\Models\DataUser;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 
 use function Symfony\Component\String\b;
@@ -162,12 +162,15 @@ class MelamarPekerjaanController extends Controller
 
         $lowonganPekerjaan = LowonganPekerjaan::where('jabatan_id', $jabatan->id)->first();
 
+        $tanggal = Carbon::now();
+        $tanggalSekarang = $tanggal->format('Y-m-d');
+
         $user = Auth::user();
         $statusLamaran = Pelamar::where('user_id', $user->id)
             ->where('lowongan_pekerjaan_id', $lowonganPekerjaan->id)
             ->value('status_lamaran');
 
-        return view('pages.pelamar.melamar-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan', 'statusLamaran'));
+        return view('pages.pelamar.melamar-pekerjaan.detail-jabatan', compact('jabatan', 'lowonganPekerjaan', 'statusLamaran', 'tanggalSekarang'));
     }
 
     public function downloadDokumen($dokumenName, $fileName)
