@@ -26,7 +26,7 @@ class SubkriteriaController extends Controller
             })
             ->orderByDesc('subkriterias.created_at')
             ->select('subkriterias.id', 'kriterias.nama as nama_kriteria', 'jabatans.nama as nama_jabatan', 'subkriterias.nama as nama_subkriteria', 'kriterias.tipe')
-            ->simplePaginate(6);
+            ->get();
 
         return view('pages.manajer.subkriteria.index', ['title' => 'Subkriteria'], compact('data', 'searchTerm'));
     }

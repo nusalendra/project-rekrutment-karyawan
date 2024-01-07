@@ -31,7 +31,7 @@ class PelamarDiterimaController extends Controller
             })
             ->orderByDesc('lowongan_pekerjaans.created_at')
             ->select('periodes.nama as nama_periode', 'lowongan_pekerjaans.*', 'jabatans.nama as nama_jabatan')
-            ->simplePaginate(6);
+            ->get();
 
         $tanggal = Carbon::now();
         $tanggalSekarang = $tanggal->format('Y-m-d');

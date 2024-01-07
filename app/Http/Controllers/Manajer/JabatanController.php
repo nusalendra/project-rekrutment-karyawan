@@ -22,7 +22,7 @@ class JabatanController extends Controller
             return $query->where('nama', 'like', "%$searchTerm%");
         })
             ->orderByDesc('created_at')
-            ->simplePaginate(6);
+            ->get();
         
         return view('pages.manajer.jabatan.index', ['title' => 'Jabatan'], compact('data', 'searchTerm'));
     }
